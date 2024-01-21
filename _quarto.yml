@@ -1,0 +1,21 @@
+project:
+  type: website
+  preview: 
+    port: 7777
+
+website:
+  title: "R4Analytics"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: yeti
+    css: styles.css
+    toc: true
+
+editor: visual
+

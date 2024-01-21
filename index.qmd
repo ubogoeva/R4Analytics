@@ -1,0 +1,17 @@
+---
+title: "Блог по статистике и R"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+google-analytics: true
+---
+
+Здесь будут размещаться статьи по статистике и R, ссылки на которые раньше размещались в телеграм-канале [**"Статистика и R"**](https://t.me/stats_for_science).
+
+Сайт написан на R с использованием [Quarto](https://quarto.org/).

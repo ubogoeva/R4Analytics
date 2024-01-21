@@ -1,0 +1,37 @@
+---
+title: "Об авторе блога"
+image: photo_EU_upd.jpg
+about:
+  template: trestles
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/elena-ubogoeva/
+    - icon: github
+      text: Github
+      href: https://github.com/ubogoeva
+    - icon: telegram
+      text: телеграм-канал
+      href: https://t.me/stats_for_science
+---
+
+Меня зовут Елена Убогоева.
+
+## Образование
+
+Институт цитологии и генетики СО РАН \| Новосибирск\
+Аспирантура по направлению биоинформатики и системной биологии \| 2020 - настоящее время
+
+Новосибирский государственный университет \| Новосибирск\
+Магистратура по направлению цитологии и генетики \| 2018 - 2020
+
+Новосибирский государственный университет \| Новосибирск\
+Бакалавриат по направлению цитологии и генетики \| 2014 - 2018
+
+## Список публикаций:
+
+1.  Lavrekha, V. V., Levitsky, V. G., Tsukanov, A. V., Bogomolov, A. G., Grigorovich, D. A., Omelyanchuk, N., **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Mironova, V. (2022). CisCross: A gene list enrichment analysis to predict upstream regulators in Arabidopsis thaliana. *Frontiers in plant science*, 13, 942710. https://doi.org/10.3389/fpls.2022.942710
+
+2.  **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Xu, J., Mironova, V. (2021). Mechanisms of stress response in the root stem cell niche. *Journal of experimental botany*, 72(*19*), 6746--6754. https://doi.org/10.1093/jxb/erab274
+
+3.  Zemlyanskaya, E. V., Omelyanchuk, N. A., **Ubogoeva, E. V.**, Mironova, V. V. (2018). Deciphering Auxin-Ethylene Crosstalk at a Systems Level. *International journal of molecular sciences*, 19(*12*), 4060. https://doi.org/10.3390/ijms19124060

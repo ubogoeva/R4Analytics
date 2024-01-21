@@ -1,0 +1,365 @@
+---
+title: "Научно-издательская система Quarto для биостатистики"
+#subtitle: 'Фреймворк Quarto для биологов и биоинформатиков'
+author: "Елена Убогоева"
+#date: "Created on 01 April, 2023"
+execute:
+  echo: true
+  output: true
+format: 
+  revealjs:
+    slide-number: c/t
+    highlight-style: github
+    #logo: "../images/logo_channel.png"
+    #show-slide-number: all
+    # mainfont: Arial
+    # fontsize: 14px
+    theme: [default, custom.scss]
+    chalkboard: 
+      buttons: true
+    # theme: [serif]
+    # mouse-wheel: true
+    auto-play-media: true
+    width: 1280
+    height: 720
+    fig-dpi: 300
+    # logo: figures/icg.png
+code-link: true
+css: styles.css
+filters: [bg_style.lua]
+revealjs-plugins:
+  - pointer
+editor: visual
+draft: true
+---
+
+## План лекции
+
+1.  Обзор Quarto
+
+2.  Quarto in Action
+
+3.  Преимущества и недостатки Quarto
+
+4.  Применение в биостатистике
+
+# Обзор Quarto
+
+## Название "Quarto" {#название-quarto}
+
+::: columns
+::: {.column width="40%"}
+![](https://upload.wikimedia.org/wikipedia/commons/0/0a/MND_title_page.jpg){fig-alt="Пример Кварто. Сон в летнюю ночь У. Шекспира." width="294"}
+:::
+
+::: {.column width="60%"}
+Quarto (от латинского quārtō)^1^ --- это формат книги или брошюры, состоящей из листов, напечатанных с восемью страницами текста, по четыре на одну сторону, а затем сложенных дважды, чтобы получить четыре листа.
+
+Слева показан пример кварто-книги.
+:::
+:::
+
+1\. Самой ранней известной европейской печатной книгой является кварто [Sibyllenbuch](https://en.wikipedia.org/wiki/Sibyllenbuch_fragment), которая, как полагают, была напечатана [Иоганном Гутенбергом](https://en.wikipedia.org/wiki/Johannes_Gutenberg) в 1452-53 годах.
+
+## Quarto -- научно-издательская система  {style="font-size: 90%"}
+
+28 июля 2022 года компания Posit [анонсировала](https://posit.co/blog/announcing-quarto-a-new-scientific-and-technical-publishing-system/) Quarto как новую систему для научно-технических публикаций с открытым исходным кодом.
+
+Система Quarto построена на [`pandoc`](https://pandoc.org/) и использует [Markdown](https://www.markdownguide.org/) для разметки.
+
+::: incremental
+-   [Pandoc](https://pandoc.org/) --- универсальный конвертер для работы с текстовыми документами для форматирования научных и технических текстов, поддерживающий более 40 различных форматов.
+
+-   [Quarto **CLI**](https://github.com/quarto-dev/quarto-cli) --- это интерфейс командной строки, который преобразует различные форматы (`.md`, `.rmd`, `.qmd` или `.ipynb` / Jupyter notebook) в статические отчеты PDF / Word / HTML, интерактивные книги, веб-сайты, блоги, презентации и многое другое.
+
+-   Quarto позволяет работать не только с R, но и с Python, Julia и [Observable JS](https://github.com/observablehq/).
+
+-   Авторы: Carlos Scheidegger ([\@cscheid](https://github.com/cscheid)), Charles Teague ([\@dragonstyle](https://github.com/dragonstyle)), Christophe Dervieux ([\@cderv](https://github.com/cderv)), **J.J. Allaire** ([\@jjallaire](https://github.com/jjallaire/)), Yihui Xie ([\@yihui](https://github.com/yihui)).
+:::
+
+## Принцип конвертации документов в Rmd
+
+Работа с Rmd обычно выглядит так:
+
+::: columns
+::: {.column width="50%"}
+::: fragment
+
+![](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/imgs/r-knitr-rmd.jpeg)
+:::
+:::
+
+::: {.column width="50%"}
+::: fragment
+
+![](https://quarto.org/docs/get-started/hello/images/rstudio-qmd-how-it-works.png)
+:::
+:::
+:::
+
+. . .
+
+.Rmd документ
+
+Работа с Rmd-является R-центричной. Quarto создано, чтобы сделать доступным для других языков программирования
+
+## Принцип конвертации документов в Quarto
+
+Помимо [`knitr`](https://cran.r-project.org/web/packages/knitr/index.html) Quarto поддерживает еще Jupyter, Observable JS, что позволяет использовать код на языках Python, Julia, JavaScript.
+
+![](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/imgs/quarto-all.jpeg)
+
+Обратная совместимость с .Rmd позволяет конвертировать существующие .Rmd-документы в quarto-документы с минимальными изменениями.
+
+Можно экспортировать в 40 различных форматов, поддерживаемых pandoc.
+
+## Отличия Quarto от RMarkdown
+
+-   Quarto, в отличие от RMarkdown, не привязан к языку и позволяет создавать и рендерить документы
+
+    -   не только из RStudio, но и из Visual Studio
+
+    -   из командной строки, что позволяет например python-юзерам не использовать R для создания интерактивных документов.
+
+-   Quarto заменяет зоопарк пакетов для создания сайтов, блогов, книг, презентаций, научных статей.
+
+-   В отличие от Rmd сразу несколько engine для запуска кода: knitr, jupyter, Observable JS.
+
+-   Однако, некоторые пакеты могут обладать функциями, которых нет в Quarto
+
+## Quarto заменяет зоопарк пакетов
+
+Или one package to rule them all
+
+Quarto можно использовать вместо:
+
+-   [xaringan](https://github.com/yihui/xaringan) (для презентаций)
+
+-   [bookdown](https://github.com/rstudio/bookdown) (для книг)
+
+-   [blogdown](https://github.com/rstudio/blogdown) (для блогов)
+
+-   [papaja](https://github.com/crsh/papaja) и [distill](https://github.com/rstudio/distill) для научных статей
+
+Примеры использования разберем во второй части лекции.
+
+::: callout-note
+Преимущество в единообразной структуре quarto-документов
+:::
+
+## Структура Quarto-документа
+
+-   Метаданные документа в формате yaml
+
+-   Текст документа в маркдаун-формате
+
+-   Ячейки с исполняемым кодом
+
+## Метаданные документа
+
+Могут быть в начале конкретного документа, а для сложных проектов в виде файла \_quarto.yml
+
+Содержат всю необходимую информацию
+
+# Quarto in Action
+
+## Применение на конкретных кейсах
+
+-   Презентации в revealjs
+
+-   Блог - тоже показать исходники
+
+-   Вебсайт хорош для создания резюме
+
+-   bookdown переносится с минимальными изменениями
+
+## Презентации в формате `revealjs`
+
+Для создания в RStudio: File -\> New File -\> Quarto Presentation
+
+Базовые настройки revealjs презентации:
+
+```{.markdown}
+---
+title: "Untitled"
+format: revealjs
+editor: visual
+---
+```
+
+По умолчанию в формате `revealjs` показ кода выключен `echo: false`
+
+Для более тонкой настройки можно указывать:
+
+```{.markdown}
+---
+execute:
+  echo: true
+  output: true
+---
+```
+
+## Принципы верстки с помощью css
+
+Для настройки шрифтов, цветов и тд нужно использовать [scss](https://sass-lang.com/) стили
+
+```{.markdown}
+---
+format: 
+  revealjs:
+    theme: [default, custom.scss]
+---
+```
+
+Пример scss файла
+
+```{.scss}
+// headings
+$presentation-heading-font: "Cabin", "Commissioner", sans serif !default;
+$presentation-h2-font-size: 1.5em;
+$presentation-font-size-root: 34px !default;
+```
+
+Подробнее можно посмотреть: здесь
+
+Также есть ряд встроенных тем на Bootstrap 5
+
+## Тонкие настройки презентации
+
+css-styles можно использовать для изменения размера шрифтов и прочего
+
+Блоки callout
+
+Указка и доска
+
+## Создание своего блога в Quarto
+
+File -\> New Project -\> New Directory -\> Quarto Blog
+
+![](images/quarto_blog.png)
+
+## Преимущества и недостатки Quarto
+
+# Применение в биостатистике
+
+## Применение в html-отчетах
+
+Стандартно, как и с Rmd
+
+## Применение в публикациях
+
+https://quarto.org/docs/journals/formats.html
+
+https://quarto.org/docs/journals/formats.html#example-acm-format
+
+# Работа с RMarkdown
+
+## Введение в RMarkdown и Quarto
+
+File -\> New File -\> Markdown File
+
++-------------------------------------+---------------------------------+
+| Markdown                            | Вывод                           |
++=====================================+=================================+
+| \*курсив\* и \*\*полужирный\*\*     | *курсив* и **полужирный**       |
++-------------------------------------+---------------------------------+
+| надстрочный\^2\^ / подстрочный\~2\~ | надстрочный^2^ / подстрочный~2~ |
++-------------------------------------+---------------------------------+
+| \~\~зачеркнутый\~\~                 | ~~зачеркнутый~~                 |
++-------------------------------------+---------------------------------+
+| \`vebratim code\`                   | `vebratim code`                 |
++-------------------------------------+---------------------------------+
+
+## Заголовки
+
++-------------------+------------------------------------------------+
+| Markdown          | Вывод                                          |
++===================+================================================+
+| \# Заголовок 1    | # Заголовок 1                                  |
++-------------------+------------------------------------------------+
+| \## Заголовок 2   | ## Заголовок 2                                 |
++-------------------+------------------------------------------------+
+| \### Заголовок 3  | ### Заголовок 3                                |
++-------------------+------------------------------------------------+
+| \#### Заголовок 4 | #### Заголовок 4                               |
++-------------------+------------------------------------------------+
+
+## Картинки и гиперссылки
+
+\[ссылка\](https://github.com/ubogoeva/Rcourse_NSU)
+
+[ссылка](https://github.com/ubogoeva/Rcourse_NSU)
+
+\![\](https://quarto.org/quarto.png)
+
+![](https://quarto.org/quarto.png){width="235"}
+
+::: callout-tip
+В Quarto можно использовать визуальный редактор, который упрощает работу с Markdown-синтаксисом.
+:::
+
+## Формулы на основе LaTeX-синтаксиса
+
+[Математические формулы](https://quarto.org/docs/authoring/markdown-basics.html#equations) в Quarto используют разделители `$` для встроенных математических элементов текста и разделители `$$` для выносной математики на основе LaTeX-синтаксиса.
+
++-----------------------------------+-------------------------------+
+| Markdown                          | Вывод                         |
++===================================+===============================+
+| inline math: \$E = mc\^{2}\$      | inline math: $E = mc^{2}$     |
++-----------------------------------+-------------------------------+
+| display math:                     | display math:                 |
+|                                   |                               |
+| \$\$E = mc\^{2}\$\$               | $$E = mc^{2}$$                |
++-----------------------------------+-------------------------------+
+
+## Формулы на основе LaTeX-синтаксиса
+
+Более сложный пример:
+
+\$\$
+
+var = \\frac{\\sum\_{i=1}\^n{(x_i - \\overline{x})\^2}}{n-1}
+
+\$\$
+
+$$ var = \frac{\sum_{i=1}^n{(x_i - \overline{x})^2}}{n-1} $$
+
+Все формулы в рамках этого курса были сверстаны с использованием LaTeX, очень удобная штука, рекомендую.
+
+## Ячейки исполняемого кода
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: fenced 
+head(iris)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+head(iris)
+```
+:::
+:::
+
+```         
+```
+
+## Создадим Rmd документ
+
+File -\> New File -\> R Markdown
+
+Проиллюстрировать в R
+
+## Работа с Quarto
+
+[Сайт](https://quarto-meetup-begin.netlify.app/) на Quarto, посвященный работе с Quarto с материалами на Quarto от Евгения Матерова.
+
+У меня сайт курса и презентации тоже сделаны в Quarto.
+
+https://mine-cetinkaya-rundel.github.io/2022-repro-toronto/#/title-slide
+
+![](https://quarto.org/docs/get-started/hello/images/rstudio-qmd-how-it-works.png)
+
+Проиллюстрировать создание документа и презентации -\> в новом проекте RStudio
