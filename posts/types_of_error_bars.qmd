@@ -1,9 +1,9 @@
 ---
-title: "Types of error bars and it's differences"
+title: "Виды пределов погрешностей"
 author: "Elena U"
 date: "2022-11-15"
-output: 
-  html_document:
+format: 
+  html:
         toc: true
         code_folding: hide
 ---
