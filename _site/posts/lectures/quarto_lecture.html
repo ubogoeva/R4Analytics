@@ -461,8 +461,8 @@
 <li class="fragment">
 <p>Quarto является инструментом командной строки, а не R-пакетом как <code>rmarkdown</code>, следовательно, Quarto не привязан к языку и позволяет создавать и рендерить документы:</p>
 <ul>
-<li class="fragment">Без использования R</li>
-<li class="fragment">не только из RStudio, но и из Visual Studio</li>
+<li class="fragment">без использования R;</li>
+<li class="fragment">не только из RStudio, но и из Visual Studio;</li>
 <li class="fragment">из командной строки, что позволяет например python-юзерам не использовать R для создания интерактивных документов.</li>
 </ul>
 </li>
@@ -508,6 +508,7 @@
 </ul></section><section id="метаданные-документа" class="slide level2"><h2>Метаданные документа</h2>
 <p>Размещены в начале конкретного документа, а для сложных проектов в файле <code>_quarto.yml</code>.</p>
 <p>Содержат всю необходимую информацию о документе: вид аутпута, название, автор, выполнять ли код и другое -&gt; подробнее на конкретных примерах <a href="#/quarto-in-action">во второй части лекции</a>.</p>
+<p>Почитать про yaml-файлы для проектов можно <a href="https://quarto.org/docs/projects/quarto-projects.html">здесь</a>.</p>
 </section><section id="структура-quarto-документа-1" class="slide level2"><h2>Структура Quarto-документа</h2>
 <ul>
 <li><div style="color: grey">
@@ -573,11 +574,11 @@
 </div>
 </div>
 </div>
-</section><section id="заголовки" class="slide level2"><h2>Заголовки</h2>
-<table style="width:93%;">
+</section><section id="создание-заголовков" class="slide level2"><h2>Создание заголовков</h2>
+<table style="width:54%;">
 <colgroup>
-<col style="width: 41%">
-<col style="width: 51%">
+<col style="width: 27%">
+<col style="width: 26%">
 </colgroup>
 <thead><tr class="header">
 <th>Markdown</th>
@@ -623,6 +624,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 </div>
 </div>
 </div>
+<p>По умолчанию заголовки выровнены по левому краю, для выравнивания по центру нужно добавить в yaml-шапку документа опцию <code>css: styles.css</code></p>
 </section><section id="картинки-и-гиперссылки" class="slide level2"><h2>Картинки и гиперссылки</h2>
 <p>[Институт биоинформатики](https://bioinf.me/)</p>
 <p><a href="https://bioinf.me/">Институт биоинформатики</a></p>
@@ -653,10 +655,10 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 </div>
 </section><section id="формулы-на-основе-latex-синтаксиса" class="slide level2"><h2>Формулы на основе LaTeX-синтаксиса</h2>
 <p><a href="https://quarto.org/docs/authoring/markdown-basics.html#equations">Математические формулы</a> в Quarto используют разделители <code>$</code> для встроенных математических элементов текста и разделители <code>$$</code> для выносной математики на основе <a href="https://www.latex-project.org/">LaTeX</a>-синтаксиса.</p>
-<table style="width:92%;">
+<table style="width:82%;">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 41%">
+<col style="width: 43%">
+<col style="width: 38%">
 </colgroup>
 <thead><tr class="header">
 <th>Markdown</th>
