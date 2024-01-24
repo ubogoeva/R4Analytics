@@ -448,7 +448,7 @@
 </div>
 </div>
 <div class="fragment">
-<p>Работа с Rmd-является R-центричной, так как нужен R-пакет <code>rmarkdown</code> для рендеринга документов.</p>
+<p><span style="font-size: 90%">Работа с Rmd-является R-центричной, поскольку нужен R-пакет <code>rmarkdown</code> для рендеринга документов</span>.</p>
 </div>
 </section><section id="принцип-конвертации-документов-в-quarto" class="slide level2"><h2>Принцип конвертации документов в Quarto</h2>
 <p>В дополнение к <a href="https://yihui.org/knitr/"><code>knitr</code></a> Quarto поддерживает еще <a href="https://jupyter.org/">Jupyter</a>, <a href="https://github.com/observablehq/">Observable JS</a>, что позволяет запускать код на языках Python, Julia, JavaScript.</p>
@@ -585,10 +585,10 @@
 </div>
 </div>
 </section><section id="создание-заголовков" class="slide level2"><h2>Создание заголовков</h2>
-<table style="width:83%;">
+<table style="width:94%;">
 <colgroup>
 <col style="width: 27%">
-<col style="width: 55%">
+<col style="width: 66%">
 </colgroup>
 <thead><tr class="header">
 <th>Markdown</th>
@@ -634,7 +634,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 </div>
 </div>
 </div>
-<p>По умолчанию заголовки выровнены по левому краю, для выравнивания по центру нужно добавить в yaml-шапку документа опцию <code>css: styles.css</code></p>
+<p>По умолчанию заголовки выровнены по левому краю, для выравнивания по центру нужно добавить в yaml-шапку документа опцию <code>css: styles.css</code> (<a href="https://github.com/ubogoeva/R4Analytics/blob/master/posts/lectures/styles.css">пример файла</a>)</p>
 </section><section id="картинки-и-гиперссылки" class="slide level2"><h2>Картинки и гиперссылки</h2>
 <table>
 <thead><tr class="header">
@@ -710,7 +710,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <p>$$</p>
 <p><span class="math display">\[ var = \frac{\sum_{i=1}^n{(x_i - \overline{x})^2}}{n-1} \]</span></p>
 <p>Редактор формул работает очень удобно</p>
-</section><section id="выносные-блоки" class="slide level2"><h2>Выносные блоки</h2>
+</section><section id="выносные-блоки-callout" class="slide level2"><h2>Выносные блоки (callout)</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -730,7 +730,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Tip</strong></p>
+<p><strong>Подсказка</strong></p>
 </div>
 <div class="callout-content">
 <p>Этот блок используется для советов и подсказок</p>
@@ -746,7 +746,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>Этот блок для важных замечаний</p>
+<p>Этот блок используется для важных замечаний</p>
 </div>
 </div>
 </div>
@@ -759,7 +759,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <p><strong>Caution</strong></p>
 </div>
 <div class="callout-content">
-<p>Этот блок для предупреждений</p>
+<p>Этот блок используется для предостережений</p>
 </div>
 </div>
 </div>
@@ -772,7 +772,7 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>для</p>
+<p>Этот блок используется для предупреждений</p>
 </div>
 </div>
 </div>
@@ -843,11 +843,13 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 
 </section><section id="применение-на-конкретных-кейсах" class="slide level2"><h2>Применение на конкретных кейсах</h2>
 <ul>
-<li><p>Презентации в формате <code>revealjs</code></p></li>
-<li><p>Блог на примере своего блога <a href="https://ubogoeva.github.io/R4Analytics/">R4Analytics</a></p></li>
+<li><p>Презентации в формате <code>revealjs</code>.</p></li>
+<li><p>Блог на примере своего блога <a href="https://ubogoeva.github.io/R4Analytics/">R4Analytics</a>.</p></li>
 <li><p>Вебсайт хорош для создания резюме</p></li>
 <li><p><code>bookdown</code> переносится с минимальными изменениями</p></li>
-</ul></section><section id="презентации-в-формате-revealjs" class="slide level2"><h2>Презентации в формате <code>revealjs</code>
+</ul>
+<p>Разберем первые два, с остальным можно ознакомиться в <a href="https://quarto-meetup-begin.netlify.app/posts/day_2/">лекции</a> Евгения Матерова.</p>
+</section><section id="презентации-в-формате-revealjs" class="slide level2"><h2>Презентации в формате <code>revealjs</code>
 </h2>
 <p>Для создания в RStudio: File -&gt; New File -&gt; Quarto Presentation</p>
 <p>Базовые настройки <code>revealjs</code> презентации:</p>
@@ -863,14 +865,14 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="at">  </span><span class="fu">output</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="принципы-верстки-с-помощью-css" class="slide level2"><h2>Принципы верстки с помощью css</h2>
-<p>Для настройки шрифтов, цвета ссылок, формата ячеек с кодом, нужно использовать <a href="https://sass-lang.com/">scss</a> стили</p>
+</section><section id="принципы-верстки-с-помощью-cssscss" class="slide level2"><h2>Принципы верстки с помощью css/scss</h2>
+<p>Для настройки шрифтов, цвета ссылок, формата ячеек с кодом, нужно использовать <a href="https://sass-lang.com/">scss</a> стили.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="pp">---</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">default</span><span class="kw">,</span><span class="at"> custom.scss</span><span class="kw">]</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Пример scss файла</p>
+<p>Пример scss файла:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource scss number-lines code-with-copy"><code class="sourceCode scss"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">// headings</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="va">$presentation-heading-font</span>: <span class="st">"Cabin"</span><span class="op">,</span> <span class="st">"Commissioner"</span><span class="op">,</span> sans <span class="dv">serif</span> <span class="at">!default</span><span class="op">;</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="va">$presentation-h2-font-size</span>: <span class="dv">1.5</span><span class="dt">em</span><span class="op">;</span></span>
@@ -887,29 +889,91 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <span id="cb10-3"><a href="#cb10-3"></a>Можно менять цвет строк с помощью настроек Div<span class="in">: style</span>="color<span class="in">: purple</span>"</span>
 <span id="cb10-4"><a href="#cb10-4"></a></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="in">:::</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Можно менять цвет <span style="color: red">слов</span> с помощью выделения квадратными скобками и указания цвета: [слов]{style=“color: red”}</p>
+<p>Можно менять <span style="color: red">цвет</span> и <span style="font-size: 80%">размер</span> слов с помощью выделения квадратными скобками и указания размера шрифта/цвета [цвет]{style=“color: red”}</p>
 <p>Кроме этого, в презентации можно использовать лазерную указку (pointer) и доску (chalkboard). Доска доступна сразу по умолчанию, а указку нужно <a href="https://github.com/quarto-ext/pointer">установить</a>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="pp">---</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="fu">chalkboard</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="fu">revealjs-plugins</span><span class="kw">:</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pointer</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="выделение-кода" class="slide level2"><h2>Выделение кода</h2>
-<p>Использование вместе с колоночным layout позволяет показывать код и его результат на одном слайде.</p>
-<p>css-styles можно использовать для изменения размера шрифтов и прочего</p>
-<p>Блоки callout</p>
+</section><section id="вспомогательные-файлы-для-настройки-оформления" class="slide level2"><h2>Вспомогательные файлы для настройки оформления</h2>
+<ol type="1">
+<li><p>scss-файл для настройки шрифтов, размера шрифтов, цвета ссылок и кода</p></li>
+<li>
+<p>css-файл для настроек отдельных элементов</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource css number-lines code-with-copy"><code class="sourceCode css"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">/* css styles */</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>h1 {</span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+<li>
+<p>lua-файл для настройки pandoc-аутпута</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource lua number-lines code-with-copy"><code class="sourceCode lua"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">function</span> Header<span class="op">(</span><span class="va">el</span><span class="op">)</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="cf">if</span> <span class="va">el</span><span class="op">.</span><span class="va">level</span> <span class="op">==</span> <span class="dv">1</span> <span class="cf">then</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>      <span class="fu">table.insert</span><span class="op">(</span><span class="va">el</span><span class="op">.</span><span class="va">classes</span><span class="op">,</span> <span class="st">"inverse"</span><span class="op">)</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>      <span class="va">el</span><span class="op">.</span><span class="va">attributes</span><span class="op">[</span><span class="st">"data-background-color"</span><span class="op">]</span> <span class="op">=</span> <span class="st">'#93edea'</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>      <span class="cf">return</span> <span class="va">el</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>    <span class="cf">end</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</li>
+</ol></section><section id="пример-yaml-файла" class="slide level2"><h2>Пример yaml-файла</h2>
+<p>Здесь основной акцент на файлах для кастомизации внешнего вида презентации.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="pp">---</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">default</span><span class="kw">,</span><span class="at"> custom.scss</span><span class="kw">]</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="fu">css</span><span class="kw">:</span><span class="at"> styles.css</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="fu">filters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">bg_style.lua</span><span class="kw">]</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="pp">--- </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="подсветка-кода" class="slide level2"><h2>Подсветка кода</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="quarto_lecture_files/figure-revealjs/unnamed-chunk-4-1.png" width="3000"></p>
+</div>
+</div>
+</div>
+<p>Можно настраивать показ результата выполнения кода в соседней колонке на слайде (<code>output-location: column</code>) и выделять интересующие строки с помощью опции: <code>#| code-line-numbers: '2'</code></p>
+</section><section id="подсветка-кода-1" class="slide level2"><h2>Подсветка кода</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="3|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width))<span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species))<span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="quarto_lecture_files/figure-revealjs/unnamed-chunk-5-1.png" width="3000"></p>
+</div>
+</div>
+</div>
+<p>С помощью этого можно иллюстрировать пошаговое выполнение кода.</p>
 </section><section id="создание-своего-блога-в-quarto" class="slide level2"><h2>Создание своего блога в Quarto</h2>
 <p>File -&gt; New Project -&gt; New Directory -&gt; Quarto Blog</p>
 
 <img data-src="images/quarto_blog.png" class="r-stretch"></section><section id="создание-своего-блога-в-quarto-1" class="slide level2"><h2>Создание своего блога в Quarto</h2>
-<p>Материалы для публикации должны быть в папке posts/</p>
-<p>При желании можно пост не публиковать и тогда в yaml-файле указать draft: true</p>
-<p>Можно настроить очень много всего</p>
-</section><section id="преимущества-и-недостатки-quarto" class="slide level2"><h2>Преимущества и недостатки Quarto</h2>
+<p>Основные моменты:</p>
+<ul>
+<li><p>Материалы для публикации должны быть в папке posts/</p></li>
+<li><p>При отладке можно документ не публиковать сразу и тогда в yaml-файле указать <code>draft: true</code>.</p></li>
+<li><p>Можно настраивать категории постов.</p></li>
+</ul>
+<p>Пример моего <a href="https://ubogoeva.github.io/R4Analytics/">блога</a>, пример Евгения Матерова (<a href="https://quarto-meetup-begin.netlify.app/">ссылка</a>).</p>
+<p>Вся основная информация по созданию блога и настройке в <a href="https://quarto.org/docs/websites/website-blog.html">документации</a>.</p>
+</section><section id="веб-сервисы-для-публикации" class="slide level2"><h2>Веб-сервисы для публикации</h2>
+<ol type="1">
+<li>
+<a href="https://quarto-meetup-begin.netlify.app/">Netlify</a> – поддерживает пользовательские домены, аутентификацию и другое.</li>
+<li>
+<a href="https://pages.github.com/">GitHub Pages</a> – удобно в связке с GitHub</li>
+<li>Quarto Pub – простой сервис, но возможностей меньше, чем у первых двух</li>
+</ol></section><section id="преимущества-и-недостатки-quarto" class="slide level2"><h2>Преимущества и недостатки Quarto</h2>
 <table>
 <colgroup>
-<col style="width: 34%">
-<col style="width: 65%">
+<col style="width: 45%">
+<col style="width: 54%">
 </colgroup>
 <thead><tr class="header">
 <th>+</th>
@@ -921,37 +985,55 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <td>Не все фишки из отдельных пакетов Rmd реализованы в Quarto</td>
 </tr>
 <tr class="even">
-<td>Визуальный редактор</td>
-<td></td>
+<td>Визуальный редактор (но он есть и просто в .Rmd)</td>
+<td>Нет аналога learnr для создания учебных материалов</td>
 </tr>
 <tr class="odd">
 <td>Хорошая документация</td>
-<td></td>
+<td>Инструмент активно развивается, бывают баги</td>
 </tr>
 </tbody>
 </table></section></section><section><section id="применение-в-биостатистике" class="title-slide slide level1 inverse center" data-background-color="#93edea"><h1>3. Применение в биостатистике</h1>
 
 </section><section id="применение-в-html--и-word-отчетах" class="slide level2"><h2>Применение в html- и word-отчетах</h2>
-<p>Настройки похожие как и в Rmd</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Название отчета"</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> docx</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">execute</span><span class="kw">:</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="at">  </span><span class="fu">output</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="fu">editor</span><span class="kw">:</span><span class="at"> visual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Параметры для локализации <a href="https://quarto-meetup-begin.netlify.app/posts/day_2/">тут</a></p>
-</section><section id="применение-в-pdf" class="slide level2"><h2>Применение в pdf</h2>
+<p>Настройки очень похожи на .Rmd-файл</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Название отчета"</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> docx</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="at">  </span><span class="fu">output</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="fu">editor</span><span class="kw">:</span><span class="at"> visual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Параметры для локализации <a href="https://quarto-meetup-begin.netlify.app/posts/day_2/">тут</a> для публикации русскоязычных отчетов.</p>
+</section><section id="отчеты-в-pdf-формате" class="slide level2"><h2>Отчеты в pdf-формате</h2>
 <p>Здесь нужно настраивать LaTeX, почитать quick start <a href="https://quarto.org/docs/output-formats/pdf-basics.html">здесь</a></p>
 <ul>
 <li><p>Установить tinytex: <code>quarto install tinytex</code></p></li>
-<li><p>При наличии проблем с кириллицей</p></li>
-</ul></section><section id="применение-в-публикациях" class="slide level2"><h2>Применение в публикациях</h2>
-<p>Есть готовые форматы для ряда журналов, посмотреть можно <a href="https://github.com/quarto-journals">здесь</a></p>
-<p>Очень удобно сделаны цитаты с возможностью подключать Zotero и загружать статьи с помощью doi.</p>
-<p>https://quarto.org/docs/journals/formats.html</p>
-<p>https://quarto.org/docs/journals/formats.html#example-acm-format</p>
-</section><section id="ссылки-на-другие-материалы" class="slide level2"><h2>Ссылки на другие материалы</h2>
+<li><p>При наличии проблем с кириллицей <del>плакать</del> посмотреть <a href="https://ru.overleaf.com/learn/latex/Russian">здесь</a>.</p></li>
+</ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>Вообще, простые отчеты для внутреннего пользования проще сделать в html-формате</p>
+</div>
+</div>
+</div>
+</section><section id="применение-в-публикациях" class="slide level2"><h2>Применение в публикациях</h2>
+<p>Есть готовые форматы для ряда журналов, посмотреть можно <a href="https://github.com/quarto-journals">здесь</a> и <a href="https://quarto.org/docs/journals/formats.html">здесь</a>.</p>
+<p>Очень удобно сделаны цитаты с возможностью подключать Zotero и загружать статьи с помощью doi -&gt; проиллюстрировать.</p>
+</section><section id="выводы" class="slide level2"><h2>Выводы</h2>
+<ol type="1">
+<li>Quarto расширяет возможности RMarkdown для пользователей других языков программирования и объединяет разные пакеты в один.</li>
+<li>Дает очень большие возможности для преподавания и научных публикаций.</li>
+<li>При освоении Quarto придется немного разобраться с css и другими элементами верстки.</li>
+<li>Для работы с pdf-форматом нужно разобраться с LaTeX.</li>
+</ol></section><section id="ссылки-на-другие-материалы" class="slide level2"><h2>Ссылки на другие материалы</h2>
 <ul>
 <li><p><a href="https://quarto-meetup-begin.netlify.app/">Сайт</a> на Quarto, посвященный работе с Quarto с материалами на Quarto от Евгения Матерова.</p></li>
 <li><p><a href="https://yihui.org/en/2022/04/quarto-r-markdown/">With Quarto Coming, is R Markdown Going Away? No.</a> by Yihui Xie</p></li>
@@ -959,14 +1041,15 @@ Ctrl+Alt+&lt;уровень заголовка&gt;</p>
 <li><p><a href="https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/">We don’t talk about Quarto</a> by Alison Hill</p></li>
 <li><p><a href="https://mine-cetinkaya-rundel.github.io/2022-repro-toronto/#/title-slide">Презентация</a> по Quarto от Mine Çetinkaya-Rundel</p></li>
 <li><p><a href="https://www.youtube.com/watch?v=EbAAmrB0luA">Quarto for Academics</a> | Mine Çetinkaya-Rundel</p></li>
-</ul></section><section id="вопросы" class="slide level2"><h2>Вопросы?</h2>
+</ul>
+<p>У меня сайт <a href="https://ubogoeva.github.io/R4Analytics/">блога</a> и этой <a href="https://ubogoeva.github.io/R4Analytics/posts/lectures/quarto_lecture">презентации</a> тоже сделаны в Quarto.</p>
+</section><section id="вопросы" class="slide level2"><h2>Вопросы?</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>Подписывайтесь на телеграм-канал: <a href="https://t.me/stats_for_science">Статистика и R</a></p>
 <p><img data-src="images/tlg.jpg" width="421" height="525"></p>
 </div>
 </div>
-<p>У меня сайт блога и презентации тоже сделаны в <a href="https://ubogoeva.github.io/R4Analytics/">Quarto</a>.</p>
 
 <div class="footer footer-default">
 
