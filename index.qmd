@@ -1,5 +1,5 @@
 ---
-title: "Блог по статистике и R"
+title: "Статистика и R в науке и аналитике"
 listing:
   contents: posts
   sort: "date desc"
