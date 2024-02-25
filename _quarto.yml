@@ -5,6 +5,7 @@ project:
 
 website:
   title: "R4Analytics"
+  favicon: images/logo_site.png
   navbar:
     right:
       - href: index.qmd
