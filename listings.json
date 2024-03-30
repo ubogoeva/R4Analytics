@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/statistics_course_why_not.html",
       "/posts/multiple_testing.html",
       "/posts/types_of_error_bars.html"
     ]

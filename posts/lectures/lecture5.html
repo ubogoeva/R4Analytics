@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Elena U">
-  <title>R4Analytics - Язык программирования R для анализа данных: лекция 8</title>
+  <title>R4Analytics - R и статистика: лекция 4</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -97,6 +97,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="styles.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -394,8 +395,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Язык программирования R для анализа данных: лекция 8</h1>
-  <p class="subtitle">Тест Стьюдента, Манна-Уитни</p>
+  <h1 class="title">R и статистика: лекция 4</h1>
+  <p class="subtitle">Введение в статистику вывода, тест Стьюдента</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -409,193 +410,232 @@ Elena U
 <section id="план-лекции" class="slide level2">
 <h2>План лекции</h2>
 <ul>
-<li><p><a href="t_test_dependent">Тест Стьюдента для зависимых выборок</a>.</p></li>
-<li><p><a href="#/power">Ошибки первого и второго рода и мощность тестов</a>.</p></li>
-<li><p>Ограничения теста Стьюдента.</p></li>
-<li><p>Проверки на нормальность.</p></li>
-<li><p>Тест Манна-Уитни для независимых выборок и Вилкоксона для зависимых.</p></li>
-<li><p><a href="#/one_way_anova">Однофакторный дисперсионный анализ и поправка Тьюки.</a></p></li>
+<li><p>Нормальное распределение и центральная предельная теорема</p></li>
+<li><p>Алгоритм статистического вывода</p></li>
+<li><p>Разбор алгоритма на примере теста Стьюдента</p></li>
+<li><p>Тест Велча и ограничения теста Стьюдента</p></li>
+<li><p>Тест Манна-Уитни</p></li>
 </ul>
 </section>
-<section id="t_test_dependent" class="slide level2">
-<h2>Тест Стьюдента для зависимых выборок: формула</h2>
-<p>Двухвыборочный зависимый t-тест — очень похож на одновыборочный t-тест, только для разницы между связанными значениями. Поскольку наша нулевая гипотеза звучит, что средние должны быть равны:</p>
-<p><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span>,</p>
-<p>то при верности нулевой гипотезы <span class="math inline">\(\mu_1 - \mu_2 = 0\)</span></p>
-<p>Тогда вместо <span class="math inline">\(x\)</span> подставим <span class="math inline">\(d\)</span> — разницу (вектор разниц) между парами значений. Получаем такую формулу:</p>
+<section id="нормальное-распределение" class="slide level2">
+<h2>Нормальное распределение</h2>
+<p>Симметричное, унимодальное, где отклонения от среднего подчиняются вероятностному закону.</p>
+
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Standard_deviation_diagram.svg/1200px-Standard_deviation_diagram.svg.png" width="522" class="r-stretch"><p>Стандартное нормальное распределение – нормальное распределение со средним 0 и дисперсией 1. Любое нормальное распределение можно привести к стандартному с помощью z-преобразования.</p>
+</section>
+<section id="значение-центральной-предельной-теоремы" class="slide level2">
+<h2>Значение центральной предельной теоремы</h2>
+<p>Мысленный эксперимент: многократно извлекаем выборки из генеральной совокупности, считаем средние по выборкам.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>samp_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)))  </span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">hist</span>(samp_means, <span class="at">breaks =</span> <span class="dv">30</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-1-1.png" width="3000" class="r-stretch"><p>Распределение средних, извлеченных из нормального распределения, примерно нормальное. Это неудивительно, попробуем теперь в качестве генеральной совокупности использовать лог-нормальное распределение.</p>
+</section>
+<section id="лог-нормальное-распределение" class="slide level2">
+<h2>Лог-нормальное распределение</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">hist</span>(<span class="fu">rlnorm</span>(<span class="dv">100</span>), <span class="at">breaks =</span> <span class="dv">30</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-2-1.png" width="3000" class="r-stretch"><p>Распределение ассиметричное, однако как будут распределены выборочные средние?</p>
+</section>
+<section id="распределение-средних-лог-нормального-распределения" class="slide level2" style="font-size: 90%">
+<h2>Распределение средних лог-нормального распределения</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>samp_means_log <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">rlnorm</span>(<span class="dv">100</span>)))  </span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">hist</span>(samp_means_log, <span class="at">breaks =</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-3-1.png" width="3000" class="r-stretch"><p>А вот распределение средних из изначально не-нормального распределение тоже похоже на нормальное распределение! Это получается благодаря центральной предельной теореме.</p>
+<p><a href="https://gallery.shinyapps.io/CLT_mean/">Шайни апп для центральной предельной теоремы</a></p>
+</section>
+<section id="алгоритм-статистического-вывода" class="slide level2">
+<h2>Алгоритм статистического вывода</h2>
+<ol type="1">
+<li><p>Формулировка нулевой и альтернативной гипотезы.</p></li>
+<li><p>Вычисление тестовых статистик.</p></li>
+<li><p>Подсчет p-value как площади под кривой выборочного распределения тестовых статистик.</p></li>
+<li><p>Вывод: отклоняем или не отклоняем нулевую гипотезу.</p></li>
+</ol>
+<p>Разберем на примере теста Стьюдента.</p>
+</section>
+<section id="тест-стьюдента-или-t-test" class="slide level2">
+<h2>Тест Стьюдента или t-test</h2>
+<p>Используется для сравнения двух выборок между собой, в случае когда мы не знаем стандартное отклонение генеральной совокупности (почти всегда). В результате мы оцениваем стандартное отклонение в генеральной совокупности на основе стандартного отклонения по выборке.</p>
+<p>Это приводит к тому, что тестовая статистика уже не распределена нормально (как в z-тесте), а распределена согласно t-распределению. Статистика называется t-статистикой.</p>
 <p><span class="math display">\[
-t = \frac{\overline{x} - \mu} {s_x / \sqrt{N}} = \frac{\overline{d} - (\mu_1 - \mu_2)} {s_d / \sqrt{N}} = \frac{\overline{d} - 0} {s_d / \sqrt{N}}  = \frac{\overline{d}} {s_d / \sqrt{N}}
+t = \frac{\overline{x} - \mu} {s_x / \sqrt{N}}
 \]</span></p>
 </section>
-<section id="тест-стьюдента-для-зависимых-выборок-данные" class="slide level2">
-<h2>Тест Стьюдента для зависимых выборок: данные</h2>
-<p>Мы будем использовать <a href="https://www.sheffield.ac.uk/polopoly_fs/1.570199!/file/stcp-Rdataset-Diet.csv">данные с курса по статистике Университета Шеффилда про эффективность диет</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>diet <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/Pozdniakov/tidy_stats/master/data/stcp-Rdataset-Diet.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">head</span>(diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  Person gender   Age Height pre.weight  Diet weight6weeks
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
-1     25     NA    41    171         60     2         60  
-2     26     NA    32    174        103     2        103  
-3      1      0    22    159         58     1         54.2
-4      2      0    46    192         60     1         54  
-5      3      0    55    170         64     1         63.3
-6      4      0    33    171         64     1         61.1</code></pre>
+<section id="распределение-стьюдента-или-t-распределение" class="slide level2">
+<h2>Распределение Стьюдента или t-распределение</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>t-распределение очень похоже на нормальное, также симметричное, унимодальное, но отклонения от среднего подчиняются немного другому вероятностному закону и зависят от размера выборки.</p>
+<p>t-распределение имеет параметр степеней свободы: размер выборки -1 и распределение имеет более “тяжелые” хвосты по сравнению с нормальным.</p>
+<p>При размере выборке (и количеству степеней свободы), стремящемуся к бесконечности, t-распределение стремится к нормальному.</p>
+</div><div class="column" style="width:45%;">
+<p><img data-src="https://pozdniakov.github.io/tidy_stats/320-ttest_files/figure-html/unnamed-chunk-1-1.png"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">str</span>(diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
+<section>
+<section id="проведение-теста-стьюдента" class="title-slide slide level1 inverse center" data-background-color="#93edea">
+<h1>Проведение теста Стьюдента</h1>
 
 </section>
-<section id="тест-стьюдента-для-зависимых-выборок-данные-output" class="slide level2 output-location-slide"><h2>Тест Стьюдента для зависимых выборок: данные</h2><div class="cell output-location-slide">
+<section id="постановка-задачи" class="slide level2">
+<h2>Постановка задачи</h2>
+<p>У нас есть две выборки, мы хотим сравнить средние, и сделать вывод, есть ли статистически значимые различия между ними. Для этого возьмем данные по урожайности растения сафлор.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># install.packages('agridat')</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">library</span>(agridat)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">data</span>(draper.safflower.uniformity)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>df <span class="ot">&lt;-</span> draper.safflower.uniformity</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">str</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [78 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ Person      : num [1:78] 25 26 1 2 3 4 5 6 7 8 ...
- $ gender      : num [1:78] NA NA 0 0 0 0 0 0 0 0 ...
- $ Age         : num [1:78] 41 32 22 46 55 33 50 50 37 28 ...
- $ Height      : num [1:78] 171 174 159 192 170 171 170 201 174 176 ...
- $ pre.weight  : num [1:78] 60 103 58 60 64 64 65 66 67 69 ...
- $ Diet        : num [1:78] 2 2 1 1 1 1 1 1 1 1 ...
- $ weight6weeks: num [1:78] 60 103 54.2 54 63.3 61.1 62.2 64 65 60.5 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   Person = col_double(),
-  ..   gender = col_double(),
-  ..   Age = col_double(),
-  ..   Height = col_double(),
-  ..   pre.weight = col_double(),
-  ..   Diet = col_double(),
-  ..   weight6weeks = col_double()
-  .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+<pre><code>'data.frame':   640 obs. of  4 variables:
+ $ expt : Factor w/ 2 levels "E4","E5": 2 2 2 2 2 2 2 2 2 2 ...
+ $ row  : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ col  : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ yield: int  579 445 465 455 390 444 376 433 426 475 ...</code></pre>
 </div>
-</div></section><section id="тест-сьюдента-для-зависимых-выборок-код" class="slide level2" style="font-size: 90%">
-<h2>Тест Сьюдента для зависимых выборок: код</h2>
-<p>Используем данные по первой диете:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>diet1 <span class="ot">&lt;-</span> diet <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">filter</span>(Diet <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Нам нужен тест Стьюдента для зависимых выборок, поскольку в группах одни и те же люди до диеты и после. По факту в этом тесте мы сравниваем разницу между весом после диеты и до диеты с 0.</p>
+<p>Здесь два эксперимента: E4 и E5, которые отличались размером делянки. Сравним, есть ли различия в урожайности у двух групп.</p>
+<p>Для этого подходит двухвыборочный независимый тест Стьюдента.</p>
+</section>
+<section id="посмотрим-на-данные" class="slide level2">
+<h2>Посмотрим на данные</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(expt, yield))<span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="lecture5_files/figure-revealjs/unnamed-chunk-5-1.png" width="3000"></p>
+</div>
+</div>
+</div>
+<p>Размер выборок:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">t.test</span>(diet1<span class="sc">$</span>pre.weight, diet1<span class="sc">$</span>weight6weeks, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>expt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> E4  E5 
+340 300 </code></pre>
+</div>
+</div>
+</section>
+<section id="формулировка-нулевой-и-альтернативной-гипотезы" class="slide level2">
+<h2>Формулировка нулевой и альтернативной гипотезы</h2>
+<p>- <span class="math inline">\(H_0: \mu_1 = \mu_2\)</span> нулевая гипотеза, о том, что обе выборки взяты из одной генеральной совокупности (или из генеральных совокупностей с одинаковым средним) (урожайность одинакова вне зависимости от размера делянки).</p>
+<p>- <span class="math inline">\(H_1: \mu_1 \neq \mu_2\)</span> альтернативная гипотеза, о том, что выборки взяты из генеральных совокупностей с разным средним (урожайность различается).</p>
+<p>Здесь <span class="math inline">\(\mu_1\)</span> – среднее генеральной совокупности для эксперимента Е4, <span class="math inline">\(\mu_2\)</span> – среднее генеральной совокупности для эксперимента E5.</p>
+</section>
+<section id="вычисление-тестовой-статистики" class="slide level2">
+<h2>Вычисление тестовой статистики</h2>
+<p>Формула расчета для двухвыборочного независимого теста Стьюдента:</p>
+<p><span class="math display">\[
+t = \frac{\overline{X_1}-\overline{X_2}}{s_x\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}},s_x = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
+\]</span></p>
+<p>Посчитаем с помощью функции <code>t.test()</code> и выберем только значение статистики:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">t.test</span>(yield <span class="sc">~</span> expt, df, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>statistic</span>
+<span id="cb9-2"><a href="#cb9-2"></a>t_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        t 
+-33.66189 </code></pre>
+</div>
+</div>
+<p>t-статистика равна <code>-33.66</code>, чем она больше (по модулю), тем p-value будет ниже.</p>
+</section>
+<section id="подсчет-p-value" class="slide level2">
+<h2>Подсчет p-value</h2>
+<p>Определение: p-value – это вероятность получить такие же или еще более экстремальные значения тестовой статистики при условии верности нулевой гипотезы.</p>
+<p>Распределение тестовой статистики – это t-распределение с <span class="math inline">\(n_1 + n_2 - 2\)</span> степенями свободы, где <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span> – размер выборки 1 и размер выборки 2, соответственно.</p>
+
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-8-1.png" width="3000" class="r-stretch"><p>Значение t-статистики очень большое, значит значение p-value очень маленькое.</p>
+</section>
+<section id="подсчет-p-value-1" class="slide level2">
+<h2>Подсчет p-value</h2>
+<p>Функция <code>pt()</code> подсчитывает площадь под кривой распределения от <span class="math inline">\(-\infty\)</span> до <code>t_value</code>. Поскольку тест двусторонний, то надо умножить на 2.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">pt</span>(t_value, <span class="at">df =</span> <span class="fu">nrow</span>(df) <span class="sc">-</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           t 
+1.38818e-143 </code></pre>
+</div>
+</div>
+<p>Теперь сравним с результатом теста <code>t.test()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">t.test</span>(yield <span class="sc">~</span> expt, df, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.38818e-143</code></pre>
+</div>
+</div>
+</section>
+<section id="принятие-решения-о-нулевой-гипотезе" class="slide level2">
+<h2>Принятие решения о нулевой гипотезе</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">t.test</span>(yield <span class="sc">~</span> expt, df, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Paired t-test
+    Two Sample t-test
 
-data:  diet1$pre.weight and diet1$weight6weeks
-t = 7.2168, df = 23, p-value = 2.397e-07
-alternative hypothesis: true mean difference is not equal to 0
+data:  yield by expt
+t = -33.662, df = 638, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group E4 and group E5 is not equal to 0
 95 percent confidence interval:
- 2.354069 4.245931
+ -285.8747 -254.3598
 sample estimates:
-mean difference 
-            3.3 </code></pre>
+mean in group E4 mean in group E5 
+        215.1294         485.2467 </code></pre>
+</div>
+</div>
+<p>p-value &lt; 0.05 -&gt; следовательно отклоняем нулевую гипотезу о равенстве средних.</p>
+</section>
+<section id="тест-стьюдента-и-тест-велча-welch" class="slide level2">
+<h2>Тест Стьюдента и тест Велча (Welch)</h2>
+<p>На самом деле по умолчанию в R запускается тест Велча, который устойчив к нарушению предположения о равенстве дисперсий.</p>
+<p>Для запуска теста Стьюдента мы использовали аргумент <code>var.equal = TRUE</code>, по умолчанию <code>FALSE</code>.</p>
+<p>Расчет теста Велча</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">t.test</span>(yield <span class="sc">~</span> expt, df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  yield by expt
+t = -32.114, df = 373.4, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group E4 and group E5 is not equal to 0
+95 percent confidence interval:
+ -286.6566 -253.5779
+sample estimates:
+mean in group E4 mean in group E5 
+        215.1294         485.2467 </code></pre>
 </div>
 </div>
 </section>
-<section id="power" class="slide level2">
-<h2>Ошибки первого и второго рода</h2>
-<table>
-<colgroup>
-<col style="width: 47%">
-<col style="width: 52%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Ошибка I рода: нашли то, чего нет</td>
-<td>Ошибка II рода: не нашли то, что есть</td>
-</tr>
-</tbody>
-</table>
-<div style="position: absolute; top: 200px; left: 805px; width: 475px; height: 100px; background-color: rgba(209, 162, 142, 0.3); z-index: -1;">
-
-</div>
-<div style="position: absolute; top: 200px; left: 330px; width: 475px; height: 100px; background-color: rgba(169, 209, 142, 0.3); z-index: -1;">
-
-</div>
-<div style="position: absolute; top: 300px; left: 330px; width: 475px; height: 100px; background-color: rgba(209, 162, 142, 0.3); z-index: -1;">
-
-</div>
-<div style="position: absolute; top: 300px; left: 805px; width: 475px; height: 100px; background-color: rgba(169, 209, 142, 0.3); z-index: -1;">
-
-</div>
-<table>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 39%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>H<sub>0</sub> верна (различий нет)</th>
-<th>H<sub>0</sub> неверна (различие есть)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Не отклонить H<sub>0</sub></td>
-<td>True Negative</td>
-<td>False Negative - ошибка II рода (β)</td>
-</tr>
-<tr class="even">
-<td>Отклонить H<sub>0</sub></td>
-<td>False Positive - ошибка I рода (α)</td>
-<td>True Positive</td>
-</tr>
-</tbody>
-</table>
-<p>Какая ошибка хуже? Зависит от ситуации.</p>
-<p>Например, меня всегда учили, что при проведении RNA-seq эксперимента ошибка второго рода хуже (потратили ресурсы, а результаты не нашли).</p>
-<p>В медицине обе ошибки могут стоить очень дорого.</p>
-</section>
-<section id="ошибки-первого-и-второго-рода" class="slide level2">
-<h2>Ошибки первого и второго рода</h2>
-
-<img data-src="images/image-1124886965.png" class="r-stretch"></section>
-<section id="ошибки-первого-и-второго-рода-1" class="slide level2">
-<h2>Ошибки первого и второго рода</h2>
-
-<img data-src="images/image-54758192.png" class="r-stretch"><p>Дальнейшие несколько слайдов взяты из <a href="https://varmara.github.io/linmodr/04_hypothesis_testing.html#55">презентации</a> Марины Варфоломеевой.</p>
-</section>
-<section id="можно-построить-теоретические-распределения-при-h0-и-ha" class="slide level2">
-<h2>Можно построить теоретические распределения при H<sub>0</sub> и H<sub>A</sub></h2>
-
-<img data-src="images/image-540392203.png" class="r-stretch"><p>Распределение статистики, когда справедлива <strong>H<sub>0</sub></strong>, нам уже знакомо — его мы используем в тестах. Но может быть справедлива <strong>H<sub>A</sub></strong> и ее тоже можно описать своим распределением.</p>
-<p>При помощи этих распределений можно определить вероятность ошибок различных типов.</p>
-</section>
-<section id="ошибка-i-рода-найти-различия-там-где-их-нет" class="slide level2">
-<h2>Ошибка I рода — найти различия там, где их нет</h2>
-
-<img data-src="images/image-939957814.png" class="r-stretch"><p><span class="math inline">\(\alpha\)</span> (критический уровень значимости) — это вероятность ошибки I рода. Если</p>
-<p>H<sub>0</sub> справедлива, то при <span class="math inline">\(\alpha = 0.05\)</span> мы отвергаем ее с 5% вероятностью.</p>
-<p>Чтобы снизить вероятность таких ошибок, можно уменьшить <span class="math inline">\(\alpha\)</span>.</p>
-</section>
-<section id="ошибка-ii-рода-не-найти-различий-где-они-есть" class="slide level2">
-<h2>Ошибка II рода —не найти различий, где они есть</h2>
-
-<img data-src="https://varmara.github.io/linmodr/04_hypothesis_testing_files/figure-html/unnamed-chunk-27-1.png" class="r-stretch"><p><span class="math inline">\(\beta\)</span> — вероятность ошибки II рода.</p>
-<p>Считается, что допустимо <span class="math inline">\(\beta \leq 0.2\)</span>, но часто про нее забывают.</p>
-<p>Если мы уменьшаем α (график справа), то возрастает β.</p>
-</section>
-<section id="мощность-теста-вероятность-найти-различия-если-они-есть" class="slide level2">
-<h2>Мощность теста — вероятность найти различия, если они есть</h2>
-
-<img data-src="https://varmara.github.io/linmodr/04_hypothesis_testing_files/figure-html/unnamed-chunk-28-1.png" class="r-stretch"><p><span class="math inline">\(Power = 1 - \beta\)</span> - мощность теста.<br>
-Хорошо, когда мощность не меньше 0.8.</p>
-<p>Мощность теста зависит от величины наблюдаемого эффекта (от величины различий) и размера выборки.</p>
+<section id="формула-теста-велча" class="slide level2">
+<h2>Формула теста Велча</h2>
+<p><span class="math display">\[
+t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+\]</span></p>
+<p>Количество степеней свободы:</p>
+<p><span class="math display">\[
+df = \frac{(s_1^2/n_1 + s_2^2 / n_2)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}
+\]</span></p>
+<p>По умолчанию рекомендую считать именно тест Велча, потому что для случаев, где дисперсии двух выборок приблизительно равны, он не будет отличаться от теста Стьюдента, а при разных дисперсиях точнее.</p>
 </section>
 <section id="ограничения-теста-стьюдента" class="slide level2">
 <h2>Ограничения теста Стьюдента</h2>
 <div>
 <ul>
-<li class="fragment"><p>Нормальность распределения - под вопросом.</p></li>
 <li class="fragment"><p>Независимость наблюдений - очень важно.</p></li>
+<li class="fragment"><p>Нормальность распределения - под вопросом.</p></li>
 <li class="fragment"><p>Равенство дисперсий - необязательно для теста Велча.</p></li>
 </ul>
 </div>
@@ -605,53 +645,53 @@ mean difference
 <p>Давайте сначала оценим вероятность ошибки первого рода, когда мы многократно (10000 раз) извлекаем две выборки объемом 30 значений из стандартного нормального распределения и сравниваем их t-тестом:</p>
 <p>Генеральная совокупность одинаковая, следовательно мы ожидаем найти отличия не более чем в 5% случаев.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="fu">rnorm</span>(<span class="dv">30</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="fu">rnorm</span>(<span class="dv">30</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0471</code></pre>
+<pre><code>[1] 0.0476</code></pre>
 </div>
 </div>
 <p>Вероятность получить ошибку первого рода (то есть найти отличия, там где их на самом деле нет) примерно 0.05.</p>
-<p>Ссылки: <a href="https://koch-kir.medium.com/%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BE%D0%B1%D0%BC%D0%B0%D0%BD%D0%B0-%D0%B8%D0%BB%D0%B8-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8E-%D0%B2-%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85-%D1%82%D0%B5%D1%81%D1%82%D0%B0%D1%85-55139a5558d">1</a>, <a href="https://pozdniakov.github.io/tidy_stats/320-ttest.html#sec-assumptions_ttest">2</a>.</p>
+<p>Ссылки: <a href="#/0">1</a>, <a href="#/0">2</a>.</p>
 </section>
 <section id="теперь-такую-же-процедуру-для-логнормального-распределения" class="slide level2">
 <h2>Теперь такую же процедуру для логнормального распределения</h2>
 <p>Генеральная совокупность одинаковая, следовательно мы ожидаем найти отличия не более чем в 5% случаев.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(<span class="fu">rlnorm</span>(<span class="dv">30</span>), <span class="fu">rlnorm</span>(<span class="dv">30</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(<span class="fu">rlnorm</span>(<span class="dv">30</span>), <span class="fu">rlnorm</span>(<span class="dv">30</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0346</code></pre>
+<pre><code>[1] 0.039</code></pre>
 </div>
 </div>
 <p>Вероятность ошибки первого рода даже меньше!</p>
-<p>Что насчет графического способа определения p-value?</p>
+<p>Что насчет графического способа определения нормальности распределения?</p>
 </section>
 <section id="попробуем-отрисовать-qqplot-для-нормального-распределения" class="slide level2">
 <h2>Попробуем отрисовать qqplot для нормального распределения</h2>
 <p>qqplot - quantile-quantile plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">set.seed</span>(<span class="dv">50</span>)</span>
-<span id="cb12-3"><a href="#cb12-3"></a>samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">qqPlot</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">set.seed</span>(<span class="dv">50</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="fu">qqPlot</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 26 24</code></pre>
 </div>
 </div>
-<img data-src="statR_lecture8_files/figure-revealjs/unnamed-chunk-7-1.png" width="3000" class="r-stretch"><p>В нормальном распределении точки должны располагаться на синей линии.</p>
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-15-1.png" width="3000" class="r-stretch"><p>В нормальном распределении точки должны располагаться на синей линии.</p>
 </section>
 <section id="попробуем-отрисовать-гистограмму" class="slide level2">
 <h2>Попробуем отрисовать гистограмму</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">hist</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">hist</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="statR_lecture8_files/figure-revealjs/unnamed-chunk-8-1.png" width="3000" class="r-stretch"><p>Вывод: не всегда графический способ позволяет определить принадлежность данных нормальному распределению, поскольку при малых объемах выборки даже настоящее нормальное распределение может не выглядеть как нормальное.</p>
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-16-1.png" width="3000" class="r-stretch"><p>Вывод: не всегда графический способ позволяет определить принадлежность данных нормальному распределению, поскольку при малых объемах выборки даже настоящее нормальное распределение может не выглядеть как нормальное.</p>
 </section>
 <section id="тест-шапиро-уилка-shapiro-wilk-для-проверки-на-нормальность" class="slide level2">
 <h2>Тест Шапиро-Уилка (Shapiro-Wilk) для проверки на нормальность</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">shapiro.test</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">shapiro.test</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -660,7 +700,7 @@ data:  samp
 W = 0.94952, p-value = 0.1641</code></pre>
 </div>
 </div>
-<p>В нашем случае p-value больше 0.05, что логично: мы взяли эту выборку именно из нормального распределения. Если p-value меньше уровня <span class="math inline">\(\alpha\)</span>, который у нас стандартно 0.05, то мы можем отвергнуть нулевую гипотезу о том, что выборка взята из нормального распределения.</p>
+<p>В нашем случае p-value больше 0.05, что логично: мы взяли эту выборку именно из нормального распределения. Если p-value меньше уровня α, который у нас стандартно 0.05, то мы можем отвергнуть нулевую гипотезу о том, что выборка взята из нормального распределения.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -681,318 +721,40 @@ W = 0.94952, p-value = 0.1641</code></pre>
 <p>Кроме того, непараметрические методы подходят для интервальных и ранговых шкал, где арифметическое среднее не имеет физического смысла.</p>
 <p>Непараметрические тесты не опираются на <em>параметры</em> заранее известных распределений (например нормального), следовательно, более устойчивы к нарушению предположений параметрических тестов.</p>
 </section>
-<section id="тест-манна-уитни-mann-whitney-теория" class="slide level2" style="font-size: 90%">
+<section id="тест-манна-уитни-mann-whitney-теория" class="slide level2">
 <h2>Тест Манна-Уитни (Mann-Whitney): теория</h2>
-<p>H<sub>0</sub>: <span class="math inline">\(P(A &gt; B) = 0.5\)</span> вероятность того, что случайное число из распределения <em>A</em> больше, чем случайное число из распределения <em>B</em> равно 50%.</p>
-<p>H<sub>1</sub>: <span class="math inline">\(P(A &gt; B) \neq 0.5\)</span> вероятность, что случайное число из <em>A</em> больше чем <em>B</em> не равно 50%, следовательно распределения <em>A</em> и <em>B</em> отличаются сдвигом местоположения.</p>
+<p><span class="math inline">\(H_0: P(A &gt; B) = 0.5\)</span> вероятность того, что случайное число из распределения <em>A</em> больше, чем случайное число из распределения <em>B</em> равно 50%.</p>
+<p><span class="math inline">\(H_1: P(A &gt; B) \neq 0.5\)</span> вероятность, что случайное число из <em>A</em> больше чем <em>B</em> не равно 50%, следовательно распределения <em>A</em> и <em>B</em> отличаются сдвигом местоположения.</p>
 <p>Иллюстрация:</p>
 
-<img data-src="statR_lecture8_files/figure-revealjs/unnamed-chunk-10-1.png" width="3000" class="r-stretch"></section>
-<section id="тест-манна-уитни-mann-whitney-формула" class="slide level2" style="font-size: 90%">
+<img data-src="lecture5_files/figure-revealjs/unnamed-chunk-18-1.png" width="3000" class="r-stretch"></section>
+<section id="тест-манна-уитни-mann-whitney-формула" class="slide level2">
 <h2>Тест Манна-Уитни (Mann-Whitney): формула</h2>
 <p>Числа из обеих выборок ранжируются, то есть расставляются по порядку и самому наименьшему числу присваивается ранг 1, следующему 2, и так далее. Затем вычисляется тестовая U-статистика.</p>
 <p>Для независимых выборок - функция <code>wilcox.test()</code>, синтаксис такой же как и для <code>t.test()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">wilcox.test</span>(wc3_units_armor<span class="sc">$</span>hp <span class="sc">~</span> wc3_units_armor<span class="sc">$</span>armor_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): не могу
-подсчитать точное p-значение при наличии повторяющихся наблюдений</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">wilcox.test</span>(yield <span class="sc">~</span> expt, df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
-data:  wc3_units_armor$hp by wc3_units_armor$armor_type
-W = 78.5, p-value = 0.01472
+data:  yield by expt
+W = 437, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
-<p>В случае повторяющихся значений есть несколько стратегий вычисления рангов, в нашем случае присваются дробные ранги.</p>
+<p>p-value &lt; 0.05 -&gt; отклоняем нулевую гипотезу о “равенстве распределений”.</p>
 </section>
-<section id="визуализация-данных-и-проверка-на-нормальность-распределения" class="slide level2">
-<h2>Визуализация данных и проверка на нормальность распределения</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>wc3_units_armor <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(armor_type, hp))<span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="statR_lecture8_files/figure-revealjs/unnamed-chunk-13-1.png" width="1800" class="r-stretch"><div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>wc3_units_armor <span class="sc">%&gt;%</span> </span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">filter</span>(armor_type <span class="sc">==</span> <span class="st">'Heavy'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">pull</span>(hp) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">shapiro.test</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Shapiro-Wilk normality test
-
-data:  .
-W = 0.87888, p-value = 0.003173</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="тест-вилкоксона-wilcoxon-для-зависимых-выборок" class="slide level2">
-<h2>Тест Вилкоксона (Wilcoxon) для зависимых выборок</h2>
-<p>Непараметрический аналог теста Стьюдента для зависимых выборок.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">wilcox.test</span>(diet1<span class="sc">$</span>pre.weight, diet1<span class="sc">$</span>weight6weeks, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Wilcoxon signed rank test with continuity correction
-
-data:  diet1$pre.weight and diet1$weight6weeks
-V = 299, p-value = 2.203e-05
-alternative hypothesis: true location shift is not equal to 0</code></pre>
-</div>
-</div>
-<p>У непараметрических тестов меньше мощность из-за редуцирования информации при переводе в ранги.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># вспомним результат t-теста</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">t.test</span>(diet1<span class="sc">$</span>pre.weight, diet1<span class="sc">$</span>weight6weeks, <span class="at">paired =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.396734e-07</code></pre>
-</div>
-</div>
-</section>
-<section id="дисперсионный-анализ-anova" class="slide level2">
-<h2>Дисперсионный анализ (ANOVA)</h2>
-<p>Дисперсионный анализ (analysis of variance, ANOVA) — метод для сравнения средних в трех и более группах.</p>
-<p>Виды дисперсионного анализа:</p>
+<section id="чек-лист" class="slide level2">
+<h2>Чек-лист</h2>
 <ul>
-<li><p>Однофакторный (one-way)</p></li>
-<li><p>Двухфакторный (two-way)</p></li>
-<li><p>MANOVA (Multivariate analysis of variance)</p></li>
-<li><p>ANCOVA</p></li>
+<li><p>Нормальное распределение и центральная предельная теорема</p></li>
+<li><p>t-распределение</p></li>
+<li><p>Алгоритм статистического вывода</p></li>
+<li><p>Ограничения теста Стьюдента</p></li>
 </ul>
-<p>Мы будем подробно рассматривать первые два.</p>
-</section>
-<section>
-<section id="one_way_anova" class="title-slide slide level1 center">
-<h1>Однофакторный дисперсионный анализ</h1>
 
-</section>
-<section id="однофакторный-дисперсионный-анализ-данные" class="slide level2" style="font-size: 90%">
-<h2>Однофакторный дисперсионный анализ: данные</h2>
-<p>Допустим, мы хотим сравнить средюю потерю веса для различных диет.</p>
-<p>Терминология: потеря веса является <em>зависимой переменной</em>, тип диеты - <em>независимая переменная</em>. Зависимая переменная - непрерывная, независимая - категориальная.</p>
-<p><strong>1 этап: формулировка нулевой и альтернативной гипотезы.</strong></p>
-<p>H<sub>0</sub>: все средние равны. <span class="math inline">\(\mu_1 = \mu_2 = \mu_3\)</span></p>
-<p>H<sub>1</sub>: хотя бы одно среднее не равно остальным.</p>
-<p>Для начала проверим, сколько наблюдений для каждой из диет:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>diet <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">count</span>(Diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-   Diet     n
-  &lt;dbl&gt; &lt;int&gt;
-1     1    24
-2     2    27
-3     3    27</code></pre>
-</div>
-</div>
-<p>3 группы. Данные сбалансированы (то есть примерно одинаковое количество наблюдений для каждой группы), это важно для дисперсионного анализа.</p>
-</section>
-<section id="однофакторный-дисперсионный-анализ-подготовка-данных" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: подготовка данных</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">slice_sample</span>(diet, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 7
-  Person gender   Age Height pre.weight  Diet weight6weeks
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
-1     48      1    40    171         79     2         72.9
-2     56      0    36    160         66     3         58.2
-3     31      0    20    169         62     2         55  
-4     45      1    45    160         78     2         72.7
-5     77      1    40    167         87     3         77.8</code></pre>
-</div>
-</div>
-<p>Нам нужно создать переменную, отражающую потерю веса, перекодировать тип диеты в фактор и удалить пропущенные значения.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>diet <span class="ot">&lt;-</span> diet <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">mutate</span>(<span class="at">weight_loss =</span> weight6weeks <span class="sc">-</span> pre.weight,</span>
-<span id="cb31-3"><a href="#cb31-3"></a>         <span class="at">Dietf =</span> <span class="fu">factor</span>(Diet, <span class="at">labels =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]),</span>
-<span id="cb31-4"><a href="#cb31-4"></a>         <span class="at">Person =</span> <span class="fu">factor</span>(Person)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="визуализация-данных" class="slide level2">
-<h2>Визуализация данных</h2>
-<p>Попробуем отрисовать боксплот:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>diet <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Dietf, weight_loss, <span class="at">fill =</span> Dietf))<span class="sc">+</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="statR_lecture8_files/figure-revealjs/unnamed-chunk-20-1.png" width="3000" class="r-stretch"><p>Похоже, что диета C отличается от остальных. Давайте теперь проверим статистически!</p>
-</section>
-<section id="однофакторный-дисперсионный-анализ-код" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: код</h2>
-<p>Используем встроенную в base R функцию <code>aov()</code> (analysis of variance).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">aov</span>(weight_loss <span class="sc">~</span> Dietf, <span class="at">data =</span> diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call:
-   aov(formula = weight_loss ~ Dietf, data = diet)
-
-Terms:
-                   Dietf Residuals
-Sum of Squares   60.5270  410.4018
-Deg. of Freedom        2        73
-
-Residual standard error: 2.371064
-Estimated effects may be unbalanced</code></pre>
-</div>
-</div>
-</section>
-<section id="однофакторный-дисперсионный-анализ-формула" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: формула</h2>
-<table>
-<colgroup>
-<col style="width: 13%">
-<col style="width: 14%">
-<col style="width: 22%">
-<col style="width: 27%">
-<col style="width: 22%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Степени свободы</th>
-<th>Суммы квадратов</th>
-<th>Средние квадраты</th>
-<th>F-статистика</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Межгрупповые</td>
-<td><span class="math inline">\(df_{b} = J - 1\)</span></td>
-<td><span class="math inline">\(SS_{b}\)</span></td>
-<td><span class="math inline">\(MS_{b} =\frac{SS_{b}}{df_{b}}\)</span></td>
-<td><span class="math inline">\(F=\frac{MS_{b}}{MS_{w}}\)</span></td>
-</tr>
-<tr class="even">
-<td>Внутригрупповые</td>
-<td><span class="math inline">\(df_{w} = N - J\)</span></td>
-<td><span class="math inline">\(SS_{w}\)</span></td>
-<td><span class="math inline">\(MS_{w} =\frac{SS_{w}}{df_{w}}\)</span></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Общие</td>
-<td><span class="math inline">\(df_{t} = N - 1\)</span></td>
-<td><span class="math inline">\(SS_{t}= SS_{b} + SS_{w}\)</span></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><span class="math inline">\(J\)</span> означает количество групп, <span class="math inline">\(N\)</span> - общее количество наблюдений во всех группах.</p>
-</section>
-<section id="однофакторный-дисперсионный-анализ-формула-1" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: формула</h2>
-<table>
-<colgroup>
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 47%">
-<col style="width: 18%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Степени свободы</th>
-<th>Суммы квадратов</th>
-<th>Средние квадраты</th>
-<th>F-статистика</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Межгрупповые</td>
-<td><span class="math inline">\(df_{b} = J - 1\)</span></td>
-<td><span class="math inline">\(SS_{b}= \sum\limits_{j=1}^J \sum\limits_{i=1}^{n_j} (\overline{x_j}-\overline{x})^2\)</span></td>
-<td><span class="math inline">\(MS_{b} =\frac{SS_{b}}{df_{b}}\)</span></td>
-<td><span class="math inline">\(F=\frac{MS_{b}}{MS_{w}}\)</span></td>
-</tr>
-<tr class="even">
-<td>Внутригрупповые</td>
-<td><span class="math inline">\(df_{w} = N - J\)</span></td>
-<td><span class="math inline">\(SS_{w}= \sum\limits_{j=1}^J \sum\limits_{i=1}^{n_j} (x_{ij}-\overline{x_j})^2\)</span></td>
-<td><span class="math inline">\(MS_{w} =\frac{SS_{w}}{df_{w}}\)</span></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Общие</td>
-<td><span class="math inline">\(df_{t} = N - 1\)</span></td>
-<td><span class="math inline">\(SS_{t}= \sum\limits_{j=1}^J \sum\limits_{i=1}^{n_j} (x_{ij}-\overline{x})^2\)</span></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><span class="math inline">\(n_j\)</span> означает количество наблюдений в группе <span class="math inline">\(j\)</span>, а <span class="math inline">\(x_{ij}\)</span> - наблюдение под номером <span class="math inline">\(i\)</span> в группе <span class="math inline">\(j\)</span>.</p>
-</section>
-<section id="однофакторный-дисперсионный-анализ-формула-2" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: формула</h2>
-<p>Вариабельность обозначается <span class="math inline">\(SS\)</span> и означает “сумму квадратов” (sum of squares) - почти тоже самое, что и дисперсия, только мы не делим в конце на количество наблюдений:</p>
-<p><span class="math display">\[
-SS = \sum\limits_{i=1}^{n_j} (x_{i}-\overline{x})^2
-\]</span></p>
-<p>Попробуем рассчитать самостоятельно по формулам, используя R.</p>
-</section>
-<section id="однофакторный-дисперсионный-анализ-код-1" class="slide level2">
-<h2>Однофакторный дисперсионный анализ: код</h2>
-<p>Сохраним результат вызова <code>aov()</code> в переменную <code>fit_diet</code>, чтобы вызвать <code>summary()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>fit_diet <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight_loss <span class="sc">~</span> Dietf, <span class="at">data =</span> diet)</span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="fu">summary</span>(fit_diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)   
-Dietf        2   60.5  30.264   5.383 0.0066 **
-Residuals   73  410.4   5.622                  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>p-value &lt; 0.05, следовательно, мы отклоняем нулевую гипотезу. Какие диеты отличаются между собой?</p>
-</section>
-<section id="постхок-тесты-для-дисперсионного-анализа" class="slide level2" style="font-size: 90%">
-<h2>Постхок-тесты для дисперсионного анализа</h2>
-<p>Рекомендую использовать поправку Тьюки для определения, какие именно группы различаются.</p>
-<p>Поправка Тьюки похожа на тест Стьюдента, однако различается формула расчета стандартного отклонения в знаменателе, поскольку учитывается вклад всех групп.</p>
-<p>Функция <code>TukeyHSD()</code> принимает на вход объект класса <code>aov</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">TukeyHSD</span>(fit_diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Tukey multiple comparisons of means
-    95% family-wise confidence level
-
-Fit: aov(formula = weight_loss ~ Dietf, data = diet)
-
-$Dietf
-         diff       lwr        upr     p adj
-B-A  0.032000 -1.589085  1.6530850 0.9987711
-C-A -1.848148 -3.439554 -0.2567422 0.0188047
-C-B -1.880148 -3.454614 -0.3056826 0.0152020</code></pre>
-</div>
-</div>
-<p>Итак, мы видим, что диета C отличается от A и от B, диеты A и B между собой не различаются.</p>
-<p>В литературе по статистике можно встретить “правило”, якобы нельзя использовать поправку Тьюки перед выполнением ановы, но на самом деле это не так, если задача узнать, какие групры различаются, то можно использовать сразу Тьюки.</p>
-</section>
-<section id="спасибо-за-внимание" class="slide level2">
-<h2>Спасибо за внимание!</h2>
-<p>Если понравилось, переходите по <a href="https://www.tinkoff.ru/rm/ubogoeva.elena1/TSRBI31474">ссылке</a>:</p>
-
-
-<img data-src="images/qrcode.png" class="r-stretch"><div class="footer footer-default">
+<div class="footer footer-default">
 
 </div>
 </section></section>
