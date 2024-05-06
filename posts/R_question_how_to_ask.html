@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Elena U">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2022-12-02">
 
-<title>R4Analytics - Как добавить яндекс-метрику на сайт Quarto</title>
+<title>R4Analytics - Как задать хороший вопрос в R чате?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,9 +141,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Как добавить яндекс-метрику на сайт Quarto</h1>
+      <h1 class="title">Как задать хороший вопрос в R чате?</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">analytics</div>
+                <div class="quarto-category">R</div>
               </div>
                   </div>
   </div>
@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 16, 2024</p>
+        <p class="date">December 2, 2022</p>
       </div>
     </div>
     
@@ -197,33 +197,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Всем привет!</p>
-<p>В какой-то момент мне стало интересно, как работает яндекс-метрика для веб-аналитики, и я решила попробовать это сделать на своем сайте со статьями по R.</p>
-<p>Пошаговая инструкция:</p>
-<ol type="1">
-<li><p>Для начала нужно создать счетчик на <a href="https://metrika.yandex.ru/list">сайте</a> метрики, вписать туда URL сайта, принять условия соглашения и тп.</p>
-<p>Появится уникальный номер счетчика и код счетчика в JavaScript, который нужно добавить на сайт в пределах тегов &lt;head&gt;&lt;/head&gt; или &lt;body&gt;&lt;/body&gt;. Как это сделать в Quarto-сайте не было написано, но все оказалось очень просто и изящно.</p></li>
-<li><p>Нужно сохранить вышеприведенный код счетчика в файл <code>.js</code> в директории проекта сайта например с названием <code>metrics.js</code>.</p></li>
-<li><p>В файле <code>_quarto.yml</code>, где хранятся основные настройки сайта вписать:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">include-before-body</span><span class="kw">:</span><span class="at"> &lt;path_to_file/metrics.js&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Проверить, что счетчик установлен на странице метрики, если все сделано правильно, то по ссылке появится всплывающее окно о том, что счетчик активен.</p></li>
-<li><p>Анализировать аналитику сайта.</p></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Для русскоязычного R-комьюнити есть два больших чата: <a href="https://t.me/rlang_ru">R (язык программирования)</a> и <a href="https://t.me/hotlineR_EU">Горячая линия R</a>. Здесь я бы хотела поделиться своим опытом задавания вопросов и создания воспроизводимых примеров (reprex, репрекс).</p>
+<p>Reprex (<u>repr</u>oducible <u>ex</u>ample) – это минимальный пример кода, воспроизводящий ошибку или описывающий, что требуется сделать.</p>
+<p>Такой пример кода удобно копируется в чат с соответствующим форматированием, его легко читать и можно сразу же скопировать себе, чтобы попробовать помочь.</p>
+<p>Для создания репрексов рекомендуется использовать одноименный пакет <a href="https://reprex.tidyverse.org/"><code>reprex</code></a>.</p>
+<p>Установка: <code>install.packages('reprex')</code></p>
+<p>Далее я обычно даже не загружаю пакет, а сразу пишу <code>reprex::reprex()</code>. Вариантов использования функции несколько, лично мне удобнее всего оказалось писать нужные строчки кода внутри фигурных скобок функции <code>reprex::reprex({})</code>.</p>
+<p>У репрекса есть три важных свойства:</p>
+<ul>
+<li>код должен работать (то есть все пакеты загружены и все переменные объявлены)</li>
+<li>код легко запустить (никаких скриншотов и копирования из консоли со знаком <code>&gt;</code>)</li>
+<li>код можно не запускать (в репрексе есть аутпут, и можно понять в чем ошибка, даже без запуска кода)</li>
+</ul>
+<p>Например:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>reprex<span class="sc">::</span><span class="fu">reprex</span>({</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(mpg <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarise</span>(mpg)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Google-analytics
+<p>При попытке запустить такой код у меня сразу появилось, что нет функции <code>%&gt;%</code>, даже если пайп работал до этого. Репрекс создает совершенно новую сессию и поэтому необходимо загрузить все пакеты и объявить все переменные, даже если они уже были загружены и объявлены в скрипте. Соответственно, от своих реальных данных, на которых произошла ошибка, нужно взять минимальный воспроизводимый пример. Обычно я создаю игрушечные датасеты <code>df &lt;- data.frame(a  = 1:10, b = letters[1:10])</code>, на которых воссоздаю ошибку. Также можно использовать встроенные датасеты, например <code>mtcars</code>, <code>iris</code>.</p>
+<p>Созданный с помощью функции <code>reprex::reprex()</code> код можно сразу же копировать в телеграм-чат, оформление как код будет сразу же задано с помощью трех бэктиков ```. Однако в новых версиях телеграма появилась подсветка синтаксиса, если вставить код с указанием языка после трех бэктиков ```r, что максимально облегчает работу с кодом и повышает вероятность, что вам смогут помочь с запросом.</p>
+<p>В случае если данные все же очень сложные, то можно воспользоваться функцией <code>dput</code>. Например, взять первые несколько строк <code>head</code>-ом и поместить в <code>dput</code>: <code>dput(head(mtcars))</code>, где вместо mtcars ваши данные. В результате будет сложная выдача <code>structure(list...)</code>, которую можно скопировать и в репрексе создать такую переменную.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reprex<span class="sc">::</span><span class="fu">reprex</span>({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(dplyr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">mpg =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="fl">22.8</span>, <span class="fl">21.4</span>, <span class="fl">18.7</span>, <span class="fl">18.1</span>), <span class="at">cyl =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>), </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">disp =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">160</span>, <span class="dv">108</span>, <span class="dv">258</span>, <span class="dv">360</span>, <span class="dv">225</span>), <span class="at">hp =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">110</span>, <span class="dv">93</span>, <span class="dv">110</span>, <span class="dv">175</span>, <span class="dv">105</span>), </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drat =</span> <span class="fu">c</span>(<span class="fl">3.9</span>, <span class="fl">3.9</span>, <span class="fl">3.85</span>, <span class="fl">3.08</span>, <span class="fl">3.15</span>, <span class="fl">2.76</span>), <span class="at">wt =</span> <span class="fu">c</span>(<span class="fl">2.62</span>, <span class="fl">2.875</span>, <span class="fl">2.32</span>, <span class="fl">3.215</span>, <span class="fl">3.44</span>, <span class="fl">3.46</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">qsec =</span> <span class="fu">c</span>(<span class="fl">16.46</span>, <span class="fl">17.02</span>, <span class="fl">18.61</span>, <span class="fl">19.44</span>, <span class="fl">17.02</span>, <span class="fl">20.22</span>), <span class="at">vs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">gear =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">carb =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)), </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Mazda RX4"</span>, <span class="st">"Mazda RX4 Wag"</span>, <span class="st">"Datsun 710"</span>, <span class="st">"Hornet 4 Drive"</span>, <span class="st">"Hornet Sportabout"</span>, <span class="st">"Valiant"</span>), <span class="at">class =</span> <span class="st">"data.frame"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mpg <span class="sc">&gt;</span> <span class="dv">20</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Google-аналитику можно было прикрепить на сайт относительно <a href="https://quarto.org/docs/websites/website-tools.html#google-analytics">нативным образом</a>, встроенным в Quarto.</p>
-</div>
-</div>
+<p>При таком подходе рекомендуется постараться минимизировать пример, максимально изолировать ошибку, чтобы было удобнее читать и помогать.</p>
+<p>Если вопрос не об ошибке, а о том, что нужно сделать, то желательно показать ход мысли, как пытались решить самостоятельно, и можно создать образец данных, которые нужно получить. Вот пара примеров (<a href="https://t.me/rlang_ru/102330">здесь</a> и <a href="https://t.me/rlang_ru/151373">здесь</a>) моих вопросов в чате R.</p>
+<p>Вообще создание репрекса может занять много времени, но это является крайне полезным. Несколько раз я начинала писать вопрос, создавала репрекс и на этапе создания понимала, в чем ошибка, в итоге репрекс помог сам по себе, даже без обращения к участникам чатов. Один раз успела отправить сообщение и при перечитывании поняла, что было не так, но мне уже успели ответить, не стала удалять.</p>
+<p>Ответы на часто (один раз) задаваемые вопросы:</p>
+<p><em>Вопрос 1</em>: почему бы просто не скинуть таблицу и образец своего скрипта, тогда можно будет сразу на реальных данных показать все?</p>
+<p><em>Ответ</em>: мне кажется неудобным сохранять данные, сохранять скрипт себе, загружать таблицу заново, когда можно было бы просто скопировать из чата, не забивая себе файловую систему.</p>
+<p><em>Вопрос 2</em>: почему бы не использовать <code>.RData</code>?</p>
+<p><em>Ответ</em>: в целом, рдату использовать чуть лучше, но все же минусы про файловую систему остаются актуальными. Плюс идея репрекса в минимизации и изолировании примера, чтобы оставались только проблемные строки и столбцы, для фокусировки внимания.</p>
+<p>Еще парочка ссылок: <a href="https://www.tidyverse.org/help/">инструкция</a> от Хэдли, <a href="https://mastering-shiny.org/action-workflow.html?q=help#reprex-basics">пример</a> создания репрекса на shiny, <a href="https://reprex.tidyverse.org/articles/learn-reprex.html">слайды</a> и 50-минутное видео о репрексах от Дженни Брайан (презентация очень крутая, наиболее информативная, советую посмотреть).</p>
+<p>В общем, рекомендую использовать этот подход, тогда освоение R будет более приятным и успешным. На стаковерфлоу результат репрекса тоже можно забрасывать, я думаю, но возможно туда еще нужно указать результаты <code>sessionInfo()</code> (поправьте в комментариях, если не так). Сама новые вопросы на стаковерфлоу не писала, хватает обычно уже существующих для моих задач.</p>
+<p>Подписывайтесь на телеграм-канал: <a href="https://t.me/stats_for_science" class="uri">https://t.me/stats_for_science</a>, будет много интересного.</p>
+<p><img src="..\images/logo_final_tlg.png" class="img-fluid"></p>
 
 
 

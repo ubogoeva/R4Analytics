@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/about.html</loc>
-    <lastmod>2024-04-25T05:27:27.539Z</lastmod>
+    <lastmod>2024-05-06T17:14:47.469Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/index.html</loc>
-    <lastmod>2024-04-25T05:27:28.434Z</lastmod>
+    <lastmod>2024-05-06T17:14:48.243Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</loc>
-    <lastmod>2024-04-25T05:27:42.956Z</lastmod>
+    <lastmod>2024-05-06T17:15:03.999Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</loc>
+    <lastmod>2024-05-06T17:15:05.188Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
-    <lastmod>2024-04-25T05:27:45.018Z</lastmod>
+    <lastmod>2024-05-06T17:15:07.416Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</loc>
-    <lastmod>2024-04-25T05:27:45.543Z</lastmod>
+    <lastmod>2024-05-06T17:15:07.928Z</lastmod>
   </url>
 </urlset>
