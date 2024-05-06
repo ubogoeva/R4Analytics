@@ -19,6 +19,7 @@ format:
     theme: yeti
     css: styles.css
     toc: true
+    include-before-body: YMetrics/metrics.js
 
 editor: visual
 
