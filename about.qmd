@@ -2,7 +2,7 @@
 title: "Об авторе блога"
 image: photo_EU_upd.jpg
 about:
-  template: jolla
+  template: marquee
   links:
     - icon: linkedin
       text: LinkedIn
@@ -15,7 +15,7 @@ about:
       href: https://t.me/stats_for_science
 ---
 
-Меня зовут Елена Убогоева. Я биоинформатик, R-энтузиаст, а в настоящий момент работаю дата-аналитиком в [X5Tech](https://www.x5-tech.ru/). Веду [телеграм-канал](https://t.me/stats_for_science), посвященный R и статистике, преподаю на курсах [Blastim](https://agency.blastim.ru/educenter): "[Статистика, R и анализ данных](#0)" и "[Анализ данных RNA-seq](https://agency.blastim.ru/rna-seq)".
+Меня зовут Елена Убогоева. Я биоинформатик, R-энтузиаст, а в настоящий момент работаю дата-аналитиком в [X5Tech](https://www.x5-tech.ru/), в управлении централизированного мониторинга. Веду [телеграм-канал](https://t.me/stats_for_science), посвященный R и статистике, преподаю на курсах [Blastim](https://agency.blastim.ru/educenter): "[Статистика, R и анализ данных](https://agency.blastim.ru/stat_r)" и "[Анализ данных RNA-seq](https://agency.blastim.ru/rna-seq)".
 
 Этот блог создан с помощью Quarto и будет содержать материалы и статьи, которые были ранее написаны в телеграм-канале.
 
@@ -30,10 +30,26 @@ about:
 Новосибирский государственный университет \| Новосибирск\
 Бакалавриат по направлению цитологии и генетики \| 2014 - 2018
 
+## Преподавание
+
+-   [Статистика, R и анализ данных](https://agency.blastim.ru/stat_r) от Blastim, учебный ассистент и лектор дополнительных занятий, с 2022 по настоящее время.
+
+-   [Анализ данных RNA-seq](https://agency.blastim.ru/rna-seq) от Blastim, лектор, октябрь - ноябрь 2023 года.
+
+-   [Статистика для селекционеров](https://t.me/seedsforall/162), лектор и ведущий курса, февраль - апрель 2024 года.
+
+-   Записываю лекции на ютубе, плейлист по [ссылке](https://www.youtube.com/watch?v=o1SI_RPa4jI&list=PL8nkomsB9uVNL4L7LYvBFT_h-UfHIRzmf).
+
+-   Веду индивидуальные занятия по R, статистике и биоинформатике, отчет по итогам 2022-2023 года можно посмотреть [здесь](https://t.me/stats_for_science/79).
+
+-   Предыдущие проекты можно посмотреть [здесь](https://t.me/stats_for_science/40).
+
 ## Список публикаций:
 
-1.  Lavrekha, V. V., Levitsky, V. G., Tsukanov, A. V., Bogomolov, A. G., Grigorovich, D. A., Omelyanchuk, N., **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Mironova, V. (2022). CisCross: A gene list enrichment analysis to predict upstream regulators in Arabidopsis thaliana. *Frontiers in plant science*, 13, 942710. https://doi.org/10.3389/fpls.2022.942710
+1.  Samalova, M., Melnikava, A., Elsayad, K., Peaucelle, A., Gahurova, E., Gumulec, J., Spyroglou, I., Zemlyanskaya, E. V., **Ubogoeva, E. V.**, Balkova, D., Demko, M., Blavet, N., Alexiou, P., Benes, V., Mouille, G., & Hejatko, J. (2023). Hormone-regulated expansins: Expression, localization, and cell wall biomechanics in Arabidopsis root growth. *Plant physiology*, *194*(1), 209--228. https://doi.org/10.1093/plphys/kiad228
 
-2.  **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Xu, J., Mironova, V. (2021). Mechanisms of stress response in the root stem cell niche. *Journal of experimental botany*, 72(*19*), 6746--6754. https://doi.org/10.1093/jxb/erab274
+2.  Lavrekha, V. V., Levitsky, V. G., Tsukanov, A. V., Bogomolov, A. G., Grigorovich, D. A., Omelyanchuk, N., **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Mironova, V. (2022). CisCross: A gene list enrichment analysis to predict upstream regulators in Arabidopsis thaliana. *Frontiers in plant science*, 13, 942710. https://doi.org/10.3389/fpls.2022.942710
 
-3.  Zemlyanskaya, E. V., Omelyanchuk, N. A., **Ubogoeva, E. V.**, Mironova, V. V. (2018). Deciphering Auxin-Ethylene Crosstalk at a Systems Level. *International journal of molecular sciences*, 19(*12*), 4060. https://doi.org/10.3390/ijms19124060
+3.  **Ubogoeva, E. V.**, Zemlyanskaya, E. V., Xu, J., Mironova, V. (2021). Mechanisms of stress response in the root stem cell niche. *Journal of experimental botany*, 72(*19*), 6746--6754. https://doi.org/10.1093/jxb/erab274
+
+4.  Zemlyanskaya, E. V., Omelyanchuk, N. A., **Ubogoeva, E. V.**, Mironova, V. V. (2018). Deciphering Auxin-Ethylene Crosstalk at a Systems Level. *International journal of molecular sciences*, 19(*12*), 4060. https://doi.org/10.3390/ijms19124060
