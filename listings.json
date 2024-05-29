@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/contest_samokat.html",
       "/posts/YandexMetricsQuarto.html",
       "/posts/multiple_testing.html",
       "/posts/R_question_how_to_ask.html",

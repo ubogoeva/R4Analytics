@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R4Analytics - Решение контеста самокат</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo_site.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R4Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">Об авторе блога</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Решение контеста самокат</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#продуктовые-вопросы" id="toc-продуктовые-вопросы" class="nav-link active" data-scroll-target="#продуктовые-вопросы">Продуктовые вопросы</a>
+  <ul class="collapse">
+  <li><a href="#как-определить-какой-продавец-мошенник-а-какой-нет-какие-ещё-могут-быть-схемы-мошенничества" id="toc-как-определить-какой-продавец-мошенник-а-какой-нет-какие-ещё-могут-быть-схемы-мошенничества" class="nav-link" data-scroll-target="#как-определить-какой-продавец-мошенник-а-какой-нет-какие-ещё-могут-быть-схемы-мошенничества">Как определить, какой продавец мошенник, а какой — нет? Какие ещё могут быть схемы мошенничества?</a></li>
+  <li><a href="#какие-продуктовые-фичи-могут-помочь-нашим-клиентам-избежать-неприятных-ситуаций-с-мошенничеством" id="toc-какие-продуктовые-фичи-могут-помочь-нашим-клиентам-избежать-неприятных-ситуаций-с-мошенничеством" class="nav-link" data-scroll-target="#какие-продуктовые-фичи-могут-помочь-нашим-клиентам-избежать-неприятных-ситуаций-с-мошенничеством">Какие продуктовые фичи могут помочь нашим клиентам избежать неприятных ситуаций с мошенничеством?</a></li>
+  <li><a href="#через-какую-механику-мошенник-узнает-контакты-покупателя-что-можем-сделать-чтобы-усложнить-жизнь-фродерам" id="toc-через-какую-механику-мошенник-узнает-контакты-покупателя-что-можем-сделать-чтобы-усложнить-жизнь-фродерам" class="nav-link" data-scroll-target="#через-какую-механику-мошенник-узнает-контакты-покупателя-что-можем-сделать-чтобы-усложнить-жизнь-фродерам">Через какую механику мошенник узнает контакты покупателя? Что можем сделать, чтобы усложнить жизнь фродерам?</a></li>
+  </ul></li>
+  <li><a href="#дизайн-ab-тестов" id="toc-дизайн-ab-тестов" class="nav-link" data-scroll-target="#дизайн-ab-тестов">Дизайн A/B тестов</a>
+  <ul class="collapse">
+  <li><a href="#определите-основную-метрику-дополнительные-метрики-и-принцип-разделения-на-группы" id="toc-определите-основную-метрику-дополнительные-метрики-и-принцип-разделения-на-группы" class="nav-link" data-scroll-target="#определите-основную-метрику-дополнительные-метрики-и-принцип-разделения-на-группы">Определите основную метрику (дополнительные метрики) и принцип разделения на группы</a></li>
+  <li><a href="#рассчитайте-какой-эффект-можно-статистически-значимо-отследить.-укажите-его" id="toc-рассчитайте-какой-эффект-можно-статистически-значимо-отследить.-укажите-его" class="nav-link" data-scroll-target="#рассчитайте-какой-эффект-можно-статистически-значимо-отследить.-укажите-его">Рассчитайте, какой эффект можно статистически значимо отследить. Укажите его</a></li>
+  <li><a href="#расчет-необходимого-количества-недель-проведения-теста" id="toc-расчет-необходимого-количества-недель-проведения-теста" class="nav-link" data-scroll-target="#расчет-необходимого-количества-недель-проведения-теста">Расчет необходимого количества недель проведения теста</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(97025960, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+<section id="продуктовые-вопросы" class="level2">
+<h2 class="anchored" data-anchor-id="продуктовые-вопросы">Продуктовые вопросы</h2>
+<section id="как-определить-какой-продавец-мошенник-а-какой-нет-какие-ещё-могут-быть-схемы-мошенничества" class="level3">
+<h3 class="anchored" data-anchor-id="как-определить-какой-продавец-мошенник-а-какой-нет-какие-ещё-могут-быть-схемы-мошенничества">Как определить, какой продавец мошенник, а какой — нет? Какие ещё могут быть схемы мошенничества?</h3>
+<p>Мы можем предположить, что продавец мошенник по следующим признакам:</p>
+<ol type="1">
+<li>Нереалистично низкая цена на товар (например, скидка больше 30% относительно рыночной цены товаров или больше 2 сигм относительно таких же товаров от других продавцов).</li>
+<li>Аккаунт продавца недавно создан, с большим количеством дорогих товаров (особенно в сочетании с первым пунктом о слишком большой скидке на них).</li>
+<li>Недостаточно много отзывов о продавце (но это будет у любого недавно зарегистрировавшегося продавца).</li>
+<li>Если зафиксированы попытки продавца общаться с покупателем вне площадки (можно установить при анализе общения во внутреннем мессенджере платформы).</li>
+<li>Использование данных ИНН, которые уже использовались на площадке.</li>
+<li>Нетипичное поведение после регистрации, аномальная динамика роста количества заказов</li>
+</ol>
+<p>Весьма вероятно, что модель машинного обучения будет обучена на этих и других признаках для определения мошенников.</p>
+<p>Другие возможные схемы мошенничества:</p>
+<ol type="1">
+<li>Продажа поддельных товаров известных брендов.</li>
+<li>Регистрация нескольких пользовательских аккаунтов мошенника, где происходит накрутка истории заказов и повышение рейтинга мошенника.</li>
+<li>Фишинговые ссылки, где покупатель переходит на подставной сайт и у него воруют личные данные и данные банковских карт.</li>
+<li>“Схема с предоплатой”. Мошенник требует предоплату за товар и после ее получения пропадает, товар оказывается не выслан, и мошенник был зарегистрирован не под своим именем (данные продавца украдены из слитых баз).</li>
+<li>Фишинговые электронные письма с “выгодными” предложениями, которые маскируются под настоящие письма от маркетплейса, но ведут не на тот сайт, который будет красть данные банковских карт.</li>
+</ol>
+<p>Для борьбы с мошенниками можно использовать как автоматические системы (ML модели), так и ручной контроль (модерацию объявлений, проверку продавцов и товаров).</p>
+</section>
+<section id="какие-продуктовые-фичи-могут-помочь-нашим-клиентам-избежать-неприятных-ситуаций-с-мошенничеством" class="level3">
+<h3 class="anchored" data-anchor-id="какие-продуктовые-фичи-могут-помочь-нашим-клиентам-избежать-неприятных-ситуаций-с-мошенничеством">Какие продуктовые фичи могут помочь нашим клиентам избежать неприятных ситуаций с мошенничеством?</h3>
+<ol type="1">
+<li>Система рейтинга и отзывов: Позволяет покупателям делиться своим опытом и оценивать продавцов. При этом, должна быть возможность проверки и модерации отзывов, чтобы предотвратить их фальсификацию.</li>
+<li>Тщательная проверка продавцов. Например, при активации продавца требовать скан паспорт и селфи с паспортом с листом, где написана текущая дата и сервис, чтобы подтвердить личность продавца. Такая система верификации реализована в <a href="https://lightdoc.io/ru">LightDoc</a>. В итоге, если продавец оказался мошенником, то есть его документы и фотография, а селфи с указанием текущей даты защищает от использования слитых баз данных с паспортными данными.</li>
+<li>Безопасная сделка со стороны маркетплейса. Покупатель переводит деньги на специальный счет маркетплейса, и они перечисляются продавцу только после того, как покупатель подтвердил получение товара (как в p2p криптовалютных биржах).</li>
+<li>Чат на платформе: Все общение между продавцом и покупателем происходит внутри платформы. Это позволяет контролировать переписку и предотвратить попытки мошенничества. Например, так реализовано в <a href="https://www.avito.ru/">Avito</a>.</li>
+<li>Автоматический анализ объявлений: Использование AI для анализа объявлений и выявления подозрительных. Например, если цена товара сильно отличается от среднерыночной (больше чем на 2 сигмы), объявление может быть автоматически помечено как подозрительное.</li>
+<li>Возможность жалобы на продавца: Покупатели должны иметь возможность быстро и легко отправить жалобу на продавца, если они считают, что стали жертвами мошенничества.</li>
+<li>Информационная поддержка: Разъяснение клиентам о типичных схемах мошенничества и о том, как себя вести в таких ситуациях.</li>
+<li>Скрытие контактных данных покупателя.</li>
+</ol>
+</section>
+<section id="через-какую-механику-мошенник-узнает-контакты-покупателя-что-можем-сделать-чтобы-усложнить-жизнь-фродерам" class="level3">
+<h3 class="anchored" data-anchor-id="через-какую-механику-мошенник-узнает-контакты-покупателя-что-можем-сделать-чтобы-усложнить-жизнь-фродерам">Через какую механику мошенник узнает контакты покупателя? Что можем сделать, чтобы усложнить жизнь фродерам?</h3>
+<p>На большинстве площадок контактные данные покупателя становятся доступны продавцу после оформления заказа. Мошенник может также попытаться узнать контакты покупателя, предлагая ему общаться вне платформы, например, через личные сообщения, электронную почту или телефон.</p>
+<p>Чтобы усложнить жизнь фродерам, можно предпринять следующие шаги:</p>
+<ol type="1">
+<li>Скрыть контактные данные покупателя и использовать алгоритм подмены номера с переадресацией. Таким образом, фродер не сможет написать напрямую в мессенджер whatsapp или telegram. При звонках будет озвучиваться предупреждение, что это звонок от маркетплейса.</li>
+<li>Рекомендовать покупателям и продавцам использовать только внутреннюю систему сообщений. Это поможет защитить личные данные пользователей, и позволит модераторам отслеживать возможные попытки мошенничества.</li>
+<li>Предупреждение пользователей: Информировать пользователей о рисках, связанных с предоставлением своих контактных данных третьим лицам.</li>
+<li>Блокировка ссылок и контактов в сообщениях: В сообщениях между продавцом и покупателем можно запретить отправку ссылок и контактных данных.</li>
+<li>Верификация продавцов: Проверять продавцов при регистрации, требуя подтверждения их личности и банковских реквизитов.</li>
+<li>“Безопасная сделка”: Внедрение системы, при которой деньги переводятся продавцу только после подтверждения получения товара покупателем.</li>
+<li>Использование алгоритмов машинного обучения для выявления подозрительной активности: Это может включать в себя анализ поведения пользователей и продавцов, анализ текста сообщений и так далее.</li>
+<li>Быстрая блокировка и удаление аккаунтов, замеченных в мошенничестве.</li>
+<li>Постоянное обновление и улучшение системы безопасности, регулярный мониторинг и анализ активности на платформе.</li>
+</ol>
+</section>
+</section>
+<section id="дизайн-ab-тестов" class="level2">
+<h2 class="anchored" data-anchor-id="дизайн-ab-тестов">Дизайн A/B тестов</h2>
+<section id="определите-основную-метрику-дополнительные-метрики-и-принцип-разделения-на-группы" class="level3">
+<h3 class="anchored" data-anchor-id="определите-основную-метрику-дополнительные-метрики-и-принцип-разделения-на-группы">Определите основную метрику (дополнительные метрики) и принцип разделения на группы</h3>
+<p>Из чата ответ на вопрос:</p>
+<pre><code>Цель - поймать всех фродеров на этапе онбординга
+
+Если правильно понял вопрос, то количество регистраций останется такое же, мы надеемся, что упадет количество активированных фродеров</code></pre>
+<p>Далее терминологически группа с ML-моделью будет называться экспериментальная или B-группа, с ручным определением – контрольная (A-группа).</p>
+<section id="определение-метрик" class="level4">
+<h4 class="anchored" data-anchor-id="определение-метрик">Определение метрик</h4>
+<p>Основные (core) метрики:</p>
+<ul>
+<li>Доля активированных фродеров. Ожидаем, что эта доля будет статистически значимо ниже в группе с ML-моделью по сравнению с ручным определением.</li>
+</ul>
+<p>Дополнительные прокси метрики:</p>
+<ul>
+<li><p>Количество жалоб от покупателей на мошенничество: ожидаем, что эта метрика как минимум не должна расти в экспериментальной группе, а лучше если снизится.</p></li>
+<li><p>Среднее время выявления мошенника: ожидаем, что оно снизится в группе с применением модели (и не увеличится).</p></li>
+</ul>
+<p>Дополнительные warning метрики:</p>
+<ul>
+<li><p>Доля жалоб обычных мерчантов, которых незаслуженно заблокировали. Ожидаем, что эта метрика не начнет расти.</p></li>
+<li><p>Среднее время продавца на прохождение активации: не должно увеличиться в экспериментальной группе.</p></li>
+<li><p>Количество возвратов средств: не должно быть выше в экспериментальной группе</p></li>
+</ul>
+</section>
+<section id="принцип-разделения-на-группы" class="level4">
+<h4 class="anchored" data-anchor-id="принцип-разделения-на-группы">Принцип разделения на группы</h4>
+<p>У нас неравномерно распределение мерчантов по типу бизнеса: <code>25200</code> наблюдений с типом IE (индивидуальный предприниматель) и <code>9800</code> с типом LLC (общество с ограниченной ответственностью). Кроме этого, распределение доли выявленных мошенников тоже неравномерно:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IE</td>
+<td style="text-align: right;">22330</td>
+<td style="text-align: right;">2374</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LLC</td>
+<td style="text-align: right;">9142</td>
+<td style="text-align: right;">454</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="contest_samokat_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="2100"></p>
+</div>
+</div>
+<p>Если посчитать тест хи-квадрат, чтобы сравнить пропорции фродеров в разных типах бизнеса, то окажется, что они статистически значимо различаются, p-value порядка <code>4.51e-49</code>, следовательно при сплитовании групп для A/B теста нам критически важно сбалансировать долю типов бизнеса.</p>
+<p>Сделать это можно следующим образом: сначала рассчитать пропорцию продавцов каждого вида бизнеса</p>
+<ul>
+<li><p>Для IE: <code>25200 / (25200 + 9800) = 0.72</code> (72% всех продавцов)</p></li>
+<li><p>Для LLC: <code>9800 / (25200 + 9800) = 0.28</code> (28% всех продавцов)</p></li>
+</ul>
+<p>Далее после расчета необходимого количества продавцов рассчитаем деление на группы.</p>
+</section>
+</section>
+<section id="рассчитайте-какой-эффект-можно-статистически-значимо-отследить.-укажите-его" class="level3">
+<h3 class="anchored" data-anchor-id="рассчитайте-какой-эффект-можно-статистически-значимо-отследить.-укажите-его">Рассчитайте, какой эффект можно статистически значимо отследить. Укажите его</h3>
+<p>Зафиксируем значение <span class="math inline">\(\alpha = 0.05\)</span> для уровня значимости и <span class="math inline">\(\beta = 0.8%\)</span> для уровня мощности.</p>
+<p>Обратимся к историческим данным, которые у нас есть.</p>
+<p>На данный момент по этим данным доля фродеров среди <em>активированных</em> пользователей:</p>
+<pre><code>1611 / (18290 + 1611) = 0.0809 ~ 8%</code></pre>
+<p>Мы считаем для бизнеса значимым изменением, если удастся уменьшить долю до 6%. Следовательно, MDE = 8% - 6% = 2% = 0.02</p>
+<p>Рассчитаем по формуле для z-теста необходимый размер выборки:</p>
+<p><span class="math display">\[
+N = \frac{2\sigma^2(z\frac{1-\alpha}{2} + z_{1-\beta})^2}{d_{min}^2}
+\]</span></p>
+<p><span class="math display">\[
+N = \frac{2p(1-p)(z_{0.975} + z_{0.80})^2}{d_{min}^2} = \frac{(2*0.08*0.92)*(1.96+0.84)^2}{0.02^2} = 2876
+\]</span></p>
+<p>Размер выборки получился 2876 человек с округлением, теперь необходимо рассчитать количество недель, в течение которых мы будем проводить A/B тест. Для этого будет опираться на известные данные.</p>
+</section>
+<section id="расчет-необходимого-количества-недель-проведения-теста" class="level3">
+<h3 class="anchored" data-anchor-id="расчет-необходимого-количества-недель-проведения-теста">Расчет необходимого количества недель проведения теста</h3>
+<p>Сначала необходимо исключить из данных продавцов, где <code>registration_date = 1970-01-01</code>. Скорее всего, это продавцы, которые зарегистировались до рассматриваемого в датасете периода, либо некорректные данные. Для расчета среднего количества регистраций в неделю такие наблюдения исключаем.</p>
+<p>Сначала визуализируем полученные результаты, чтобы оценить сезонность в данных:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="contest_samokat_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="4200"></p>
+</div>
+</div>
+<p>Значительной сезонности в течение года не наблюдается, можно рассчитать среднее. Среднее количество регистраций продавцов в неделю получилось ~670. Чтобы набрать 2876 продавцов, нам нужно проводить тест 4.29 недели, с округлением до целого: 5 недель составит длительность проведения A/B теста.</p>
+<p>С учетом неравномерности продавцов по типу бизнеса нужно сделать следующее сплитование:</p>
+<ul>
+<li><p>Количество IE: <code>2876*0.72 = 2070</code> продавец</p></li>
+<li><p>Количество LLC: <code>2876*0.28 = 806</code> продавец</p></li>
+</ul>
+<p>Далее делим пополам: в контрольной и тестовой группе по 1035 продавцов типа IE, и 806 продавцов типа LLC.</p>
+<p>Однако, поскольку эксперимент идет в течение недель, то нам нужно: когда будут приходить новые продавцы регистрироваться, назначать им случайным образом в контрольную или тестовую группу они попадут с приблизительным соблюдением пропорций 72% и 28%. Сделать это можно с помощью функций в python с обязательным сохранением сида случайности, чтобы иметь возможность воспроизвести разделение на группы. Далее, после того как сплитование проведено, нужно убедиться что нужные пропорции сохранились и доля родавцов IE и LLC в контрольной и тестовой группах остались примерно равными.</p>
+<p>​Исходный код решения можно посмотреть <a href="https://github.com/ubogoeva/R4Analytics/blob/master/posts/contest_samokat.qmd">здесь</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

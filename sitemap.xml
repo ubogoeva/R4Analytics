@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/about.html</loc>
-    <lastmod>2024-05-13T14:54:20.155Z</lastmod>
+    <lastmod>2024-05-29T10:48:30.749Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/index.html</loc>
-    <lastmod>2024-05-13T14:54:20.971Z</lastmod>
+    <lastmod>2024-05-29T10:48:31.592Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/ansombe_quartet.html</loc>
-    <lastmod>2024-05-13T14:54:21.814Z</lastmod>
+    <lastmod>2024-05-29T10:48:32.514Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/contest_samokat.html</loc>
+    <lastmod>2024-05-29T10:48:33.364Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</loc>
-    <lastmod>2024-05-13T14:54:31.098Z</lastmod>
+    <lastmod>2024-05-29T10:48:43.414Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</loc>
-    <lastmod>2024-05-13T14:54:31.919Z</lastmod>
+    <lastmod>2024-05-29T10:48:44.250Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
-    <lastmod>2024-05-13T14:54:33.954Z</lastmod>
+    <lastmod>2024-05-29T10:48:46.273Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</loc>
-    <lastmod>2024-05-13T14:54:34.450Z</lastmod>
+    <lastmod>2024-05-29T10:48:46.892Z</lastmod>
   </url>
 </urlset>
