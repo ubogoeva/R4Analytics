@@ -1,0 +1,59 @@
+---
+title: "Пример теста в Quarto"
+#subtitle: 'Фреймворк Quarto для биологов и биоинформатиков'
+author: "Елена Убогоева"
+#date: "Created on 01 April, 2023"
+execute:
+  echo: true
+  output: true
+format: 
+  revealjs:
+    slide-number: c/t
+    highlight-style: github
+    #show-slide-number: all
+    # mainfont: Arial
+    # fontsize: 14px
+    theme: [default, custom.scss]
+    chalkboard: 
+      buttons: true
+    # theme: [serif]
+    # mouse-wheel: true
+    auto-play-media: true
+    width: 1280
+    height: 720
+    fig-dpi: 300
+    # logo: figures/icg.png
+    #logo: "../images/logo_channel.png"
+code-link: true
+css: styles.css
+filters: [bg_style.lua]
+revealjs-plugins:
+  - pointer
+  - quiz
+editor: visual
+draft: true
+---
+
+## Что является необходимым для независимого теста Стьюдента с поправкой Велча (или просто теста Велча, Welch) {.quiz-question}
+
+-   [Нормальность распределения выборок данных]{data-explanation="Необходимо нормальное распределение тестовой статистики"}
+
+-   [Независимость наблюдений]{.correct data-explanation="Ключевое требование, несоблюдение которого может сильно исказить результаты"}
+
+-   [Равенство дисперсий выборок (гомоскедастичность)]{data-explanation="Необязательное требование для теста Велча"}
+
+-   Одинаковый размер выборок
+
+## Какие тесты являются частным случаем обобщенной линейной модели (generalized linear model, GLM)? {.quiz-question}
+
+-   [Линейная регрессия]{.correct}
+
+-   [Дисперсионный анализ (ANOVA)]{.correct}
+
+-   [t-test]{.correct}
+
+-   [Логистическая регрессия]{.correct}
+
+. . .
+
+Подробнее здесь: <https://lindeloev.github.io/tests-as-linear/>
