@@ -1,10 +1,13 @@
 ---
 title: "Решение контеста самокат"
+author: "Elena U"
+date: "2024-05-29"
 format: html
 editor: visual
 toc: true
 toc-depth: 3
 echo: false
+cashe: true
 ---
 
 ```{r}
