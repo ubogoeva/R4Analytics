@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/about.html</loc>
-    <lastmod>2024-05-29T11:36:08.003Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/index.html</loc>
-    <lastmod>2024-05-29T11:36:08.839Z</lastmod>
+    <lastmod>2024-07-12T13:18:34.994Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/ansombe_quartet.html</loc>
-    <lastmod>2024-05-29T11:36:09.721Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/contest_samokat.html</loc>
-    <lastmod>2024-05-29T11:36:10.499Z</lastmod>
+    <lastmod>2024-07-12T13:18:34.997Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</loc>
-    <lastmod>2024-05-29T11:36:19.986Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</loc>
-    <lastmod>2024-05-29T11:36:20.757Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
-    <lastmod>2024-05-29T11:36:22.733Z</lastmod>
+    <lastmod>2024-07-12T13:18:35.000Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</loc>
-    <lastmod>2024-05-29T11:36:23.220Z</lastmod>
+    <lastmod>2024-07-12T13:18:34.996Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
+    <lastmod>2024-07-12T13:18:35.002Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</loc>
+    <lastmod>2024-07-12T13:18:34.996Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/contest_samokat.html</loc>
+    <lastmod>2024-10-06T07:35:20.210Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/statistics_course_why_not.html</loc>
+    <lastmod>2024-07-12T13:18:35.002Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/index.html</loc>
+    <lastmod>2024-07-12T13:18:34.994Z</lastmod>
   </url>
 </urlset>

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Elena U">
+<meta name="dcterms.date" content="2024-10-06">
 
-<title>R4Analytics - Об авторе блога</title>
+<title>R4Analytics - Тест Стьюдента и тест Велча</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -34,6 +70,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -67,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -93,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Об авторе блога</span></a>
   </li>  
   <li class="nav-item compact">
@@ -115,26 +181,15 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
+   
   <ul>
-  <li><a href="#образование" id="toc-образование" class="nav-link active" data-scroll-target="#образование">Образование</a></li>
-  <li><a href="#преподавание" id="toc-преподавание" class="nav-link" data-scroll-target="#преподавание">Преподавание</a></li>
-  <li><a href="#список-публикаций" id="toc-список-публикаций" class="nav-link" data-scroll-target="#список-публикаций">Список публикаций:</a></li>
+  <li><a href="#проблема-дорожных-карт-по-статистике" id="toc-проблема-дорожных-карт-по-статистике" class="nav-link active" data-scroll-target="#проблема-дорожных-карт-по-статистике">Проблема дорожных карт по статистике</a></li>
+  <li><a href="#тест-велча" id="toc-тест-велча" class="nav-link" data-scroll-target="#тест-велча">Тест Велча</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<div class="quarto-about-marquee content">
-  <div class="about-image-container">
-    <img src="photo_EU_upd.jpg" class="about-image " style="width: 100%;">
-  </div>
-  <div class="about-contents">
-    <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Об авторе блога</h1>
-</div>
-<div class="quarto-title-meta">
-  </div>
-</header> <main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -142,67 +197,95 @@ ul.task-list li input[type="checkbox"] {
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
    ym(97025960, "init", {
         clickmap:true,
         trackLinks:true,
         accurateTrackBounce:true
    });
 </script>
-<noscript>&lt;div&gt;&lt;img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""&gt;&lt;/div&gt;</noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-<p>Меня зовут Елена Убогоева. Я биоинформатик, R-энтузиаст, а в настоящий момент работаю дата-аналитиком в <a href="https://www.x5-tech.ru/">X5Tech</a>, в управлении централизированного мониторинга. Веду <a href="https://t.me/stats_for_science">телеграм-канал</a>, посвященный R и статистике, преподаю на курсах <a href="https://agency.blastim.ru/educenter">Blastim</a>: “<a href="https://agency.blastim.ru/stat_r">Статистика, R и анализ данных</a>” и “<a href="https://agency.blastim.ru/rna-seq">Анализ данных RNA-seq</a>”.</p>
-<p>Этот блог создан с помощью Quarto и будет содержать материалы и статьи, которые были ранее написаны в телеграм-канале.</p>
-<section id="образование" class="level2">
-<h2 data-anchor-id="образование">Образование</h2>
-<p>Институт цитологии и генетики СО РАН | Новосибирск<br>
-Аспирантура по направлению биоинформатики и системной биологии | 2020 - 2022</p>
-<p>Новосибирский государственный университет | Новосибирск<br>
-Магистратура по направлению цитологии и генетики | 2018 - 2020</p>
-<p>Новосибирский государственный университет | Новосибирск<br>
-Бакалавриат по направлению цитологии и генетики | 2014 - 2018</p>
-</section>
-<section id="преподавание" class="level2">
-<h2 data-anchor-id="преподавание">Преподавание</h2>
-<ul>
-<li><p><a href="https://agency.blastim.ru/stat_r">Статистика, R и анализ данных</a> от Blastim, учебный ассистент и лектор дополнительных занятий, с 2022 по настоящее время.</p></li>
-<li><p><a href="https://agency.blastim.ru/rna-seq">Анализ данных RNA-seq</a> от Blastim, лектор, октябрь - ноябрь 2023 года.</p></li>
-<li><p><a href="https://t.me/seedsforall/162">Статистика для селекционеров</a>, лектор и ведущий курса, февраль - апрель 2024 года.</p></li>
-<li><p>Записываю лекции на ютубе, плейлист по <a href="https://www.youtube.com/watch?v=o1SI_RPa4jI&amp;list=PL8nkomsB9uVNL4L7LYvBFT_h-UfHIRzmf">ссылке</a>.</p></li>
-<li><p>Веду индивидуальные занятия по R, статистике и биоинформатике, отчет по итогам 2022-2023 года можно посмотреть <a href="https://t.me/stats_for_science/79">здесь</a>.</p></li>
-<li><p>Предыдущие проекты можно посмотреть <a href="https://t.me/stats_for_science/40">здесь</a>.</p></li>
-</ul>
-</section>
-<section id="список-публикаций" class="level2">
-<h2 data-anchor-id="список-публикаций">Список публикаций:</h2>
-<ol type="1">
-<li><p>Samalova, M., Melnikava, A., Elsayad, K., Peaucelle, A., Gahurova, E., Gumulec, J., Spyroglou, I., Zemlyanskaya, E. V., <strong>Ubogoeva, E. V.</strong>, Balkova, D., Demko, M., Blavet, N., Alexiou, P., Benes, V., Mouille, G., &amp; Hejatko, J. (2023). Hormone-regulated expansins: Expression, localization, and cell wall biomechanics in Arabidopsis root growth.&nbsp;<em>Plant physiology</em>,&nbsp;<em>194</em>(1), 209–228. https://doi.org/10.1093/plphys/kiad228</p></li>
-<li><p>Lavrekha, V. V., Levitsky, V. G., Tsukanov, A. V., Bogomolov, A. G., Grigorovich, D. A., Omelyanchuk, N., <strong>Ubogoeva, E. V.</strong>, Zemlyanskaya, E. V., Mironova, V. (2022). CisCross: A gene list enrichment analysis to predict upstream regulators in Arabidopsis thaliana. <em>Frontiers in plant science</em>, 13, 942710. https://doi.org/10.3389/fpls.2022.942710</p></li>
-<li><p><strong>Ubogoeva, E. V.</strong>, Zemlyanskaya, E. V., Xu, J., Mironova, V. (2021). Mechanisms of stress response in the root stem cell niche. <em>Journal of experimental botany</em>, 72(<em>19</em>), 6746–6754. https://doi.org/10.1093/jxb/erab274</p></li>
-<li><p>Zemlyanskaya, E. V., Omelyanchuk, N. A., <strong>Ubogoeva, E. V.</strong>, Mironova, V. V. (2018). Deciphering Auxin-Ethylene Crosstalk at a Systems Level. <em>International journal of molecular sciences</em>, 19(<em>12</em>), 4060. https://doi.org/10.3390/ijms19124060</p></li>
-</ol>
-
-
-</section>
-</main> 
-    <div class="about-footer"><div class="about-links">
-  <a href="https://www.linkedin.com/in/elena-ubogoeva/" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com/ubogoeva" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-  <a href="https://t.me/stats_for_science" class="about-link" rel="" target="">
-    <i class="bi bi-telegram"></i>
-     <span class="about-link-text">телеграм-канал</span>
-  </a>
-</div>
-</div>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Тест Стьюдента и тест Велча</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
   </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Elena U </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="проблема-дорожных-карт-по-статистике" class="level2">
+<h2 class="anchored" data-anchor-id="проблема-дорожных-карт-по-статистике">Проблема дорожных карт по статистике</h2>
+<p>Наверняка каждый при проведении статистических тестов сталкивался с проблемой выбора подходящего теста. В научном сообществе есть определенная популярность у “дорожных карт” по выбору статистического метода, пример ниже:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png"><img src="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png" class="img-fluid figure-img" alt="Можно кликнуть на картинку и перейти на изображение в лучшем качестве"></a></p>
+<figcaption>Можно кликнуть на картинку и перейти на изображение в лучшем качестве</figcaption>
+</figure>
 </div>
- <!-- /main -->
+<p>Я выбрала первую попавшуюся схему по запросу <code>how to choose statistical test flow chart</code>, в этой схеме есть сразу несколько ошибок, например миф про 30 наблюдений (тут вообще странное, по мнению автора схемы, при размере выборки больше 30 наблюдений можно использовать z-test).</p>
+<p>Обычно этот миф звучит так: для небольших выборок меньше 30 наблюдений для применения t-теста нужно, чтобы было нормальное распределение данных, а если наблюдений больше 30, то можно использовать t-тест и так, в силу центральной предельной теоремы. Почему это миф, написано в статье “<a href="https://koch-kir.medium.com/история-одного-обмана-или-требования-к-распределению-в-статистических-тестах-55139a5558d">История одного обмана или требования к распределению в t-тесте</a>”.<br>
+Статья подвергалась определенной критике профильных статистиков, но ключевой момент отражен верно — для t-теста не нужно нормальное распределение <em>данных</em>, нужно нормальное распределение <em>тестовой статистики</em> — то есть среднего. Про это подробно собирается написать статистик <strong>Матвей Славенко</strong>, я обязательно сделаю репост, когда статья выйдет, очень нужен для сообщества такой материал.</p>
+<p>Но вернемся к тесту.</p>
+</section>
+<section id="тест-велча" class="level2">
+<h2 class="anchored" data-anchor-id="тест-велча">Тест Велча</h2>
+<p>Часто также можно встретить требование к равенству дисперсий для теста Стьюдента и это правильное требование, если использовать классический тест Стьюдента. Однако в большинстве статистических пакетов, в том числе в R, реализован тест Стьюдента с поправкой Велча (Welch) или просто тест Велча, для которого нет требования по соблюдению равенства дисперсий.</p>
+<p>Формула теста Стьюдента:</p>
+<p><span class="math display">\[
+t = \frac{\overline{X_1}-\overline{X_2}}{s_x\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}},
+s_x = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
+\]</span></p>
+<p>Чтобы запустить именно тест Стьюдента, можно использовать аргумент <code>var.equal = TRUE</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#t.test(iris$ ~ wc3_units_armor$armor_type, </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="co">#      var.equal = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Однако это делать не рекомендуется, поскольку при равных дисперсиях тест Стьюдента не будет сильно отличаться от теста Велча, а при разных тест Велча точнее.</p>
+<p>Формула теста Велча:</p>
+<p><span class="math display">\[
+t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+\]</span></p>
+<p>Количество степеней свободы:</p>
+<p><span class="math display">\[
+df = \frac{(s_1^2/n_1 + s_2^2 / n_2)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}
+\]</span></p>
+<p>По умолчанию рекомендуется использовать тест Велча.</p>
+<p>Для обучения я обычно рассказываю тест Стьюдента без поправки Велча, потому что на нем проще посчитать вручную тестовую статистику и степени свободы, однако потом обязательно уточняю, что для теста Велча требование равенства дисперсий необязательно. При этом в источниках часто можно встретить требование к равенству дисперсий, как и к нормальности распределения исходных данных.</p>
+<p>Однако наиболее критичным требованием для проведения теста Стьюдента является независимость наблюдений, потому что от этого нарушается математика теста и результаты получаются ненадежные.</p>
+<p>существуют так называемые дорожные карты по выбору статистического метода. Как будто это не лучший способ подходить к выбору теста. Карты подкупают своей простотой и понятностью выбора, просто идти по стрелочкам и в конце обязательно придешь к нужному тесту. Но к сожалению, это не совсем так работает</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -223,6 +306,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
