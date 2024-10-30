@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/how_to_install_R.html",
       "/posts/contest_samokat.html",
       "/posts/YandexMetricsQuarto.html",
       "/posts/statistics_course_why_not.html",
