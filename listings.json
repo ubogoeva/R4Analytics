@@ -2,13 +2,13 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/how_to_install_R.html",
       "/posts/contest_samokat.html",
       "/posts/YandexMetricsQuarto.html",
       "/posts/statistics_course_why_not.html",
       "/posts/multiple_testing.html",
       "/posts/R_question_how_to_ask.html",
       "/posts/types_of_error_bars.html",
+      "/posts/how_to_install_R.html",
       "/posts/ansombe_quartet.html"
     ]
   }
