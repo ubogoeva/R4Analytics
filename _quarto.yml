@@ -5,13 +5,16 @@ project:
 
 website:
   title: "R4Analytics"
+  site-url: https://ubogoeva.github.io/R4Analytics/
+  description: "Блог Елены Убогоевой по статистике и анализу данных в R"
   favicon: images/logo_site.png
   navbar:
     right:
       - href: index.qmd
         text: Home
       - about.qmd
-      - icon: github
+      # - icon: github
+      - icon: rss
         href: https://github.com/ubogoeva/R4Analytics
 
 format:
