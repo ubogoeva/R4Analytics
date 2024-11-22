@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Об авторе блога</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -247,7 +247,7 @@ sudo apt -y install libudunits2-dev libgeos-dev libfontconfig1-dev libharfbuzz-d
 <p><strong>Шаг 2:</strong> Скачать RStudio (бесплатную версию) <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a><br>
 Запустить установщик с дефолтными параметрами</p>
 <p>Однако, я заметила, что пользователи с процессором M1 сталкиваются с определенными проблемами при установке пакетов. Например, при установке пакета <code>psych</code> нужен <code>gfortran</code> на устройстве. Можно поискать решения, погуглив, например, ‘install gfortran mac M1’. Одно из решений приведено по <a href="https://stackoverflow.com/questions/71088796/how-to-install-gfortran-for-macos-monterey-version-12-2-1-m1">ссылке</a>. Кроме того, по этой <a href="https://investcookies.ru/post/datatable_m1/data_table_arm/">ссылке</a> рекомендации как компилировать пакет <code>data.table</code> для M1 процессора.</p>
-<p>UPD от 30.10.2024: я сама устанавливала R и RStudio и пакеты для работы на MacOS, и оказалось, что все работает без дополнительных настроек, просто скачиваем R и RStudio, и устанавливаем нужные пакеты как обычно через <code>install.packages()</code>.</p>
+<p>UPD от 30.10.2024: я сама устанавливала R и RStudio и пакеты для работы на MacOS с процессором M3, и оказалось, что все работает без дополнительных настроек, просто скачиваем R и RStudio, и устанавливаем нужные пакеты как обычно через <code>install.packages()</code>. Возможно есть трудности с более старым процессорами линейки M.</p>
 </section>
 <section id="рекомендации-по-настройке-rstudio-перед-началом-работы" class="level2">
 <h2 class="anchored" data-anchor-id="рекомендации-по-настройке-rstudio-перед-началом-работы">Рекомендации по настройке RStudio перед началом работы</h2>
