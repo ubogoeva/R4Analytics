@@ -7,10 +7,16 @@ listing:
   categories: true
   sort-ui: false
   filter-ui: false
-  feed: true
+  feed:
+    title: "Статистика и R в науке и аналитике"
+    description: "Блог Елены Убогоевой по статистике и анализу данных в R"
+    items: 40
+    type: full
+    language: ru
 page-layout: full
 title-block-banner: true
 google-analytics: true
+comments: false
 ---
 
 Здесь будут размещаться статьи по статистике и R с телеграм-канала **"[Статистика и R в науке и аналитике](https://t.me/stats_for_science)"**.

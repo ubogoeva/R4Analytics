@@ -5,9 +5,9 @@ project:
 
 website:
   title: "R4Analytics"
-  site-url: https://ubogoeva.github.io/R4Analytics/
-  description: "Блог Елены Убогоевой по статистике и анализу данных в R"
   favicon: images/logo_site.png
+  site-url: https://ubogoeva.github.io/R4Analytics/
+
   navbar:
     right:
       - href: index.qmd
@@ -23,6 +23,8 @@ format:
     css: styles.css
     toc: true
     include-before-body: YMetrics/metrics.js
-
+comments: 
+    utterances:
+      repo: ubogoeva/R4Analytics_comments
 editor: visual
 
