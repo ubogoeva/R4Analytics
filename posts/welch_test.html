@@ -216,13 +216,11 @@ window.Quarto = {
   <ul>
   <li><a href="#проблема-дорожных-карт-по-статистике" id="toc-проблема-дорожных-карт-по-статистике" class="nav-link active" data-scroll-target="#проблема-дорожных-карт-по-статистике">Проблема дорожных карт по статистике</a></li>
   <li><a href="#тест-велча-теория" id="toc-тест-велча-теория" class="nav-link" data-scroll-target="#тест-велча-теория">Тест Велча: теория</a></li>
-  <li><a href="#проверим-на-симуляциях" id="toc-проверим-на-симуляциях" class="nav-link" data-scroll-target="#проверим-на-симуляциях">Проверим на симуляциях</a></li>
   <li><a href="#отличий-нет-проверка-на-ошибку-первого-рода" id="toc-отличий-нет-проверка-на-ошибку-первого-рода" class="nav-link" data-scroll-target="#отличий-нет-проверка-на-ошибку-первого-рода">Отличий нет, проверка на ошибку первого рода</a>
   <ul class="collapse">
   <li><a href="#одинаковое-среднее-и-дисперсия-равный-размер-выборок" id="toc-одинаковое-среднее-и-дисперсия-равный-размер-выборок" class="nav-link" data-scroll-target="#одинаковое-среднее-и-дисперсия-равный-размер-выборок">Одинаковое среднее и дисперсия, равный размер выборок</a></li>
   <li><a href="#одинаковое-среднее-разная-дисперсия-равный-размер-выборок" id="toc-одинаковое-среднее-разная-дисперсия-равный-размер-выборок" class="nav-link" data-scroll-target="#одинаковое-среднее-разная-дисперсия-равный-размер-выборок">Одинаковое среднее, разная дисперсия, равный размер выборок</a></li>
   <li><a href="#одинаковое-среднее-разная-дисперсия-разный-размер-выборок" id="toc-одинаковое-среднее-разная-дисперсия-разный-размер-выборок" class="nav-link" data-scroll-target="#одинаковое-среднее-разная-дисперсия-разный-размер-выборок">Одинаковое среднее, разная дисперсия, разный размер выборок</a></li>
-  <li><a href="#логнормальное-распределение-равные-дисперсии-равные-выборки" id="toc-логнормальное-распределение-равные-дисперсии-равные-выборки" class="nav-link" data-scroll-target="#логнормальное-распределение-равные-дисперсии-равные-выборки">Логнормальное распределение, равные дисперсии, равные выборки</a></li>
   </ul></li>
   <li><a href="#отличия-есть-проверка-на-мощность-теста" id="toc-отличия-есть-проверка-на-мощность-теста" class="nav-link" data-scroll-target="#отличия-есть-проверка-на-мощность-теста">Отличия есть, проверка на мощность теста</a>
   <ul class="collapse">
@@ -257,6 +255,7 @@ window.Quarto = {
 
 
 
+<p>Разберем недостатки схем по выбору статистических тестов, формулу теста Велча и сравним с помощью симуляций тест Стьюдента и тест Велча в разных условиях.</p>
 <section id="проблема-дорожных-карт-по-статистике" class="level2">
 <h2 class="anchored" data-anchor-id="проблема-дорожных-карт-по-статистике">Проблема дорожных карт по статистике</h2>
 <p>Наверняка каждый при проведении статистических тестов сталкивался с проблемой выбора подходящего теста. В научном сообществе есть определенная популярность у “дорожных карт” по выбору статистического метода, пример ниже:</p>
@@ -268,13 +267,28 @@ window.Quarto = {
 </div>
 <p>Я выбрала первую попавшуюся схему по запросу <code>how to choose statistical test flow chart</code>, в этой схеме есть сразу несколько ошибок, например миф про 30 наблюдений (тут вообще странное, по мнению автора схемы, при размере выборки больше 30 наблюдений можно использовать z-test).</p>
 <p>Обычно этот миф звучит так: для небольших выборок меньше 30 наблюдений для применения t-теста нужно, чтобы было нормальное распределение данных, а если наблюдений больше 30, то можно использовать t-тест и так, в силу центральной предельной теоремы. Почему это миф, написано в статье “<a href="https://koch-kir.medium.com/история-одного-обмана-или-требования-к-распределению-в-статистических-тестах-55139a5558d">История одного обмана или требования к распределению в t-тесте</a>”.<br>
-Статья подвергалась определенной критике профильных статистиков, но ключевой момент отражен верно — для t-теста не нужно нормальное распределение <em>данных</em>, нужно нормальное распределение <em>тестовой статистики</em> — то есть выборочных средних. Про это подробно собирается написать статистик <strong>Матвей Славенко</strong>, я обязательно сделаю репост, когда статья выйдет, очень нужен для сообщества такой материал.</p>
+Статья подвергалась определенной критике профильных статистиков, но ключевой момент отражен верно — для t-теста не нужно нормальное распределение <em>данных</em>, нужно нормальное распределение <em>тестовой статистики</em> — то есть выборочных средних. Про это подробно собирается написать статистик <strong>Матвей Славенко</strong>, я обязательно сделаю репост, когда статья выйдет, так как для сообщества очень нужен такой материал.</p>
 <p>Но вернемся к тесту.</p>
 </section>
 <section id="тест-велча-теория" class="level2">
 <h2 class="anchored" data-anchor-id="тест-велча-теория">Тест Велча: теория</h2>
-<p>Часто также можно встретить требование к равенству дисперсий для теста Стьюдента и это правильное требование, если использовать классический тест Стьюдента. Однако в большинстве статистических пакетов, в том числе в R, реализован тест Стьюдента с поправкой Велча (Welch) или просто тест Велча, для которого нет требования по соблюдению равенства дисперсий.</p>
-<p>Формула теста Стьюдента:</p>
+<p>Часто для двухвыборочного независимого теста Стьюдента можно встретить требование к равенству дисперсий, и это правильное требование, если использовать классический тест Стьюдента. Однако в большинстве статистических пакетов, в том числе в R, реализован тест Стьюдента с поправкой Велча (Welch) или просто тест Велча, или тест Стьюдента для неравных дисперсий (t-test for unequal variances), для которого нет требования по соблюдению равенства дисперсий.</p>
+<p>И многие авторы рекомендуют использовать именно его, вне зависимости от равенства дисперсий. Давайте разберемся, так ли это.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примечание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Здесь и далее формулировка “тест Стьюдента” будет означать двухвыборочный независимый тест Стьюдента без поправки Велча.</p>
+<p>Тест Велча - тест Стьюдента с поправкой Велча.</p>
+</div>
+</div>
+<p>Формула вычисления t-статистики теста Стьюдента:</p>
 <p><span class="math display">\[
 t = \frac{\overline{X_1}-\overline{X_2}}{s_x\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}},
 s_x = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
@@ -287,13 +301,13 @@ s_x = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
     Two Sample t-test
 
 data:  rnorm(100, mean = 0, sd = 1) and rnorm(100, mean = 0, sd = 1)
-t = 0.29237, df = 198, p-value = 0.7703
+t = 0.10207, df = 198, p-value = 0.9188
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.2274987  0.3066976
+ -0.2751027  0.3051366
 sample estimates:
   mean of x   mean of y 
--0.02237109 -0.06197055 </code></pre>
+-0.04905530 -0.06407229 </code></pre>
 </div>
 </div>
 <p>Однако это делать не рекомендуется, поскольку при равных дисперсиях тест Стьюдента не будет сильно отличаться от теста Велча, а при разных тест Велча точнее.</p>
@@ -305,15 +319,26 @@ t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2
 <p><span class="math display">\[
 df = \frac{(s_1^2/n_1 + s_2^2 / n_2)^2}{(s_1^2/n_1)^2/(n_1-1) + (s_2^2/n_2)^2/(n_2-1)}
 \]</span></p>
-<p>Для обучения я обычно рассказываю тест Стьюдента без поправки Велча, потому что на нем проще посчитать вручную тестовую статистику и степени свободы, однако потом обязательно уточняю, что для теста Велча требование равенства дисперсий необязательно. При этом в источниках часто можно встретить требование к равенству дисперсий, как и к нормальности распределения исходных данных.</p>
-<p>Однако наиболее критичным требованием для проведения теста Стьюдента является независимость наблюдений, п<del>отому что от этого нарушаются математика теста и результаты получаются ненадежные.</del></p>
-</section>
-<section id="проверим-на-симуляциях" class="level2">
-<h2 class="anchored" data-anchor-id="проверим-на-симуляциях">Проверим на симуляциях</h2>
+<p>Для обучения мне проще начать рассказ с теста Стьюдента без поправки Велча, потому что на нем проще посчитать вручную тестовую статистику и степени свободы. Однако потом обязательно уточняю, что рекомендовано использовать тест Велча, для которого требование равенства дисперсий необязательно.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Оффтоп
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>При этом в источниках часто можно встретить требование к равенству дисперсий, как и к нормальности распределения исходных данных.</p>
+<p>Однако наиболее критичным требованием для проведения теста Стьюдента является независимость наблюдений.</p>
+</div>
+</div>
+<p>Давайте разберем с помощью симуляций, как работает тест Велча и тест Стьюдента в разных ситуациях.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># загрузим тайдиверс</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Разберем разные кейсы: проверим и ошибку первого рода, и мощность теста при равных и разных дисперсиях .</p>
+<p>Разберем разные кейсы: проверим и ошибку первого рода, и мощность теста при равных и разных дисперсиях, и в зависимости от равенства объемов выборок.</p>
 <p>Здесь и далее тестом Стьюдента будет называться тест Стьюдента без поправок, а тестом Велча - тест Стьюдента с поправкой Велча</p>
 </section>
 <section id="отличий-нет-проверка-на-ошибку-первого-рода" class="level2">
@@ -334,6 +359,7 @@ Note
 <p>Здесь и в дальнейшем для симуляций будет создаваться генеральная совокупность (размером 100000) с заданными параметрами среднего и стандартного отклонения, а далее будут многократно извлекаться “выборки” заданного размера. Таким образом будет соблюдаться общая логика статистического вывода — наличие генеральной совокупности с заданными параметрами и извлечение выборок.</p>
 </div>
 </div>
+<p>Для всех тестов в приведенных ниже расчетах зафиксировали уровень значимости <span class="math inline">\(\alpha=0.05\)</span>.</p>
 <p><strong>Тест Велча</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="fl">0.2</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># создание генеральной совокупности</span></span>
@@ -351,7 +377,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_values <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># доля p-value, которые оказались меньше 0.05 (прокрасились) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.039</code></pre>
+<pre><code>[1] 0.04</code></pre>
 </div>
 </div>
 <p><strong>Тест Стьюдента</strong></p>
@@ -371,7 +397,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_values <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># доля p-value, которые оказались меньше 0.05 (прокрасились)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.041</code></pre>
+<pre><code>[1] 0.036</code></pre>
 </div>
 </div>
 <p>Здесь у нас вероятность ошибки первого рода для обоих тестов примерно 0.05, а также распределение p-value похоже на равномерное. Это ожидаемо и корректно, так как выборки извлекались из одинаковой генеральной совокупности, а значит, что доля значимых тестов должна быть не больше заданного уровня <span class="math inline">\(\alpha\)</span>, в данном случае 0.05.</p>
@@ -495,7 +521,7 @@ Note
 </div>
 </div>
 <p>Тут для теста Стьюдента без поправки Велча получилось <strong>24%</strong> ложноположительных результатов! Это очень много относительно заданного уровня <span class="math inline">\(\alpha=0.05\)</span>. Получается, что мы будем находить значимые отличия почти в четверти случаев, и принимать неверные решения. Тест Велча при этом сохраняет долю ложноположительных результатов на уровне 5%, как и должно быть.</p>
-<p>Для выборок разного размера при увеличении неравенства дисперсий наблюдается дальнейшее ухудшение работы теста Стьюдента.</p>
+<p>Для выборок разного размера при увеличении неравенства дисперсий наблюдается дальнейшее ухудшение работы теста Стьюдента (ситуация, когда меньшая выборка с большей дисперсией).</p>
 <p>Давайте построим график зависимости ошибки первого рода от неравенства дисперсий в выборке, где размер выборок отличается в 9 раз (для большей наглядности).</p>
 <div class="cell">
 <details class="code-fold">
@@ -503,8 +529,8 @@ Note
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>var_size <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>calculate_mean_error_1st_type <span class="ot">&lt;-</span> <span class="cf">function</span>(x, var.equal) {</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">3000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>), </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rnorm</span>(<span class="dv">7000</span>, <span class="fl">0.2</span>, <span class="dv">1</span><span class="sc">+</span>x), </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">9000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>), </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span><span class="sc">+</span>x), </span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">var.equal =</span> var.equal)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>welch_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">FALSE</span>))</span>
@@ -519,7 +545,7 @@ Note
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">'Разница в стандартном отклонении между выборками'</span>)<span class="sc">+</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">'Вид теста'</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'тест Стьюдента'</span>, <span class="st">'тест Велча'</span>))<span class="sc">+</span></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">'Доля ошибки первого рода'</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>))<span class="sc">+</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Зависимость ошибки первого рода от стандартного отклонения'</span>, <span class="at">subtitle =</span> <span class="st">'для теста Стьюдента и теста Велча при дисбалансе выборок'</span>)<span class="sc">+</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Зависимость ошибки первого рода от стандартного отклонения'</span>, <span class="at">subtitle =</span> <span class="st">'меньшая выборка с большей дисперсией'</span>)<span class="sc">+</span></span>
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -530,29 +556,32 @@ Note
 </div>
 </div>
 </div>
-<p>При этом при равных размерах выборок, разница в дисперсиях не влияет на оба теста.</p>
+<p>При таком дисбалансе выборок, чем больше разница в дисперсии, тем хуже работает тест Стьюдента.</p>
+<p>Проверим, что будет, если наоборот, большая выборка будет с большей дисперсией.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>var_size <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>calculate_mean_error_1st_type <span class="ot">&lt;-</span> <span class="cf">function</span>(x, var.equal) {</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span><span class="sc">+</span>x), <span class="at">var.equal =</span> var.equal)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>welch_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">FALSE</span>))</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>students_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">TRUE</span>))</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(var_size, welch_error_1st_type, students_error_1st_type) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(welch_error_1st_type, students_error_1st_type), </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'type'</span>, <span class="at">values_to =</span> <span class="st">'error_1st_type'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var_size, error_1st_type))<span class="sc">+</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">'Разница в стандартном отклонении между выборками'</span>)<span class="sc">+</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">'Вид теста'</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'тест Стьюдента'</span>, <span class="st">'тест Велча'</span>))<span class="sc">+</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">'Доля ошибки первого рода'</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>))<span class="sc">+</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Зависимость ошибки первого рода от стандартного отклонения'</span>, </span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">'для теста Стьюдента и теста Велча для равных выборок'</span>)<span class="sc">+</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>), </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rnorm</span>(<span class="dv">9000</span>, <span class="fl">0.2</span>, <span class="dv">1</span><span class="sc">+</span>x), </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">var.equal =</span> var.equal)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>welch_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">FALSE</span>))</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>students_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">TRUE</span>))</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(var_size, welch_error_1st_type, students_error_1st_type) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(welch_error_1st_type, students_error_1st_type), </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'type'</span>, <span class="at">values_to =</span> <span class="st">'error_1st_type'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var_size, error_1st_type))<span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">'Разница в стандартном отклонении между выборками'</span>)<span class="sc">+</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">'Вид теста'</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'тест Стьюдента'</span>, <span class="st">'тест Велча'</span>))<span class="sc">+</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">'Доля ошибки первого рода'</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Зависимость ошибки первого рода от стандартного отклонения'</span>, <span class="at">subtitle =</span> <span class="st">'большая выборка с большей дисперсией'</span>)<span class="sc">+</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -562,7 +591,41 @@ Note
 </div>
 </div>
 </div>
-<p>Таким образом, при одинаковом размере выборок, тест Стьюдента также устойчив и к нарушению предположения о равенстве дисперсий. Однако, чем больше разница в размерах выборки, тем сильнее может повлиять на результаты теста Стьюдента разница в дисперсиях. Поэтому надежно будет использовать тест Велча, так как он сохраняет ошибку первого рода на заданном уровне <span class="math inline">\(\alpha\)</span> вне зависимости от равенства дисперсий и размера выборок.</p>
+<p>Здесь тест Стьюдента работает даже лучше, доля ложноположительных результатов очень низкая. Но и тест Велча работает нормально, сохраняя ее на уровне примерно 0.05.</p>
+<p>При этом при равных размерах выборок, разница в дисперсиях не влияет на оба теста.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>var_size <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>calculate_mean_error_1st_type <span class="ot">&lt;-</span> <span class="cf">function</span>(x, var.equal) {</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>), <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">0.2</span>, <span class="dv">1</span><span class="sc">+</span>x), <span class="at">var.equal =</span> var.equal)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>welch_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">FALSE</span>))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>students_error_1st_type <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(var_size, <span class="sc">~</span><span class="fu">calculate_mean_error_1st_type</span>(., <span class="cn">TRUE</span>))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(var_size, welch_error_1st_type, students_error_1st_type) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(welch_error_1st_type, students_error_1st_type), </span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'type'</span>, <span class="at">values_to =</span> <span class="st">'error_1st_type'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var_size, error_1st_type))<span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> type))<span class="sc">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">'Разница в стандартном отклонении между выборками'</span>)<span class="sc">+</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">'Вид теста'</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'тест Стьюдента'</span>, <span class="st">'тест Велча'</span>))<span class="sc">+</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">'Доля ошибки первого рода'</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Зависимость ошибки первого рода от стандартного отклонения'</span>, </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">'для теста Стьюдента и теста Велча для равных выборок'</span>)<span class="sc">+</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="welch_test_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Таким образом, при одинаковом размере выборок, тест Стьюдента также устойчив и к нарушению предположения о равенстве дисперсий. Однако, в ситуации, когда выборки разного размера, причем большая выборка с меньшей дисперсией, тест Стьюдента начинает завышать ошибку первого рода.</p>
+<p>Поэтому наиболее надежно будет использовать тест Велча в любом случае, вне зависимости от равенства дисперсий и размера выборок, так как он сохраняет ошибку первого рода на заданном уровне <span class="math inline">\(\alpha\)</span> .</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -575,60 +638,16 @@ Note
 <div class="callout-body-container callout-body">
 <p>Кстати, и у теста Манна-Уитни не все хорошо в таком примере</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">wilcox.test</span>(population1 <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="at">size =</span> <span class="dv">9000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                             population2 <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">wilcox.test</span>(population1 <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="at">size =</span> <span class="dv">9000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                             population2 <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.132</code></pre>
+<pre><code>[1] 0.129</code></pre>
 </div>
 </div>
 </div>
 </div>
-<p>Давайте немного усложним и используем логнормальное распределение для проверки ошибки первого рода в случае, когда генеральная совокупность распределена не нормально.</p>
-</section>
-<section id="логнормальное-распределение-равные-дисперсии-равные-выборки" class="level3">
-<h3 class="anchored" data-anchor-id="логнормальное-распределение-равные-дисперсии-равные-выборки">Логнормальное распределение, равные дисперсии, равные выборки</h3>
-<p>Логнормальное распределение точно отличается от нормального, имеет очень длинные хвосты. Подобное распределение может встретиться например в метрике среднего чека (большинство чеков с не очень большой суммой, но могут встретиться экстремально большие значения).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>population_log <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">100000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(population_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="welch_test_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(population_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
- 0.00694  0.50825  0.99600  1.65208  1.95965 95.91721 </code></pre>
-</div>
-</div>
-<p>Например здесь большинство значений около нуля, но есть выбросы больше 50.</p>
-<p>Проверим, как будут работать тесты.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Тест Велча</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(population_log <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                             population_log <span class="sc">%&gt;%</span> </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0395</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Тест Стьюдента</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(population_log <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                             population_log <span class="sc">%&gt;%</span> </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0369</code></pre>
-</div>
-</div>
-<p>Даже для логнормального распределения, оба теста контролируют ошибку первого рода на уровне &lt; 0.05.<br>
-Если попробовать сделать неравенство дисперсий в логнормальном распределении, то очень сильно изменится среднее, и оба теста будут находить отличия.</p>
 <p>Теперь рассмотрим как поведут себя тесты, в случае, когда отличия действительно есть.</p>
 </section>
 </section>
@@ -637,22 +656,34 @@ Note
 <section id="разное-среднее-одинаковая-дисперсия-равный-размер-выборок" class="level3">
 <h3 class="anchored" data-anchor-id="разное-среднее-одинаковая-дисперсия-равный-размер-выборок">Разное среднее, одинаковая дисперсия, равный размер выборок</h3>
 <p>Начнем с ситуации, когда извлекаем выборки из двух генеральных совокупностей с <strong>разным</strong> средним и <strong>равной</strong> дисперсией.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="fl">0.2</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-4.4529 -0.4758  0.1953  0.1967  0.8738  4.4452 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-4.1232 -0.3741  0.2974  0.2967  0.9762  4.7235 </code></pre>
+</div>
+</div>
 <p>Визуализируем полученные выборки, пунктиром показано среднее.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.3</span>, <span class="dv">1</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">sample1 =</span> pop1 <span class="sc">%&gt;%</span> <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">sample2 =</span> pop2 <span class="sc">%&gt;%</span> <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(sample1, sample2)) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="at">fill =</span> name))<span class="sc">+</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">nrow =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> ..x.., <span class="at">y =</span> <span class="dv">0</span>), </span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"vline"</span>, <span class="at">orientation =</span> <span class="st">"y"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">sample1 =</span> pop1 <span class="sc">%&gt;%</span> <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sample2 =</span> pop2 <span class="sc">%&gt;%</span> <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(sample1, sample2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(value, <span class="at">fill =</span> name))<span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">nrow =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> ..x.., <span class="at">y =</span> <span class="dv">0</span>), </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"vline"</span>, <span class="at">orientation =</span> <span class="st">"y"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -662,13 +693,14 @@ Note
 </div>
 </div>
 </div>
-<p><strong>Тест Велча</strong></p>
+<p>Проверим работу тестов:</p>
+<p><strong>Тест Велча:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -676,19 +708,19 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<p><strong>Тест Стьюдента</strong></p>
+<p><strong>Тест Стьюдента:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -696,7 +728,7 @@ Note
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -707,24 +739,24 @@ Note
 <section id="разное-среднее-разная-дисперсия-равный-размер-выборок" class="level3">
 <h3 class="anchored" data-anchor-id="разное-среднее-разная-дисперсия-равный-размер-выборок">Разное среднее, разная дисперсия, равный размер выборок</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.3</span>, <span class="dv">3</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.3</span>, <span class="dv">3</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8041</code></pre>
+<pre><code>[1] 0.9166</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8044</code></pre>
+<pre><code>[1] 0.9145</code></pre>
 </div>
 </div>
 <p>При равных размерах выборок оба теста хорошо справляются с неравенством дисперсий. Мощность больше 80% в обоих случаях.</p>
@@ -733,39 +765,60 @@ Note
 <section id="разное-среднее-разная-дисперсия-разный-размер-выборок" class="level3">
 <h3 class="anchored" data-anchor-id="разное-среднее-разная-дисперсия-разный-размер-выборок">Разное среднее, разная дисперсия, разный размер выборок</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.35</span>, <span class="dv">2</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="fl">0.3</span>, <span class="dv">2</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--4.1361 -0.4725  0.1992  0.2008  0.8746  4.9005 </code></pre>
+-4.7231 -0.4747  0.1995  0.1985  0.8761  4.2265 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pop2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--8.2408 -1.0054  0.3471  0.3469  1.6928  8.8229 </code></pre>
+-7.6160 -1.0539  0.3081  0.3019  1.6534  9.5586 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># тест Велча</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># тест Велча</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9695</code></pre>
+<pre><code>[1] 0.9355</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># тест Стьюдента</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># тест Стьюдента</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9895</code></pre>
+<pre><code>[1] 0.8315</code></pre>
 </div>
 </div>
-<p>Здесь тест Велча показал себя значительно лучше.</p>
+<p>Здесь тест Велча показал себя несколько лучше, но оба теста корректно находят отличия там, где они есть.</p>
+<p>Проверим, если поменять местами выборки, чтобы в меньшей выборке была бОльшая дисперсия.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7768</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">t.test</span>(pop1 <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">7000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                             pop2 <span class="sc">%&gt;%</span> </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">sample</span>(<span class="dv">3000</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>p.value) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8785</code></pre>
+</div>
+</div>
+<p>Итак, в случае с мощностью теста оба теста ок</p>
 </section>
 </section>
 <section id="выводы" class="level2">
