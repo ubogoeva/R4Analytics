@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
-.RData
+*.RData
 .Ruserdata
 
 /.quarto/
@@ -12,3 +12,6 @@
 _site/.
 /_site
 /_freeze
+
+*.rdx
+*.rdb
