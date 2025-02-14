@@ -4173,7 +4173,7 @@ font-style: inherit;">20</span>)</span>
   <pubDate>Thu, 01 Dec 2022 18:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Types of error bars and it’s differences</title>
+  <title>Виды пределов погрешностей</title>
   <dc:creator>Elena U</dc:creator>
   <link>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</link>
   <description><![CDATA[ 
@@ -4240,7 +4240,7 @@ font-style: inherit;">20</span>)</span>
 <p><em>Барплот (barplot) - столбчатая диаграмма для категориальных данных, их будет много чуть дальше.</em></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ubogoeva.github.io/R4Analytics/posts/boxplot.png" class="img-fluid figure-img"></p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/posts/images/boxplot.png" class="img-fluid figure-img"></p>
 <figcaption><em>Самое простое описание составляющих боксплота</em></figcaption>
 </figure>
 </div>
@@ -4248,13 +4248,14 @@ font-style: inherit;">20</span>)</span>
 <p>Думаю, что на рисунке понять проще:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ubogoeva.github.io/R4Analytics/posts/figures/IQR.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/posts/images/IQR.png" class="img-fluid figure-img" style="width:75.0%"></p>
 <figcaption><em>про межквартильный размах (IQR)</em></figcaption>
 </figure>
 </div>
 <p>Межквартильный размах намного чаще используется для визуализации, так как предоставляет больше информации о данных.</p>
 <p><strong>Стандартное отклонение (standard deviation)</strong> по-моему наиболее часто встречается в публикациях и на конференциях (по крайней мере в биологии), да и я обычно использую именно sd в качестве предела погрешностей.</p>
-<p>Формула стандартного отклонения (для генеральной совокупности): <img src="https://latex.codecogs.com/png.latex?%5CLarge%20sd%20=%20%5Csqrt%7Bvar%7D%20=%20%5Csqrt%7B%5Cfrac%7B%5Csum_%7Bi=1%7D%5E%7BN%7D(x_%7Bi%7D%20-%20%5Cmu)%5E2%7D%7BN%7D%7D"> Где <img src="https://latex.codecogs.com/png.latex?%5Cmu"> - среднее значение в генеральной совокупности, <img src="https://latex.codecogs.com/png.latex?N"> - размер генеральной совокупности, var (variance) - дисперсия. Но мы обычно работаем с выборками, а не генеральной совокупностью, и в формуле вычисления sd в Excel и R используют <em>несмещенную (unbiased)</em> оценку дисперсии и стандартного отклонения (потому что для выборки): <img src="https://latex.codecogs.com/png.latex?%5CLarge%20sd%20=%20%5Csqrt%7Bvar%7D%20=%20%5Csqrt%7B%5Cfrac%7B%5Csum_%7Bi=1%7D%5E%7BN%7D(x_%7Bi%7D%20-%20%5Coverline%7Bx%7D)%5E2%7D%7BN-1%7D%7D"> Почему именно <img src="https://latex.codecogs.com/png.latex?N-1"> в знаменателе выходит за рамки нашего обсуждения, поэтому ограничусь ссылками: <a href="https://www.quora.com/Why-do-we-use-n-1-instead-of-n-for-a-samples-variance">1</a>, <a href="https://stats.stackexchange.com/questions/198452/why-sample-variance-has-has-n-1-in-the-denominator">2</a>, <a href="https://youtu.be/SzZ6GpcfoQY?t=435">видео с таймкодом</a>.</p>
+<p>Формула стандартного отклонения (для генеральной совокупности): <img src="https://latex.codecogs.com/png.latex?%5CLarge%20sd%20=%20%5Csqrt%7Bvar%7D%20=%20%5Csqrt%7B%5Cfrac%7B%5Csum_%7Bi=1%7D%5E%7BN%7D(x_%7Bi%7D%20-%20%5Cmu)%5E2%7D%7BN%7D%7D">Где <img src="https://latex.codecogs.com/png.latex?%5Cmu"> - среднее значение в генеральной совокупности, <img src="https://latex.codecogs.com/png.latex?N"> - размер генеральной совокупности, var (variance) - дисперсия. Но мы обычно работаем с выборками, а не генеральной совокупностью, и в формуле вычисления sd в Excel и R используют <em>несмещенную (unbiased)</em> оценку дисперсии и стандартного отклонения (потому что для выборки): <img src="https://latex.codecogs.com/png.latex?%5CLarge%20sd%20=%20%5Csqrt%7Bvar%7D%20=%20%5Csqrt%7B%5Cfrac%7B%5Csum_%7Bi=1%7D%5E%7BN%7D(x_%7Bi%7D%20-%20%5Coverline%7Bx%7D)%5E2%7D%7BN-1%7D%7D"></p>
+<p>Почему именно <img src="https://latex.codecogs.com/png.latex?N-1"> в знаменателе выходит за рамки нашего обсуждения, поэтому ограничусь ссылками: <a href="https://www.quora.com/Why-do-we-use-n-1-instead-of-n-for-a-samples-variance">1</a>, <a href="https://stats.stackexchange.com/questions/198452/why-sample-variance-has-has-n-1-in-the-denominator">2</a>, <a href="https://youtu.be/SzZ6GpcfoQY?t=435">видео с таймкодом</a>.</p>
 <p>Еще не сделала схему с детальным вычислением стандартного отклонения на реальных данных, поэтому пока можно посмотреть на <a href="https://www.youtube.com/watch?v=SzZ6GpcfoQY">статквесте</a>.</p>
 <p>Важный момент! Все вышеописанные метрики отражают разброс значений в нашей <strong>выборке</strong>, без каких-либо предположений о происходящем в генеральной совокупности. В этом отличие от второго типа error bar.</p>
 </section>
@@ -4262,8 +4263,8 @@ font-style: inherit;">20</span>)</span>
 <h2 class="anchored" data-anchor-id="inferential-error-bars">Inferential error bars</h2>
 <p>К эррор барам, отражающим статистики вывода относятся:</p>
 <ul>
-<li>Стандартная ошибка среднего (standard error of mean, sem или просто SE)</li>
-<li>Доверительный интервал (confidence interval, CI)</li>
+<li>Стандартная ошибка среднего (standard error of mean, SEM или просто SE);</li>
+<li>Доверительный интервал (confidence interval, CI).</li>
 </ul>
 <p>Принципиальное отличие от описательных пределов погрешности в том, что грубо говоря, стандартная ошибка среднего/доверительный интервал пытаются отразить степень уверенности в поиске к примеру <em>истинного среднего</em> генеральной совокупности. В то время как описательные отражают, что происходит конкретно в <em>нашей выборке</em>.</p>
 <p>Тут немного инфы для продвинутых (не открывайте, если не уверены, что хотите это знать!):</p>
@@ -4302,7 +4303,7 @@ font-style: inherit;">20</span>)</span>
 <p>Небольшой вывод. Отрисовка доверительных интервалов сейчас считается модной, якобы их проще интерпретировать. Но на самом деле доверительный интервал как и p-value - это один из тех концептов, которые провоцируют просто огромное количество мисинтерпретаций, это кстати одна из причин, по которой я это не люблю рассказывать. Важно сейчас отметить вот что:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ubogoeva.github.io/R4Analytics/posts/figures/se_overlap.png" class="img-fluid figure-img"></p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/posts/images/se_overlap.png" class="img-fluid figure-img"></p>
 <figcaption><em>Интерпретация перекрывания inferential error bars. Ссылка на <a href="https://www.graphpad.com/support/faq/spanwhat-you-can-conclude-when-two-error-bars-overlap-or-dontspan/">статью</a>, откуда картинка</em></figcaption>
 </figure>
 </div>
@@ -4369,7 +4370,7 @@ font-style: inherit;">theme_bw</span>()</span>
 </div>
 </div>
 </div>
-<p>Второй вариант больше подойдет для относительно небольшого количества наблюдений, когда счет идет на десятки, но не тысячи точек. Это комбинация боксплота и отображения точек как они есть с помощью <code>geom_jitter</code> в библиотеке ggplot2.</p>
+<p>Второй вариант больше подойдет для относительно небольшого количества наблюдений, когда счет идет на десятки, но не тысячи точек. Это комбинация боксплота и отображения точек как они есть с помощью <code>geom_jitter()</code> в пакете <code>ggplot2</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">box_point <span class="ot" style="color: #003B4F;
 background-color: null;
@@ -4554,7 +4555,7 @@ font-style: inherit;">theme_bw</span>()</span>
 </div>
 </div>
 </div>
-<p>А теперь все вместе на одном графике (обратите внимание на библиотеку <code>patchwork</code> для красивого объединения плотов на одном рисунке):</p>
+<p>А теперь все вместе на одном графике (обратите внимание на пакет <code>patchwork</code> для красивого объединения плотов на одном рисунке):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4921,8 +4922,8 @@ p-value of the test 0.001819483</code></pre>
 <li>Для отображения сравнений между группами рекомендуют использовать вторые, поскольку они позволяют делать выводы из перекрывания или не-перекрывания усов.</li>
 <li>Однако, есть способы рисовать распределение наших значений без использования мисинтерпретируемых пределов погрешностей, например violin+boxplot и boxplot+точки</li>
 </ol>
-<p>Подписывайтесь на телеграм канал: <a href="https://t.me/stats_for_science" class="uri">https://t.me/stats_for_science</a>, будет много интересного</p>
-<p><img src="https://ubogoeva.github.io/R4Analytics/posts/figures/logo.jpg" class="img-fluid"></p>
+<p>Подписывайтесь на телеграм канал: <a href="https://t.me/stats_for_science" class="uri">https://t.me/stats_for_science</a>, будет много интересного. Обсудить пост можно <a href="https://t.me/stats_for_science/47">здесь</a> в комментариях.</p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/posts/images/logo.jpg" class="img-fluid"></p>
 
 
 </section>

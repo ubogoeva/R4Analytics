@@ -178,7 +178,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Types of error bars and it’s differences</h1>
+      <h1 class="title">Виды пределов погрешностей</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">statistics</div>
               </div>
@@ -290,7 +290,7 @@ window.Quarto = {
 <p><em>Барплот (barplot) - столбчатая диаграмма для категориальных данных, их будет много чуть дальше.</em></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="boxplot.png" class="img-fluid figure-img"></p>
+<p><img src="images/boxplot.png" class="img-fluid figure-img"></p>
 <figcaption><em>Самое простое описание составляющих боксплота</em></figcaption>
 </figure>
 </div>
@@ -298,13 +298,14 @@ window.Quarto = {
 <p>Думаю, что на рисунке понять проще:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/IQR.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="images/IQR.png" class="img-fluid figure-img" style="width:75.0%"></p>
 <figcaption><em>про межквартильный размах (IQR)</em></figcaption>
 </figure>
 </div>
 <p>Межквартильный размах намного чаще используется для визуализации, так как предоставляет больше информации о данных.</p>
 <p><strong>Стандартное отклонение (standard deviation)</strong> по-моему наиболее часто встречается в публикациях и на конференциях (по крайней мере в биологии), да и я обычно использую именно sd в качестве предела погрешностей.</p>
-<p>Формула стандартного отклонения (для генеральной совокупности): <span class="math display">\[\Large sd = \sqrt{var} = \sqrt{\frac{\sum_{i=1}^{N}(x_{i} - \mu)^2}{N}}\]</span> Где <span class="math inline">\(\mu\)</span> - среднее значение в генеральной совокупности, <span class="math inline">\(N\)</span> - размер генеральной совокупности, var (variance) - дисперсия. Но мы обычно работаем с выборками, а не генеральной совокупностью, и в формуле вычисления sd в Excel и R используют <em>несмещенную (unbiased)</em> оценку дисперсии и стандартного отклонения (потому что для выборки): <span class="math display">\[\Large sd = \sqrt{var} = \sqrt{\frac{\sum_{i=1}^{N}(x_{i} - \overline{x})^2}{N-1}}\]</span> Почему именно <span class="math inline">\(N-1\)</span> в знаменателе выходит за рамки нашего обсуждения, поэтому ограничусь ссылками: <a href="https://www.quora.com/Why-do-we-use-n-1-instead-of-n-for-a-samples-variance">1</a>, <a href="https://stats.stackexchange.com/questions/198452/why-sample-variance-has-has-n-1-in-the-denominator">2</a>, <a href="https://youtu.be/SzZ6GpcfoQY?t=435">видео с таймкодом</a>.</p>
+<p>Формула стандартного отклонения (для генеральной совокупности): <span class="math display">\[\Large sd = \sqrt{var} = \sqrt{\frac{\sum_{i=1}^{N}(x_{i} - \mu)^2}{N}}\]</span>Где <span class="math inline">\(\mu\)</span> - среднее значение в генеральной совокупности, <span class="math inline">\(N\)</span> - размер генеральной совокупности, var (variance) - дисперсия. Но мы обычно работаем с выборками, а не генеральной совокупностью, и в формуле вычисления sd в Excel и R используют <em>несмещенную (unbiased)</em> оценку дисперсии и стандартного отклонения (потому что для выборки): <span class="math display">\[\Large sd = \sqrt{var} = \sqrt{\frac{\sum_{i=1}^{N}(x_{i} - \overline{x})^2}{N-1}}\]</span></p>
+<p>Почему именно <span class="math inline">\(N-1\)</span> в знаменателе выходит за рамки нашего обсуждения, поэтому ограничусь ссылками: <a href="https://www.quora.com/Why-do-we-use-n-1-instead-of-n-for-a-samples-variance">1</a>, <a href="https://stats.stackexchange.com/questions/198452/why-sample-variance-has-has-n-1-in-the-denominator">2</a>, <a href="https://youtu.be/SzZ6GpcfoQY?t=435">видео с таймкодом</a>.</p>
 <p>Еще не сделала схему с детальным вычислением стандартного отклонения на реальных данных, поэтому пока можно посмотреть на <a href="https://www.youtube.com/watch?v=SzZ6GpcfoQY">статквесте</a>.</p>
 <p>Важный момент! Все вышеописанные метрики отражают разброс значений в нашей <strong>выборке</strong>, без каких-либо предположений о происходящем в генеральной совокупности. В этом отличие от второго типа error bar.</p>
 </section>
@@ -312,8 +313,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="inferential-error-bars">Inferential error bars</h2>
 <p>К эррор барам, отражающим статистики вывода относятся:</p>
 <ul>
-<li>Стандартная ошибка среднего (standard error of mean, sem или просто SE)</li>
-<li>Доверительный интервал (confidence interval, CI)</li>
+<li>Стандартная ошибка среднего (standard error of mean, SEM или просто SE);</li>
+<li>Доверительный интервал (confidence interval, CI).</li>
 </ul>
 <p>Принципиальное отличие от описательных пределов погрешности в том, что грубо говоря, стандартная ошибка среднего/доверительный интервал пытаются отразить степень уверенности в поиске к примеру <em>истинного среднего</em> генеральной совокупности. В то время как описательные отражают, что происходит конкретно в <em>нашей выборке</em>.</p>
 <p>Тут немного инфы для продвинутых (не открывайте, если не уверены, что хотите это знать!):</p>
@@ -352,7 +353,7 @@ window.Quarto = {
 <p>Небольшой вывод. Отрисовка доверительных интервалов сейчас считается модной, якобы их проще интерпретировать. Но на самом деле доверительный интервал как и p-value - это один из тех концептов, которые провоцируют просто огромное количество мисинтерпретаций, это кстати одна из причин, по которой я это не люблю рассказывать. Важно сейчас отметить вот что:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/se_overlap.png" class="img-fluid figure-img"></p>
+<p><img src="images/se_overlap.png" class="img-fluid figure-img"></p>
 <figcaption><em>Интерпретация перекрывания inferential error bars. Ссылка на <a href="https://www.graphpad.com/support/faq/spanwhat-you-can-conclude-when-two-error-bars-overlap-or-dontspan/">статью</a>, откуда картинка</em></figcaption>
 </figure>
 </div>
@@ -381,7 +382,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Второй вариант больше подойдет для относительно небольшого количества наблюдений, когда счет идет на десятки, но не тысячи точек. Это комбинация боксплота и отображения точек как они есть с помощью <code>geom_jitter</code> в библиотеке ggplot2.</p>
+<p>Второй вариант больше подойдет для относительно небольшого количества наблюдений, когда счет идет на десятки, но не тысячи точек. Это комбинация боксплота и отображения точек как они есть с помощью <code>geom_jitter()</code> в пакете <code>ggplot2</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>box_point <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Species, Sepal.Width))<span class="sc">+</span></span>
@@ -434,7 +435,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>А теперь все вместе на одном графике (обратите внимание на библиотеку <code>patchwork</code> для красивого объединения плотов на одном рисунке):</p>
+<p>А теперь все вместе на одном графике (обратите внимание на пакет <code>patchwork</code> для красивого объединения плотов на одном рисунке):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> (violin_box <span class="sc">+</span> box_point) <span class="sc">/</span> (box <span class="sc">+</span> bar)</span>
@@ -517,8 +518,8 @@ p-value of the test 0.001819483</code></pre>
 <li>Для отображения сравнений между группами рекомендуют использовать вторые, поскольку они позволяют делать выводы из перекрывания или не-перекрывания усов.</li>
 <li>Однако, есть способы рисовать распределение наших значений без использования мисинтерпретируемых пределов погрешностей, например violin+boxplot и boxplot+точки</li>
 </ol>
-<p>Подписывайтесь на телеграм канал: <a href="https://t.me/stats_for_science" class="uri">https://t.me/stats_for_science</a>, будет много интересного</p>
-<p><img src="figures/logo.jpg" class="img-fluid"></p>
+<p>Подписывайтесь на телеграм канал: <a href="https://t.me/stats_for_science" class="uri">https://t.me/stats_for_science</a>, будет много интересного. Обсудить пост можно <a href="https://t.me/stats_for_science/47">здесь</a> в комментариях.</p>
+<p><img src="images/logo.jpg" class="img-fluid"></p>
 
 
 </section>
