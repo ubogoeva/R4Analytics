@@ -8,6 +8,7 @@ toc: true
 toc-depth: 3
 echo: false
 cashe: true
+categories: analytics
 ---
 
 ```{r}
