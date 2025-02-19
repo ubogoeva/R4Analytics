@@ -283,46 +283,34 @@ window.Quarto = {
 <section id="описательные-статистики-смещенные-и-несмещенные-оценки" class="level3">
 <h3 class="anchored" data-anchor-id="описательные-статистики-смещенные-и-несмещенные-оценки">Описательные статистики: смещенные и несмещенные оценки</h3>
 <p>По всему разделу описательных статистик перескакивает мысль с дисперсии генеральной совокупности на дисперсию выборки, в знаменателе формулы то <span class="math inline">\(n\)</span>, то <span class="math inline">\(n-1\)</span>, плюс не хватило объяснения, почему используются греческие или латинские буквы для обозначения дисперсии или среднего, это сбивает с толку слушателей.</p>
-<p>Давайте еще раз разберемся, в каком случае используются греческие, а в каком латинские буквы. Мне нравится следующее мнемоническое объяснение:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 59%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><u>P</u>opulation - генеральная совокупность, Parameter</td>
-<td style="text-align: left;">Обозначают греческими буквами: μ, σ.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><u>S</u>ample - выборка, Statistics</td>
-<td style="text-align: left;">Обозначают латинскими буквами: <span class="math inline">\(\overline{x}\)</span>, <span class="math inline">\(\overline{sd}\)</span>.</td>
-</tr>
-</tbody>
-</table>
+<p>Анатолий Карпов <a href="https://stepik.org/lesson/8076/step/5?unit=1356" target="_blank">объясняет</a> (на 3.30), что <span class="math inline">\(n-1\)</span> в знаменателе формулы дисперсии выборки связано со степенями свободы, но это не совсем так. Такое же <a href="https://stepik.org/lesson/8086/step/4?unit=1365" target="_blank">объяснение</a> приводится и для коэффициента корреляции, хотя в расчете коэффициента корреляции вообще степеней свободы <span class="math inline">\(n-2\)</span>.<br>
+Здесь важно прояснить две вещи. Первое: при делении на <span class="math inline">\(n\)</span> у нас систематически занижается дисперсия выборки относительно дисперсии генеральной совокупности, и деление на <span class="math inline">\(n-1\)</span> позволяет получить несмещенную оценку дисперсии (<a href="https://www.youtube.com/watch?v=sHRBg6BhKjI" target="_blank">здесь</a> или <a href="https://www.youtube.com/watch?v=pLH1QA4F9uE" target="_blank">здесь</a> можно посмотреть, как это происходит). Второе: при растущем объеме выборки обе формулы дают значение, которое приближается к дисперсии генеральной совокупности. То есть в курсе объяснение через степени свободы не совсем ошибка, но немного уводит в сторону.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Комментарий
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://en.wikipedia.org/wiki/Bessel%27s_correction#Proof">Почему именно n-1 в знаменателе</a></p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Формула дисперсии
+Обсуждение в чате Биостата
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Генеральной совокупности</p>
-<p><span class="math display">\[
-\sigma^2 = \frac{\sum_{i=1}^n(x_i - \mu)^2}{n},
-\]</span></p>
-<p>Выборки</p>
-<p><span class="math display">\[
-\overline{var}(x) = \frac{\sum_{i=1}^n(x_i - \overline{x})^2}{n-1},
-\]</span><br>
-где <span class="math inline">\(\mu\)</span> — среднее генеральной совокупности, <span class="math inline">\(\overline{x}\)</span> — среднее выборки, <span class="math inline">\(n\)</span> — количество элементов.</p>
+<p>Вот начиная с этого <a href="https://t.me/chat_biostat_R/22168">сообщения</a> обсудили, что в принципе это объяснение тоже имеет смысл</p>
 </div>
 </div>
-<p>Анатолий Карпов <a href="https://stepik.org/lesson/8076/step/5?unit=1356" target="_blank">объясняет</a> (на 3.30), что <span class="math inline">\(n-1\)</span> в знаменателе формулы дисперсии выборки связано со степенями свободы, но это не совсем так. Такое же <a href="https://stepik.org/lesson/8086/step/4?unit=1365" target="_blank">объяснение</a> приводится и для коэффициента корреляции, хотя в расчете коэффициента корреляции вообще степеней свободы <span class="math inline">\(n-2\)</span>.<br>
-Здесь важно прояснить две вещи. Первое: при делении на <span class="math inline">\(n\)</span> у нас систематически занижается дисперсия выборки относительно дисперсии генеральной совокупности, и деление на <span class="math inline">\(n-1\)</span> позволяет получить несмещенную оценку дисперсии (<a href="https://www.youtube.com/watch?v=sHRBg6BhKjI" target="_blank">здесь</a> или <a href="https://www.youtube.com/watch?v=pLH1QA4F9uE" target="_blank">здесь</a> можно посмотреть, как это происходит). Второе: при растущем объеме выборки обе формулы дают значение, которое приближается к дисперсии генеральной совокупности. То есть в курсе объяснение через степени свободы не совсем ошибка, но немного уводит в сторону.</p>
 <p>Кроме этого, стандартное отклонение называется в лекциях и стандартным, и среднеквадратичным отклонением. Понятно, что это одно и то же, но это не было проговорено явно, в результате слушатели курса в растерянности. Исторически в русскоязычной литературе использовался вариант “среднеквадратичное отклонение”, но сейчас чаще встречается вариант “стандартное отклонение”, мне кажется это более правильно, так как прямой перевод standard deviation.</p>
 <p>Вот <a href="https://stepik.org/lesson/9294/step/5?unit=1827" target="_blank">тут</a> сказано, что между первым и третьим квартилем в боксплоте находится ровно 50% наблюдений. В принципе это часто так, но не обязательно, например, это будет неверно в случае, если в данных есть повторяющиеся значения.</p>
 <div class="cell">
