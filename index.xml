@@ -366,9 +366,9 @@ font-style: inherit;">30</span>)</span></code></pre></div>
 <table class="caption-top table">
 <caption>Здесь ✅ — тест показал себя хорошо, ❌ — тест показал себя плохо, 🟡 — тест показал себя не оптимально, но не слишком плохо</caption>
 <colgroup>
-<col style="width: 47%">
-<col style="width: 26%">
-<col style="width: 26%">
+<col style="width: 64%">
+<col style="width: 17%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -558,7 +558,7 @@ Note
 <h2 class="anchored" data-anchor-id="благодарности">Благодарности</h2>
 <p>Матвею Славенко за уточнение сложных моментов и помощь с корректностью формулировок, Яне, Жене и Юле за конструктивные статистические дискуссии и рекомендации по тексту, Сергею Матросову за дополнительную мотивацию все-таки дописать пост и Дмитрию Пензару за исходное развитие дискуссии и пример с ЦПТ.</p>
 <p>Обсудить можно в телеграм-канале <a href="https://t.me/stats_for_science" target="_blank">Статистика и R в науке и аналитике</a>, в комментариях к <a href="https://t.me/stats_for_science/125" target="_blank">посту</a> или здесь, авторизовавшись через GitHub.</p>
-<p><img src="https://ubogoeva.github.io/R4Analytics/posts/images/tlg_short.png" class="img-fluid"></p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/images/logo_final_tlg.png" class="img-fluid" width="385"></p>
 
 
 </section>
@@ -667,13 +667,13 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div>
     Two Sample t-test
 
 data:  rnorm(100, mean = 0, sd = 1) and rnorm(100, mean = 0, sd = 1)
-t = -1.1878, df = 198, p-value = 0.2363
+t = -1.2245, df = 198, p-value = 0.2222
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.4285169  0.1063450
+ -0.4526324  0.1058505
 sample estimates:
   mean of x   mean of y 
--0.10910933  0.05197663 </code></pre>
+-0.04823391  0.12515703 </code></pre>
 </div>
 </div>
 <p>Однако это делать не рекомендуется, поскольку при равных дисперсиях тест Стьюдента не будет сильно отличаться от теста Велча, а при разных тест Велча точнее.</p>
@@ -811,7 +811,7 @@ font-style: inherit;">0.05</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились) </span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.034</code></pre>
+<pre><code>[1] 0.051</code></pre>
 </div>
 </div>
 <p><strong>Тест Стьюдента</strong></p>
@@ -888,7 +888,7 @@ font-style: inherit;">0.05</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.04</code></pre>
+<pre><code>[1] 0.049</code></pre>
 </div>
 </div>
 <p>Здесь у нас вероятность ошибки первого рода для обоих тестов примерно 0.05, а также распределение p-value похоже на равномерное. Это ожидаемо и корректно, так как выборки извлекались из одинаковой генеральной совокупности, а значит, что доля ложноположительных результатов (=прокрасов) должна быть не больше заданного уровня <img src="https://latex.codecogs.com/png.latex?%5Calpha%20=%200.05">.</p>
@@ -2642,9 +2642,9 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <table class="caption-top table">
 <caption>Здесь ✅ — тест показал себя хорошо, ❌ — тест показал себя плохо, 🟡 — тест показал себя не оптимально, но не слишком плохо</caption>
 <colgroup>
-<col style="width: 75%">
-<col style="width: 10%">
-<col style="width: 14%">
+<col style="width: 64%">
+<col style="width: 17%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -2712,7 +2712,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 </div>
 </div>
 <p>Подписывайтесь на <a href="https://t.me/stats_for_science">телеграм-канал</a>, кто еще этого не сделал, пишите комментарии в телеграме или здесь!</p>
-<p><img src="https://ubogoeva.github.io/R4Analytics/images/logo_final_tlg.png" class="img-fluid"></p>
+<p><img src="https://ubogoeva.github.io/R4Analytics/images/logo_final_tlg.png" class="img-fluid" width="385"></p>
 
 
 </section>
