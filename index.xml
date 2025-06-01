@@ -11,7 +11,7 @@
 <description>Блог Елены Убогоевой по статистике и анализу данных в R</description>
 <language>ru</language>
 <generator>quarto-1.4.555</generator>
-<lastBuildDate>Wed, 12 Mar 2025 18:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 12 Mar 2025 21:00:00 GMT</lastBuildDate>
 <item>
   <title>История A/B тестирования: от лечения цинги до цвета ссылок Google</title>
   <dc:creator>Elena U</dc:creator>
@@ -139,7 +139,7 @@
   <category>statistics</category>
   <category>analytics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/history_of_AB_testing.html</guid>
-  <pubDate>Wed, 12 Mar 2025 18:00:00 GMT</pubDate>
+  <pubDate>Wed, 12 Mar 2025 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Разбор курса ‘Основы статистики’</title>
@@ -566,7 +566,7 @@ Note
  ]]></description>
   <category>statistics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/review_of_statistics_course.html</guid>
-  <pubDate>Thu, 13 Feb 2025 18:00:00 GMT</pubDate>
+  <pubDate>Thu, 13 Feb 2025 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Тест Стьюдента и тест Велча</title>
@@ -2720,7 +2720,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
  ]]></description>
   <category>statistics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/welch_test.html</guid>
-  <pubDate>Sat, 23 Nov 2024 18:00:00 GMT</pubDate>
+  <pubDate>Sat, 23 Nov 2024 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Как добавить яндекс-метрику на сайт Quarto</title>
@@ -2799,7 +2799,7 @@ Google-analytics
  ]]></description>
   <category>analytics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</guid>
-  <pubDate>Mon, 15 Apr 2024 18:00:00 GMT</pubDate>
+  <pubDate>Mon, 15 Apr 2024 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Поправки на множественное тестирование</title>
@@ -3779,7 +3779,7 @@ font-style: inherit;">0.019</span>)</span></code></pre></div>
  ]]></description>
   <category>statistics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</guid>
-  <pubDate>Tue, 28 Nov 2023 18:00:00 GMT</pubDate>
+  <pubDate>Tue, 28 Nov 2023 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Как задать хороший вопрос в R чате?</title>
@@ -4098,7 +4098,7 @@ font-style: inherit;">20</span>)</span>
  ]]></description>
   <category>R</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</guid>
-  <pubDate>Thu, 01 Dec 2022 18:00:00 GMT</pubDate>
+  <pubDate>Thu, 01 Dec 2022 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Виды пределов погрешностей</title>
@@ -4859,7 +4859,7 @@ p-value of the test 0.001819483</code></pre>
  ]]></description>
   <category>statistics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</guid>
-  <pubDate>Mon, 14 Nov 2022 18:00:00 GMT</pubDate>
+  <pubDate>Mon, 14 Nov 2022 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Инструкция по установке R и RStudio</title>
@@ -5016,7 +5016,7 @@ font-style: inherit;">)</span></span></code></pre></div>
  ]]></description>
   <category>R</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/how_to_install_R.html</guid>
-  <pubDate>Sat, 29 Oct 2022 18:00:00 GMT</pubDate>
+  <pubDate>Sat, 29 Oct 2022 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Anscombe’s quartet</title>
@@ -5525,7 +5525,7 @@ font-style: inherit;">|</span> p4)</span></code></pre></div>
  ]]></description>
   <category>statistics</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/ansombe_quartet.html</guid>
-  <pubDate>Tue, 18 Oct 2022 18:00:00 GMT</pubDate>
+  <pubDate>Tue, 18 Oct 2022 21:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

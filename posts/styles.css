@@ -1,0 +1,19 @@
+/* css styles */
+h1 {
+  text-align: center;
+}
+h2 {
+  text-align: center;	
+}
+h3 {
+  text-align: center;
+}
+h4 {
+  text-align: center;
+}
+.reveal .slide-logo {
+  height: 100px !important;
+  width: 100px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
