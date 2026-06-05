@@ -1,0 +1,560 @@
+---
+title: "Стьюдент, Велч и Манн-Уитни на малых выборках"
+subtitle: "Интерактивные симуляции ошибки I рода и мощности"
+author: "Elena U"
+date: today
+categories: [statistics, simulation]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: flatly
+    fig-width: 8
+    fig-height: 5
+draft: true
+---
+
+```{=html}
+<style>
+  .ojs-cell { margin: 1.5rem 0; }
+  .sim-note {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-left: 3px solid #4a90d9;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+</style>
+```
+## Введение
+
+В [предыдущем посте](https://ubogoeva.github.io/R4Analytics/posts/welch_test.html) мы сравнили тест Стьюдента и тест Велча на больших выборках (n = 1000–10000). Выводы были однозначны: тест Велча надёжнее при неравных дисперсиях и разных размерах выборок.
+
+Но в реальных исследованиях — особенно в биологии, медицине, психологии — выборки часто **малые**: 5–30 наблюдений на группу. Как ведут себя тесты в таких условиях? И какую роль играет непараметрический тест **Манна-Уитни**?
+
+Ниже — интерактивные симуляции, которые работают прямо в браузере. Меняйте параметры и наблюдайте, как это влияет на ошибку I рода и мощность тестов.
+
+::: callout-note
+## Напоминание
+
+**Ошибка I рода (α)** — вероятность найти различия, когда их нет (ложноположительный результат, «прокрас»). Должна быть ≈ заданному уровню α (обычно 0.05).
+
+**Мощность (1−β)** — вероятность найти различия, когда они действительно есть. Чем выше — тем лучше (идеально \> 0.8).
+:::
+
+## Формулы тестов
+
+### Тест Стьюдента (для равных дисперсий)
+
+$$
+t = \frac{\overline{X}_1 - \overline{X}_2}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}, \quad
+s_p = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
+$$
+
+Степени свободы: $df = n_1 + n_2 - 2$
+
+### Тест Велча (для неравных дисперсий)
+
+$$
+t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+$$
+
+$$
+df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}
+$$
+
+### Тест Манна-Уитни
+
+Непараметрический тест, основанный на рангах. Не требует нормальности распределений. Статистика $U$ считается по числу пар $(x_i, y_j)$, где $x_i > y_j$, и сравнивается с нормальным приближением при $n_1, n_2 > 5$:
+
+$$
+z = \frac{U - \frac{n_1 n_2}{2}}{\sqrt{\frac{n_1 n_2 (n_1 + n_2 + 1)}{12}}}
+$$
+
+## Интерактивная симуляция
+
+Настройте параметры ниже и нажмите **«Запустить»**. Симуляция многократно генерирует пары выборок с заданными параметрами и считает долю «прокрасов» (p \< α) для каждого теста.
+
+### Параметры
+
+```{ojs}
+//| echo: false
+
+viewof scenario = Inputs.radio(
+  ["H₀: нет различий", "Разные SD, равные n", "Разные SD, разные n", "Есть эффект (Δ > 0)", "Ненормальное распределение"],
+  { value: "H₀: нет различий", label: "Сценарий" }
+)
+```
+
+```{ojs}
+//| echo: false
+
+scenarioDefaults = {
+  const map = {
+    "H₀: нет различий":              { n1: 15, n2: 15, sd1: 1,   sd2: 1,   dm: 0,    dist: "Нормальное" },
+    "Разные SD, равные n":            { n1: 15, n2: 15, sd1: 1,   sd2: 3,   dm: 0,    dist: "Нормальное" },
+    "Разные SD, разные n":            { n1: 30, n2: 8,  sd1: 1,   sd2: 3,   dm: 0,    dist: "Нормальное" },
+    "Есть эффект (Δ > 0)":            { n1: 15, n2: 15, sd1: 1,   sd2: 1,   dm: 1.0,  dist: "Нормальное" },
+    "Ненормальное распределение":     { n1: 15, n2: 15, sd1: 1,   sd2: 1,   dm: 0,    dist: "Экспоненциальное" },
+  };
+  return map[scenario];
+}
+```
+
+```{ojs}
+//| echo: false
+
+viewof n1 = Inputs.range([5, 50], {
+  value: scenarioDefaults.n1, step: 1, label: "n₁ (размер группы 1)"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof n2 = Inputs.range([5, 50], {
+  value: scenarioDefaults.n2, step: 1, label: "n₂ (размер группы 2)"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof sd1 = Inputs.range([0.5, 5], {
+  value: scenarioDefaults.sd1, step: 0.5, label: "SD₁"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof sd2 = Inputs.range([0.5, 5], {
+  value: scenarioDefaults.sd2, step: 0.5, label: "SD₂"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof delta_mean = Inputs.range([0, 3], {
+  value: scenarioDefaults.dm, step: 0.25, label: "Δ средних (μ₂ − μ₁)"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof alpha = Inputs.range([0.01, 0.10], {
+  value: 0.05, step: 0.01, label: "α (уровень значимости)"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof n_sim = Inputs.range([200, 3000], {
+  value: 1000, step: 100, label: "Число итераций"
+})
+```
+
+```{ojs}
+//| echo: false
+
+viewof distrib = Inputs.select(
+  ["Нормальное", "Экспоненциальное", "Равномерное"],
+  { value: scenarioDefaults.dist, label: "Распределение" }
+)
+```
+
+### Результаты
+
+```{ojs}
+//| echo: false
+
+// ── Генераторы случайных чисел ──
+function randn() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+function generateSample(n, mean, sd, dist) {
+  const arr = [];
+  for (let i = 0; i < n; i++) {
+    let x;
+    if (dist === "Нормальное") {
+      x = mean + sd * randn();
+    } else if (dist === "Экспоненциальное") {
+      x = mean + sd * (-Math.log(1 - Math.random()) - 1);
+    } else {
+      x = mean + sd * (Math.random() * 2 * 1.732 - 1.732);
+    }
+    arr.push(x);
+  }
+  return arr;
+}
+
+// ── Вспомогательные функции ──
+function arrMean(a) { return a.reduce((s, x) => s + x, 0) / a.length; }
+function arrVar(a) {
+  const m = arrMean(a);
+  return a.reduce((s, x) => s + (x - m) ** 2, 0) / (a.length - 1);
+}
+
+// ── Специальные функции для вычисления p-value ──
+function lgamma(z) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091,
+             -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = z, x = z, tmp = x + 5.5;
+  tmp = (x + 0.5) * Math.log(tmp) - tmp;
+  let ser = 1.000000000190015;
+  for (let j = 0; j < 6; j++) ser += c[j] / ++y;
+  return tmp + Math.log(2.5066282746310005 * ser / x);
+}
+
+function incompleteBeta(x, a, b) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const lbeta = lgamma(a) + lgamma(b) - lgamma(a + b);
+  const front = Math.exp(Math.log(x) * a + Math.log(1 - x) * b - lbeta) / a;
+  // continued fraction
+  const MAXIT = 200, EPS = 3e-7, FPMIN = 1e-30;
+  const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < FPMIN) d = FPMIN;
+  d = 1 / d;
+  let h = d;
+  for (let m = 1; m <= MAXIT; m++) {
+    let m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1 / d; const del = d * c; h *= del;
+    if (Math.abs(del - 1) < EPS) break;
+  }
+  return front * h;
+}
+
+function tCDF(t, df) {
+  const x = df / (df + t * t);
+  return 1 - 0.5 * incompleteBeta(x, df / 2, 0.5);
+}
+
+function normCDF(z) {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp(-z * z / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.7814779 + t * (-1.8212560 + t * 1.3302744))));
+  return z >= 0 ? 1 - p : p;
+}
+
+// ── Тесты ──
+function pStudent(a, b) {
+  const n1 = a.length, n2 = b.length;
+  const m1 = arrMean(a), m2 = arrMean(b);
+  const v1 = arrVar(a), v2 = arrVar(b);
+  const sp = Math.sqrt(((n1 - 1) * v1 + (n2 - 1) * v2) / (n1 + n2 - 2));
+  if (sp === 0) return 1;
+  const t = (m1 - m2) / (sp * Math.sqrt(1 / n1 + 1 / n2));
+  return 2 * (1 - tCDF(Math.abs(t), n1 + n2 - 2));
+}
+
+function pWelch(a, b) {
+  const n1 = a.length, n2 = b.length;
+  const m1 = arrMean(a), m2 = arrMean(b);
+  const v1 = arrVar(a), v2 = arrVar(b);
+  const se = Math.sqrt(v1 / n1 + v2 / n2);
+  if (se === 0) return 1;
+  const t = (m1 - m2) / se;
+  const df = (v1 / n1 + v2 / n2) ** 2 /
+    ((v1 / n1) ** 2 / (n1 - 1) + (v2 / n2) ** 2 / (n2 - 1));
+  return 2 * (1 - tCDF(Math.abs(t), Math.max(1, df)));
+}
+
+function pMannWhitney(a, b) {
+  const n1 = a.length, n2 = b.length;
+  let U1 = 0;
+  for (let i = 0; i < n1; i++)
+    for (let j = 0; j < n2; j++) {
+      if (a[i] > b[j]) U1++;
+      else if (a[i] === b[j]) U1 += 0.5;
+    }
+  const U = Math.min(U1, n1 * n2 - U1);
+  const mu = n1 * n2 / 2;
+  const sigma = Math.sqrt(n1 * n2 * (n1 + n2 + 1) / 12);
+  if (sigma === 0) return 1;
+  const z = (U - mu) / sigma;
+  return 2 * (1 - normCDF(Math.abs(z)));
+}
+```
+
+```{ojs}
+//| echo: false
+
+// ── Основная симуляция ──
+simResult = {
+  const pSt = [], pWe = [], pMW = [];
+
+  for (let i = 0; i < n_sim; i++) {
+    const a = generateSample(n1, 0, sd1, distrib);
+    const b = generateSample(n2, delta_mean, sd2, distrib);
+    pSt.push(pStudent(a, b));
+    pWe.push(pWelch(a, b));
+    pMW.push(pMannWhitney(a, b));
+  }
+
+  const rateSt = pSt.filter(p => p < alpha).length / n_sim;
+  const rateWe = pWe.filter(p => p < alpha).length / n_sim;
+  const rateMW = pMW.filter(p => p < alpha).length / n_sim;
+
+  return { pSt, pWe, pMW, rateSt, rateWe, rateMW };
+}
+```
+
+```{ojs}
+//| echo: false
+
+// ── Карточки с результатами ──
+{
+  const isH0 = delta_mean === 0;
+
+  function badge(rate) {
+    if (isH0) {
+      if (rate <= alpha * 1.3) return { cls: "ok",   text: "✓ норма" };
+      if (rate <= alpha * 2.0) return { cls: "warn", text: "~ повышена" };
+      return { cls: "bad", text: "✗ завышена" };
+    } else {
+      if (rate >= 0.8)  return { cls: "ok",   text: "✓ высокая" };
+      if (rate >= 0.5)  return { cls: "warn", text: "~ средняя" };
+      return { cls: "bad", text: "✗ низкая" };
+    }
+  }
+
+  const tests = [
+    { name: "Стьюдент",     rate: simResult.rateSt },
+    { name: "Велч",         rate: simResult.rateWe },
+    { name: "Манн-Уитни",   rate: simResult.rateMW },
+  ];
+
+  const badgeStyle = {
+    ok:   "background:#e6f4e2; color:#2d6a1e; padding:2px 8px; border-radius:4px; font-size:12px;",
+    warn: "background:#fff3cd; color:#856404; padding:2px 8px; border-radius:4px; font-size:12px;",
+    bad:  "background:#fce4e4; color:#a32d2d; padding:2px 8px; border-radius:4px; font-size:12px;",
+  };
+
+  const label = isH0 ? "Доля ошибки I рода" : "Мощность теста";
+
+  const html = `
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:1rem 0;">
+      ${tests.map(t => {
+        const b = badge(t.rate);
+        return `<div style="background:#f8f9fa; border-radius:8px; padding:14px 16px;">
+          <div style="font-size:12px; color:#666; margin-bottom:4px;">${t.name}</div>
+          <div style="font-size:24px; font-weight:600;">${(t.rate * 100).toFixed(1)}%</div>
+          <div style="margin-top:6px;"><span style="${badgeStyle[b.cls]}">${b.text}</span></div>
+          <div style="font-size:11px; color:#999; margin-top:4px;">${label}</div>
+        </div>`;
+      }).join("")}
+    </div>
+    <div style="background:#f0f4f8; padding:10px 14px; border-radius:6px; font-size:13px; color:#555; line-height:1.6; margin-bottom:1rem;">
+      ${isH0
+        ? `<strong>H₀ верна</strong>: ожидаемая доля «прокрасов» ≈ α = ${alpha}. Если тест даёт значительно больше — он слишком часто находит различия там, где их нет.`
+        : `<strong>H₁ верна</strong>: Δ = ${delta_mean}. Смотрим, какой тест чаще обнаруживает реальные различия. Мощность > 80% считается хорошей.`
+      }
+    </div>
+  `;
+  const el = document.createElement("div");
+  el.innerHTML = html;
+  return el;
+}
+```
+
+### Гистограммы p-value
+
+Если H₀ верна, p-value должны распределяться **равномерно** (все столбцы примерно одинаковой высоты). Если столбец около 0 непропорционально высокий — тест «прокрашивает» слишком часто.
+
+```{ojs}
+//| echo: false
+
+Plot = import("https://esm.sh/@observablehq/plot@0.6")
+```
+
+```{ojs}
+//| echo: false
+
+{
+  function histPlot(pvals, title) {
+    const data = pvals.map(p => ({ p, sig: p < alpha ? "p < α" : "p ≥ α" }));
+    return Plot.plot({
+      title,
+      width: 220, height: 180,
+      marginLeft: 40,
+      x: { label: "p-value", domain: [0, 1] },
+      y: { label: "частота" },
+      color: { domain: ["p < α", "p ≥ α"], range: ["#e24b4a", "#7cb342"] },
+      marks: [
+        Plot.rectY(data, Plot.binX({ y: "count" }, { x: "p", fill: "sig", thresholds: 10 })),
+        Plot.ruleY([0])
+      ]
+    });
+  }
+
+  const container = document.createElement("div");
+  container.style.cssText = "display:flex; gap:12px; flex-wrap:wrap;";
+  container.appendChild(histPlot(simResult.pSt, "Стьюдент"));
+  container.appendChild(histPlot(simResult.pWe, "Велч"));
+  container.appendChild(histPlot(simResult.pMW, "Манн-Уитни"));
+  return container;
+}
+```
+
+### Пример одной итерации
+
+Ниже показаны конкретные выборки из одной случайной итерации — чтобы увидеть, как выглядят данные при выбранных параметрах.
+
+```{ojs}
+//| echo: false
+
+{
+  const a = generateSample(n1, 0, sd1, distrib);
+  const b = generateSample(n2, delta_mean, sd2, distrib);
+
+  const data = [
+    ...a.map(v => ({ value: v, group: `Группа 1 (n=${n1})` })),
+    ...b.map(v => ({ value: v, group: `Группа 2 (n=${n2})` }))
+  ];
+
+  return Plot.plot({
+    width: 640, height: 200,
+    marginLeft: 50,
+    x: { label: "Значение" },
+    y: { label: "частота" },
+    color: {
+      domain: [`Группа 1 (n=${n1})`, `Группа 2 (n=${n2})`],
+      range: ["#4a90d9", "#d4537e"]
+    },
+    facet: { data, y: "group", marginRight: 0 },
+    marks: [
+      Plot.rectY(data, Plot.binX({ y: "count" }, {
+        x: "value", fill: "group", thresholds: 12
+      })),
+      Plot.ruleY([0])
+    ]
+  });
+}
+```
+
+## Разбор сценариев
+
+### Сценарий 1: H₀ верна, всё одинаково
+
+Установите: **n₁ = n₂ = 15**, **SD₁ = SD₂ = 1**, **Δ = 0**.
+
+Все три теста должны давать долю «прокрасов» ≈ 5%. Это базовая проверка: тест работает корректно, если не находит различий там, где их нет.
+
+::: callout-tip
+## Что наблюдаем
+
+Все три теста держат α на заданном уровне. Гистограммы p-value близки к равномерному распределению.
+:::
+
+### Сценарий 2: Разные дисперсии, равные n
+
+Установите: **n₁ = n₂ = 15**, **SD₁ = 1**, **SD₂ = 3**, **Δ = 0**.
+
+При **равных** размерах выборок даже классический тест Стьюдента обычно справляется с неравенством дисперсий. Это подтверждается и в статье для больших выборок.
+
+::: callout-tip
+## Что наблюдаем
+
+Все три теста близки к α = 5%. Равный размер выборок «спасает» Стьюдента даже при сильном неравенстве дисперсий.
+:::
+
+### Сценарий 3: Разные дисперсии, разные n — опасный кейс
+
+Установите: **n₁ = 30**, **n₂ = 8**, **SD₁ = 1**, **SD₂ = 3**, **Δ = 0**.
+
+Это ключевой кейс: маленькая выборка с большой дисперсией. В статье для больших выборок (9000 vs 1000) Стьюдент давал до 24% ложных прокрасов. На малых выборках эффект тоже заметен.
+
+::: callout-warning
+## Что наблюдаем
+
+Тест Стьюдента завышает ошибку I рода (часто \> 10% вместо 5%). Велч держит α. Манн-Уитни тоже может «плыть» — он чувствителен к разным формам распределений.
+
+Попробуйте усилить дисбаланс: **n₁ = 40**, **n₂ = 5**, **SD₂ = 4** — и увидите, как Стьюдент совсем ломается.
+:::
+
+### Сценарий 4: Есть реальный эффект
+
+Установите: **n₁ = n₂ = 15**, **SD₁ = SD₂ = 1**, **Δ = 1**.
+
+Теперь H₁ верна: средние различаются. Мы смотрим **мощность** — долю итераций, где тест нашёл различия.
+
+::: callout-tip
+## Что наблюдаем
+
+При Δ = 1 и n = 15 мощность всех тестов \~ 70–85%. Увеличьте n до 25 — и мощность вырастет до \> 90%.
+
+Манн-Уитни на нормальных данных немного уступает параметрическим тестам — это «плата» за непараметричность (потеря \~5% мощности).
+:::
+
+### Сценарий 5: Ненормальное распределение
+
+Установите: **n₁ = n₂ = 15**, **SD₁ = SD₂ = 1**, **Δ = 0**, распределение = **Экспоненциальное**.
+
+Экспоненциальное распределение сильно асимметрично. Как справятся тесты?
+
+::: callout-tip
+## Что наблюдаем
+
+Для проверки ошибки I рода (Δ = 0): все три теста обычно держатся в пределах нормы даже на малых выборках — центральная предельная теорема работает лучше, чем ожидаешь.
+
+Установите **Δ = 1** и сравните мощность: Манн-Уитни часто оказывается на уровне или даже лучше t-тестов на асимметричных данных.
+:::
+
+## Зависимость ошибки I рода от дисбаланса выборок
+
+Установите **SD₁ = 1**, **SD₂ = 3**, **Δ = 0** и двигайте слайдер **n₂** от 5 до 50 при фиксированном **n₁ = 30**. Вы увидите:
+
+-   При **n₂ ≈ n₁**: все тесты в норме
+-   При **n₂ \<\< n₁** (маленькая выборка с большой дисперсией): Стьюдент завышает α
+-   При **n₂ \>\> n₁** (большая выборка с большой дисперсией): Стьюдент даже занижает α (консервативен)
+
+Тест Велча стабилен во всех случаях.
+
+## Выводы
+
+На основании симуляций на **малых выборках** (n = 5–50):
+
+|                                           | Стьюдент | Велч | Манн-Уитни |
+|-------------------------------------------|:--------:|:----:|:----------:|
+| Равные SD, равные n                       |    ✅    |  ✅  |     ✅     |
+| Разные SD, равные n                       |    ✅    |  ✅  |     ✅     |
+| Разные SD, разные n (мал. выб. + бол. SD) |    ❌    |  ✅  |     ⚠️     |
+| Нормальные данные, мощность               |    ✅    |  ✅  |     🟡     |
+| Ненормальные данные, мощность             |    🟡    |  🟡  |     ✅     |
+
+: Поведение тестов на малых выборках {.striped .hover}
+
+**Рекомендации:**
+
+1.  **По умолчанию используйте тест Велча** — он надёжен во всех разобранных ситуациях, как на больших, так и на малых выборках
+2.  **Манн-Уитни** стоит применять, когда есть основания сомневаться в нормальности распределения (сильная асимметрия, выбросы)
+3.  **Классический тест Стьюдента** имеет смысл только когда вы уверены в равенстве дисперсий — но если вы в этом уверены, Велч всё равно даст тот же результат. Так зачем рисковать?
+
+::: callout-important
+## Главный вывод
+
+Аргументы «за Велч» из [предыдущего поста](https://ubogoeva.github.io/R4Analytics/posts/welch_test.html) полностью подтверждаются и на малых выборках. Проблема Стьюдента с неравными дисперсиями и разными n — не артефакт больших выборок, она проявляется даже при n = 5–30.
+:::
+
+------------------------------------------------------------------------
+
+Подписывайтесь на [телеграм-канал](https://t.me/stats_for_science), пишите комментарии!
