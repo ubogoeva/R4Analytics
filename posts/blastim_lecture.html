@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Елена Убогоева">
-  <meta name="dcterms.date" content="2025-06-01">
+  <meta name="dcterms.date" content="2025-11-15">
   <title>R4Analytics - Статистика, R и анализ данных</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
 </div>
 </div>
 
-  <p class="date">2025-06-01</p>
+  <p class="date">2025-11-15</p>
 </section>
 <section id="цель-занятия" class="slide level2">
 <h2>Цель занятия</h2>
@@ -1821,12 +1821,12 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <pre><code># A tibble: 6 × 21
   unit          race   gold  wood   pop    hp armor_type armor sight speed  time
   &lt;chr&gt;         &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Serpent Ward  Orc      NA    NA    NA    75 Heavy          0   120    NA    NA
-2 Water Elemen… Human    NA    NA    NA   675 Heavy          1   120   220    NA
-3 Peon          Orc      75     0     1   250 Medium         0    80   190    15
-4 Footman       Human   135     0     2   420 Heavy          2   140   270    20
-5 Gargoyle      Unde…   185    30     2   410 Unarmored      3   160   350    35
-6 Carrion Beet… Unde…    NA    NA     0   410 Heavy          2   120   270    NA
+1 Wisp          N.Elf    60     0     1   120 Medium         0   100   270    14
+2 Flying Machi… Human    90    30     1   200 Heavy          2   180   400    13
+3 Dryad         N.Elf   145    60     3   435 Unarmored      0   140   350    30
+4 Crypt Fiend   Unde…   215    40     3   550 Medium         0   140   270    30
+5 T. Berserker  Orc     135    20     2   450 Medium         0   140   270    22
+6 DoT Druid Fo… N.Elf   135    20     2   300 Unarmored      0   140   270    22
 # ℹ 10 more variables: ground_attack &lt;chr&gt;, damage &lt;dbl&gt;, cooldown &lt;dbl&gt;,
 #   dps &lt;dbl&gt;, range &lt;dbl&gt;, air_attack &lt;chr&gt;, damage_2 &lt;dbl&gt;, cooldown_2 &lt;dbl&gt;,
 #   dps_2 &lt;dbl&gt;, range_2 &lt;dbl&gt;</code></pre>
@@ -4298,7 +4298,7 @@ Caused by error:
 <h2><code>pivot_longer()</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="images/sandwich_pivot.PNG" width="1500"></p>
+<p><img data-src="../posts/images/sandwich_pivot.PNG"></p>
 </div><div class="column" style="width:50%;">
 <p>Для выбора колонок можно использовать концепт <code>tidy-select</code>-а.</p>
 <p>Лучше всего еще перед трансформацией создать колонку с id каждого наблюдения.</p>
@@ -4493,13 +4493,61 @@ Caused by error:
 <p>На связи в телеграме: <span class="citation" data-cites="lena_astr">@lena_astr</span></p>
 </div>
 </div>
+</section>
+<section id="заголовок" class="slide level2">
+<h2>Заголовок</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a></a><span class="fu">library</span>(knitr)</span>
+<span id="cb103-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb103-3"><a></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb103-4"><a></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb103-5"><a></a></span>
+<span id="cb103-6"><a></a><span class="co"># Source - https://stackoverflow.com/a</span></span>
+<span id="cb103-7"><a></a><span class="co"># Posted by Emmanuel Hamel</span></span>
+<span id="cb103-8"><a></a><span class="co"># Retrieved 2025-11-15, License - CC BY-SA 4.0</span></span>
+<span id="cb103-9"><a></a></span>
+<span id="cb103-10"><a></a><span class="fu">library</span>(knitr)</span>
+<span id="cb103-11"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb103-12"><a></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb103-13"><a></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb103-14"><a></a><span class="fu">library</span>(stringr)</span>
+<span id="cb103-15"><a></a></span>
+<span id="cb103-16"><a></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2018</span>, <span class="dv">2017</span>, <span class="dv">2018</span>),</span>
+<span id="cb103-17"><a></a>         <span class="at">major_item =</span> <span class="st">"M"</span>,</span>
+<span id="cb103-18"><a></a>         <span class="at">sub_item =</span> <span class="fu">c</span>( <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
+<span id="cb103-19"><a></a>         <span class="at">n =</span> <span class="fu">c</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb103-20"><a></a></span>
+<span id="cb103-21"><a></a>tab <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb103-22"><a></a>  <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-23"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
+<span id="cb103-24"><a></a>  <span class="fu">spread</span>(year,n) <span class="sc">%&gt;%</span></span>
+<span id="cb103-25"><a></a>  <span class="co"># now join with the part for which sub_item == "B"</span></span>
+<span id="cb103-26"><a></a>  <span class="fu">left_join</span>(df <span class="sc">%&gt;%</span></span>
+<span id="cb103-27"><a></a>               <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"B"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-28"><a></a>               <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
+<span id="cb103-29"><a></a>               <span class="fu">spread</span>(year,n),</span>
+<span id="cb103-30"><a></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"major_item"</span> <span class="ot">=</span> <span class="st">"major_item"</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb103-31"><a></a>  <span class="co"># now the nice header</span></span>
+<span id="cb103-32"><a></a>  <span class="fu">kable</span>(<span class="st">"latex"</span>, <span class="at">booktabs =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb103-33"><a></a>  <span class="fu">kable_styling</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb103-34"><a></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"A"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"B"</span> <span class="ot">=</span> <span class="dv">2</span>))</span>
+<span id="cb103-35"><a></a></span>
+<span id="cb103-36"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.x)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb103-37"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.y)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb103-38"><a></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section></section>
+</section><section id="заголовок-output" class="slide level2 output-location-slide"><h2>Заголовок</h2><div class="cell output-location-slide">
+<div class="cell-output-display">
+
+</div>
+</div></section></section>
     </div>
   </div>
 
