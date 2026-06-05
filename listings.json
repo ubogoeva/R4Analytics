@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/lectures/stats_mistakes.html",
       "/posts/history_of_AB_testing.html",
       "/posts/review_of_statistics_course.html",
       "/posts/welch_test.html",

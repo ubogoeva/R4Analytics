@@ -49,48 +49,6 @@
     "text": "Список источников\n\nAnscombe, F. J. (1973). “Graphs in Statistical Analysis”. American Statistician. 27 (1): 17–21. doi:10.1080/00031305.1973.10478966\nhttps://en.wikipedia.org/wiki/Anscombe%27s_quartet\n\nПодписывайтесь на телеграм-канал, будет много интересного"
   },
   {
-    "objectID": "posts/lectures/stats_mistakes.html#важные-дисклеймеры",
-    "href": "posts/lectures/stats_mistakes.html#важные-дисклеймеры",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Важные дисклеймеры",
-    "text": "Важные дисклеймеры\nСегодняшняя лекция — скорее дискуссия, где лектор не претендует на истину в последней инстанции.\nСкорее размышления и нестрогие рекомендации, которые однако основаны на опыте изучения и преподавания статистики.\nВ статистике в целом как в явлении не всегда существуют строгие и точные алгоритмы, всегда нужно понимать свою доменную область, природу данных, ограничения метода и тд\nГайдлайны в статистике хороши обычно только в первом приближении, дальше открывается огромное количество нюансов, которые уже не отразить в простой блок-схеме."
-  },
-  {
-    "objectID": "posts/lectures/stats_mistakes.html#достоверность-и-стат.-значимость",
-    "href": "posts/lectures/stats_mistakes.html#достоверность-и-стат.-значимость",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Достоверность и стат. значимость",
-    "text": "Достоверность и стат. значимость\nTL; DR: достоверности не существует\nДостоверность в математике — событие, которое происходит со 100% вероятностью, в статистике пользуемся термином статистическая значимость (statistical significance).\n«Достоверность» или «Статистическая значимость» 12 лет спустя: https://cyberleninka.ru/article/n/dostovernost-ili-statisticheskaya-znachimost-12-let-spustya"
-  },
-  {
-    "objectID": "posts/lectures/stats_mistakes.html#выбросы-и-пропущенные-значения---что-делать",
-    "href": "posts/lectures/stats_mistakes.html#выбросы-и-пропущенные-значения---что-делать",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Выбросы и пропущенные значения - что делать",
-    "text": "Выбросы и пропущенные значения - что делать\nЕсть алгоритмы, например 1.5 IQR\nНо нужно опираться на свое знание доменной области\nА почему бы не заменить все NA нулями?"
-  },
-  {
-    "objectID": "posts/lectures/stats_mistakes.html#нормальность-распределения-данных",
-    "href": "posts/lectures/stats_mistakes.html#нормальность-распределения-данных",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Нормальность распределения данных?",
-    "text": "Нормальность распределения данных?\nF-тест, анова\n\nНужна нормальность распределения выборочных средних, что при достаточно большом размере выборки гарантируется по ЦПТ\nОднако в случае нормально распределенных данных, нормальность распределения выборочных средних гарантируется автоматически. Из-за этого растет вся эта сложная формулировка\nМы не можем менять нулевую гипотезу, в зависимости от того, что показал нам другой тест (Шапиро-Уилка например)\nТест Шапиро-Уилка обладает теми же особенностями, что и другие стат тесты — на большой выборке имеет бОльшую мощность, а значит, что с большей вероятностью найдет отклонения от нормальности, в то время как на малой выборке необязательно\nУ непараметрических тестов есть свои ограничения, про которые мало кто знает (например симметричность распределения для теста Вилкоксона)\n\n\n\n\nhttps://bioinf.me/stat_myths\n\n\n\nАнализ мощности: пилотный эксперимент, либо опираемся на исторические данные, либо смотрим на “осмысленность” (доменные знания!).\nПример расчета для конверсий (в успешную покупку например):\n\nres &lt;- power.prop.test(p1 = 0.001, p2 = 0.0012, \n                       sig.level = 0.05, power = 0.8)\nres\n\n\n     Two-sample comparison of proportions power calculation \n\n              n = 431212.3\n             p1 = 0.001\n             p2 = 0.0012\n      sig.level = 0.05\n          power = 0.8\n    alternative = two.sided\n\nNOTE: n is number in *each* group\n\n\n\nres$n*2\n\n[1] 862424.7"
-  },
-  {
-    "objectID": "posts/lectures/stats_mistakes.html#поправки-на-множественное-тестирование",
-    "href": "posts/lectures/stats_mistakes.html#поправки-на-множественное-тестирование",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Поправки на множественное тестирование",
-    "text": "Поправки на множественное тестирование\nПроблематика?\nПочему бы не сравнить разными тестами и выбрать тот, который покажет значимый результат?"
-  },
-  {
-    "objectID": "posts/lectures/stats_mistakes.html#ссылки-на-источники",
-    "href": "posts/lectures/stats_mistakes.html#ссылки-на-источники",
-    "title": "Поговорим о статистических ошибках",
-    "section": "Ссылки на источники",
-    "text": "Ссылки на источники\n\nЛекция Матвея Славенко от Института Биоинформатики про нормальность распределения: https://bioinf.me/stat_myths\nПост про поправки на множественное тестирование: https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html"
-  },
-  {
     "objectID": "posts/multiple_testing.html",
     "href": "posts/multiple_testing.html",
     "title": "Поправки на множественное тестирование",
@@ -375,6 +333,6 @@
     "href": "index.html",
     "title": "Статистика и R в науке и аналитике",
     "section": "",
-    "text": "Здесь будут размещаться статьи по статистике и R с телеграм-канала “Статистика и R в науке и аналитике”.\nСайт написан на R с использованием Quarto.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nПоговорим о статистических ошибках\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nИстория A/B тестирования: от лечения цинги до цвета ссылок Google\n\n\n\n\n\n\nstatistics\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nMar 13, 2025\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nРазбор курса ‘Основы статистики’\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nFeb 14, 2025\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nТест Стьюдента и тест Велча\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 24, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nРешение контеста самокат\n\n\n\n\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nMay 29, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nКак добавить яндекс-метрику на сайт Quarto\n\n\n\n\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nApr 16, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nПоправки на множественное тестирование\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 29, 2023\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nКак задать хороший вопрос в R чате?\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\nDec 2, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nВиды пределов погрешностей\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 15, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nИнструкция по установке R и RStudio\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\nOct 30, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nAnscombe’s quartet\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nOct 19, 2022\n\n\nElena U\n\n\n\n\n\n\nNo matching items"
+    "text": "Здесь будут размещаться статьи по статистике и R с телеграм-канала “Статистика и R в науке и аналитике”.\nСайт написан на R с использованием Quarto.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nИстория A/B тестирования: от лечения цинги до цвета ссылок Google\n\n\n\n\n\n\nstatistics\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nMar 13, 2025\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nРазбор курса ‘Основы статистики’\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nFeb 14, 2025\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nТест Стьюдента и тест Велча\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 24, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nРешение контеста самокат\n\n\n\n\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nMay 29, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nКак добавить яндекс-метрику на сайт Quarto\n\n\n\n\n\n\nanalytics\n\n\n\n\n\n\n\n\n\nApr 16, 2024\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nПоправки на множественное тестирование\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 29, 2023\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nКак задать хороший вопрос в R чате?\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\nDec 2, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nВиды пределов погрешностей\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nNov 15, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nИнструкция по установке R и RStudio\n\n\n\n\n\n\nR\n\n\n\n\n\n\n\n\n\nOct 30, 2022\n\n\nElena U\n\n\n\n\n\n\n\n\n\n\n\n\nAnscombe’s quartet\n\n\n\n\n\n\nstatistics\n\n\n\n\n\n\n\n\n\nOct 19, 2022\n\n\nElena U\n\n\n\n\n\n\nNo matching items"
   }
 ]
