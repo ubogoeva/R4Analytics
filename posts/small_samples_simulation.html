@@ -1,2 +1,1845 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Elena U">
+<meta name="dcterms.date" content="2026-06-06">
+
+<title>Стьюдент, Велч и Манн-Уитни на малых выборках – R4Analytics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo_site.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R4Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Об авторе блога</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Стьюдент, Велч и Манн-Уитни на малых выборках</h1>
+            <p class="subtitle lead">Интерактивные симуляции ошибки I рода и мощности</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">simulation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Elena U </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 6, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#введение" id="toc-введение" class="nav-link active" data-scroll-target="#введение">Введение</a></li>
+  <li><a href="#немного-формул" id="toc-немного-формул" class="nav-link" data-scroll-target="#немного-формул">Немного формул</a>
+  <ul>
+  <li><a href="#тест-стьюдента" id="toc-тест-стьюдента" class="nav-link" data-scroll-target="#тест-стьюдента">Тест Стьюдента</a></li>
+  <li><a href="#тест-велча" id="toc-тест-велча" class="nav-link" data-scroll-target="#тест-велча">Тест Велча</a></li>
+  <li><a href="#тест-манна-уитни" id="toc-тест-манна-уитни" class="nav-link" data-scroll-target="#тест-манна-уитни">Тест Манна-Уитни</a></li>
+  </ul></li>
+  <li><a href="#требования-и-допущения-тестов" id="toc-требования-и-допущения-тестов" class="nav-link" data-scroll-target="#требования-и-допущения-тестов">Требования и допущения тестов</a></li>
+  <li><a href="#интерактивная-симуляция" id="toc-интерактивная-симуляция" class="nav-link" data-scroll-target="#интерактивная-симуляция">Интерактивная симуляция</a>
+  <ul>
+  <li><a href="#параметры" id="toc-параметры" class="nav-link" data-scroll-target="#параметры">Параметры</a></li>
+  <li><a href="#результаты" id="toc-результаты" class="nav-link" data-scroll-target="#результаты">Результаты</a></li>
+  <li><a href="#гистограммы-p-value" id="toc-гистограммы-p-value" class="nav-link" data-scroll-target="#гистограммы-p-value">Гистограммы p-value</a></li>
+  <li><a href="#пример-одной-итерации" id="toc-пример-одной-итерации" class="nav-link" data-scroll-target="#пример-одной-итерации">Пример одной итерации</a></li>
+  </ul></li>
+  <li><a href="#разбор-сценариев" id="toc-разбор-сценариев" class="nav-link" data-scroll-target="#разбор-сценариев">Разбор сценариев</a>
+  <ul>
+  <li><a href="#aa-тесты-контроль-ошибки-i-рода" id="toc-aa-тесты-контроль-ошибки-i-рода" class="nav-link" data-scroll-target="#aa-тесты-контроль-ошибки-i-рода">A/A-тесты — контроль ошибки I рода</a>
+  <ul class="collapse">
+  <li><a href="#сценарий-1-h₀-верна-размер-выборок-и-дисперсии-равны" id="toc-сценарий-1-h₀-верна-размер-выборок-и-дисперсии-равны" class="nav-link" data-scroll-target="#сценарий-1-h₀-верна-размер-выборок-и-дисперсии-равны">Сценарий 1: H₀ верна, размер выборок и дисперсии равны</a></li>
+  <li><a href="#сценарий-2-h₀-верна-размеры-выборок-равны-дисперсии-разные" id="toc-сценарий-2-h₀-верна-размеры-выборок-равны-дисперсии-разные" class="nav-link" data-scroll-target="#сценарий-2-h₀-верна-размеры-выборок-равны-дисперсии-разные">Сценарий 2: H₀ верна, размеры выборок равны, дисперсии разные</a></li>
+  <li><a href="#сценарий-3-разные-дисперсии-разные-n-при-этом-в-меньшей-выборке-дисперсия-больше" id="toc-сценарий-3-разные-дисперсии-разные-n-при-этом-в-меньшей-выборке-дисперсия-больше" class="nav-link" data-scroll-target="#сценарий-3-разные-дисперсии-разные-n-при-этом-в-меньшей-выборке-дисперсия-больше">Сценарий 3: Разные дисперсии, разные n, при этом в меньшей выборке дисперсия больше</a></li>
+  <li><a href="#сценарий-4-ненормальное-распределение-δ-0" id="toc-сценарий-4-ненормальное-распределение-δ-0" class="nav-link" data-scroll-target="#сценарий-4-ненормальное-распределение-δ-0">Сценарий 4: Ненормальное распределение (Δ = 0)</a></li>
+  </ul></li>
+  <li><a href="#ab-тесты-мощность" id="toc-ab-тесты-мощность" class="nav-link" data-scroll-target="#ab-тесты-мощность">A/B-тесты — мощность</a>
+  <ul class="collapse">
+  <li><a href="#сценарий-5-есть-реальный-эффект" id="toc-сценарий-5-есть-реальный-эффект" class="nav-link" data-scroll-target="#сценарий-5-есть-реальный-эффект">Сценарий 5: Есть реальный эффект</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#зависимость-ошибки-i-рода-от-дисбаланса-выборок" id="toc-зависимость-ошибки-i-рода-от-дисбаланса-выборок" class="nav-link" data-scroll-target="#зависимость-ошибки-i-рода-от-дисбаланса-выборок">Зависимость ошибки I рода от дисбаланса выборок</a></li>
+  <li><a href="#выводы" id="toc-выводы" class="nav-link" data-scroll-target="#выводы">Выводы</a></li>
+  <li><a href="#а-как-же-позиция-велч-не-нужен-по-умолчанию" id="toc-а-как-же-позиция-велч-не-нужен-по-умолчанию" class="nav-link" data-scroll-target="#а-как-же-позиция-велч-не-нужен-по-умолчанию">А как же позиция «Велч не нужен по умолчанию»?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(97025960, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+
+<style>
+  .ojs-cell { margin: 1.5rem 0; }
+  .sim-note {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-left: 3px solid #4a90d9;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  /* ── Стилизация интерактивных контролов (Observable Inputs) ── */
+  /* Серый блок вешаем на контейнер OJS-ячейки, который содержит форму
+     (через :has), а не на сами <form> — иначе каждое поле = отдельная коробка.
+     :has(form) гарантирует, что графики и карточки не получат фон. */
+  .cell-output-display:has(form),
+  .quarto-ojs-input:has(form) {
+    background: #f8f9fa;
+    border: 1px solid #e4e7eb;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    max-width: 800px;
+    box-sizing: border-box;
+  }
+  /* Сами формы делаем прозрачными, чтобы не было «коробки в коробке» */
+  .cell-output-display form,
+  .quarto-ojs-input form {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Ровные интервалы между строками формы:
+     каждое поле (вложенный <form>) — одинаковая высота, вертикальное
+     центрирование и единый отступ снизу, чтобы перенос длинных подписей
+     (n₁, n₂) не «раздвигал» соседние строки по-разному */
+  .cell-output-display form > form,
+  .quarto-ojs-input form > form {
+    display: flex !important;
+    align-items: center;
+    min-height: 44px;
+    margin: 0 0 6px 0 !important;
+  }
+  .cell-output-display form > form:last-child,
+  .quarto-ojs-input form > form:last-child {
+    margin-bottom: 0 !important;
+  }
+  /* Фиксированная ширина колонки подписей — выравнивает поля по вертикали */
+  .cell-output-display form > form > label,
+  .quarto-ojs-input form > form > label {
+    width: 360px;
+    min-width: 360px;
+    margin: 0;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  /* Подписи полей */
+  .observablehq label, .quarto-ojs-input label {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* Числовые поля рядом со слайдерами и обычные текстовые input */
+  .observablehq input[type="number"],
+  .observablehq input[type="text"],
+  .quarto-ojs-input input[type="number"],
+  .quarto-ojs-input input[type="text"] {
+    border: 1px solid #d0d5da;
+    border-radius: 8px;
+    padding: 4px 8px;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .observablehq input[type="number"]:focus,
+  .observablehq input[type="text"]:focus,
+  .quarto-ojs-input input[type="number"]:focus,
+  .quarto-ojs-input input[type="text"]:focus {
+    outline: none;
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
+  }
+
+  /* Выпадающие списки */
+  .observablehq select, .quarto-ojs-input select {
+    border: 1px solid #d0d5da;
+    border-radius: 8px;
+    padding: 5px 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .observablehq select:focus, .quarto-ojs-input select:focus {
+    outline: none;
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
+  }
+
+  /* Слайдеры (range) */
+  .observablehq input[type="range"],
+  .quarto-ojs-input input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: #e0e4e8;
+    cursor: pointer;
+    flex-grow: 1;
+  max-width: 300px;
+  }
+  .observablehq input[type="range"]::-webkit-slider-thumb,
+  .quarto-ojs-input input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4a90d9;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .1s;
+  }
+  .observablehq input[type="range"]::-webkit-slider-thumb:hover,
+  .quarto-ojs-input input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.12);
+  }
+  .observablehq input[type="range"]::-moz-range-thumb,
+  .quarto-ojs-input input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4a90d9;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .observablehq input[type="range"]::-moz-range-track,
+  .quarto-ojs-input input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: #e0e4e8;
+  }
+
+  /* Ячейка с кнопкой «Запустить» — без серого блока-обёртки */
+  .cell-output-display:has(> form > button),
+  .cell-output-display:has(> form button:only-child),
+  .quarto-ojs-input:has(> form > button) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 8px 0 0 0;
+    max-width: none;
+  }
+
+  /* Кнопка «Запустить симуляцию» (Inputs.button и submit) */
+  .observablehq input[type="submit"],
+  .observablehq form button,
+  .quarto-ojs-input input[type="submit"],
+  .quarto-ojs-input form button,
+  .cell-output-display form button {
+    background: #4a90d9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+  }
+  .observablehq input[type="submit"]:hover,
+  .observablehq form button:hover,
+  .quarto-ojs-input input[type="submit"]:hover,
+  .quarto-ojs-input form button:hover,
+  .cell-output-display form button:hover {
+    background: #3a7bc0;
+  }
+  .observablehq input[type="submit"]:active,
+  .observablehq form button:active,
+  .quarto-ojs-input input[type="submit"]:active,
+  .quarto-ojs-input form button:active,
+  .cell-output-display form button:active {
+    transform: translateY(1px);
+  }
+
+  /* Радио-кнопки выбора сценария */
+  .observablehq input[type="radio"],
+  .quarto-ojs-input input[type="radio"] {
+    accent-color: #4a90d9;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+</style>
+<section id="введение" class="level2">
+<h2 class="anchored" data-anchor-id="введение">Введение</h2>
+<p>В <a href="https://ubogoeva.github.io/R4Analytics/posts/welch_test.html">предыдущем посте</a> я разбирала как работает тест Стьюдента и тест Велча на больших выборках (n = 1000–10000), в случае неравных дисперсий и размеров выборок. Краткий вывод: тест Велча надёжнее при неравных дисперсиях и разных размерах выборок, так как лучше контролирует ошибку первого рода.</p>
+<p>Но в научных исследованиях, например в биологии, медицине выборки обычно не такие большие, может быть всего 5–30 наблюдений на группу. В прошлый раз обещала рассмотреть отдельно, как работают тесты на малых выборках. Здесь я подготовила интерактивные симуляции, которые работают прямо в браузере. Можно менять параметры и наблюдать, как это влияет на ошибку I рода и мощность тестов.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Напоминание
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Ошибка I рода</strong> — вероятность найти различия, когда их нет (ложноположительный результат). Должна быть ≈ заданному уровню α (обычно 0.05). Подробнее писала <a href="https://t.me/stats_for_science/189">здесь</a>.</p>
+<p><strong>Мощность (1−β)</strong> — вероятность найти различия, когда они действительно есть. Чем выше, тем лучше (обычно стараются иметь уровень мощности не меньше 0.8).</p>
+<p><img src="images/error_1_2_type.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Надежный статистический тест должен строго контролировать ошибку I рода на уровне значимости α и при этом обладать высокой мощностью для обнаружения реального эффекта.</p>
+</section>
+<section id="немного-формул" class="level2">
+<h2 class="anchored" data-anchor-id="немного-формул">Немного формул</h2>
+<section id="тест-стьюдента" class="level3">
+<h3 class="anchored" data-anchor-id="тест-стьюдента">Тест Стьюдента</h3>
+<p>Вычисление t-статистики:</p>
+<p><span class="math display">\[
+t = \frac{\overline{X}_1 - \overline{X}_2}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}, \quad
+s_p = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
+\]</span></p>
+<p>Количество степеней свободы: <span class="math inline">\(df = n_1 + n_2 - 2\)</span></p>
+</section>
+<section id="тест-велча" class="level3">
+<h3 class="anchored" data-anchor-id="тест-велча">Тест Велча</h3>
+<p>Вычисление t-статистики:</p>
+<p><span class="math display">\[
+t = \frac{\overline{X}_1 - \overline{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+\]</span></p>
+<p>Количество степеней свободы:</p>
+<p><span class="math display">\[
+df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}
+\]</span></p>
+</section>
+<section id="тест-манна-уитни" class="level3">
+<h3 class="anchored" data-anchor-id="тест-манна-уитни">Тест Манна-Уитни</h3>
+<p>Непараметрический тест, основанный на рангах. Не требует нормальности распределения выборочных средних. Статистика <span class="math inline">\(U\)</span> считается по числу пар <span class="math inline">\((x_i, y_j)\)</span>, где <span class="math inline">\(x_i &gt; y_j\)</span>, и сравнивается с нормальным приближением при <span class="math inline">\(n_1, n_2 &gt; 5\)</span>:</p>
+<p><span class="math display">\[
+z = \frac{|U - \frac{n_1 n_2}{2}| - 0.5}{\sqrt{\frac{n_1 n_2 (n_1 + n_2 + 1)}{12}}}
+\]</span></p>
+<p>В числителе — <strong>поправка на непрерывность</strong> (−0.5): дискретная статистика <span class="math inline">\(U\)</span> приближается непрерывным нормальным распределением. На очень малых выборках (n ≈ 5–6) точный тест Манна-Уитни из-за дискретности становится очень консервативным.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Нулевая гипотеза Манна-Уитни не о равенстве средних
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Напомню, что тест Манна-Уитни не сравнивает средние, однако из-за восприятия как непараметрического аналога теста Стьюдента может сложиться такое впечатление. Его нулевая гипотеза — это <span class="math inline">\(P(X &gt; Y) = 0.5\)</span>, то есть «значения из одной группы не склонны быть систематически больше значений из другой». Только при дополнительном допущении <strong>одинаковой формы распределений</strong> это эквивалентно сравнению медиан (или сдвига, тот самый location shift).</p>
+<p>Практическое следствие: если у групп <strong>разные дисперсии</strong> (разная форма), нулевая гипотеза Манна-Уитни может быть нарушена даже тогда, когда средние строго равны. Поэтому ложные срабатывания Манна-Уитни в гетероскедастичных сценариях — это не ошибка в обычном смысле: тест корректно улавливает, что распределения различаются по форме. Просто он отвечает на другой вопрос, чем t-тесты.</p>
+<p><strong>Отсюда важный антипаттерн.</strong> Многие при виде неравных дисперсий переходят на непараметрику, считая её «более устойчивой». Но Манн-Уитни <strong>не решает проблему гетероскедастичности</strong> — он на неё реагирует (даёт ложные срабатывания при равных средних). Если дисперсии разные, правильный инструмент — <strong>тест Велча</strong>, а не Манн-Уитни. Еще можно использовать тест Бруннера-Мюнцеля (Brunner-Munzel test).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="требования-и-допущения-тестов" class="level2">
+<h2 class="anchored" data-anchor-id="требования-и-допущения-тестов">Требования и допущения тестов</h2>
+<p>Прежде чем выбирать тест, полезно держать в голове, какие условия он предполагает:</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Допущения трёх тестов</caption>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Требование</th>
+<th style="text-align: center;">Стьюдент</th>
+<th style="text-align: center;">Велч</th>
+<th style="text-align: center;">Манн-Уитни</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Что сравнивает (H₀)</td>
+<td style="text-align: center;">равенство средних</td>
+<td style="text-align: center;">равенство средних</td>
+<td style="text-align: center;"><span class="math inline">\(P(X&gt;Y)=0.5\)</span> (стох. доминирование)</td>
+</tr>
+<tr class="even">
+<td>Тип данных</td>
+<td style="text-align: center;">числовые (интервальные)</td>
+<td style="text-align: center;">числовые (интервальные)</td>
+<td style="text-align: center;">числовые <strong>или</strong> порядковые</td>
+</tr>
+<tr class="odd">
+<td>Независимость наблюдений</td>
+<td style="text-align: center;">требуется</td>
+<td style="text-align: center;">требуется</td>
+<td style="text-align: center;">требуется</td>
+</tr>
+<tr class="even">
+<td>Нормальность выборочных средних</td>
+<td style="text-align: center;">да</td>
+<td style="text-align: center;">да</td>
+<td style="text-align: center;"><strong>не требуется</strong></td>
+</tr>
+<tr class="odd">
+<td>Равенство дисперсий</td>
+<td style="text-align: center;"><strong>требуется</strong></td>
+<td style="text-align: center;">не требуется</td>
+<td style="text-align: center;">формы должны совпадать ⃰</td>
+</tr>
+<tr class="even">
+<td>Чувствительность к выбросам</td>
+<td style="text-align: center;">высокая</td>
+<td style="text-align: center;">высокая</td>
+<td style="text-align: center;">низкая (ранги)</td>
+</tr>
+<tr class="odd">
+<td>Минимальный размер</td>
+<td style="text-align: center;">формально n ≥ 2</td>
+<td style="text-align: center;">формально n ≥ 2</td>
+<td style="text-align: center;">приближение при n ≳ 5–8 ⃰⃰</td>
+</tr>
+<tr class="even">
+<td>Что устойчиво</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">к разным дисперсиям и n</td>
+<td style="text-align: center;">к ненормальности и выбросам</td>
+</tr>
+</tbody>
+</table>
+<p>⃰ Манн-Уитни как тест <strong>сдвига</strong> (равенства медиан) корректен только когда формы распределений в группах одинаковы. При разных дисперсиях он проверяет более общую гипотезу стохастического доминирования — и реагирует на различие форм, а не средних.</p>
+<p>⃰⃰ Сам тест определён и для n = 2, но используемое здесь нормальное приближение (даже с поправкой на непрерывность) надёжно примерно с n ≳ 5–8; на меньших выборках корректнее точный (перестановочный) вариант.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Коротко: как выбрать
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Данные числовые, дисперсии могут различаться, выборки разного размера → <strong>Велч</strong> (безопасный выбор по умолчанию).</li>
+<li>Есть выбросы / тяжёлые хвосты / данные порядковые → <strong>Манн-Уитни</strong>.</li>
+<li>Уверены в нормальности <strong>и</strong> равенстве дисперсий → можно <strong>Стьюдент</strong>, но Велч даст тот же результат.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="интерактивная-симуляция" class="level2">
+<h2 class="anchored" data-anchor-id="интерактивная-симуляция">Интерактивная симуляция</h2>
+<p>Настройте параметры ниже и нажмите <strong>«Запустить»</strong>. Симуляция многократно генерирует пары выборок из генеральных совокупностей с заданными параметрами и считает для каждого теста, в какой доле случаев была отклонена H<sub>0</sub> (p-value &lt; α) .</p>
+<section id="параметры" class="level3">
+<h3 class="anchored" data-anchor-id="параметры">Параметры</h3>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="320" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 319;"><span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>viewof scenario <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"H₀: нет различий"</span><span class="op">,</span> <span class="st">"Разные SD, равные n"</span><span class="op">,</span> <span class="st">"Разные SD, разные n"</span><span class="op">,</span> <span class="st">"Есть эффект (Δ &gt; 0)"</span><span class="op">,</span> <span class="st">"Ненормальное распределение"</span>]<span class="op">,</span></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">value</span><span class="op">:</span> <span class="st">"H₀: нет различий"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Сценарий"</span> }</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="329" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 328;"><span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>scenarioDefaults <span class="op">=</span> {</span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> map <span class="op">=</span> {</span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>    <span class="st">"H₀: нет различий"</span><span class="op">:</span>              { <span class="dt">n1</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">sd2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">dm</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">dist</span><span class="op">:</span> <span class="st">"Нормальное"</span> }<span class="op">,</span></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Разные SD, равные n"</span><span class="op">:</span>            { <span class="dt">n1</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">sd2</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>   <span class="dt">dm</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">dist</span><span class="op">:</span> <span class="st">"Нормальное"</span> }<span class="op">,</span></span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Разные SD, разные n"</span><span class="op">:</span>            { <span class="dt">n1</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span>  <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">sd2</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>   <span class="dt">dm</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">dist</span><span class="op">:</span> <span class="st">"Нормальное"</span> }<span class="op">,</span></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Есть эффект (Δ &gt; 0)"</span><span class="op">:</span>            { <span class="dt">n1</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">sd2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">dm</span><span class="op">:</span> <span class="fl">1.0</span><span class="op">,</span>  <span class="dt">dist</span><span class="op">:</span> <span class="st">"Нормальное"</span> }<span class="op">,</span></span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ненормальное распределение"</span><span class="op">:</span>     { <span class="dt">n1</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">sd2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>   <span class="dt">dm</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">dist</span><span class="op">:</span> <span class="st">"Экспоненциальное"</span> }<span class="op">,</span></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> map[scenario]<span class="op">;</span></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="344" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 343;"><span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a>viewof params <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>(</span>
+<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a>    <span class="dt">n1</span><span class="op">:</span>         Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span>    { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">n1</span><span class="op">,</span>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>    <span class="dt">label</span><span class="op">:</span> <span class="st">"n₁ (размер группы 1)"</span> })<span class="op">,</span></span>
+<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a>    <span class="dt">n2</span><span class="op">:</span>         Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span>    { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">n2</span><span class="op">,</span>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>    <span class="dt">label</span><span class="op">:</span> <span class="st">"n₂ (размер группы 2)"</span> })<span class="op">,</span></span>
+<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a>    <span class="dt">sd1</span><span class="op">:</span>        Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span>   { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">sd1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span>  <span class="dt">label</span><span class="op">:</span> <span class="st">"SD₁"</span> })<span class="op">,</span></span>
+<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a>    <span class="dt">sd2</span><span class="op">:</span>        Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span>   { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">sd2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span>  <span class="dt">label</span><span class="op">:</span> <span class="st">"SD₂"</span> })<span class="op">,</span></span>
+<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a>    <span class="dt">delta_mean</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">,</span>     { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">dm</span><span class="op">,</span>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.25</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Δ средних (μ₂ − μ₁)"</span> })<span class="op">,</span></span>
+<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a>    <span class="dt">alpha</span><span class="op">:</span>      Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span>  <span class="dt">label</span><span class="op">:</span> <span class="st">"α (уровень значимости)"</span> })<span class="op">,</span></span>
+<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a>    <span class="dt">n_sim</span><span class="op">:</span>      Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">200</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span>  { <span class="dt">value</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span>   <span class="dt">label</span><span class="op">:</span> <span class="st">"Число итераций"</span> })<span class="op">,</span></span>
+<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a>    <span class="dt">distrib</span><span class="op">:</span>    Inputs<span class="op">.</span><span class="fu">select</span>([<span class="st">"Нормальное"</span><span class="op">,</span> <span class="st">"Экспоненциальное"</span><span class="op">,</span> <span class="st">"Логнормальное (выбросы)"</span><span class="op">,</span> <span class="st">"Равномерное"</span>]<span class="op">,</span></span>
+<span id="cb3-354"><a href="#cb3-354" aria-hidden="true" tabindex="-1"></a>                  { <span class="dt">value</span><span class="op">:</span> scenarioDefaults<span class="op">.</span><span class="at">dist</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Распределение"</span> })<span class="op">,</span></span>
+<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="362" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 361;"><span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a><span class="co">// Снимок параметров, по которому считается симуляция.</span></span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a><span class="co">// Обновляется только при нажатии кнопки «Запустить» (см. ниже).</span></span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>mutable simConfig <span class="op">=</span> ({</span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n1</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">n2</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">sd1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">sd2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a>  <span class="dt">delta_mean</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">alpha</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">n_sim</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">distrib</span><span class="op">:</span> <span class="st">"Нормальное"</span></span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="373" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 372;"><span id="cb5-373"><a href="#cb5-373" aria-hidden="true" tabindex="-1"></a>viewof runButton <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(</span>
+<span id="cb5-374"><a href="#cb5-374" aria-hidden="true" tabindex="-1"></a>  <span class="st">"▶ Запустить симуляцию"</span><span class="op">,</span></span>
+<span id="cb5-375"><a href="#cb5-375" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">reduce</span><span class="op">:</span> () <span class="kw">=&gt;</span> { mutable simConfig <span class="op">=</span> { <span class="op">...</span>params }<span class="op">;</span> } }</span>
+<span id="cb5-376"><a href="#cb5-376" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</section>
+<section id="результаты" class="level3">
+<h3 class="anchored" data-anchor-id="результаты">Результаты</h3>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="387" data-source-offset="-37"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 386;"><span id="cb6-387"><a href="#cb6-387" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">randn</span>() {</span>
+<span id="cb6-388"><a href="#cb6-388" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> u <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> v <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-389"><a href="#cb6-389" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (u <span class="op">===</span> <span class="dv">0</span>) u <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb6-390"><a href="#cb6-390" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (v <span class="op">===</span> <span class="dv">0</span>) v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb6-391"><a href="#cb6-391" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)<span class="op">;</span></span>
+<span id="cb6-392"><a href="#cb6-392" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-393"><a href="#cb6-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-394"><a href="#cb6-394" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">generateSample</span>(n<span class="op">,</span> mean<span class="op">,</span> sd<span class="op">,</span> dist) {</span>
+<span id="cb6-395"><a href="#cb6-395" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> arr <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb6-396"><a href="#cb6-396" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb6-397"><a href="#cb6-397" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">;</span></span>
+<span id="cb6-398"><a href="#cb6-398" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (dist <span class="op">===</span> <span class="st">"Нормальное"</span>) {</span>
+<span id="cb6-399"><a href="#cb6-399" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> mean <span class="op">+</span> sd <span class="op">*</span> <span class="fu">randn</span>()<span class="op">;</span></span>
+<span id="cb6-400"><a href="#cb6-400" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (dist <span class="op">===</span> <span class="st">"Экспоненциальное"</span>) {</span>
+<span id="cb6-401"><a href="#cb6-401" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> mean <span class="op">+</span> sd <span class="op">*</span> (<span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb6-402"><a href="#cb6-402" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (dist <span class="op">===</span> <span class="st">"Логнормальное (выбросы)"</span>) {</span>
+<span id="cb6-403"><a href="#cb6-403" aria-hidden="true" tabindex="-1"></a>      <span class="co">// exp(N(0,1)) имеет тяжёлый правый хвост; стандартизуем к среднему 0</span></span>
+<span id="cb6-404"><a href="#cb6-404" aria-hidden="true" tabindex="-1"></a>      <span class="co">// и SD 1 (вычитаем exp(0.5), делим на SD логнормали), затем масштабируем.</span></span>
+<span id="cb6-405"><a href="#cb6-405" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> mean <span class="op">+</span> sd <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="fu">randn</span>()) <span class="op">-</span> <span class="fl">1.6487212707</span>) <span class="op">/</span> <span class="fl">2.1611974159</span><span class="op">;</span></span>
+<span id="cb6-406"><a href="#cb6-406" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb6-407"><a href="#cb6-407" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> mean <span class="op">+</span> sd <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> <span class="fl">1.732</span> <span class="op">-</span> <span class="fl">1.732</span>)<span class="op">;</span></span>
+<span id="cb6-408"><a href="#cb6-408" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-409"><a href="#cb6-409" aria-hidden="true" tabindex="-1"></a>    arr<span class="op">.</span><span class="fu">push</span>(x)<span class="op">;</span></span>
+<span id="cb6-410"><a href="#cb6-410" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-411"><a href="#cb6-411" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> arr<span class="op">;</span></span>
+<span id="cb6-412"><a href="#cb6-412" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-413"><a href="#cb6-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-414"><a href="#cb6-414" aria-hidden="true" tabindex="-1"></a><span class="co">// ── Вспомогательные функции ──</span></span>
+<span id="cb6-415"><a href="#cb6-415" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">arrMean</span>(a) { <span class="cf">return</span> a<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> x) <span class="kw">=&gt;</span> s <span class="op">+</span> x<span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> a<span class="op">.</span><span class="at">length</span><span class="op">;</span> }</span>
+<span id="cb6-416"><a href="#cb6-416" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">arrVar</span>(a) {</span>
+<span id="cb6-417"><a href="#cb6-417" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m <span class="op">=</span> <span class="fu">arrMean</span>(a)<span class="op">;</span></span>
+<span id="cb6-418"><a href="#cb6-418" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a<span class="op">.</span><span class="fu">reduce</span>((s<span class="op">,</span> x) <span class="kw">=&gt;</span> s <span class="op">+</span> (x <span class="op">-</span> m) <span class="op">**</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">0</span>) <span class="op">/</span> (a<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb6-419"><a href="#cb6-419" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-420"><a href="#cb6-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-421"><a href="#cb6-421" aria-hidden="true" tabindex="-1"></a><span class="co">// ── Специальные функции для вычисления p-value ──</span></span>
+<span id="cb6-422"><a href="#cb6-422" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">lgamma</span>(z) {</span>
+<span id="cb6-423"><a href="#cb6-423" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> [<span class="fl">76.18009172947146</span><span class="op">,</span> <span class="op">-</span><span class="fl">86.50532032941677</span><span class="op">,</span> <span class="fl">24.01409824083091</span><span class="op">,</span></span>
+<span id="cb6-424"><a href="#cb6-424" aria-hidden="true" tabindex="-1"></a>             <span class="op">-</span><span class="fl">1.231739572450155</span><span class="op">,</span> <span class="fl">0.1208650973866179e-2</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.5395239384953e-5</span>]<span class="op">;</span></span>
+<span id="cb6-425"><a href="#cb6-425" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> y <span class="op">=</span> z<span class="op">,</span> x <span class="op">=</span> z<span class="op">,</span> tmp <span class="op">=</span> x <span class="op">+</span> <span class="fl">5.5</span><span class="op">;</span></span>
+<span id="cb6-426"><a href="#cb6-426" aria-hidden="true" tabindex="-1"></a>  tmp <span class="op">=</span> (x <span class="op">+</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(tmp) <span class="op">-</span> tmp<span class="op">;</span></span>
+<span id="cb6-427"><a href="#cb6-427" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> ser <span class="op">=</span> <span class="fl">1.000000000190015</span><span class="op">;</span></span>
+<span id="cb6-428"><a href="#cb6-428" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> j<span class="op">++</span>) ser <span class="op">+=</span> c[j] <span class="op">/</span> <span class="op">++</span>y<span class="op">;</span></span>
+<span id="cb6-429"><a href="#cb6-429" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> tmp <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="fl">2.5066282746310005</span> <span class="op">*</span> ser <span class="op">/</span> x)<span class="op">;</span></span>
+<span id="cb6-430"><a href="#cb6-430" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-431"><a href="#cb6-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-432"><a href="#cb6-432" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">incompleteBeta</span>(x<span class="op">,</span> a<span class="op">,</span> b) {</span>
+<span id="cb6-433"><a href="#cb6-433" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&lt;=</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-434"><a href="#cb6-434" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-435"><a href="#cb6-435" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lbeta <span class="op">=</span> <span class="fu">lgamma</span>(a) <span class="op">+</span> <span class="fu">lgamma</span>(b) <span class="op">-</span> <span class="fu">lgamma</span>(a <span class="op">+</span> b)<span class="op">;</span></span>
+<span id="cb6-436"><a href="#cb6-436" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> front <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(x) <span class="op">*</span> a <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> x) <span class="op">*</span> b <span class="op">-</span> lbeta) <span class="op">/</span> a<span class="op">;</span></span>
+<span id="cb6-437"><a href="#cb6-437" aria-hidden="true" tabindex="-1"></a>  <span class="co">// continued fraction</span></span>
+<span id="cb6-438"><a href="#cb6-438" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> MAXIT <span class="op">=</span> <span class="dv">200</span><span class="op">,</span> EPS <span class="op">=</span> <span class="fl">3e-7</span><span class="op">,</span> FPMIN <span class="op">=</span> <span class="fl">1e-30</span><span class="op">;</span></span>
+<span id="cb6-439"><a href="#cb6-439" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> qab <span class="op">=</span> a <span class="op">+</span> b<span class="op">,</span> qap <span class="op">=</span> a <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> qam <span class="op">=</span> a <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-440"><a href="#cb6-440" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> c <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> d <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> qab <span class="op">*</span> x <span class="op">/</span> qap<span class="op">;</span></span>
+<span id="cb6-441"><a href="#cb6-441" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(d) <span class="op">&lt;</span> FPMIN) d <span class="op">=</span> FPMIN<span class="op">;</span></span>
+<span id="cb6-442"><a href="#cb6-442" aria-hidden="true" tabindex="-1"></a>  d <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> d<span class="op">;</span></span>
+<span id="cb6-443"><a href="#cb6-443" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> h <span class="op">=</span> d<span class="op">;</span></span>
+<span id="cb6-444"><a href="#cb6-444" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> m <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> m <span class="op">&lt;=</span> MAXIT<span class="op">;</span> m<span class="op">++</span>) {</span>
+<span id="cb6-445"><a href="#cb6-445" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> m2 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> m<span class="op">;</span></span>
+<span id="cb6-446"><a href="#cb6-446" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> aa <span class="op">=</span> m <span class="op">*</span> (b <span class="op">-</span> m) <span class="op">*</span> x <span class="op">/</span> ((qam <span class="op">+</span> m2) <span class="op">*</span> (a <span class="op">+</span> m2))<span class="op">;</span></span>
+<span id="cb6-447"><a href="#cb6-447" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> aa <span class="op">*</span> d<span class="op">;</span> <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(d) <span class="op">&lt;</span> FPMIN) d <span class="op">=</span> FPMIN<span class="op">;</span></span>
+<span id="cb6-448"><a href="#cb6-448" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> aa <span class="op">/</span> c<span class="op">;</span> <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(c) <span class="op">&lt;</span> FPMIN) c <span class="op">=</span> FPMIN<span class="op">;</span></span>
+<span id="cb6-449"><a href="#cb6-449" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> d<span class="op">;</span> h <span class="op">*=</span> d <span class="op">*</span> c<span class="op">;</span></span>
+<span id="cb6-450"><a href="#cb6-450" aria-hidden="true" tabindex="-1"></a>    aa <span class="op">=</span> <span class="op">-</span>(a <span class="op">+</span> m) <span class="op">*</span> (qab <span class="op">+</span> m) <span class="op">*</span> x <span class="op">/</span> ((a <span class="op">+</span> m2) <span class="op">*</span> (qap <span class="op">+</span> m2))<span class="op">;</span></span>
+<span id="cb6-451"><a href="#cb6-451" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> aa <span class="op">*</span> d<span class="op">;</span> <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(d) <span class="op">&lt;</span> FPMIN) d <span class="op">=</span> FPMIN<span class="op">;</span></span>
+<span id="cb6-452"><a href="#cb6-452" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> aa <span class="op">/</span> c<span class="op">;</span> <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(c) <span class="op">&lt;</span> FPMIN) c <span class="op">=</span> FPMIN<span class="op">;</span></span>
+<span id="cb6-453"><a href="#cb6-453" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> d<span class="op">;</span> <span class="kw">const</span> del <span class="op">=</span> d <span class="op">*</span> c<span class="op">;</span> h <span class="op">*=</span> del<span class="op">;</span></span>
+<span id="cb6-454"><a href="#cb6-454" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(del <span class="op">-</span> <span class="dv">1</span>) <span class="op">&lt;</span> EPS) <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb6-455"><a href="#cb6-455" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-456"><a href="#cb6-456" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> front <span class="op">*</span> h<span class="op">;</span></span>
+<span id="cb6-457"><a href="#cb6-457" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-458"><a href="#cb6-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-459"><a href="#cb6-459" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">tCDF</span>(t<span class="op">,</span> df) {</span>
+<span id="cb6-460"><a href="#cb6-460" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> df <span class="op">/</span> (df <span class="op">+</span> t <span class="op">*</span> t)<span class="op">;</span></span>
+<span id="cb6-461"><a href="#cb6-461" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu">incompleteBeta</span>(x<span class="op">,</span> df <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="fl">0.5</span>)<span class="op">;</span></span>
+<span id="cb6-462"><a href="#cb6-462" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-463"><a href="#cb6-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-464"><a href="#cb6-464" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normCDF</span>(z) {</span>
+<span id="cb6-465"><a href="#cb6-465" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.2316419</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z))<span class="op">;</span></span>
+<span id="cb6-466"><a href="#cb6-466" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> d <span class="op">=</span> <span class="fl">0.3989423</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>z <span class="op">*</span> z <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb6-467"><a href="#cb6-467" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> p <span class="op">=</span> d <span class="op">*</span> t <span class="op">*</span> (<span class="fl">0.3193815</span> <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">0.3565638</span> <span class="op">+</span> t <span class="op">*</span> (<span class="fl">1.7814779</span> <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">1.8212560</span> <span class="op">+</span> t <span class="op">*</span> <span class="fl">1.3302744</span>))))<span class="op">;</span></span>
+<span id="cb6-468"><a href="#cb6-468" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> z <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="dv">1</span> <span class="op">-</span> p <span class="op">:</span> p<span class="op">;</span></span>
+<span id="cb6-469"><a href="#cb6-469" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-470"><a href="#cb6-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-471"><a href="#cb6-471" aria-hidden="true" tabindex="-1"></a><span class="co">// ── Тесты ──</span></span>
+<span id="cb6-472"><a href="#cb6-472" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pStudent</span>(a<span class="op">,</span> b) {</span>
+<span id="cb6-473"><a href="#cb6-473" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n1 <span class="op">=</span> a<span class="op">.</span><span class="at">length</span><span class="op">,</span> n2 <span class="op">=</span> b<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb6-474"><a href="#cb6-474" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m1 <span class="op">=</span> <span class="fu">arrMean</span>(a)<span class="op">,</span> m2 <span class="op">=</span> <span class="fu">arrMean</span>(b)<span class="op">;</span></span>
+<span id="cb6-475"><a href="#cb6-475" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v1 <span class="op">=</span> <span class="fu">arrVar</span>(a)<span class="op">,</span> v2 <span class="op">=</span> <span class="fu">arrVar</span>(b)<span class="op">;</span></span>
+<span id="cb6-476"><a href="#cb6-476" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sp <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(((n1 <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> v1 <span class="op">+</span> (n2 <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> v2) <span class="op">/</span> (n1 <span class="op">+</span> n2 <span class="op">-</span> <span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb6-477"><a href="#cb6-477" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sp <span class="op">===</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-478"><a href="#cb6-478" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> (m1 <span class="op">-</span> m2) <span class="op">/</span> (sp <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">/</span> n1 <span class="op">+</span> <span class="dv">1</span> <span class="op">/</span> n2))<span class="op">;</span></span>
+<span id="cb6-479"><a href="#cb6-479" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fu">tCDF</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(t)<span class="op">,</span> n1 <span class="op">+</span> n2 <span class="op">-</span> <span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb6-480"><a href="#cb6-480" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-481"><a href="#cb6-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-482"><a href="#cb6-482" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pWelch</span>(a<span class="op">,</span> b) {</span>
+<span id="cb6-483"><a href="#cb6-483" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n1 <span class="op">=</span> a<span class="op">.</span><span class="at">length</span><span class="op">,</span> n2 <span class="op">=</span> b<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb6-484"><a href="#cb6-484" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m1 <span class="op">=</span> <span class="fu">arrMean</span>(a)<span class="op">,</span> m2 <span class="op">=</span> <span class="fu">arrMean</span>(b)<span class="op">;</span></span>
+<span id="cb6-485"><a href="#cb6-485" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v1 <span class="op">=</span> <span class="fu">arrVar</span>(a)<span class="op">,</span> v2 <span class="op">=</span> <span class="fu">arrVar</span>(b)<span class="op">;</span></span>
+<span id="cb6-486"><a href="#cb6-486" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> se <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(v1 <span class="op">/</span> n1 <span class="op">+</span> v2 <span class="op">/</span> n2)<span class="op">;</span></span>
+<span id="cb6-487"><a href="#cb6-487" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (se <span class="op">===</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-488"><a href="#cb6-488" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> (m1 <span class="op">-</span> m2) <span class="op">/</span> se<span class="op">;</span></span>
+<span id="cb6-489"><a href="#cb6-489" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> df <span class="op">=</span> (v1 <span class="op">/</span> n1 <span class="op">+</span> v2 <span class="op">/</span> n2) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span></span>
+<span id="cb6-490"><a href="#cb6-490" aria-hidden="true" tabindex="-1"></a>    ((v1 <span class="op">/</span> n1) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (n1 <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> (v2 <span class="op">/</span> n2) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (n2 <span class="op">-</span> <span class="dv">1</span>))<span class="op">;</span></span>
+<span id="cb6-491"><a href="#cb6-491" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fu">tCDF</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(t)<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> df)))<span class="op">;</span></span>
+<span id="cb6-492"><a href="#cb6-492" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pMannWhitney</span>(a<span class="op">,</span> b) {</span>
+<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n1 <span class="op">=</span> a<span class="op">.</span><span class="at">length</span><span class="op">,</span> n2 <span class="op">=</span> b<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> U1 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n1<span class="op">;</span> i<span class="op">++</span>)</span>
+<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n2<span class="op">;</span> j<span class="op">++</span>) {</span>
+<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (a[i] <span class="op">&gt;</span> b[j]) U1<span class="op">++;</span></span>
+<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> <span class="cf">if</span> (a[i] <span class="op">===</span> b[j]) U1 <span class="op">+=</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-502"><a href="#cb6-502" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> U <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(U1<span class="op">,</span> n1 <span class="op">*</span> n2 <span class="op">-</span> U1)<span class="op">;</span></span>
+<span id="cb6-503"><a href="#cb6-503" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> mu <span class="op">=</span> n1 <span class="op">*</span> n2 <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n1 <span class="op">*</span> n2 <span class="op">*</span> (n1 <span class="op">+</span> n2 <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">12</span>)<span class="op">;</span></span>
+<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sigma <span class="op">===</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Поправка на непрерывность: дискретную статистику U приближаем</span></span>
+<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a>  <span class="co">// непрерывным нормальным распределением, поэтому вычитаем 0.5 из |U − μ|</span></span>
+<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a>  <span class="co">// (clamp до 0, чтобы при U == μ не уйти в минус).</span></span>
+<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(U <span class="op">-</span> mu) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">/</span> sigma<span class="op">;</span></span>
+<span id="cb6-510"><a href="#cb6-510" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fu">normCDF</span>(z))<span class="op">;</span></span>
+<span id="cb6-511"><a href="#cb6-511" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="515" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 514;"><span id="cb7-515"><a href="#cb7-515" aria-hidden="true" tabindex="-1"></a><span class="co">// ── Основная симуляция ──</span></span>
+<span id="cb7-516"><a href="#cb7-516" aria-hidden="true" tabindex="-1"></a>simResult <span class="op">=</span> {</span>
+<span id="cb7-517"><a href="#cb7-517" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { n1<span class="op">,</span> n2<span class="op">,</span> sd1<span class="op">,</span> sd2<span class="op">,</span> delta_mean<span class="op">,</span> alpha<span class="op">,</span> n_sim<span class="op">,</span> distrib } <span class="op">=</span> simConfig<span class="op">;</span></span>
+<span id="cb7-518"><a href="#cb7-518" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pSt <span class="op">=</span> []<span class="op">,</span> pWe <span class="op">=</span> []<span class="op">,</span> pMW <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb7-519"><a href="#cb7-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-520"><a href="#cb7-520" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n_sim<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb7-521"><a href="#cb7-521" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> a <span class="op">=</span> <span class="fu">generateSample</span>(n1<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> sd1<span class="op">,</span> distrib)<span class="op">;</span></span>
+<span id="cb7-522"><a href="#cb7-522" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> b <span class="op">=</span> <span class="fu">generateSample</span>(n2<span class="op">,</span> delta_mean<span class="op">,</span> sd2<span class="op">,</span> distrib)<span class="op">;</span></span>
+<span id="cb7-523"><a href="#cb7-523" aria-hidden="true" tabindex="-1"></a>    pSt<span class="op">.</span><span class="fu">push</span>(<span class="fu">pStudent</span>(a<span class="op">,</span> b))<span class="op">;</span></span>
+<span id="cb7-524"><a href="#cb7-524" aria-hidden="true" tabindex="-1"></a>    pWe<span class="op">.</span><span class="fu">push</span>(<span class="fu">pWelch</span>(a<span class="op">,</span> b))<span class="op">;</span></span>
+<span id="cb7-525"><a href="#cb7-525" aria-hidden="true" tabindex="-1"></a>    pMW<span class="op">.</span><span class="fu">push</span>(<span class="fu">pMannWhitney</span>(a<span class="op">,</span> b))<span class="op">;</span></span>
+<span id="cb7-526"><a href="#cb7-526" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-527"><a href="#cb7-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-528"><a href="#cb7-528" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rateSt <span class="op">=</span> pSt<span class="op">.</span><span class="fu">filter</span>(p <span class="kw">=&gt;</span> p <span class="op">&lt;</span> alpha)<span class="op">.</span><span class="at">length</span> <span class="op">/</span> n_sim<span class="op">;</span></span>
+<span id="cb7-529"><a href="#cb7-529" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rateWe <span class="op">=</span> pWe<span class="op">.</span><span class="fu">filter</span>(p <span class="kw">=&gt;</span> p <span class="op">&lt;</span> alpha)<span class="op">.</span><span class="at">length</span> <span class="op">/</span> n_sim<span class="op">;</span></span>
+<span id="cb7-530"><a href="#cb7-530" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rateMW <span class="op">=</span> pMW<span class="op">.</span><span class="fu">filter</span>(p <span class="kw">=&gt;</span> p <span class="op">&lt;</span> alpha)<span class="op">.</span><span class="at">length</span> <span class="op">/</span> n_sim<span class="op">;</span></span>
+<span id="cb7-531"><a href="#cb7-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-532"><a href="#cb7-532" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { pSt<span class="op">,</span> pWe<span class="op">,</span> pMW<span class="op">,</span> rateSt<span class="op">,</span> rateWe<span class="op">,</span> rateMW<span class="op">,</span> alpha<span class="op">,</span> delta_mean }<span class="op">;</span></span>
+<span id="cb7-533"><a href="#cb7-533" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="539" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 538;"><span id="cb8-539"><a href="#cb8-539" aria-hidden="true" tabindex="-1"></a><span class="co">// ── Карточки с результатами ──</span></span>
+<span id="cb8-540"><a href="#cb8-540" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-541"><a href="#cb8-541" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { alpha<span class="op">,</span> delta_mean } <span class="op">=</span> simResult<span class="op">;</span></span>
+<span id="cb8-542"><a href="#cb8-542" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> isH0 <span class="op">=</span> delta_mean <span class="op">===</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-543"><a href="#cb8-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-544"><a href="#cb8-544" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">badge</span>(rate) {</span>
+<span id="cb8-545"><a href="#cb8-545" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (isH0) {</span>
+<span id="cb8-546"><a href="#cb8-546" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (rate <span class="op">&lt;=</span> alpha <span class="op">*</span> <span class="fl">1.3</span>) <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span>   <span class="dt">text</span><span class="op">:</span> <span class="st">"✓ норма"</span> }<span class="op">;</span></span>
+<span id="cb8-547"><a href="#cb8-547" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (rate <span class="op">&lt;=</span> alpha <span class="op">*</span> <span class="fl">2.0</span>) <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"warn"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"~ повышена"</span> }<span class="op">;</span></span>
+<span id="cb8-548"><a href="#cb8-548" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"bad"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"✗ завышена"</span> }<span class="op">;</span></span>
+<span id="cb8-549"><a href="#cb8-549" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb8-550"><a href="#cb8-550" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (rate <span class="op">&gt;=</span> <span class="fl">0.8</span>)  <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span>   <span class="dt">text</span><span class="op">:</span> <span class="st">"✓ высокая"</span> }<span class="op">;</span></span>
+<span id="cb8-551"><a href="#cb8-551" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (rate <span class="op">&gt;=</span> <span class="fl">0.5</span>)  <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"warn"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"~ средняя"</span> }<span class="op">;</span></span>
+<span id="cb8-552"><a href="#cb8-552" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> { <span class="dt">cls</span><span class="op">:</span> <span class="st">"bad"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"✗ низкая"</span> }<span class="op">;</span></span>
+<span id="cb8-553"><a href="#cb8-553" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-554"><a href="#cb8-554" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-555"><a href="#cb8-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-556"><a href="#cb8-556" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tests <span class="op">=</span> [</span>
+<span id="cb8-557"><a href="#cb8-557" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">name</span><span class="op">:</span> <span class="st">"Стьюдент"</span><span class="op">,</span>     <span class="dt">rate</span><span class="op">:</span> simResult<span class="op">.</span><span class="at">rateSt</span> }<span class="op">,</span></span>
+<span id="cb8-558"><a href="#cb8-558" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">name</span><span class="op">:</span> <span class="st">"Велч"</span><span class="op">,</span>         <span class="dt">rate</span><span class="op">:</span> simResult<span class="op">.</span><span class="at">rateWe</span> }<span class="op">,</span></span>
+<span id="cb8-559"><a href="#cb8-559" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">name</span><span class="op">:</span> <span class="st">"Манн-Уитни"</span><span class="op">,</span>   <span class="dt">rate</span><span class="op">:</span> simResult<span class="op">.</span><span class="at">rateMW</span> }<span class="op">,</span></span>
+<span id="cb8-560"><a href="#cb8-560" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb8-561"><a href="#cb8-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-562"><a href="#cb8-562" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> badgeStyle <span class="op">=</span> {</span>
+<span id="cb8-563"><a href="#cb8-563" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ok</span><span class="op">:</span>   <span class="st">"background:#e6f4e2; color:#2d6a1e; padding:2px 8px; border-radius:4px; font-size:12px;"</span><span class="op">,</span></span>
+<span id="cb8-564"><a href="#cb8-564" aria-hidden="true" tabindex="-1"></a>    <span class="dt">warn</span><span class="op">:</span> <span class="st">"background:#fff3cd; color:#856404; padding:2px 8px; border-radius:4px; font-size:12px;"</span><span class="op">,</span></span>
+<span id="cb8-565"><a href="#cb8-565" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bad</span><span class="op">:</span>  <span class="st">"background:#fce4e4; color:#a32d2d; padding:2px 8px; border-radius:4px; font-size:12px;"</span><span class="op">,</span></span>
+<span id="cb8-566"><a href="#cb8-566" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb8-567"><a href="#cb8-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-568"><a href="#cb8-568" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> label <span class="op">=</span> isH0</span>
+<span id="cb8-569"><a href="#cb8-569" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"% ложных срабатываний (ошибка I рода)"</span></span>
+<span id="cb8-570"><a href="#cb8-570" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"% обнаруженных различий (мощность)"</span><span class="op">;</span></span>
+<span id="cb8-571"><a href="#cb8-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-572"><a href="#cb8-572" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> html <span class="op">=</span> <span class="vs">`</span></span>
+<span id="cb8-573"><a href="#cb8-573" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:1rem 0;"&gt;</span></span>
+<span id="cb8-574"><a href="#cb8-574" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>tests<span class="op">.</span><span class="fu">map</span>(t <span class="kw">=&gt;</span> {</span>
+<span id="cb8-575"><a href="#cb8-575" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> b <span class="op">=</span> <span class="fu">badge</span>(t<span class="op">.</span><span class="at">rate</span>)<span class="op">;</span></span>
+<span id="cb8-576"><a href="#cb8-576" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="vs">`&lt;div style="background:#f8f9fa; border-radius:8px; padding:14px 16px;"&gt;</span></span>
+<span id="cb8-577"><a href="#cb8-577" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="font-size:12px; color:#666; margin-bottom:4px;"&gt;</span><span class="sc">${</span>t<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb8-578"><a href="#cb8-578" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="font-size:24px; font-weight:600;"&gt;</span><span class="sc">${</span>(t<span class="op">.</span><span class="at">rate</span> <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%&lt;/div&gt;</span></span>
+<span id="cb8-579"><a href="#cb8-579" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="margin-top:6px;"&gt;&lt;span style="</span><span class="sc">${</span>badgeStyle[b<span class="op">.</span><span class="at">cls</span>]<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>b<span class="op">.</span><span class="at">text</span><span class="sc">}</span><span class="vs">&lt;/span&gt;&lt;/div&gt;</span></span>
+<span id="cb8-580"><a href="#cb8-580" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="font-size:11px; color:#999; margin-top:4px;"&gt;</span><span class="sc">${</span>label<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb8-581"><a href="#cb8-581" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb8-582"><a href="#cb8-582" aria-hidden="true" tabindex="-1"></a>      })<span class="op">.</span><span class="fu">join</span>(<span class="st">""</span>)<span class="sc">}</span></span>
+<span id="cb8-583"><a href="#cb8-583" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb8-584"><a href="#cb8-584" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div style="background:#f0f4f8; padding:10px 14px; border-radius:6px; font-size:13px; color:#555; line-height:1.6; margin-bottom:1rem;"&gt;</span></span>
+<span id="cb8-585"><a href="#cb8-585" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>isH0</span>
+<span id="cb8-586"><a href="#cb8-586" aria-hidden="true" tabindex="-1"></a>        <span class="op">?</span> <span class="vs">`&lt;strong&gt;H₀ верна&lt;/strong&gt;: ожидаемая доля ложных срабатываний ≈ α = </span><span class="sc">${</span>alpha<span class="sc">}</span><span class="vs">. Если тест даёт значительно больше — он слишком часто находит различия там, где их нет.`</span></span>
+<span id="cb8-587"><a href="#cb8-587" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> <span class="vs">`&lt;strong&gt;H₀ неверна&lt;/strong&gt;: Δ = </span><span class="sc">${</span>delta_mean<span class="sc">}</span><span class="vs">. Смотрим, какой тест чаще обнаруживает реальные различия. Мощность &gt; 80% считается хорошей.`</span></span>
+<span id="cb8-588"><a href="#cb8-588" aria-hidden="true" tabindex="-1"></a>      <span class="sc">}</span></span>
+<span id="cb8-589"><a href="#cb8-589" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb8-590"><a href="#cb8-590" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span><span class="op">;</span></span>
+<span id="cb8-591"><a href="#cb8-591" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> el <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
+<span id="cb8-592"><a href="#cb8-592" aria-hidden="true" tabindex="-1"></a>  el<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> html<span class="op">;</span></span>
+<span id="cb8-593"><a href="#cb8-593" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> el<span class="op">;</span></span>
+<span id="cb8-594"><a href="#cb8-594" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="гистограммы-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="гистограммы-p-value">Гистограммы p-value</h3>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="602" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 601;"><span id="cb9-602"><a href="#cb9-602" aria-hidden="true" tabindex="-1"></a><span class="co">// Пояснение к гистограммам меняется в зависимости от того, верна H₀ (Δ = 0)</span></span>
+<span id="cb9-603"><a href="#cb9-603" aria-hidden="true" tabindex="-1"></a><span class="co">// или есть реальный эффект (Δ &gt; 0).</span></span>
+<span id="cb9-604"><a href="#cb9-604" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-605"><a href="#cb9-605" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> isH0 <span class="op">=</span> simResult<span class="op">.</span><span class="at">delta_mean</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-606"><a href="#cb9-606" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> html <span class="op">=</span> isH0</span>
+<span id="cb9-607"><a href="#cb9-607" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`Сейчас &lt;strong&gt;H₀ верна&lt;/strong&gt; (Δ = 0). Если тест работает корректно,</span></span>
+<span id="cb9-608"><a href="#cb9-608" aria-hidden="true" tabindex="-1"></a><span class="vs">       p-value должны распределяться равномерно - все столбцы</span></span>
+<span id="cb9-609"><a href="#cb9-609" aria-hidden="true" tabindex="-1"></a><span class="vs">       примерно одинаковой высоты. Если красный столбец около 0 непропорционально</span></span>
+<span id="cb9-610"><a href="#cb9-610" aria-hidden="true" tabindex="-1"></a><span class="vs">       высокий, тест даёт слишком много ложных срабатываний.`</span></span>
+<span id="cb9-611"><a href="#cb9-611" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="vs">`Сейчас &lt;strong&gt;есть реальный эффект&lt;/strong&gt; (Δ = </span><span class="sc">${</span>simResult<span class="op">.</span><span class="at">delta_mean</span><span class="sc">}</span><span class="vs">).</span></span>
+<span id="cb9-612"><a href="#cb9-612" aria-hidden="true" tabindex="-1"></a><span class="vs">       Распределение p-value должно быть &lt;strong&gt;смещено влево&lt;/strong&gt;: чем мощнее</span></span>
+<span id="cb9-613"><a href="#cb9-613" aria-hidden="true" tabindex="-1"></a><span class="vs">       тест, тем выше красный столбец около 0 (где p-value &amp;lt; α).`</span><span class="op">;</span></span>
+<span id="cb9-614"><a href="#cb9-614" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> el <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"p"</span>)<span class="op">;</span></span>
+<span id="cb9-615"><a href="#cb9-615" aria-hidden="true" tabindex="-1"></a>  el<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> html<span class="op">;</span></span>
+<span id="cb9-616"><a href="#cb9-616" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> el<span class="op">;</span></span>
+<span id="cb9-617"><a href="#cb9-617" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb10" data-startfrom="623" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 622;"><span id="cb10-623"><a href="#cb10-623" aria-hidden="true" tabindex="-1"></a>Plot <span class="op">=</span> <span class="im">import</span>(<span class="st">"https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb11" data-startfrom="629" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 628;"><span id="cb11-629"><a href="#cb11-629" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb11-630"><a href="#cb11-630" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { alpha } <span class="op">=</span> simResult<span class="op">;</span></span>
+<span id="cb11-631"><a href="#cb11-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-632"><a href="#cb11-632" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Границы столбиков: равномерная сетка 0.05 + сам α как граница,</span></span>
+<span id="cb11-633"><a href="#cb11-633" aria-hidden="true" tabindex="-1"></a>  <span class="co">// чтобы каждый столбик был целиком красным (p &lt; α) или зелёным (p ≥ α)</span></span>
+<span id="cb11-634"><a href="#cb11-634" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> edges <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb11-635"><a href="#cb11-635" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> e <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> e <span class="op">&lt;=</span> <span class="fl">1.0001</span><span class="op">;</span> e <span class="op">+=</span> <span class="fl">0.05</span>) edges<span class="op">.</span><span class="fu">push</span>(<span class="op">+</span>e<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>))<span class="op">;</span></span>
+<span id="cb11-636"><a href="#cb11-636" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>edges<span class="op">.</span><span class="fu">includes</span>(alpha)) {</span>
+<span id="cb11-637"><a href="#cb11-637" aria-hidden="true" tabindex="-1"></a>    edges<span class="op">.</span><span class="fu">push</span>(alpha)<span class="op">;</span></span>
+<span id="cb11-638"><a href="#cb11-638" aria-hidden="true" tabindex="-1"></a>    edges<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">;</span></span>
+<span id="cb11-639"><a href="#cb11-639" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-640"><a href="#cb11-640" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-641"><a href="#cb11-641" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">histPlot</span>(pvals<span class="op">,</span> title) {</span>
+<span id="cb11-642"><a href="#cb11-642" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> data <span class="op">=</span> pvals<span class="op">.</span><span class="fu">map</span>(p <span class="kw">=&gt;</span> ({ p<span class="op">,</span> <span class="dt">sig</span><span class="op">:</span> p <span class="op">&lt;</span> alpha <span class="op">?</span> <span class="st">"p &lt; α"</span> <span class="op">:</span> <span class="st">"p ≥ α"</span> }))<span class="op">;</span></span>
+<span id="cb11-643"><a href="#cb11-643" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb11-644"><a href="#cb11-644" aria-hidden="true" tabindex="-1"></a>      title<span class="op">,</span></span>
+<span id="cb11-645"><a href="#cb11-645" aria-hidden="true" tabindex="-1"></a>      <span class="dt">width</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb11-646"><a href="#cb11-646" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb11-647"><a href="#cb11-647" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"p-value"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>] }<span class="op">,</span></span>
+<span id="cb11-648"><a href="#cb11-648" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"частота"</span> }<span class="op">,</span></span>
+<span id="cb11-649"><a href="#cb11-649" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="st">"p &lt; α"</span><span class="op">,</span> <span class="st">"p ≥ α"</span>]<span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [<span class="st">"#e24b4a"</span><span class="op">,</span> <span class="st">"#7cb342"</span>] }<span class="op">,</span></span>
+<span id="cb11-650"><a href="#cb11-650" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb11-651"><a href="#cb11-651" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">rectY</span>(data<span class="op">,</span> Plot<span class="op">.</span><span class="fu">binX</span>({ <span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span> }<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"p"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"sig"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> edges }))<span class="op">,</span></span>
+<span id="cb11-652"><a href="#cb11-652" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb11-653"><a href="#cb11-653" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb11-654"><a href="#cb11-654" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb11-655"><a href="#cb11-655" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-656"><a href="#cb11-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-657"><a href="#cb11-657" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
+<span id="cb11-658"><a href="#cb11-658" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">cssText</span> <span class="op">=</span> <span class="st">"display:flex; gap:12px; flex-wrap:wrap;"</span><span class="op">;</span></span>
+<span id="cb11-659"><a href="#cb11-659" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="fu">appendChild</span>(<span class="fu">histPlot</span>(simResult<span class="op">.</span><span class="at">pSt</span><span class="op">,</span> <span class="st">"Стьюдент"</span>))<span class="op">;</span></span>
+<span id="cb11-660"><a href="#cb11-660" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="fu">appendChild</span>(<span class="fu">histPlot</span>(simResult<span class="op">.</span><span class="at">pWe</span><span class="op">,</span> <span class="st">"Велч"</span>))<span class="op">;</span></span>
+<span id="cb11-661"><a href="#cb11-661" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="fu">appendChild</span>(<span class="fu">histPlot</span>(simResult<span class="op">.</span><span class="at">pMW</span><span class="op">,</span> <span class="st">"Манн-Уитни"</span>))<span class="op">;</span></span>
+<span id="cb11-662"><a href="#cb11-662" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> container<span class="op">;</span></span>
+<span id="cb11-663"><a href="#cb11-663" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-11" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="пример-одной-итерации" class="level3">
+<h3 class="anchored" data-anchor-id="пример-одной-итерации">Пример одной итерации</h3>
+<p>Ниже показаны конкретные выборки из одной итерации для визуализации данных при выбранных параметрах.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="673" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 672;"><span id="cb12-673"><a href="#cb12-673" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-674"><a href="#cb12-674" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { n1<span class="op">,</span> n2<span class="op">,</span> sd1<span class="op">,</span> sd2<span class="op">,</span> delta_mean<span class="op">,</span> distrib } <span class="op">=</span> simConfig<span class="op">;</span></span>
+<span id="cb12-675"><a href="#cb12-675" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a <span class="op">=</span> <span class="fu">generateSample</span>(n1<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> sd1<span class="op">,</span> distrib)<span class="op">;</span></span>
+<span id="cb12-676"><a href="#cb12-676" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> b <span class="op">=</span> <span class="fu">generateSample</span>(n2<span class="op">,</span> delta_mean<span class="op">,</span> sd2<span class="op">,</span> distrib)<span class="op">;</span></span>
+<span id="cb12-677"><a href="#cb12-677" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-678"><a href="#cb12-678" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> [</span>
+<span id="cb12-679"><a href="#cb12-679" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>a<span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> ({ <span class="dt">value</span><span class="op">:</span> v<span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="vs">`Группа 1 (n=</span><span class="sc">${</span>n1<span class="sc">}</span><span class="vs">)`</span> }))<span class="op">,</span></span>
+<span id="cb12-680"><a href="#cb12-680" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>b<span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> ({ <span class="dt">value</span><span class="op">:</span> v<span class="op">,</span> <span class="dt">group</span><span class="op">:</span> <span class="vs">`Группа 2 (n=</span><span class="sc">${</span>n2<span class="sc">}</span><span class="vs">)`</span> }))</span>
+<span id="cb12-681"><a href="#cb12-681" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb12-682"><a href="#cb12-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-683"><a href="#cb12-683" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb12-684"><a href="#cb12-684" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="dv">640</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span></span>
+<span id="cb12-685"><a href="#cb12-685" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb12-686"><a href="#cb12-686" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Значение"</span> }<span class="op">,</span></span>
+<span id="cb12-687"><a href="#cb12-687" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"частота"</span> }<span class="op">,</span></span>
+<span id="cb12-688"><a href="#cb12-688" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb12-689"><a href="#cb12-689" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="vs">`Группа 1 (n=</span><span class="sc">${</span>n1<span class="sc">}</span><span class="vs">)`</span><span class="op">,</span> <span class="vs">`Группа 2 (n=</span><span class="sc">${</span>n2<span class="sc">}</span><span class="vs">)`</span>]<span class="op">,</span></span>
+<span id="cb12-690"><a href="#cb12-690" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [<span class="st">"#4a90d9"</span><span class="op">,</span> <span class="st">"#d4537e"</span>]</span>
+<span id="cb12-691"><a href="#cb12-691" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb12-692"><a href="#cb12-692" aria-hidden="true" tabindex="-1"></a>    <span class="dt">facet</span><span class="op">:</span> { data<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"group"</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">0</span> }<span class="op">,</span></span>
+<span id="cb12-693"><a href="#cb12-693" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb12-694"><a href="#cb12-694" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(data<span class="op">,</span> Plot<span class="op">.</span><span class="fu">binX</span>({ <span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span> }<span class="op">,</span> {</span>
+<span id="cb12-695"><a href="#cb12-695" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"group"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">12</span></span>
+<span id="cb12-696"><a href="#cb12-696" aria-hidden="true" tabindex="-1"></a>      }))<span class="op">,</span></span>
+<span id="cb12-697"><a href="#cb12-697" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb12-698"><a href="#cb12-698" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-699"><a href="#cb12-699" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb12-700"><a href="#cb12-700" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="разбор-сценариев" class="level2">
+<h2 class="anchored" data-anchor-id="разбор-сценариев">Разбор сценариев</h2>
+<p>Сценарии делятся на два типа: оценка ошибки первого рода при верности нулевой гипотезы и оценка мощности, когда нулевая гипотеза не верна. Для краткости можно это назвать искусственным A/A и A/B тестом.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A/A vs A/B
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>A/A-тест</strong> (Δ = 0) – обе группы взяты из генеральных совокупностей с <strong>одинаковыми средними</strong>. Нулевая гипотеза о равенстве средних верна, реального эффекта нет, поэтому отклонение нулевой гипотезы – это <strong>ошибка I рода</strong>. Здесь мы проверяем, держит ли тест заявленный уровень α.</li>
+<li><strong>A/B-тест</strong> (Δ &gt; 0) – средние групп (истинные средние генеральных совокупностей) <strong>действительно различаются</strong>. Здесь мы измеряем <strong>мощность</strong>: как часто тест замечает реальный эффект.</li>
+</ul>
+<p>Помните: мощность (A/B) имеет смысл сравнивать между тестами только тогда, когда они одинаково держат α в A/A. Иначе «высокая мощность» может быть просто следствием завышенной ошибки I рода.</p>
+</div>
+</div>
+<section id="aa-тесты-контроль-ошибки-i-рода" class="level3">
+<h3 class="anchored" data-anchor-id="aa-тесты-контроль-ошибки-i-рода">A/A-тесты — контроль ошибки I рода</h3>
+<section id="сценарий-1-h₀-верна-размер-выборок-и-дисперсии-равны" class="level4">
+<h4 class="anchored" data-anchor-id="сценарий-1-h₀-верна-размер-выборок-и-дисперсии-равны">Сценарий 1: H₀ верна, размер выборок и дисперсии равны</h4>
+<p>Установите: <strong>n₁ = n₂ = 15</strong>, <strong>SD₁ = SD₂ = 1</strong>, <strong>Δ = 0</strong>.</p>
+<p>Все три теста должны давать долю ошибок первого рода ≈ <span class="math inline">\(alpha\)</span>. Это базовая проверка: тест работает корректно, если не находит различий там, где их нет.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Что наблюдаем
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Все три теста держат α на заданном уровне. Гистограммы p-value близки к равномерному распределению.</p>
+</div>
+</div>
+</section>
+<section id="сценарий-2-h₀-верна-размеры-выборок-равны-дисперсии-разные" class="level4">
+<h4 class="anchored" data-anchor-id="сценарий-2-h₀-верна-размеры-выборок-равны-дисперсии-разные">Сценарий 2: H₀ верна, размеры выборок равны, дисперсии разные</h4>
+<p>Установите: <strong>n₁ = n₂ = 15</strong>, <strong>SD₁ = 1</strong>, <strong>SD₂ = 3</strong>, <strong>Δ = 0</strong>.</p>
+<p>При равных размерах выборок классический тест Стьюдента справляется с неравенством дисперсий. Тоже самое было в статье для больших выборок.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Что наблюдаем
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Все три теста близки к α = 5%. Неравенство дисперсий не сильно влияет на характеристики теста Стьюдента при равных размерах выборок.</p>
+</div>
+</div>
+</section>
+<section id="сценарий-3-разные-дисперсии-разные-n-при-этом-в-меньшей-выборке-дисперсия-больше" class="level4">
+<h4 class="anchored" data-anchor-id="сценарий-3-разные-дисперсии-разные-n-при-этом-в-меньшей-выборке-дисперсия-больше">Сценарий 3: Разные дисперсии, разные n, при этом в меньшей выборке дисперсия больше</h4>
+<p>Установите: <strong>n₁ = 30</strong>, <strong>n₂ = 8</strong>, <strong>SD₁ = 1</strong>, <strong>SD₂ = 3</strong>, <strong>Δ = 0</strong>.</p>
+<p>Это пример, где тест Стьюдента начинает работать хуже: маленькая выборка с большой дисперсией. В статье для больших выборок (9000 vs 1000) Стьюдент давал до 24% ложных срабатываний. На малых выборках эффект тоже заметен.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Что наблюдаем
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Тест Стьюдента сильно завышает ошибку I рода — в этом сценарии около <strong>25%</strong> вместо 5%. Велч держит α (≈ 5%).</p>
+<p>Манн-Уитни тоже даёт повышенную долю ложных срабатываний (≈ 13%), но по другой причине: при разных дисперсиях формы распределений различаются, а значит нулевая гипотеза Манна-Уитни (<span class="math inline">\(P(X&gt;Y)=0.5\)</span>) нарушена даже при равных средних (см. оговорку в разделе с формулой).</p>
+<p>Попробуйте усилить дисбаланс: <strong>n₁ = 40</strong>, <strong>n₂ = 5</strong>, <strong>SD₂ = 4</strong> — и увидите, как Стьюдент совсем ломается: доля ложных срабатываний подскакивает примерно до <strong>40%</strong>.</p>
+</div>
+</div>
+</section>
+<section id="сценарий-4-ненормальное-распределение-δ-0" class="level4">
+<h4 class="anchored" data-anchor-id="сценарий-4-ненормальное-распределение-δ-0">Сценарий 4: Ненормальное распределение (Δ = 0)</h4>
+<p>Установите: <strong>n₁ = n₂ = 15</strong>, <strong>SD₁ = SD₂ = 1</strong>, <strong>Δ = 0</strong>, распределение = <strong>Экспоненциальное</strong>.</p>
+<p>Экспоненциальное распределение сильно асимметрично. Как справятся тесты при проверке ошибки I рода?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Что наблюдаем
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>При <strong>равных n</strong> все три теста обычно держатся в пределах нормы даже на малых выборках — равные размеры групп компенсируют асимметрию распределения. Но это именно заслуга <strong>симметрии сценария</strong>, а не общая робастность: стоит сделать n неравными, и контроль α перестаёт быть гарантированным.</p>
+<p>Причём «плывёт» здесь, что неожиданно, в первую очередь <strong>Велч</strong>, а не Стьюдент. Установите экспоненциальное распределение, <strong>n₁ = 30</strong>, <strong>n₂ = 8</strong>, <strong>Δ = 0</strong>: Стьюдент держится около 5%, а Велч становится либеральным (≈ 7% вместо 5%). На сильно асимметричных данных «защитные» свойства Велча уже не работают.</p>
+<p>Вывод: при выраженной асимметрии ни один из t-тестов не является надёжной защитой — это случай для <strong>Манна-Уитни</strong> (см. сценарий 5).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="ab-тесты-мощность" class="level3">
+<h3 class="anchored" data-anchor-id="ab-тесты-мощность">A/B-тесты — мощность</h3>
+<section id="сценарий-5-есть-реальный-эффект" class="level4">
+<h4 class="anchored" data-anchor-id="сценарий-5-есть-реальный-эффект">Сценарий 5: Есть реальный эффект</h4>
+<p>Установите: <strong>n₁ = n₂ = 15</strong>, <strong>SD₁ = SD₂ = 1</strong>, <strong>Δ = 1</strong>.</p>
+<p>Теперь H<sub>0</sub> неверна: средние в генеральной совокупности различаются. Мы смотрим <strong>мощность</strong> – в какой доле случаев статистический тест отклонил нулевую гипотезу.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Что наблюдаем
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>При Δ = 1 и n = 15 мощность всех тестов ~ 70–75%. Увеличьте n до 25 — и мощность вырастет до &gt; 90%.</p>
+<p>Манн-Уитни на нормальных данных немного уступает параметрическим тестам в мощности — это неудивительно, так как перевод в ранги обычно приводит к уменьшению мощности.</p>
+<p>Переключитесь на <strong>логнормальное (выбросы)</strong> при Δ = 0.5: на данных с тяжёлым хвостом разрыв огромный — мощность Манна-Уитни около 75% против ~42% у обоих t-тестов. Именно выбросы, а не «ненормальность» сами по себе, «ослепляют» t-тесты: одно экстремальное значение сильно раздувает выборочную дисперсию, и t-статистика проседает. Ранговый Манн-Уитни к таким выбросам устойчив.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="зависимость-ошибки-i-рода-от-дисбаланса-выборок" class="level2">
+<h2 class="anchored" data-anchor-id="зависимость-ошибки-i-рода-от-дисбаланса-выборок">Зависимость ошибки I рода от дисбаланса выборок</h2>
+<p>Установите <strong>SD₁ = 1</strong>, <strong>SD₂ = 3</strong>, <strong>Δ = 0</strong> и двигайте слайдер <strong>n₂</strong> от 5 до 50 при фиксированном <strong>n₁ = 30</strong>. Вы увидите:</p>
+<ul>
+<li>При <strong>n₂ ≈ n₁</strong>: все тесты в норме</li>
+<li>При <strong>n₂ &lt;&lt; n₁</strong> (маленькая выборка с большой дисперсией): Стьюдент завышает α</li>
+<li>При <strong>n₂ &gt;&gt; n₁</strong> (большая выборка с большой дисперсией): Стьюдент даже занижает α (консервативен)</li>
+</ul>
+<p>Тест Велча стабилен во всех случаях.</p>
+</section>
+<section id="выводы" class="level2">
+<h2 class="anchored" data-anchor-id="выводы">Выводы</h2>
+<p>На основании симуляций на <strong>малых выборках</strong> (n = 5–50):</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Поведение тестов на малых выборках</caption>
+<colgroup>
+<col style="width: 60%">
+<col style="width: 14%">
+<col style="width: 8%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Сценарий</th>
+<th style="text-align: center;">Стьюдент</th>
+<th style="text-align: center;">Велч</th>
+<th style="text-align: center;">Манн-Уитни</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>🅰️/🅰️ A/A — контроль ошибки I рода</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Равные SD, равные n</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr class="odd">
+<td>Разные SD, равные n</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr class="even">
+<td>Разные SD, разные n (мал. выб. + бол. SD)</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❓ ⃰</td>
+</tr>
+<tr class="odd">
+<td>Ненормальные данные, равные n</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr class="even">
+<td><strong>🅰️/🅱️ A/B — мощность</strong> †</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td>Нормальные данные</td>
+<td style="text-align: center;">✅ †</td>
+<td style="text-align: center;">✅ †</td>
+<td style="text-align: center;">🟡</td>
+</tr>
+<tr class="even">
+<td>Ненормальные данные</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">🟡</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<p>⃰ Манн-Уитни в этом сценарии даёт повышенную долю ложных срабатываний, но это <strong>не ошибка</strong>: при разных дисперсиях формы распределений различаются, а значит его нулевая гипотеза (<span class="math inline">\(P(X&gt;Y)=0.5\)</span>) нарушена даже при равных средних. Тест отвечает на другой вопрос, чем t-тесты, поэтому прямое сравнение здесь некорректно.</p>
+<p>† <strong>Мощность сравнима только при одинаковой фактической ошибке I рода.</strong> Когда дисперсии равны, тесты Стьюдента и Велча практически совпадают — отсюда обе ✅. Но в гетероскедастичных сценариях «высокая мощность» Стьюдента иллюзорна: она достигается за счёт нарушения уровня α (часть «находок» — ложные срабатывания), поэтому сравнивать её с честной мощностью Велча нельзя (см. оговорку ниже).</p>
+<p><strong>Рекомендации:</strong></p>
+<ol type="1">
+<li><strong>По умолчанию используйте тест Велча</strong> — он надёжен во всех разобранных ситуациях, как на больших, так и на малых выборках</li>
+<li><strong>Манн-Уитни</strong> стоит применять, когда есть основания сомневаться в нормальности распределения — особенно при <strong>выбросах и тяжёлых хвостах</strong> (логнормальные данные, время отклика, деньги). Именно там он заметно мощнее t-тестов.</li>
+<li><strong>Классический тест Стьюдента</strong> имеет смысл только когда вы уверены в равенстве дисперсий — но если вы в этом уверены, Велч всё равно даст тот же результат. Так зачем рисковать?</li>
+<li><strong>Не используйте Манн-Уитни как «защиту» от разных дисперсий.</strong> Он не лечит гетероскедастичность, а реагирует на неё ложными срабатываниями (см. выше). Разные дисперсии — это про <strong>Велча</strong>, а не про непараметрику.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Велч и мощность: важная оговорка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Когда дисперсии сильно неравны (SD₂/SD₁ &gt; 3–5) и группы несбалансированы, тест Велча может показывать <strong>меньшую мощность</strong>, чем Стьюдент. Проверьте сами: установите <strong>n₁ = 50</strong>, <strong>SD₁ = 0.5</strong>, <strong>n₂ = 15</strong>, <strong>SD₂ = 5</strong>, <strong>Δ = 2.5</strong>.</p>
+<p>Это не недостаток Велча — это <strong>честность</strong>. Малая шумная группа даёт высокую неопределённость в оценке среднего, и Велч корректно это отражает через уменьшенные степени свободы (df ≈ 14 вместо 63). «Высокая мощность» Стьюдента в таких сценариях достигается за счёт некорректного пулирования дисперсий и фактического нарушения уровня α — то есть часть его «находок» является ложными срабатываниями.</p>
+</div>
+</div>
+</section>
+<section id="а-как-же-позиция-велч-не-нужен-по-умолчанию" class="level2">
+<h2 class="anchored" data-anchor-id="а-как-же-позиция-велч-не-нужен-по-умолчанию">А как же позиция «Велч не нужен по умолчанию»?</h2>
+<p>Есть весомая точка зрения, что менять Стьюдента на Велча по умолчанию не стоит (см., например, <a href="https://habr.com/ru/companies/X5Tech/articles/896182/">разбор от X5 Tech</a>). Аргументы такие:</p>
+<ol type="1">
+<li><strong>Велч урезает степени свободы и теряет мощность.</strong></li>
+<li><strong>Чистая гетероскедастичность редка</strong> (аргумент Sawilowsky): «мы никогда не встречали воздействия, которое меняет дисперсии, оставляя средние строго равными» — на практике эффект двигает и среднее, и разброс, так что сценарии A/A с разными SD при Δ = 0 искусственны.</li>
+<li><strong>На больших сбалансированных выборках</strong> (классический A/B-тест 50/50) Стьюдент и так контролирует α при любой дисперсии, поэтому заменять его не на что.</li>
+</ol>
+<p>Это честные аргументы, но они <strong>не противоречат</strong> выводам выше — они про <strong>другую область применения</strong>:</p>
+<ul>
+<li><strong>Потеря мощности у Велча почти нулевая при равных n.</strong> В симуляциях при n₁ = n₂ разница мощности Стьюдента и Велча — доли процентного пункта, даже при сильно неравных дисперсиях. Заметная потеря возникает только в углу «малые n + дисбаланс + сильно неравные SD» — но именно там у Стьюдента нарушается α, так что честно выиграть им всё равно нельзя (см. оговорку выше).</li>
+<li><strong>A/B-тесты vs малые выборки.</strong> В продуктовых A/B-тестах выборки большие, а сплит контролируемый (50/50) — там Стьюдент и Велч практически тождественны, и спор беспредметен. Этот пост — про <strong>малые неконтролируемые выборки</strong> в биологии и медицине, где исследователь не управляет ни балансом групп, ни их дисперсиями. Именно здесь Велч страхует от реальных провалов.</li>
+</ul>
+<p>Иными словами: если вы уверены в равных n и равных дисперсиях — Стьюдент и Велч дадут одно и то же. Как только эта уверенность пропадает (а на малых выборках это норма), Велч оказывается безопаснее почти бесплатно.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Главный вывод
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Аргументы «за Велч» из <a href="https://ubogoeva.github.io/R4Analytics/posts/welch_test.html">предыдущего поста</a> полностью подтверждаются и на малых выборках. Проблема Стьюдента с неравными дисперсиями и разными n — не артефакт больших выборок, она проявляется даже при n = 5–30.</p>
+<p>Контраргумент «Велч теряет мощность» справедлив в основном для больших сбалансированных A/B-тестов; на малых неконтролируемых выборках цена этой «потери» близка к нулю, а защита от завышенной ошибки I рода — реальна.</p>
+</div>
+</div>
+<hr>
+<p>Подписывайтесь на <a href="https://t.me/stats_for_science">телеграм-канал</a>, пишите комментарии!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHNjZW5hcmlvID0gSW5wdXRzLnJhZGlvKFxuICBbXCJI4oKAOiDQvdC10YIg0YDQsNC30LvQuNGH0LjQuVwiLCBcItCg0LDQt9C90YvQtSBTRCwg0YDQsNCy0L3Ri9C1IG5cIiwgXCLQoNCw0LfQvdGL0LUgU0QsINGA0LDQt9C90YvQtSBuXCIsIFwi0JXRgdGC0Ywg0Y3RhNGE0LXQutGCICjOlCA+IDApXCIsIFwi0J3QtdC90L7RgNC80LDQu9GM0L3QvtC1INGA0LDRgdC/0YDQtdC00LXQu9C10L3QuNC1XCJdLFxuICB7IHZhbHVlOiBcIkjigoA6INC90LXRgiDRgNCw0LfQu9C40YfQuNC5XCIsIGxhYmVsOiBcItCh0YbQtdC90LDRgNC40LlcIiB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnNjZW5hcmlvRGVmYXVsdHMgPSB7XG4gIGNvbnN0IG1hcCA9IHtcbiAgICBcIkjigoA6INC90LXRgiDRgNCw0LfQu9C40YfQuNC5XCI6ICAgICAgICAgICAgICB7IG4xOiAxNSwgbjI6IDE1LCBzZDE6IDEsICAgc2QyOiAxLCAgIGRtOiAwLCAgICBkaXN0OiBcItCd0L7RgNC80LDQu9GM0L3QvtC1XCIgfSxcbiAgICBcItCg0LDQt9C90YvQtSBTRCwg0YDQsNCy0L3Ri9C1IG5cIjogICAgICAgICAgICB7IG4xOiAxNSwgbjI6IDE1LCBzZDE6IDEsICAgc2QyOiAzLCAgIGRtOiAwLCAgICBkaXN0OiBcItCd0L7RgNC80LDQu9GM0L3QvtC1XCIgfSxcbiAgICBcItCg0LDQt9C90YvQtSBTRCwg0YDQsNC30L3Ri9C1IG5cIjogICAgICAgICAgICB7IG4xOiAzMCwgbjI6IDgsICBzZDE6IDEsICAgc2QyOiAzLCAgIGRtOiAwLCAgICBkaXN0OiBcItCd0L7RgNC80LDQu9GM0L3QvtC1XCIgfSxcbiAgICBcItCV0YHRgtGMINGN0YTRhNC10LrRgiAozpQgPiAwKVwiOiAgICAgICAgICAgIHsgbjE6IDE1LCBuMjogMTUsIHNkMTogMSwgICBzZDI6IDEsICAgZG06IDEuMCwgIGRpc3Q6IFwi0J3QvtGA0LzQsNC70YzQvdC+0LVcIiB9LFxuICAgIFwi0J3QtdC90L7RgNC80LDQu9GM0L3QvtC1INGA0LDRgdC/0YDQtdC00LXQu9C10L3QuNC1XCI6ICAgICB7IG4xOiAxNSwgbjI6IDE1LCBzZDE6IDEsICAgc2QyOiAxLCAgIGRtOiAwLCAgICBkaXN0OiBcItCt0LrRgdC/0L7QvdC10L3RhtC40LDQu9GM0L3QvtC1XCIgfSxcbiAgfTtcbiAgcmV0dXJuIG1hcFtzY2VuYXJpb107XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnZpZXdvZiBwYXJhbXMgPSBJbnB1dHMuZm9ybShcbiAge1xuICAgIG4xOiAgICAgICAgIElucHV0cy5yYW5nZShbNSwgNTBdLCAgICB7IHZhbHVlOiBzY2VuYXJpb0RlZmF1bHRzLm4xLCAgc3RlcDogMSwgICAgbGFiZWw6IFwibuKCgSAo0YDQsNC30LzQtdGAINCz0YDRg9C/0L/RiyAxKVwiIH0pLFxuICAgIG4yOiAgICAgICAgIElucHV0cy5yYW5nZShbNSwgNTBdLCAgICB7IHZhbHVlOiBzY2VuYXJpb0RlZmF1bHRzLm4yLCAgc3RlcDogMSwgICAgbGFiZWw6IFwibuKCgiAo0YDQsNC30LzQtdGAINCz0YDRg9C/0L/RiyAyKVwiIH0pLFxuICAgIHNkMTogICAgICAgIElucHV0cy5yYW5nZShbMC41LCA1XSwgICB7IHZhbHVlOiBzY2VuYXJpb0RlZmF1bHRzLnNkMSwgc3RlcDogMC41LCAgbGFiZWw6IFwiU0TigoFcIiB9KSxcbiAgICBzZDI6ICAgICAgICBJbnB1dHMucmFuZ2UoWzAuNSwgNV0sICAgeyB2YWx1ZTogc2NlbmFyaW9EZWZhdWx0cy5zZDIsIHN0ZXA6IDAuNSwgIGxhYmVsOiBcIlNE4oKCXCIgfSksXG4gICAgZGVsdGFfbWVhbjogSW5wdXRzLnJhbmdlKFswLCAzXSwgICAgIHsgdmFsdWU6IHNjZW5hcmlvRGVmYXVsdHMuZG0sICBzdGVwOiAwLjI1LCBsYWJlbDogXCLOlCDRgdGA0LXQtNC90LjRhSAozrzigoIg4oiSIM684oKBKVwiIH0pLFxuICAgIGFscGhhOiAgICAgIElucHV0cy5yYW5nZShbMC4wMSwgMC4xMF0sIHsgdmFsdWU6IDAuMDUsIHN0ZXA6IDAuMDEsICBsYWJlbDogXCLOsSAo0YPRgNC+0LLQtdC90Ywg0LfQvdCw0YfQuNC80L7RgdGC0LgpXCIgfSksXG4gICAgbl9zaW06ICAgICAgSW5wdXRzLnJhbmdlKFsyMDAsIDMwMDBdLCAgeyB2YWx1ZTogMTAwMCwgc3RlcDogMTAwLCAgIGxhYmVsOiBcItCn0LjRgdC70L4g0LjRgtC10YDQsNGG0LjQuVwiIH0pLFxuICAgIGRpc3RyaWI6ICAgIElucHV0cy5zZWxlY3QoW1wi0J3QvtGA0LzQsNC70YzQvdC+0LVcIiwgXCLQrdC60YHQv9C+0L3QtdC90YbQuNCw0LvRjNC90L7QtVwiLCBcItCb0L7Qs9C90L7RgNC80LDQu9GM0L3QvtC1ICjQstGL0LHRgNC+0YHRiylcIiwgXCLQoNCw0LLQvdC+0LzQtdGA0L3QvtC1XCJdLFxuICAgICAgICAgICAgICAgICAgeyB2YWx1ZTogc2NlbmFyaW9EZWZhdWx0cy5kaXN0LCBsYWJlbDogXCLQoNCw0YHQv9GA0LXQtNC10LvQtdC90LjQtVwiIH0pLFxuICB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vINCh0L3QuNC80L7QuiDQv9Cw0YDQsNC80LXRgtGA0L7Qsiwg0L/QviDQutC+0YLQvtGA0L7QvNGDINGB0YfQuNGC0LDQtdGC0YHRjyDRgdC40LzRg9C70Y/RhtC40Y8uXG4vLyDQntCx0L3QvtCy0LvRj9C10YLRgdGPINGC0L7Qu9GM0LrQviDQv9GA0Lgg0L3QsNC20LDRgtC40Lgg0LrQvdC+0L/QutC4IMKr0JfQsNC/0YPRgdGC0LjRgtGMwrsgKNGB0LwuINC90LjQttC1KS5cbm11dGFibGUgc2ltQ29uZmlnID0gKHtcbiAgbjE6IDE1LCBuMjogMTUsIHNkMTogMSwgc2QyOiAxLFxuICBkZWx0YV9tZWFuOiAwLCBhbHBoYTogMC4wNSwgbl9zaW06IDEwMDAsIGRpc3RyaWI6IFwi0J3QvtGA0LzQsNC70YzQvdC+0LVcIlxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHJ1bkJ1dHRvbiA9IElucHV0cy5idXR0b24oXG4gIFwi4pa2INCX0LDQv9GD0YHRgtC40YLRjCDRgdC40LzRg9C70Y/RhtC40Y5cIixcbiAgeyByZWR1Y2U6ICgpID0+IHsgbXV0YWJsZSBzaW1Db25maWcgPSB7IC4uLnBhcmFtcyB9OyB9IH1cbilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuLy8g4pSA4pSAINCT0LXQvdC10YDQsNGC0L7RgNGLINGB0LvRg9GH0LDQudC90YvRhSDRh9C40YHQtdC7IOKUgOKUgFxuZnVuY3Rpb24gcmFuZG4oKSB7XG4gIGxldCB1ID0gMCwgdiA9IDA7XG4gIHdoaWxlICh1ID09PSAwKSB1ID0gTWF0aC5yYW5kb20oKTtcbiAgd2hpbGUgKHYgPT09IDApIHYgPSBNYXRoLnJhbmRvbSgpO1xuICByZXR1cm4gTWF0aC5zcXJ0KC0yICogTWF0aC5sb2codSkpICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiB2KTtcbn1cblxuZnVuY3Rpb24gZ2VuZXJhdGVTYW1wbGUobiwgbWVhbiwgc2QsIGRpc3QpIHtcbiAgY29uc3QgYXJyID0gW107XG4gIGZvciAobGV0IGkgPSAwOyBpIDwgbjsgaSsrKSB7XG4gICAgbGV0IHg7XG4gICAgaWYgKGRpc3QgPT09IFwi0J3QvtGA0LzQsNC70YzQvdC+0LVcIikge1xuICAgICAgeCA9IG1lYW4gKyBzZCAqIHJhbmRuKCk7XG4gICAgfSBlbHNlIGlmIChkaXN0ID09PSBcItCt0LrRgdC/0L7QvdC10L3RhtC40LDQu9GM0L3QvtC1XCIpIHtcbiAgICAgIHggPSBtZWFuICsgc2QgKiAoLU1hdGgubG9nKDEgLSBNYXRoLnJhbmRvbSgpKSAtIDEpO1xuICAgIH0gZWxzZSBpZiAoZGlzdCA9PT0gXCLQm9C+0LPQvdC+0YDQvNCw0LvRjNC90L7QtSAo0LLRi9Cx0YDQvtGB0YspXCIpIHtcbiAgICAgIC8vIGV4cChOKDAsMSkpINC40LzQtdC10YIg0YLRj9C20ZHQu9GL0Lkg0L/RgNCw0LLRi9C5INGF0LLQvtGB0YI7INGB0YLQsNC90LTQsNGA0YLQuNC30YPQtdC8INC6INGB0YDQtdC00L3QtdC80YMgMFxuICAgICAgLy8g0LggU0QgMSAo0LLRi9GH0LjRgtCw0LXQvCBleHAoMC41KSwg0LTQtdC70LjQvCDQvdCwIFNEINC70L7Qs9C90L7RgNC80LDQu9C4KSwg0LfQsNGC0LXQvCDQvNCw0YHRiNGC0LDQsdC40YDRg9C10LwuXG4gICAgICB4ID0gbWVhbiArIHNkICogKE1hdGguZXhwKHJhbmRuKCkpIC0gMS42NDg3MjEyNzA3KSAvIDIuMTYxMTk3NDE1OTtcbiAgICB9IGVsc2Uge1xuICAgICAgeCA9IG1lYW4gKyBzZCAqIChNYXRoLnJhbmRvbSgpICogMiAqIDEuNzMyIC0gMS43MzIpO1xuICAgIH1cbiAgICBhcnIucHVzaCh4KTtcbiAgfVxuICByZXR1cm4gYXJyO1xufVxuXG4vLyDilIDilIAg0JLRgdC/0L7QvNC+0LPQsNGC0LXQu9GM0L3Ri9C1INGE0YPQvdC60YbQuNC4IOKUgOKUgFxuZnVuY3Rpb24gYXJyTWVhbihhKSB7IHJldHVybiBhLnJlZHVjZSgocywgeCkgPT4gcyArIHgsIDApIC8gYS5sZW5ndGg7IH1cbmZ1bmN0aW9uIGFyclZhcihhKSB7XG4gIGNvbnN0IG0gPSBhcnJNZWFuKGEpO1xuICByZXR1cm4gYS5yZWR1Y2UoKHMsIHgpID0+IHMgKyAoeCAtIG0pICoqIDIsIDApIC8gKGEubGVuZ3RoIC0gMSk7XG59XG5cbi8vIOKUgOKUgCDQodC/0LXRhtC40LDQu9GM0L3Ri9C1INGE0YPQvdC60YbQuNC4INC00LvRjyDQstGL0YfQuNGB0LvQtdC90LjRjyBwLXZhbHVlIOKUgOKUgFxuZnVuY3Rpb24gbGdhbW1hKHopIHtcbiAgY29uc3QgYyA9IFs3Ni4xODAwOTE3Mjk0NzE0NiwgLTg2LjUwNTMyMDMyOTQxNjc3LCAyNC4wMTQwOTgyNDA4MzA5MSxcbiAgICAgICAgICAgICAtMS4yMzE3Mzk1NzI0NTAxNTUsIDAuMTIwODY1MDk3Mzg2NjE3OWUtMiwgLTAuNTM5NTIzOTM4NDk1M2UtNV07XG4gIGxldCB5ID0geiwgeCA9IHosIHRtcCA9IHggKyA1LjU7XG4gIHRtcCA9ICh4ICsgMC41KSAqIE1hdGgubG9nKHRtcCkgLSB0bXA7XG4gIGxldCBzZXIgPSAxLjAwMDAwMDAwMDE5MDAxNTtcbiAgZm9yIChsZXQgaiA9IDA7IGogPCA2OyBqKyspIHNlciArPSBjW2pdIC8gKyt5O1xuICByZXR1cm4gdG1wICsgTWF0aC5sb2coMi41MDY2MjgyNzQ2MzEwMDA1ICogc2VyIC8geCk7XG59XG5cbmZ1bmN0aW9uIGluY29tcGxldGVCZXRhKHgsIGEsIGIpIHtcbiAgaWYgKHggPD0gMCkgcmV0dXJuIDA7XG4gIGlmICh4ID49IDEpIHJldHVybiAxO1xuICBjb25zdCBsYmV0YSA9IGxnYW1tYShhKSArIGxnYW1tYShiKSAtIGxnYW1tYShhICsgYik7XG4gIGNvbnN0IGZyb250ID0gTWF0aC5leHAoTWF0aC5sb2coeCkgKiBhICsgTWF0aC5sb2coMSAtIHgpICogYiAtIGxiZXRhKSAvIGE7XG4gIC8vIGNvbnRpbnVlZCBmcmFjdGlvblxuICBjb25zdCBNQVhJVCA9IDIwMCwgRVBTID0gM2UtNywgRlBNSU4gPSAxZS0zMDtcbiAgY29uc3QgcWFiID0gYSArIGIsIHFhcCA9IGEgKyAxLCBxYW0gPSBhIC0gMTtcbiAgbGV0IGMgPSAxLCBkID0gMSAtIHFhYiAqIHggLyBxYXA7XG4gIGlmIChNYXRoLmFicyhkKSA8IEZQTUlOKSBkID0gRlBNSU47XG4gIGQgPSAxIC8gZDtcbiAgbGV0IGggPSBkO1xuICBmb3IgKGxldCBtID0gMTsgbSA8PSBNQVhJVDsgbSsrKSB7XG4gICAgbGV0IG0yID0gMiAqIG07XG4gICAgbGV0IGFhID0gbSAqIChiIC0gbSkgKiB4IC8gKChxYW0gKyBtMikgKiAoYSArIG0yKSk7XG4gICAgZCA9IDEgKyBhYSAqIGQ7IGlmIChNYXRoLmFicyhkKSA8IEZQTUlOKSBkID0gRlBNSU47XG4gICAgYyA9IDEgKyBhYSAvIGM7IGlmIChNYXRoLmFicyhjKSA8IEZQTUlOKSBjID0gRlBNSU47XG4gICAgZCA9IDEgLyBkOyBoICo9IGQgKiBjO1xuICAgIGFhID0gLShhICsgbSkgKiAocWFiICsgbSkgKiB4IC8gKChhICsgbTIpICogKHFhcCArIG0yKSk7XG4gICAgZCA9IDEgKyBhYSAqIGQ7IGlmIChNYXRoLmFicyhkKSA8IEZQTUlOKSBkID0gRlBNSU47XG4gICAgYyA9IDEgKyBhYSAvIGM7IGlmIChNYXRoLmFicyhjKSA8IEZQTUlOKSBjID0gRlBNSU47XG4gICAgZCA9IDEgLyBkOyBjb25zdCBkZWwgPSBkICogYzsgaCAqPSBkZWw7XG4gICAgaWYgKE1hdGguYWJzKGRlbCAtIDEpIDwgRVBTKSBicmVhaztcbiAgfVxuICByZXR1cm4gZnJvbnQgKiBoO1xufVxuXG5mdW5jdGlvbiB0Q0RGKHQsIGRmKSB7XG4gIGNvbnN0IHggPSBkZiAvIChkZiArIHQgKiB0KTtcbiAgcmV0dXJuIDEgLSAwLjUgKiBpbmNvbXBsZXRlQmV0YSh4LCBkZiAvIDIsIDAuNSk7XG59XG5cbmZ1bmN0aW9uIG5vcm1DREYoeikge1xuICBjb25zdCB0ID0gMSAvICgxICsgMC4yMzE2NDE5ICogTWF0aC5hYnMoeikpO1xuICBjb25zdCBkID0gMC4zOTg5NDIzICogTWF0aC5leHAoLXogKiB6IC8gMik7XG4gIGNvbnN0IHAgPSBkICogdCAqICgwLjMxOTM4MTUgKyB0ICogKC0wLjM1NjU2MzggKyB0ICogKDEuNzgxNDc3OSArIHQgKiAoLTEuODIxMjU2MCArIHQgKiAxLjMzMDI3NDQpKSkpO1xuICByZXR1cm4geiA+PSAwID8gMSAtIHAgOiBwO1xufVxuXG4vLyDilIDilIAg0KLQtdGB0YLRiyDilIDilIBcbmZ1bmN0aW9uIHBTdHVkZW50KGEsIGIpIHtcbiAgY29uc3QgbjEgPSBhLmxlbmd0aCwgbjIgPSBiLmxlbmd0aDtcbiAgY29uc3QgbTEgPSBhcnJNZWFuKGEpLCBtMiA9IGFyck1lYW4oYik7XG4gIGNvbnN0IHYxID0gYXJyVmFyKGEpLCB2MiA9IGFyclZhcihiKTtcbiAgY29uc3Qgc3AgPSBNYXRoLnNxcnQoKChuMSAtIDEpICogdjEgKyAobjIgLSAxKSAqIHYyKSAvIChuMSArIG4yIC0gMikpO1xuICBpZiAoc3AgPT09IDApIHJldHVybiAxO1xuICBjb25zdCB0ID0gKG0xIC0gbTIpIC8gKHNwICogTWF0aC5zcXJ0KDEgLyBuMSArIDEgLyBuMikpO1xuICByZXR1cm4gMiAqICgxIC0gdENERihNYXRoLmFicyh0KSwgbjEgKyBuMiAtIDIpKTtcbn1cblxuZnVuY3Rpb24gcFdlbGNoKGEsIGIpIHtcbiAgY29uc3QgbjEgPSBhLmxlbmd0aCwgbjIgPSBiLmxlbmd0aDtcbiAgY29uc3QgbTEgPSBhcnJNZWFuKGEpLCBtMiA9IGFyck1lYW4oYik7XG4gIGNvbnN0IHYxID0gYXJyVmFyKGEpLCB2MiA9IGFyclZhcihiKTtcbiAgY29uc3Qgc2UgPSBNYXRoLnNxcnQodjEgLyBuMSArIHYyIC8gbjIpO1xuICBpZiAoc2UgPT09IDApIHJldHVybiAxO1xuICBjb25zdCB0ID0gKG0xIC0gbTIpIC8gc2U7XG4gIGNvbnN0IGRmID0gKHYxIC8gbjEgKyB2MiAvIG4yKSAqKiAyIC9cbiAgICAoKHYxIC8gbjEpICoqIDIgLyAobjEgLSAxKSArICh2MiAvIG4yKSAqKiAyIC8gKG4yIC0gMSkpO1xuICByZXR1cm4gMiAqICgxIC0gdENERihNYXRoLmFicyh0KSwgTWF0aC5tYXgoMSwgZGYpKSk7XG59XG5cbmZ1bmN0aW9uIHBNYW5uV2hpdG5leShhLCBiKSB7XG4gIGNvbnN0IG4xID0gYS5sZW5ndGgsIG4yID0gYi5sZW5ndGg7XG4gIGxldCBVMSA9IDA7XG4gIGZvciAobGV0IGkgPSAwOyBpIDwgbjE7IGkrKylcbiAgICBmb3IgKGxldCBqID0gMDsgaiA8IG4yOyBqKyspIHtcbiAgICAgIGlmIChhW2ldID4gYltqXSkgVTErKztcbiAgICAgIGVsc2UgaWYgKGFbaV0gPT09IGJbal0pIFUxICs9IDAuNTtcbiAgICB9XG4gIGNvbnN0IFUgPSBNYXRoLm1pbihVMSwgbjEgKiBuMiAtIFUxKTtcbiAgY29uc3QgbXUgPSBuMSAqIG4yIC8gMjtcbiAgY29uc3Qgc2lnbWEgPSBNYXRoLnNxcnQobjEgKiBuMiAqIChuMSArIG4yICsgMSkgLyAxMik7XG4gIGlmIChzaWdtYSA9PT0gMCkgcmV0dXJuIDE7XG4gIC8vINCf0L7Qv9GA0LDQstC60LAg0L3QsCDQvdC10L/RgNC10YDRi9Cy0L3QvtGB0YLRjDog0LTQuNGB0LrRgNC10YLQvdGD0Y4g0YHRgtCw0YLQuNGB0YLQuNC60YMgVSDQv9GA0LjQsdC70LjQttCw0LXQvFxuICAvLyDQvdC10L/RgNC10YDRi9Cy0L3Ri9C8INC90L7RgNC80LDQu9GM0L3Ri9C8INGA0LDRgdC/0YDQtdC00LXQu9C10L3QuNC10LwsINC/0L7RjdGC0L7QvNGDINCy0YvRh9C40YLQsNC10LwgMC41INC40LcgfFUg4oiSIM68fFxuICAvLyAoY2xhbXAg0LTQviAwLCDRh9GC0L7QsdGLINC/0YDQuCBVID09IM68INC90LUg0YPQudGC0Lgg0LIg0LzQuNC90YPRgSkuXG4gIGNvbnN0IHogPSBNYXRoLm1heCgwLCBNYXRoLmFicyhVIC0gbXUpIC0gMC41KSAvIHNpZ21hO1xuICByZXR1cm4gMiAqICgxIC0gbm9ybUNERih6KSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vIOKUgOKUgCDQntGB0L3QvtCy0L3QsNGPINGB0LjQvNGD0LvRj9GG0LjRjyDilIDilIBcbnNpbVJlc3VsdCA9IHtcbiAgY29uc3QgeyBuMSwgbjIsIHNkMSwgc2QyLCBkZWx0YV9tZWFuLCBhbHBoYSwgbl9zaW0sIGRpc3RyaWIgfSA9IHNpbUNvbmZpZztcbiAgY29uc3QgcFN0ID0gW10sIHBXZSA9IFtdLCBwTVcgPSBbXTtcblxuICBmb3IgKGxldCBpID0gMDsgaSA8IG5fc2ltOyBpKyspIHtcbiAgICBjb25zdCBhID0gZ2VuZXJhdGVTYW1wbGUobjEsIDAsIHNkMSwgZGlzdHJpYik7XG4gICAgY29uc3QgYiA9IGdlbmVyYXRlU2FtcGxlKG4yLCBkZWx0YV9tZWFuLCBzZDIsIGRpc3RyaWIpO1xuICAgIHBTdC5wdXNoKHBTdHVkZW50KGEsIGIpKTtcbiAgICBwV2UucHVzaChwV2VsY2goYSwgYikpO1xuICAgIHBNVy5wdXNoKHBNYW5uV2hpdG5leShhLCBiKSk7XG4gIH1cblxuICBjb25zdCByYXRlU3QgPSBwU3QuZmlsdGVyKHAgPT4gcCA8IGFscGhhKS5sZW5ndGggLyBuX3NpbTtcbiAgY29uc3QgcmF0ZVdlID0gcFdlLmZpbHRlcihwID0+IHAgPCBhbHBoYSkubGVuZ3RoIC8gbl9zaW07XG4gIGNvbnN0IHJhdGVNVyA9IHBNVy5maWx0ZXIocCA9PiBwIDwgYWxwaGEpLmxlbmd0aCAvIG5fc2ltO1xuXG4gIHJldHVybiB7IHBTdCwgcFdlLCBwTVcsIHJhdGVTdCwgcmF0ZVdlLCByYXRlTVcsIGFscGhhLCBkZWx0YV9tZWFuIH07XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vIOKUgOKUgCDQmtCw0YDRgtC+0YfQutC4INGBINGA0LXQt9GD0LvRjNGC0LDRgtCw0LzQuCDilIDilIBcbntcbiAgY29uc3QgeyBhbHBoYSwgZGVsdGFfbWVhbiB9ID0gc2ltUmVzdWx0O1xuICBjb25zdCBpc0gwID0gZGVsdGFfbWVhbiA9PT0gMDtcblxuICBmdW5jdGlvbiBiYWRnZShyYXRlKSB7XG4gICAgaWYgKGlzSDApIHtcbiAgICAgIGlmIChyYXRlIDw9IGFscGhhICogMS4zKSByZXR1cm4geyBjbHM6IFwib2tcIiwgICB0ZXh0OiBcIuKckyDQvdC+0YDQvNCwXCIgfTtcbiAgICAgIGlmIChyYXRlIDw9IGFscGhhICogMi4wKSByZXR1cm4geyBjbHM6IFwid2FyblwiLCB0ZXh0OiBcIn4g0L/QvtCy0YvRiNC10L3QsFwiIH07XG4gICAgICByZXR1cm4geyBjbHM6IFwiYmFkXCIsIHRleHQ6IFwi4pyXINC30LDQstGL0YjQtdC90LBcIiB9O1xuICAgIH0gZWxzZSB7XG4gICAgICBpZiAocmF0ZSA+PSAwLjgpICByZXR1cm4geyBjbHM6IFwib2tcIiwgICB0ZXh0OiBcIuKckyDQstGL0YHQvtC60LDRj1wiIH07XG4gICAgICBpZiAocmF0ZSA+PSAwLjUpICByZXR1cm4geyBjbHM6IFwid2FyblwiLCB0ZXh0OiBcIn4g0YHRgNC10LTQvdGP0Y9cIiB9O1xuICAgICAgcmV0dXJuIHsgY2xzOiBcImJhZFwiLCB0ZXh0OiBcIuKclyDQvdC40LfQutCw0Y9cIiB9O1xuICAgIH1cbiAgfVxuXG4gIGNvbnN0IHRlc3RzID0gW1xuICAgIHsgbmFtZTogXCLQodGC0YzRjtC00LXQvdGCXCIsICAgICByYXRlOiBzaW1SZXN1bHQucmF0ZVN0IH0sXG4gICAgeyBuYW1lOiBcItCS0LXQu9GHXCIsICAgICAgICAgcmF0ZTogc2ltUmVzdWx0LnJhdGVXZSB9LFxuICAgIHsgbmFtZTogXCLQnNCw0L3QvS3Qo9C40YLQvdC4XCIsICAgcmF0ZTogc2ltUmVzdWx0LnJhdGVNVyB9LFxuICBdO1xuXG4gIGNvbnN0IGJhZGdlU3R5bGUgPSB7XG4gICAgb2s6ICAgXCJiYWNrZ3JvdW5kOiNlNmY0ZTI7IGNvbG9yOiMyZDZhMWU7IHBhZGRpbmc6MnB4IDhweDsgYm9yZGVyLXJhZGl1czo0cHg7IGZvbnQtc2l6ZToxMnB4O1wiLFxuICAgIHdhcm46IFwiYmFja2dyb3VuZDojZmZmM2NkOyBjb2xvcjojODU2NDA0OyBwYWRkaW5nOjJweCA4cHg7IGJvcmRlci1yYWRpdXM6NHB4OyBmb250LXNpemU6MTJweDtcIixcbiAgICBiYWQ6ICBcImJhY2tncm91bmQ6I2ZjZTRlNDsgY29sb3I6I2EzMmQyZDsgcGFkZGluZzoycHggOHB4OyBib3JkZXItcmFkaXVzOjRweDsgZm9udC1zaXplOjEycHg7XCIsXG4gIH07XG5cbiAgY29uc3QgbGFiZWwgPSBpc0gwXG4gICAgPyBcIiUg0LvQvtC20L3Ri9GFINGB0YDQsNCx0LDRgtGL0LLQsNC90LjQuSAo0L7RiNC40LHQutCwIEkg0YDQvtC00LApXCJcbiAgICA6IFwiJSDQvtCx0L3QsNGA0YPQttC10L3QvdGL0YUg0YDQsNC30LvQuNGH0LjQuSAo0LzQvtGJ0L3QvtGB0YLRjClcIjtcblxuICBjb25zdCBodG1sID0gYFxuICAgIDxkaXYgc3R5bGU9XCJkaXNwbGF5OmdyaWQ7IGdyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoMywxZnIpOyBnYXA6MTJweDsgbWFyZ2luOjFyZW0gMDtcIj5cbiAgICAgICR7dGVzdHMubWFwKHQgPT4ge1xuICAgICAgICBjb25zdCBiID0gYmFkZ2UodC5yYXRlKTtcbiAgICAgICAgcmV0dXJuIGA8ZGl2IHN0eWxlPVwiYmFja2dyb3VuZDojZjhmOWZhOyBib3JkZXItcmFkaXVzOjhweDsgcGFkZGluZzoxNHB4IDE2cHg7XCI+XG4gICAgICAgICAgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZToxMnB4OyBjb2xvcjojNjY2OyBtYXJnaW4tYm90dG9tOjRweDtcIj4ke3QubmFtZX08L2Rpdj5cbiAgICAgICAgICA8ZGl2IHN0eWxlPVwiZm9udC1zaXplOjI0cHg7IGZvbnQtd2VpZ2h0OjYwMDtcIj4keyh0LnJhdGUgKiAxMDApLnRvRml4ZWQoMSl9JTwvZGl2PlxuICAgICAgICAgIDxkaXYgc3R5bGU9XCJtYXJnaW4tdG9wOjZweDtcIj48c3BhbiBzdHlsZT1cIiR7YmFkZ2VTdHlsZVtiLmNsc119XCI+JHtiLnRleHR9PC9zcGFuPjwvZGl2PlxuICAgICAgICAgIDxkaXYgc3R5bGU9XCJmb250LXNpemU6MTFweDsgY29sb3I6Izk5OTsgbWFyZ2luLXRvcDo0cHg7XCI+JHtsYWJlbH08L2Rpdj5cbiAgICAgICAgPC9kaXY+YDtcbiAgICAgIH0pLmpvaW4oXCJcIil9XG4gICAgPC9kaXY+XG4gICAgPGRpdiBzdHlsZT1cImJhY2tncm91bmQ6I2YwZjRmODsgcGFkZGluZzoxMHB4IDE0cHg7IGJvcmRlci1yYWRpdXM6NnB4OyBmb250LXNpemU6MTNweDsgY29sb3I6IzU1NTsgbGluZS1oZWlnaHQ6MS42OyBtYXJnaW4tYm90dG9tOjFyZW07XCI+XG4gICAgICAke2lzSDBcbiAgICAgICAgPyBgPHN0cm9uZz5I4oKAINCy0LXRgNC90LA8L3N0cm9uZz46INC+0LbQuNC00LDQtdC80LDRjyDQtNC+0LvRjyDQu9C+0LbQvdGL0YUg0YHRgNCw0LHQsNGC0YvQstCw0L3QuNC5IOKJiCDOsSA9ICR7YWxwaGF9LiDQldGB0LvQuCDRgtC10YHRgiDQtNCw0ZHRgiDQt9C90LDRh9C40YLQtdC70YzQvdC+INCx0L7Qu9GM0YjQtSDigJQg0L7QvSDRgdC70LjRiNC60L7QvCDRh9Cw0YHRgtC+INC90LDRhdC+0LTQuNGCINGA0LDQt9C70LjRh9C40Y8g0YLQsNC8LCDQs9C00LUg0LjRhSDQvdC10YIuYFxuICAgICAgICA6IGA8c3Ryb25nPkjigoAg0L3QtdCy0LXRgNC90LA8L3N0cm9uZz46IM6UID0gJHtkZWx0YV9tZWFufS4g0KHQvNC+0YLRgNC40LwsINC60LDQutC+0Lkg0YLQtdGB0YIg0YfQsNGJ0LUg0L7QsdC90LDRgNGD0LbQuNCy0LDQtdGCINGA0LXQsNC70YzQvdGL0LUg0YDQsNC30LvQuNGH0LjRjy4g0JzQvtGJ0L3QvtGB0YLRjCA+IDgwJSDRgdGH0LjRgtCw0LXRgtGB0Y8g0YXQvtGA0L7RiNC10LkuYFxuICAgICAgfVxuICAgIDwvZGl2PlxuICBgO1xuICBjb25zdCBlbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gIGVsLmlubmVySFRNTCA9IGh0bWw7XG4gIHJldHVybiBlbDtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuLy8g0J/QvtGP0YHQvdC10L3QuNC1INC6INCz0LjRgdGC0L7Qs9GA0LDQvNC80LDQvCDQvNC10L3Rj9C10YLRgdGPINCyINC30LDQstC40YHQuNC80L7RgdGC0Lgg0L7RgiDRgtC+0LPQviwg0LLQtdGA0L3QsCBI4oKAICjOlCA9IDApXG4vLyDQuNC70Lgg0LXRgdGC0Ywg0YDQtdCw0LvRjNC90YvQuSDRjdGE0YTQtdC60YIgKM6UID4gMCkuXG57XG4gIGNvbnN0IGlzSDAgPSBzaW1SZXN1bHQuZGVsdGFfbWVhbiA9PT0gMDtcbiAgY29uc3QgaHRtbCA9IGlzSDBcbiAgICA/IGDQodC10LnRh9Cw0YEgPHN0cm9uZz5I4oKAINCy0LXRgNC90LA8L3N0cm9uZz4gKM6UID0gMCkuINCV0YHQu9C4INGC0LXRgdGCINGA0LDQsdC+0YLQsNC10YIg0LrQvtGA0YDQtdC60YLQvdC+LFxuICAgICAgIHAtdmFsdWUg0LTQvtC70LbQvdGLINGA0LDRgdC/0YDQtdC00LXQu9GP0YLRjNGB0Y8g0YDQsNCy0L3QvtC80LXRgNC90L4gLSDQstGB0LUg0YHRgtC+0LvQsdGG0YtcbiAgICAgICDQv9GA0LjQvNC10YDQvdC+INC+0LTQuNC90LDQutC+0LLQvtC5INCy0YvRgdC+0YLRiy4g0JXRgdC70Lgg0LrRgNCw0YHQvdGL0Lkg0YHRgtC+0LvQsdC10YYg0L7QutC+0LvQviAwINC90LXQv9GA0L7Qv9C+0YDRhtC40L7QvdCw0LvRjNC90L5cbiAgICAgICDQstGL0YHQvtC60LjQuSwg0YLQtdGB0YIg0LTQsNGR0YIg0YHQu9C40YjQutC+0Lwg0LzQvdC+0LPQviDQu9C+0LbQvdGL0YUg0YHRgNCw0LHQsNGC0YvQstCw0L3QuNC5LmBcbiAgICA6IGDQodC10LnRh9Cw0YEgPHN0cm9uZz7QtdGB0YLRjCDRgNC10LDQu9GM0L3Ri9C5INGN0YTRhNC10LrRgjwvc3Ryb25nPiAozpQgPSAke3NpbVJlc3VsdC5kZWx0YV9tZWFufSkuXG4gICAgICAg0KDQsNGB0L/RgNC10LTQtdC70LXQvdC40LUgcC12YWx1ZSDQtNC+0LvQttC90L4g0LHRi9GC0YwgPHN0cm9uZz7RgdC80LXRidC10L3QviDQstC70LXQstC+PC9zdHJvbmc+OiDRh9C10Lwg0LzQvtGJ0L3QtdC1XG4gICAgICAg0YLQtdGB0YIsINGC0LXQvCDQstGL0YjQtSDQutGA0LDRgdC90YvQuSDRgdGC0L7Qu9Cx0LXRhiDQvtC60L7Qu9C+IDAgKNCz0LTQtSBwLXZhbHVlICZsdDsgzrEpLmA7XG4gIGNvbnN0IGVsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcInBcIik7XG4gIGVsLmlubmVySFRNTCA9IGh0bWw7XG4gIHJldHVybiBlbDtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTAiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcblBsb3QgPSBpbXBvcnQoXCJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL0BvYnNlcnZhYmxlaHEvcGxvdEAwLjYvK2VzbVwiKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxue1xuICBjb25zdCB7IGFscGhhIH0gPSBzaW1SZXN1bHQ7XG5cbiAgLy8g0JPRgNCw0L3QuNGG0Ysg0YHRgtC+0LvQsdC40LrQvtCyOiDRgNCw0LLQvdC+0LzQtdGA0L3QsNGPINGB0LXRgtC60LAgMC4wNSArINGB0LDQvCDOsSDQutCw0Log0LPRgNCw0L3QuNGG0LAsXG4gIC8vINGH0YLQvtCx0Ysg0LrQsNC20LTRi9C5INGB0YLQvtC70LHQuNC6INCx0YvQuyDRhtC10LvQuNC60L7QvCDQutGA0LDRgdC90YvQvCAocCA8IM6xKSDQuNC70Lgg0LfQtdC70ZHQvdGL0LwgKHAg4omlIM6xKVxuICBjb25zdCBlZGdlcyA9IFtdO1xuICBmb3IgKGxldCBlID0gMDsgZSA8PSAxLjAwMDE7IGUgKz0gMC4wNSkgZWRnZXMucHVzaCgrZS50b0ZpeGVkKDQpKTtcbiAgaWYgKCFlZGdlcy5pbmNsdWRlcyhhbHBoYSkpIHtcbiAgICBlZGdlcy5wdXNoKGFscGhhKTtcbiAgICBlZGdlcy5zb3J0KChhLCBiKSA9PiBhIC0gYik7XG4gIH1cblxuICBmdW5jdGlvbiBoaXN0UGxvdChwdmFscywgdGl0bGUpIHtcbiAgICBjb25zdCBkYXRhID0gcHZhbHMubWFwKHAgPT4gKHsgcCwgc2lnOiBwIDwgYWxwaGEgPyBcInAgPCDOsVwiIDogXCJwIOKJpSDOsVwiIH0pKTtcbiAgICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICAgIHRpdGxlLFxuICAgICAgd2lkdGg6IDIyMCwgaGVpZ2h0OiAxODAsXG4gICAgICBtYXJnaW5MZWZ0OiA0MCxcbiAgICAgIHg6IHsgbGFiZWw6IFwicC12YWx1ZVwiLCBkb21haW46IFswLCAxXSB9LFxuICAgICAgeTogeyBsYWJlbDogXCLRh9Cw0YHRgtC+0YLQsFwiIH0sXG4gICAgICBjb2xvcjogeyBkb21haW46IFtcInAgPCDOsVwiLCBcInAg4omlIM6xXCJdLCByYW5nZTogW1wiI2UyNGI0YVwiLCBcIiM3Y2IzNDJcIl0gfSxcbiAgICAgIG1hcmtzOiBbXG4gICAgICAgIFBsb3QucmVjdFkoZGF0YSwgUGxvdC5iaW5YKHsgeTogXCJjb3VudFwiIH0sIHsgeDogXCJwXCIsIGZpbGw6IFwic2lnXCIsIHRocmVzaG9sZHM6IGVkZ2VzIH0pKSxcbiAgICAgICAgUGxvdC5ydWxlWShbMF0pXG4gICAgICBdXG4gICAgfSk7XG4gIH1cblxuICBjb25zdCBjb250YWluZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICBjb250YWluZXIuc3R5bGUuY3NzVGV4dCA9IFwiZGlzcGxheTpmbGV4OyBnYXA6MTJweDsgZmxleC13cmFwOndyYXA7XCI7XG4gIGNvbnRhaW5lci5hcHBlbmRDaGlsZChoaXN0UGxvdChzaW1SZXN1bHQucFN0LCBcItCh0YLRjNGO0LTQtdC90YJcIikpO1xuICBjb250YWluZXIuYXBwZW5kQ2hpbGQoaGlzdFBsb3Qoc2ltUmVzdWx0LnBXZSwgXCLQktC10LvRh1wiKSk7XG4gIGNvbnRhaW5lci5hcHBlbmRDaGlsZChoaXN0UGxvdChzaW1SZXN1bHQucE1XLCBcItCc0LDQvdC9LdCj0LjRgtC90LhcIikpO1xuICByZXR1cm4gY29udGFpbmVyO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxue1xuICBjb25zdCB7IG4xLCBuMiwgc2QxLCBzZDIsIGRlbHRhX21lYW4sIGRpc3RyaWIgfSA9IHNpbUNvbmZpZztcbiAgY29uc3QgYSA9IGdlbmVyYXRlU2FtcGxlKG4xLCAwLCBzZDEsIGRpc3RyaWIpO1xuICBjb25zdCBiID0gZ2VuZXJhdGVTYW1wbGUobjIsIGRlbHRhX21lYW4sIHNkMiwgZGlzdHJpYik7XG5cbiAgY29uc3QgZGF0YSA9IFtcbiAgICAuLi5hLm1hcCh2ID0+ICh7IHZhbHVlOiB2LCBncm91cDogYNCT0YDRg9C/0L/QsCAxIChuPSR7bjF9KWAgfSkpLFxuICAgIC4uLmIubWFwKHYgPT4gKHsgdmFsdWU6IHYsIGdyb3VwOiBg0JPRgNGD0L/Qv9CwIDIgKG49JHtuMn0pYCB9KSlcbiAgXTtcblxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogNjQwLCBoZWlnaHQ6IDM2MCxcbiAgICBtYXJnaW5MZWZ0OiA1MCxcbiAgICB4OiB7IGxhYmVsOiBcItCX0L3QsNGH0LXQvdC40LVcIiB9LFxuICAgIHk6IHsgbGFiZWw6IFwi0YfQsNGB0YLQvtGC0LBcIiB9LFxuICAgIGNvbG9yOiB7XG4gICAgICBkb21haW46IFtg0JPRgNGD0L/Qv9CwIDEgKG49JHtuMX0pYCwgYNCT0YDRg9C/0L/QsCAyIChuPSR7bjJ9KWBdLFxuICAgICAgcmFuZ2U6IFtcIiM0YTkwZDlcIiwgXCIjZDQ1MzdlXCJdXG4gICAgfSxcbiAgICBmYWNldDogeyBkYXRhLCB5OiBcImdyb3VwXCIsIG1hcmdpblJpZ2h0OiAwIH0sXG4gICAgbWFya3M6IFtcbiAgICAgIFBsb3QucmVjdFkoZGF0YSwgUGxvdC5iaW5YKHsgeTogXCJjb3VudFwiIH0sIHtcbiAgICAgICAgeDogXCJ2YWx1ZVwiLCBmaWxsOiBcImdyb3VwXCIsIHRocmVzaG9sZHM6IDEyXG4gICAgICB9KSksXG4gICAgICBQbG90LnJ1bGVZKFswXSlcbiAgICBdXG4gIH0pO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzY2VuYXJpbycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwYXJhbXMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuQnV0dG9uJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="ubogoeva/R4Analytics_comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
