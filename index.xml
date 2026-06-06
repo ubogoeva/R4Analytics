@@ -10,7 +10,7 @@
 <atom:link href="https://ubogoeva.github.io/R4Analytics/index.xml" rel="self" type="application/rss+xml"/>
 <description>Блог Елены Убогоевой по статистике и анализу данных в R</description>
 <language>ru</language>
-<generator>quarto-1.4.555</generator>
+<generator>quarto-1.9.38</generator>
 <lastBuildDate>Wed, 12 Mar 2025 23:00:00 GMT</lastBuildDate>
 <item>
   <title>История A/B тестирования: от лечения цинги до цвета ссылок Google</title>
@@ -54,7 +54,7 @@
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Забавный факт
+<span class="screen-reader-only">Tip</span>Забавный факт
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -71,7 +71,7 @@
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Комментарий
+<span class="screen-reader-only">Note</span>Комментарий
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -196,7 +196,7 @@
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Комментарий
+<span class="screen-reader-only">Important</span>Комментарий
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -209,7 +209,7 @@
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Обсуждение в чате Биостата
+<span class="screen-reader-only">Note</span>Обсуждение в чате Биостата
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -219,7 +219,7 @@
 <p>Кроме этого, стандартное отклонение называется в лекциях и стандартным, и среднеквадратичным отклонением. Понятно, что это одно и то же, но это не было проговорено явно, в результате слушатели курса в растерянности. Исторически в русскоязычной литературе использовался вариант “среднеквадратичное отклонение”, но сейчас чаще встречается вариант “стандартное отклонение”, мне кажется это более правильно, так как прямой перевод standard deviation.</p>
 <p>Вот <a href="https://stepik.org/lesson/9294/step/5?unit=1827" target="_blank">тут</a> сказано, что между первым и третьим квартилем в боксплоте находится ровно 50% наблюдений. В принципе это часто так, но не обязательно, например, это будет неверно в случае, если в данных есть повторяющиеся значения.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">boxplot</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -239,7 +239,7 @@ font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">3</span>))</span></code></pre></div>
+font-style: inherit;">3</span>))</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -286,7 +286,7 @@ font-style: inherit;">3</span>))</span></code></pre></div>
 <p>Основная суть ЦПТ в том, что <strong>какой бы ни была форма распределения в генеральной совокупности, выборочное распределение средних будет стремиться к нормальному</strong>. Это применимо для признака, который обладает конечными математическим ожиданием и дисперсией.</p>
 <p>Иллюстрация на примере логнормального распределения:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">log_distr <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">log_distr <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -303,7 +303,7 @@ font-style: inherit;">breaks =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">30</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># строим гистограмму</span></span></code></pre></div>
+font-style: inherit;"># строим гистограмму</span></span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -314,7 +314,7 @@ font-style: inherit;"># строим гистограмму</span></span></code>
 </div>
 <p>Извлекаем тысячу раз выборки размером 30, считаем среднее этих выборок, построим распределение.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">samp_means_log <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">samp_means_log <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -333,7 +333,7 @@ font-style: inherit;">hist</span>(samp_means_log, <span class="at" style="color:
 background-color: null;
 font-style: inherit;">breaks =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">30</span>)</span></code></pre></div>
+font-style: inherit;">30</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -433,7 +433,7 @@ font-style: inherit;">30</span>)</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Рекомендация
+<span class="screen-reader-only">Tip</span>Рекомендация
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -453,7 +453,7 @@ font-style: inherit;">30</span>)</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Про разные типы сумм квадратов в ANOVA
+<span class="screen-reader-only">Note</span>Про разные типы сумм квадратов в ANOVA
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -505,7 +505,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Рекомендация
+<span class="screen-reader-only">Tip</span>Рекомендация
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -600,7 +600,7 @@ Note
 <p>Наверняка каждый при проведении статистических тестов сталкивался с проблемой выбора подходящего теста. В научном сообществе есть определенная популярность у “дорожных карт” по выбору статистического метода, пример ниже:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png"><img src="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png" class="img-fluid figure-img" alt="Можно кликнуть на картинку и перейти на изображение в лучшем качестве"></a></p>
+<p><a href="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png"><img src="https://onishlab.colostate.edu/wp-content/uploads/2019/07/which_test_flowchart.png" class="img-fluid figure-img"></a></p>
 <figcaption>Можно кликнуть на картинку и перейти на изображение в лучшем качестве</figcaption>
 </figure>
 </div>
@@ -619,7 +619,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Примечание
+<span class="screen-reader-only">Warning</span>Примечание
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -631,7 +631,7 @@ Note
 <p><img src="https://latex.codecogs.com/png.latex?%0At%20=%20%5Cfrac%7B%5Coverline%7BX_1%7D-%5Coverline%7BX_2%7D%7D%7Bs_x%5Csqrt%7B%5Cfrac%7B1%7D%7Bn_1%7D%20+%20%5Cfrac%7B1%7D%7Bn_2%7D%7D%7D,%0As_x%20=%20%5Csqrt%7B%5Cfrac%7B(n_1%20-%201)s_1%5E2%20+%20(n_2%20-%201)s_2%5E2%7D%7Bn_1%20+%20n_2%20-%202%7D%7D%0A"></p>
 <p>Чтобы запустить именно тест Стьюдента в R, можно использовать аргумент <code>var.equal = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">t.test</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -661,7 +661,7 @@ font-style: inherit;">1</span>), <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">var.equal =</span> <span class="cn" style="color: #8f5902;
 background-color: null;
-font-style: inherit;">TRUE</span>)</span></code></pre></div>
+font-style: inherit;">TRUE</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -688,7 +688,7 @@ sample estimates:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Оффтоп
+<span class="screen-reader-only">Note</span>Оффтоп
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -698,11 +698,11 @@ sample estimates:
 </div>
 <p>Давайте разберем с помощью симуляций, как работает тест Велча и тест Стьюдента в разных ситуациях.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(tidyverse) <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># загрузим тайдиверс</span></span></code></pre></div>
+font-style: inherit;"># загрузим тайдиверс</span></span></code></pre></div></div>
 </div>
 <p>Разберем разные кейсы: проверим и ошибку первого рода, и мощность теста при равных и разных дисперсиях, и в зависимости от равенства объемов выборок.</p>
 </section>
@@ -717,7 +717,7 @@ font-style: inherit;"># загрузим тайдиверс</span></span></code>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Примечание
+<span class="screen-reader-only">Tip</span>Примечание
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -727,7 +727,7 @@ font-style: inherit;"># загрузим тайдиверс</span></span></code>
 <p>Для всех тестов в приведенных ниже расчетах зафиксировали уровень значимости <img src="https://latex.codecogs.com/png.latex?%5Calpha=0.05">.</p>
 <p><strong>Тест Велча</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">population <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">population <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -793,7 +793,7 @@ font-style: inherit;">'Распределение p-value для теста Ве
 background-color: null;
 font-style: inherit;">sub =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Равные средние, равные дисперсии'</span>)</span></code></pre></div>
+font-style: inherit;">'Равные средние, равные дисперсии'</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -801,7 +801,7 @@ font-style: inherit;">'Равные средние, равные дисперс�
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_values <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -809,14 +809,14 @@ font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.05</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились) </span></span></code></pre></div>
+font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились) </span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.051</code></pre>
 </div>
 </div>
 <p><strong>Тест Стьюдента</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">p_values <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">p_values <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -870,7 +870,7 @@ font-style: inherit;">'Распределение p-value для теста Ст
 background-color: null;
 font-style: inherit;">sub =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Равные средние, равные дисперсии'</span>)</span></code></pre></div>
+font-style: inherit;">'Равные средние, равные дисперсии'</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -878,7 +878,7 @@ font-style: inherit;">'Равные средние, равные дисперс�
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_values <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -886,7 +886,7 @@ font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.05</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились)</span></span></code></pre></div>
+font-style: inherit;"># доля p-value, которые оказались меньше 0.05 (прокрасились)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.049</code></pre>
 </div>
@@ -898,7 +898,7 @@ font-style: inherit;"># доля p-value, которые оказались ме
 <p>Теперь рассмотрим случай с неравными дисперсиями. Для этого создадим две генеральные совокупности с одинаковым средним, но в одной стандартное отклонение 1, в другой 2. Извлекаем две выборки размером 10000 значений и сравниваем их тестом Стьюдента и тестом Велча.</p>
 <p><strong>Тест Велча</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">population1 <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">population1 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -984,7 +984,7 @@ font-style: inherit;">'Распределение p-value для теста Ве
 background-color: null;
 font-style: inherit;">sub =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Равные средние, разные дисперсии'</span>)</span></code></pre></div>
+font-style: inherit;">'Равные средние, разные дисперсии'</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -992,20 +992,20 @@ font-style: inherit;">'Равные средние, разные дисперс�
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_values_welch <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0396</code></pre>
 </div>
 </div>
 <p><strong>Тест Стьюдента</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># проведение теста</span></span>
 <span id="cb13-2">p_values_st <span class="ot" style="color: #003B4F;
@@ -1062,7 +1062,7 @@ font-style: inherit;">'Распределение p-value для теста Ст
 background-color: null;
 font-style: inherit;">sub =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Равные средние, разные дисперсии'</span>)</span></code></pre></div>
+font-style: inherit;">'Равные средние, разные дисперсии'</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1070,13 +1070,13 @@ font-style: inherit;">'Равные средние, разные дисперс�
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_values_st <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0416</code></pre>
 </div>
@@ -1093,7 +1093,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Примечание
+<span class="screen-reader-only">Warning</span>Примечание
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1106,7 +1106,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Пример
+<span class="screen-reader-only">Tip</span>Пример
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1114,7 +1114,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Тест Велча</span></span>
 <span id="cb16-2"><span class="fu" style="color: #4758AB;
@@ -1158,11 +1158,11 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0489</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Тест Стьюдента</span></span>
 <span id="cb18-2"><span class="fu" style="color: #4758AB;
@@ -1211,7 +1211,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1201</code></pre>
 </div>
@@ -1219,7 +1219,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <p>Получилось, что тест Стьюдента в ситуации с неравными дисперсиями и разным размером выборки показал себя хуже и мы наблюдали ложные прокрасы в 12% случаев (вместо 5%, как должно было бы быть).</p>
 <p>С увеличением дисбаланса в размере выборок, ситуация становится хуже, например, вот что произойдет, если выборки отличаются по размеру в 9 раз (тоже может встретиться в A/B тестировании, пример, что это часто используемая практика по <a href="https://developers.is.com/ironsource-mobile/air/best-practices-monetization-ab-testing/#step-1">ссылке</a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Велча</span></span>
 <span id="cb20-2"><span class="fu" style="color: #4758AB;
@@ -1263,11 +1263,11 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>) </span></code></pre></div>
+font-style: inherit;">0.05</span>) </span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Стьюдента</span></span>
 <span id="cb22-2"><span class="fu" style="color: #4758AB;
@@ -1316,7 +1316,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2406</code></pre>
 </div>
@@ -1327,7 +1327,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">var_size <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1">var_size <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1342,6 +1342,7 @@ font-style: inherit;">0.5</span>)</span>
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">function</span>(x, var.equal) {</span>
 <span id="cb24-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1509,7 +1510,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb24-21">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div>
+font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1524,7 +1525,7 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1">var_size <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1">var_size <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1539,6 +1540,7 @@ font-style: inherit;">0.5</span>)</span>
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">function</span>(x, var.equal) {</span>
 <span id="cb25-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1706,7 +1708,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb25-21">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div>
+font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1721,7 +1723,7 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1">var_size <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1">var_size <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1736,6 +1738,7 @@ font-style: inherit;">0.5</span>)</span>
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">function</span>(x, var.equal) {</span>
 <span id="cb26-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1901,7 +1904,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb26-19">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div>
+font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1919,13 +1922,13 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Оффтоп
+<span class="screen-reader-only">Note</span>Оффтоп
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Кстати, и у теста Манна-Уитни не все хорошо в таком примере</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1966,7 +1969,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.129</code></pre>
 </div>
@@ -1982,7 +1985,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="разное-среднее-одинаковая-дисперсия-равный-размер-выборок">Разное среднее, одинаковая дисперсия, равный размер выборок</h3>
 <p>Начнем с ситуации, когда извлекаем выборки из двух генеральных совокупностей с <strong>разным</strong> средним и <strong>равной</strong> дисперсией.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1">pop1 <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1">pop1 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2014,14 +2017,14 @@ background-color: null;
 font-style: inherit;">1</span>)</span>
 <span id="cb29-3"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">summary</span>(pop1)</span></code></pre></div>
+font-style: inherit;">summary</span>(pop1)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -4.4529 -0.4758  0.1953  0.1967  0.8738  4.4452 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">summary</span>(pop2)</span></code></pre></div>
+font-style: inherit;">summary</span>(pop2)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -4.1232 -0.3741  0.2974  0.2967  0.9762  4.7235 </code></pre>
@@ -2031,7 +2034,7 @@ font-style: inherit;">summary</span>(pop2)</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
 background-color: null;
@@ -2142,7 +2145,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb33-10">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div>
+font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -2155,7 +2158,7 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 <p>Проверим работу тестов:</p>
 <p><strong>Тест Велча:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1">p_value <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1">p_value <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2191,7 +2194,7 @@ background-color: null;
 font-style: inherit;">$</span>p.value)</span>
 <span id="cb34-5"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">hist</span>(p_value)</span></code></pre></div>
+font-style: inherit;">hist</span>(p_value)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2199,20 +2202,20 @@ font-style: inherit;">hist</span>(p_value)</span></code></pre></div>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_value <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 <p><strong>Тест Стьюдента:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1">p_value <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1">p_value <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2253,7 +2256,7 @@ background-color: null;
 font-style: inherit;">$</span>p.value)</span>
 <span id="cb37-6"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">hist</span>(p_value)</span></code></pre></div>
+font-style: inherit;">hist</span>(p_value)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2261,13 +2264,13 @@ font-style: inherit;">hist</span>(p_value)</span></code></pre></div>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(p_value <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -2280,7 +2283,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <p>Среднее отличается, и еще стандартное отклонение в одной из выборок выше на 2.</p>
 <p>Проверим работу тестов:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1">pop1 <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1">pop1 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2343,13 +2346,13 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9166</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mean</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2391,7 +2394,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9145</code></pre>
 </div>
@@ -2402,7 +2405,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <section id="разное-среднее-разная-дисперсия-разный-размер-выборок" class="level3">
 <h3 class="anchored" data-anchor-id="разное-среднее-разная-дисперсия-разный-размер-выборок">Разное среднее, разная дисперсия, разный размер выборок</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1">pop1 <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1">pop1 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2426,19 +2429,19 @@ background-color: null;
 font-style: inherit;">2</span>)</span>
 <span id="cb44-3"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">summary</span>(pop1)</span></code></pre></div>
+font-style: inherit;">summary</span>(pop1)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -4.7231 -0.4747  0.1995  0.1985  0.8761  4.2265 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">summary</span>(pop2)</span></code></pre></div>
+font-style: inherit;">summary</span>(pop2)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -7.6160 -1.0539  0.3081  0.3019  1.6534  9.5586 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Велча</span></span>
 <span id="cb48-2"><span class="fu" style="color: #4758AB;
@@ -2478,13 +2481,13 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9355</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Стьюдента</span></span>
 <span id="cb50-2"><span class="fu" style="color: #4758AB;
@@ -2529,7 +2532,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8315</code></pre>
 </div>
@@ -2537,7 +2540,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <p>Здесь тест Велча показал себя несколько лучше, но оба теста корректно находят отличия там, где они есть.</p>
 <p>Проверим, что будет, если поменять местами выборки, чтобы в меньшей выборке была бОльшая дисперсия.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Велча</span></span>
 <span id="cb52-2"><span class="fu" style="color: #4758AB;
@@ -2577,13 +2580,13 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7768</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># тест Стьюдента</span></span>
 <span id="cb54-2"><span class="fu" style="color: #4758AB;
@@ -2628,7 +2631,7 @@ font-style: inherit;">$</span>p.value) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.05</span>)</span></code></pre></div>
+font-style: inherit;">0.05</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8785</code></pre>
 </div>
@@ -2703,7 +2706,7 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Что можно еще изучить:
+<span class="screen-reader-only">Note</span>Что можно еще изучить:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2953,10 +2956,11 @@ font-style: inherit;">0.05</span>)</span></code></pre></div>
 <p>Появится уникальный номер счетчика и код счетчика в JavaScript, который нужно добавить на сайт в пределах тегов &lt;head&gt;&lt;/head&gt; или &lt;body&gt;&lt;/body&gt;. Как это сделать в Quarto-сайте не было написано, но все оказалось очень просто и изящно.</p></li>
 <li><p>Нужно сохранить вышеприведенный код счетчика в файл <code>.js</code> в директории проекта сайта например с названием <code>metrics.js</code>.</p></li>
 <li><p>В файле <code>_quarto.yml</code>, где хранятся основные настройки сайта вписать:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span></span>
 <span id="cb1-2"><span class="at" style="color: #657422;
 background-color: null;
@@ -2964,6 +2968,7 @@ font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">html</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span></span>
 <span id="cb1-3"><span class="at" style="color: #657422;
 background-color: null;
@@ -2971,9 +2976,10 @@ font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">include-before-body</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;"> &lt;path_to_file/metrics.js&gt;</span></span></code></pre></div></li>
+font-style: inherit;"> &lt;path_to_file/metrics.js&gt;</span></span></code></pre></div></div></li>
 <li><p>Проверить, что счетчик установлен на странице метрики, если все сделано правильно, то по ссылке появится всплывающее окно о том, что счетчик активен.</p></li>
 <li><p>Анализировать аналитику сайта.</p></li>
 </ol>
@@ -2983,7 +2989,7 @@ font-style: inherit;"> &lt;path_to_file/metrics.js&gt;</span></span></code></pre
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Google-analytics
+<span class="screen-reader-only">Note</span>Google-analytics
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -3081,7 +3087,7 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3117,7 +3123,7 @@ font-style: inherit;">0.05</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 5 тестов:  0.2257"</code></pre>
@@ -3127,7 +3133,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3163,7 +3169,7 @@ font-style: inherit;">0.05</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 10 тестов:  0.4046"</code></pre>
@@ -3173,7 +3179,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3209,7 +3215,7 @@ font-style: inherit;">0.05</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 50 тестов:  0.925"</code></pre>
@@ -3219,7 +3225,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3255,7 +3261,7 @@ font-style: inherit;">0.05</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 100 тестов:  0.9938"</code></pre>
@@ -3275,7 +3281,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3315,7 +3321,7 @@ font-style: inherit;">5</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 5 тестов FWER по Бонферрони:  0.0491"</code></pre>
@@ -3324,7 +3330,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3364,7 +3370,7 @@ font-style: inherit;">10</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 10 тестов FWER по Бонферрони:  0.0462"</code></pre>
@@ -3373,7 +3379,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3413,7 +3419,7 @@ font-style: inherit;">50</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 50 тестов FWER по Бонферрони:  0.0476"</code></pre>
@@ -3422,7 +3428,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -3462,7 +3468,7 @@ font-style: inherit;">100</span>) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)))</span></code></pre></div>
+font-style: inherit;">0</span>)))</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Для 100 тестов FWER по Бонферрони:  0.0484"</code></pre>
@@ -3475,7 +3481,7 @@ font-style: inherit;">0</span>)))</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="поправка-холма-holm">Поправка Холма (Holm)</h2>
 <p>Менее консервативная поправка. Метод часто называют “Бонферрони-Холма”, однако Карло Бонферрони не имел отношения к разработке этой формулы. Разберем на примере как работает.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">p_value <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">p_value <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3491,7 +3497,7 @@ font-style: inherit;">0.04</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.18</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.24</span>)</span></code></pre></div>
+font-style: inherit;">0.24</span>)</span></code></pre></div></div>
 </div>
 <p>Сортируем и ранжируем p-value по возрастанию, далее по формуле умножаем каждое p-value на <img src="https://latex.codecogs.com/png.latex?(m+1-rank)">, где <img src="https://latex.codecogs.com/png.latex?m"> - количество тестов, <img src="https://latex.codecogs.com/png.latex?rank"> - ранг p-value.</p>
 <div class="cell">
@@ -3608,7 +3614,7 @@ font-style: inherit;">0.24</span>)</span></code></pre></div>
 </div>
 <p>Можем убедиться, что у нас подсчитано все верно:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">p.adjust</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3616,7 +3622,7 @@ font-style: inherit;">sort</span>(p_value), <span class="at" style="color: #6574
 background-color: null;
 font-style: inherit;">method =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'holm'</span>)</span></code></pre></div>
+font-style: inherit;">'holm'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.018 0.020 0.160 0.540 0.540 0.870</code></pre>
 </div>
@@ -3624,7 +3630,7 @@ font-style: inherit;">'holm'</span>)</span></code></pre></div>
 <p>Поскольку для самого <strong>минимального</strong> <strong>p-value</strong> поправленное p-value <strong>такое же</strong> как и в Бонферрони, то поправка Холма контролирует FWER на <strong>том же уровне 0.05</strong>, что и поправка Бонферрони, при этом не так сильно снижает мощность тестов.</p>
 <p>Проверим на 100 тестах:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">replicate</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -3668,7 +3674,7 @@ background-color: null;
 font-style: inherit;">%&gt;%</span></span>
 <span id="cb20-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">mean</span>()</span></code></pre></div>
+font-style: inherit;">mean</span>()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.059</code></pre>
 </div>
@@ -3680,7 +3686,7 @@ font-style: inherit;">mean</span>()</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ссылка на оригинальную статью:
+<span class="screen-reader-only">Note</span>Ссылка на оригинальную статью:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -3719,7 +3725,7 @@ font-style: inherit;">mean</span>()</span></code></pre></div>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Про значимую ANOVA
+<span class="screen-reader-only">Tip</span>Про значимую ANOVA
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -3785,7 +3791,7 @@ font-style: inherit;">mean</span>()</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="расчет-fdr">Расчет FDR</h2>
 <p>Расмотрим контроль FDR по методу Бенджамини-Хохберга (Benjamini-Hochberg), так как он используется чаще всего. Также FDR можно посчитать с помощью метода Benjamini-Yekutieli, но он имеет меньшую мощность и используется реже.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">p_values <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">p_values <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3805,7 +3811,7 @@ font-style: inherit;">0.051</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.101</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.019</span>)</span></code></pre></div>
+font-style: inherit;">0.019</span>)</span></code></pre></div></div>
 </div>
 <ul>
 <li>Сортируем и ранжируем p-value по возрастанию;</li>
@@ -4018,7 +4024,7 @@ font-style: inherit;">0.019</span>)</span></code></pre></div>
 </ul>
 <p>Например:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">reprex<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">reprex<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4043,13 +4049,13 @@ font-style: inherit;">%&gt;%</span> </span>
 <span id="cb1-5">        <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">summarise</span>(mpg)</span>
-<span id="cb1-6">})</span></code></pre></div>
+<span id="cb1-6">})</span></code></pre></div></div>
 </div>
 <p>При попытке запустить такой код у меня сразу появилось, что нет функции <code>%&gt;%</code>, даже если пайп работал до этого. Репрекс создает совершенно новую сессию и поэтому необходимо загрузить все пакеты и объявить все переменные, даже если они уже были загружены и объявлены в скрипте. Соответственно, от своих реальных данных, на которых произошла ошибка, нужно взять минимальный воспроизводимый пример. Обычно я создаю игрушечные датасеты <code>df &lt;- data.frame(a  = 1:10, b = letters[1:10])</code>, на которых воссоздаю ошибку. Также можно использовать встроенные датасеты, например <code>mtcars</code>, <code>iris</code>.</p>
 <p>Созданный с помощью функции <code>reprex::reprex()</code> код можно сразу же копировать в телеграм-чат, оформление как код будет сразу же задано с помощью трех бэктиков ```. Однако в новых версиях телеграма появилась подсветка синтаксиса, если вставить код с указанием языка после трех бэктиков ```r, что максимально облегчает работу с кодом и повышает вероятность, что вам смогут помочь с запросом.</p>
 <p>В случае если данные все же очень сложные, то можно воспользоваться функцией <code>dput</code>. Например, взять первые несколько строк <code>head</code>-ом и поместить в <code>dput</code>: <code>dput(head(mtcars))</code>, где вместо mtcars ваши данные. В результате будет сложная выдача <code>structure(list...)</code>, которую можно скопировать и в репрексе создать такую переменную.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">reprex<span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">reprex<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4275,7 +4281,7 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">20</span>)</span>
-<span id="cb2-11">}) </span></code></pre></div>
+<span id="cb2-11">}) </span></code></pre></div></div>
 </div>
 <p>При таком подходе рекомендуется постараться минимизировать пример, максимально изолировать ошибку, чтобы было удобнее читать и помогать.</p>
 <p>Если вопрос не об ошибке, а о том, что нужно сделать, то желательно показать ход мысли, как пытались решить самостоятельно, и можно создать образец данных, которые нужно получить. Вот пара примеров (<a href="https://t.me/rlang_ru/102330">здесь</a> и <a href="https://t.me/rlang_ru/151373">здесь</a>) моих вопросов в чате R.</p>
@@ -4442,7 +4448,7 @@ font-style: inherit;">20</span>)</span>
 <p>Если число значений в выборке невелико (например меньше 10), то лучше нарисовать все числа как они есть, например с помощью диаграммы рассеяния (scatter plot) без редуцирования информации в боксплоты или барплоты с пределами погрешностей. Если значений больше, то возможно множество вариантов отрисовывания, часто исследователи используют просто барплоты с пределами погрешностей или боксплоты, однако здесь я предлагаю два возможных варианта более репрезентативного отображения данных.</p>
 <p>Первый - это отрисовать violin plot (скрипичная диаграмма), но не просто, а с небольшим боксплотом внутри. Я эту идею подчерпнула на курсе бластима по R, мне показалось очень забавно, прикрепляю небольшой пример как это выглядит на примере данных <code>iris</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(tidyverse)</span>
 <span id="cb1-2">violin_box <span class="ot" style="color: #003B4F;
@@ -4486,7 +4492,7 @@ font-style: inherit;">+</span></span>
 <span id="cb1-6">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_bw</span>()</span>
-<span id="cb1-7">violin_box</span></code></pre></div>
+<span id="cb1-7">violin_box</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4497,7 +4503,7 @@ font-style: inherit;">theme_bw</span>()</span>
 </div>
 <p>Второй вариант больше подойдет для относительно небольшого количества наблюдений, когда счет идет на десятки, но не тысячи точек. Это комбинация боксплота и отображения точек как они есть с помощью <code>geom_jitter()</code> в пакете <code>ggplot2</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">box_point <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">box_point <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> iris <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -4548,7 +4554,7 @@ font-style: inherit;">+</span></span>
 <span id="cb2-7">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_bw</span>()</span>
-<span id="cb2-8">box_point</span></code></pre></div>
+<span id="cb2-8">box_point</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4562,7 +4568,7 @@ font-style: inherit;">theme_bw</span>()</span>
 <p>📝 UPD: в комментариях посоветовали напомнить, что перекрывание или не-перекрывание усов в боксплотах и вайлин плотах не имеет отношения к статистике вывода, то есть не позволяет делать выводы о значимости различий</p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">box <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">box <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> iris <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -4663,7 +4669,7 @@ font-style: inherit;">+</span></span>
 <span id="cb3-13">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_bw</span>()</span>
-<span id="cb3-14">box</span></code></pre></div>
+<span id="cb3-14">box</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4671,7 +4677,7 @@ font-style: inherit;">theme_bw</span>()</span>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">bar</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">bar</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4682,7 +4688,7 @@ font-style: inherit;">theme_bw</span>()</span>
 </div>
 <p>А теперь все вместе на одном графике (обратите внимание на пакет <code>patchwork</code> для красивого объединения плотов на одном рисунке):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(patchwork)</span>
 <span id="cb5-2">p <span class="ot" style="color: #003B4F;
@@ -4702,7 +4708,7 @@ font-style: inherit;">plot_annotation</span>(<span class="at" style="color: #657
 background-color: null;
 font-style: inherit;">tag_levels =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'A'</span>)</span></code></pre></div>
+font-style: inherit;">'A'</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4717,7 +4723,7 @@ font-style: inherit;">'A'</span>)</span></code></pre></div>
 <hr>
 <p>А теперь визуализация трех основных пределов погрешностей: стандартного отклонения, стандартной ошибки и доверительных интервалов на данных <code>iris</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(data.table)</span>
 <span id="cb6-2">bar_se <span class="ot" style="color: #003B4F;
@@ -4943,7 +4949,7 @@ font-style: inherit;">plot_layout</span>(<span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">ncol =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>)</span></code></pre></div>
+font-style: inherit;">2</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4955,7 +4961,7 @@ font-style: inherit;">2</span>)</span></code></pre></div>
 <p>Теперь я сделаю одну плохую вещь, а именно <strong>просто</strong> сравню тестом Стьюдента Sepal.Width для разных видов ириса. Как думаете, почему это плохо?</p>
 <p><span class="spoiler">Я в этом примере не делаю поправку на множественное тестирование</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">iris <span class="sc" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">iris <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%&gt;%</span> </span>
 <span id="cb7-2">  <span class="fu" style="color: #4758AB;
@@ -4981,12 +4987,12 @@ font-style: inherit;">==</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'versicolor'</span>, Sepal.Width])<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">$</span>p.value)</span></code></pre></div>
+font-style: inherit;">$</span>p.value)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>versicolor vs setosa: 
 p-value of the test 2.484228e-15</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">cat</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -5006,12 +5012,12 @@ font-style: inherit;">==</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'virginica'</span>, Sepal.Width])<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">$</span>p.value)</span></code></pre></div>
+font-style: inherit;">$</span>p.value)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>setosa vs virginica: 
 p-value of the test 4.570771e-09</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">cat</span>(<span class="st" style="color: #20794D;
 background-color: null;
@@ -5031,7 +5037,7 @@ font-style: inherit;">==</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'versicolor'</span>, Sepal.Width])<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">$</span>p.value)</span></code></pre></div>
+font-style: inherit;">$</span>p.value)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>virginica vs versicolor: 
 p-value of the test 0.001819483</code></pre>
@@ -5163,7 +5169,7 @@ myPaths &lt;- c(myPaths[2], myPaths[1])  # switch them
 </figure>
 </div>
 <p>В конце файла вставить строки, переназначающие нашу дефолтную библиотеку:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb5-1">myPaths &lt;- <span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb5-1">myPaths &lt;- <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">.libPaths</span><span class="in" style="color: #5E5E5E;
 background-color: null;
@@ -5193,7 +5199,7 @@ font-style: inherit;">.libPaths</span><span class="in" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>myPaths<span class="in" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span></span></code></pre></div>
+font-style: inherit;">)</span></span></code></pre></div></div>
 <p>Перезапустите RStudio. Надеюсь, это поможет успешно устанавливать пакеты и осваивать R!</p>
 <p>Вот <a href="https://www.accelebrate.com/library/how-to-articles/r-rstudio-library">тут</a> по ссылке можно почитать более подробно и с картинками.</p>
 <p>Небольшое напоминание - не рекомендуется использовать кириллицу и пробелы в названиях столбцов и файлов, потому что могут быть ошибки с кодировкой при пересылании файла, в результате чего кириллица превратится в ???<br>
@@ -5246,7 +5252,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <p>Квартет Энскомба представляет собой 4 набора данных с одинаковыми описательными статистиками (среднее, дисперсия, коэффициент корреляции), но с очень разными распределениями данных. Каждый набор содержит 11 значений (x, y). Francis Anscombe предложил эти наборы данных в 1973 году [1] в качестве иллюстрации важности полагаться не только на описательные статистики, но и визуализацию данных.</p>
 <p>Этот набор данных встроен в R (вызвать можно просто набрав <code>anscombe</code> в консоли).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">anscombe</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">anscombe</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   x1 x2 x3 x4    y1   y2    y3    y4
 1  10 10 10  8  8.04 9.14  7.46  6.58
@@ -5264,31 +5270,31 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>Давайте попробуем посчитать описательные статистики самостоятельно.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># посчитаем среднее</span></span>
 <span id="cb3-2"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">apply</span>(anscombe, <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>, mean)</span></code></pre></div>
+font-style: inherit;">2</span>, mean)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      x1       x2       x3       x4       y1       y2       y3       y4 
 9.000000 9.000000 9.000000 9.000000 7.500909 7.500909 7.500000 7.500909 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># дисперсию</span></span>
 <span id="cb5-2"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">apply</span>(anscombe, <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>, var)</span></code></pre></div>
+font-style: inherit;">2</span>, var)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x1        x2        x3        x4        y1        y2        y3        y4 
 11.000000 11.000000 11.000000 11.000000  4.127269  4.127629  4.122620  4.123249 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># коэффициент корреляции, привожу два варианта как посчитать, интересно, какой кажется проще</span></span>
 <span id="cb7-2"><span class="fu" style="color: #4758AB;
@@ -5309,12 +5315,12 @@ font-style: inherit;">:</span>y4), <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">~</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">cor</span>(.x, .y))</span></code></pre></div>
+font-style: inherit;">cor</span>(.x, .y))</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x1        x2        x3        x4 
 0.8164205 0.8162365 0.8162867 0.8165214 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">map2_dbl</span>(anscombe[<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -5332,17 +5338,17 @@ font-style: inherit;">8</span>], <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">~</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">cor</span>(.x, .y))</span></code></pre></div>
+font-style: inherit;">cor</span>(.x, .y))</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x1        x2        x3        x4 
 0.8164205 0.8162365 0.8162867 0.8165214 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># еще простой способ отразить большинство описательных статистик - просто вызвать функцию summary</span></span>
 <span id="cb11-2"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">summary</span>(anscombe)</span></code></pre></div>
+font-style: inherit;">summary</span>(anscombe)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       x1             x2             x3             x4           y1        
  Min.   : 4.0   Min.   : 4.0   Min.   : 4.0   Min.   : 8   Min.   : 4.260  
@@ -5367,7 +5373,7 @@ font-style: inherit;">summary</span>(anscombe)</span></code></pre></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># отрисовываем графики по очереди</span></span>
 <span id="cb13-2">p1 <span class="ot" style="color: #003B4F;
@@ -5442,7 +5448,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb13-8">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div>
+font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
@@ -5450,7 +5456,7 @@ font-style: inherit;">theme_bw</span>()</span></code></pre></div>
 </div>
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1">p2 <span class="ot" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1">p2 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5678,7 +5684,7 @@ font-style: inherit;">|</span> p2) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> (p3 <span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|</span> p4)</span></code></pre></div>
+font-style: inherit;">|</span> p4)</span></code></pre></div></div>
 </details>
 <div class="cell-output-display">
 <div>

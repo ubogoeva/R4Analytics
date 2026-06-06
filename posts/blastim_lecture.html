@@ -7,19 +7,21 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.555">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Елена Убогоева">
   <meta name="dcterms.date" content="2025-11-15">
-  <title>R4Analytics - Статистика, R и анализ данных</title>
+  <title>R4Analytics – Статистика, R и анализ данных</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,8 +34,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -72,7 +75,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -86,7 +89,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -97,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-ea7a610fd0113acb32317a3c310bedd2.css">
   <link rel="stylesheet" href="styles.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -106,204 +109,6 @@
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-
-  .callout {
-    margin-top: 1em;
-    margin-bottom: 1em;  
-    border-radius: .25rem;
-  }
-
-  .callout.callout-style-simple { 
-    padding: 0em 0.5em;
-    border-left: solid #acacac .3rem;
-    border-right: solid 1px silver;
-    border-top: solid 1px silver;
-    border-bottom: solid 1px silver;
-    display: flex;
-  }
-
-  .callout.callout-style-default {
-    border-left: solid #acacac .3rem;
-    border-right: solid 1px silver;
-    border-top: solid 1px silver;
-    border-bottom: solid 1px silver;
-  }
-
-  .callout .callout-body-container {
-    flex-grow: 1;
-  }
-
-  .callout.callout-style-simple .callout-body {
-    font-size: 1rem;
-    font-weight: 400;
-  }
-
-  .callout.callout-style-default .callout-body {
-    font-size: 0.9rem;
-    font-weight: 400;
-  }
-
-  .callout.callout-titled.callout-style-simple .callout-body {
-    margin-top: 0.2em;
-  }
-
-  .callout:not(.callout-titled) .callout-body {
-      display: flex;
-  }
-
-  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
-    padding-left: 1.6em;
-  }
-
-  .callout.callout-titled .callout-header {
-    padding-top: 0.2em;
-    margin-bottom: -0.2em;
-  }
-
-  .callout.callout-titled .callout-title  p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-    
-  .callout.callout-titled.callout-style-simple .callout-content  p {
-    margin-top: 0;
-  }
-
-  .callout.callout-titled.callout-style-default .callout-content  p {
-    margin-top: 0.7em;
-  }
-
-  .callout.callout-style-simple div.callout-title {
-    border-bottom: none;
-    font-size: .9rem;
-    font-weight: 600;
-    opacity: 75%;
-  }
-
-  .callout.callout-style-default  div.callout-title {
-    border-bottom: none;
-    font-weight: 600;
-    opacity: 85%;
-    font-size: 0.9rem;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .callout.callout-style-default div.callout-content {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .callout.callout-style-simple .callout-icon::before {
-    height: 1rem;
-    width: 1rem;
-    display: inline-block;
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 1rem 1rem;
-  }
-
-  .callout.callout-style-default .callout-icon::before {
-    height: 0.9rem;
-    width: 0.9rem;
-    display: inline-block;
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 0.9rem 0.9rem;
-  }
-
-  .callout-title {
-    display: flex
-  }
-    
-  .callout-icon::before {
-    margin-top: 1rem;
-    padding-right: .5rem;
-  }
-
-  .callout.no-icon::before {
-    display: none !important;
-  }
-
-  .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
-  }
-
-  .callout.callout-titled .callout-icon::before {
-    margin-top: .5rem;
-    padding-right: .5rem;
-  }
-
-  .callout:not(.callout-titled) .callout-icon::before {
-    margin-top: 1rem;
-    padding-right: .5rem;
-  }
-
-  /* Callout Types */
-
-  div.callout-note {
-    border-left-color: #4582ec !important;
-  }
-
-  div.callout-note .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
-  }
-
-  div.callout-note.callout-style-default .callout-title {
-    background-color: #dae6fb
-  }
-
-  div.callout-important {
-    border-left-color: #d9534f !important;
-  }
-
-  div.callout-important .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-important.callout-style-default .callout-title {
-    background-color: #f7dddc
-  }
-
-  div.callout-warning {
-    border-left-color: #f0ad4e !important;
-  }
-
-  div.callout-warning .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-warning.callout-style-default .callout-title {
-    background-color: #fcefdc
-  }
-
-  div.callout-tip {
-    border-left-color: #02b875 !important;
-  }
-
-  div.callout-tip .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-tip.callout-style-default .callout-title {
-    background-color: #ccf1e3
-  }
-
-  div.callout-caution {
-    border-left-color: #fd7e14 !important;
-  }
-
-  div.callout-caution .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
-  }
-
-  div.callout-caution.callout-style-default .callout-title {
-    background-color: #ffe5d0
-  }
-
-  </style>
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -430,8 +235,7 @@
 <p><img data-src="https://r4ds.hadley.nz/cover.jpg" class="quarto-figure quarto-figure-right"></p>
 </figure>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="подходы-к-анализу-данных-в-r" class="slide level2" style="font-size: 95%">
 <h2>Подходы к анализу данных в R</h2>
@@ -515,8 +319,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="https://cdn.analyticsvidhya.com/wp-content/uploads/2019/05/ggplot_hive.jpg"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="cheatsheets" class="slide level2">
 <h2>Cheatsheets</h2>
@@ -534,11 +337,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Установка <code>tidyverse</code></h2>
 <p>Для установки всего набора “пакета с пакетами” достаточно набрать в консоли R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Для загрузки пакета:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="философия-tidyverse-основные-принципы" class="slide level2">
@@ -552,31 +355,29 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </section>
 <section id="пайпы---основа-философии-tidyverse" class="slide level2 smaller">
 <h2>Пайпы - основа философии <code>tidyverse</code></h2>
-<div>
 <ul>
 <li class="fragment"><p>Можно записать код так:<br>
 </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li class="fragment"><p>Или создать кучу промежуточных переменных:<br>
 </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>woken_up_me <span class="ot">&lt;-</span> <span class="fu">wake_up</span>(me)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>woken_up_me <span class="ot">&lt;-</span> <span class="fu">wake_up</span>(me)</span>
 <span id="cb4-2"><a></a>standing_up_me <span class="ot">&lt;-</span> <span class="fu">get_out_of_bed</span>(woken_up_me)</span>
 <span id="cb4-3"><a></a>dressed_me <span class="ot">&lt;-</span> <span class="fu">get_dressed</span>(standing_up_me)</span>
-<span id="cb4-4"><a></a>ready_me <span class="ot">&lt;-</span> <span class="fu">leave_house</span>(dressed_me)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a></a>ready_me <span class="ot">&lt;-</span> <span class="fu">leave_house</span>(dressed_me)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li class="fragment"><p>Но для большей читаемости можно использовать <code>%&gt;%</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>me <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>me <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a></a>  <span class="fu">wake_up</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb5-3"><a></a>  <span class="fu">get_out_of_bed</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb5-4"><a></a>  <span class="fu">get_dressed</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a></a>  <span class="fu">leave_house</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a></a>  <span class="fu">leave_house</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 </ul>
-</div>
 </section>
 <section id="пайпы---классная-иллюстрация" class="slide level2">
 <h2>Пайпы - классная иллюстрация</h2>
@@ -604,33 +405,32 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="пример-использования-пайпов" class="slide level2" style="font-size: 90%">
 <h2>Пример использования пайпов</h2>
 <p>Например,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a></a>  <span class="fu">sqrt</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb6-3"><a></a>  <span class="fu">log</span>(<span class="at">base =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a></a>  <span class="fu">sum</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a></a>  <span class="fu">sum</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
 <p>Тоже самое, что и</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">sum</span>(<span class="dv">2</span>, <span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">4</span>), <span class="at">base =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">sum</span>(<span class="dv">2</span>, <span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">4</span>), <span class="at">base =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
 <p>Если нужно пробросить данные в следующую функцию не на первую позицию, то можно использовать <code>.</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a></a>  sqrt <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a></a>  <span class="fu">log</span>(<span class="dv">8</span>, <span class="at">base =</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a></a>  <span class="fu">log</span>(<span class="dv">8</span>, <span class="at">base =</span> .)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
@@ -656,11 +456,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Скачала <a href="https://www.unitstatistics.com/warcraft3/">отсюда</a> и сохранила в <a href="https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt">github</a>-репозитории.</p>
 <p>Загрузим данные, с использованием функции <code>read_tsv()</code> из пакета <code>readr</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>wc3_units <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>wc3_units <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>,</span>
 <span id="cb12-2"><a></a>                      <span class="at">col_names =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb12-3"><a></a>                      <span class="at">na =</span> <span class="st">'-'</span>, </span>
 <span id="cb12-4"><a></a>                      <span class="at">name_repair =</span> <span class="st">'minimal'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-5"><a></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># для правильных названий колонок</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># для правильных названий колонок</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Здесь для правильного чтения пропущенных значений используем параметр: <code>na = '-'</code>.</li>
@@ -670,7 +470,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="посмотрим-на-данные" class="slide level2" style="font-size: 85%">
 <h2>Посмотрим на данные</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">head</span>(wc3_units[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">head</span>(wc3_units[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   unit     race   gold  wood   pop    hp armor_type
@@ -682,7 +482,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 5 Knight   Human   245    60     4   835 Heavy     
 6 Priest   Human   135    10     2   290 Unarmored </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">colnames</span>(wc3_units)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">colnames</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "unit"          "race"          "gold"          "wood"         
  [5] "pop"           "hp"            "armor_type"    "armor"        
@@ -697,11 +497,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Чем просто датафрейм отличается от тиббла?</h2>
 <p>Тиббл (tibble) из пакета <code>tibble</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">class</span>(wc3_units)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">class</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>wc3_units</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>wc3_units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 21
    unit         race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -727,9 +527,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Чем просто датафрейм отличается от тиббла?</h2>
 <p>Обычный датафрейм:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>wc3_units_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>, <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>wc3_units_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>, <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, </span>
 <span id="cb21-2"><a></a>                 <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">'-'</span>)</span>
-<span id="cb21-3"><a></a>wc3_units_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a></a>wc3_units_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Unit   Race Gold Wood Pop   HP   Armor.Type Armor Sight Speed
 1              Peasant  Human   75    0   1  220       Medium     0    80   190
@@ -959,11 +759,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="select---выбираем-нужные-колонки-по-названию-или-индексу" class="slide level2">
 <h2><code>select()</code> - выбираем нужные колонки по названию или индексу</h2>
 <p>Выбрать колонку тип брони (armor_type) по названию или индексу (без кавычек).</p>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb23-2"><a></a>  <span class="fu">select</span>(armor_type)</span>
 <span id="cb23-3"><a></a><span class="co"># также по индексу:</span></span>
 <span id="cb23-4"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb23-5"><a></a>  <span class="fu">select</span>(<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a></a>  <span class="fu">select</span>(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -1005,8 +805,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>select()</code> - выбираем нужные колонки по названию или индексу</h2>
 <p>Можно выбирать несколько колонок просто перечислением (без использования <code>c()</code>) или выбрать несколько колонок с одной по другую с помощью двоеточия <code>:</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 3
    unit           race     hp
@@ -1028,8 +828,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="select---выбираем-нужные-колонки-по-названию-с-помощью" class="slide level2" style="font-size: 90%">
 <h2><code>select()</code> - выбираем нужные колонки по названию с помощью <code>:</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>armor_type, ground_attack<span class="sc">:</span>range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>armor_type, ground_attack<span class="sc">:</span>range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 12
    unit   race   gold  wood   pop    hp armor_type ground_attack damage cooldown
@@ -1069,9 +869,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb30-2"><a></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   unit    
@@ -1085,24 +885,23 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb32-2"><a></a>  <span class="fu">pull</span>(unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Peasant"  "Militia"  "Footman"  "Rifleman" "Knight"  </code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section class="slide level2">
 
 <p>В base R можно задать сохранение размерности датафрейма аргументом <code>drop = FALSE</code> при индексации.</p>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb34-2"><a></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
 <span id="cb34-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
 <span id="cb34-4"><a></a><span class="co"># тоже самое в base R с аргументом drop = FALSE</span></span>
-<span id="cb34-5"><a></a>wc3_units[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-5"><a></a>wc3_units[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -1137,12 +936,12 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>filter()</code> - выбрать нужные строки по условию</h2>
 <p>Выберем только юнитов ночных эльфов (‘N.Elf’)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">unit</th>
@@ -1608,8 +1407,6 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 </section>
@@ -1617,12 +1414,12 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>filter()</code> - выбрать нужные строки по условию</h2>
 <p>Можно комбинировать несколько условий, используя логическое И (<code>&amp;</code>), ИЛИ (<code>|</code>). Например, выберем только юнитов ночных эльфов, показатель урона (damage) которых больше 40:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">unit</th>
@@ -1743,8 +1540,6 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 </section>
@@ -1752,8 +1547,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>slice()</code> - выбираем строки по индексу</h2>
 <p><code>slice()</code> - вывести строки в опреденном диапазоне (используя просто индексы строк)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 21
   unit          race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -1776,9 +1571,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="column" style="width:50%;">
 <p><code>slice_max()</code> - вывести максимальные значения по какому-то признаку</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb41-2"><a></a>  <span class="fu">slice_max</span>(wood, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># важно эксплицитно писать параметр n = </span></span>
-<span id="cb41-3"><a></a>  <span class="fu">select</span>(unit, race, wood)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-3"><a></a>  <span class="fu">select</span>(unit, race, wood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   unit             race    wood
@@ -1793,9 +1588,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div><div class="column" style="width:50%;">
 <p><code>slice_min()</code> - вывести минимальные значения по какому-то признаку</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb43-2"><a></a>  <span class="fu">slice_min</span>(hp, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb43-3"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-3"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   unit             race      hp
@@ -1807,16 +1602,15 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 5 Carrion Beetle 1 Undead   140</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Функции <code>slice_max/slice_min()</code> сортируют выдачу, в отличие от теперь устаревшей <code>top_n()</code>.</p>
 </section>
 <section id="slice_sample---вывести-случайные-строки" class="slide level2">
 <h2><code>slice_sample()</code> - вывести случайные строки</h2>
 <p>В функции <code>slice_sample()</code> нужен аргумент <code>n</code>, обозначающий количество строк для печати.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 21
   unit          race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -1844,9 +1638,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Можно просто составить новую колонку из предыдущих, используя синтаксис <code>mutate(column_name = &lt;expression&gt;).</code></p>
 <p>Проверим, что dps (damage per second) = damage / cooldown</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb47-2"><a></a>  <span class="fu">mutate</span>(<span class="at">damage_per_second =</span> damage <span class="sc">/</span> cooldown) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-3"><a></a>  <span class="fu">select</span>(unit, damage, cooldown, damage_per_second, dps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-3"><a></a>  <span class="fu">select</span>(unit, damage, cooldown, damage_per_second, dps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1860,7 +1654,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="callout-content">
 <p>Такая операция легко делается и в базовом R, например</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>wc3_units<span class="sc">$</span>damage_per_second <span class="ot">&lt;-</span> wc3_units<span class="sc">$</span>damage <span class="sc">/</span> wc3_units<span class="sc">$</span>cooldown</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>wc3_units<span class="sc">$</span>damage_per_second <span class="ot">&lt;-</span> wc3_units<span class="sc">$</span>damage <span class="sc">/</span> wc3_units<span class="sc">$</span>cooldown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1887,13 +1681,13 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> - создать новую колонку или изменить существующую</h2>
 <p>Узнаем показатель отношения dps / на число пищи, чтобы узнать какие юниты самые эффективные.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>dps_food <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>dps_food <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb50-2"><a></a>  <span class="fu">mutate</span>(<span class="at">dps_food_ratio =</span> dps <span class="sc">/</span> pop) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a></a>  <span class="fu">relocate</span>(dps_food_ratio, <span class="at">.after =</span> unit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-3"><a></a>  <span class="fu">relocate</span>(dps_food_ratio, <span class="at">.after =</span> unit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-striped caption-top" data-quarto-postprocess="true" style="font-size: 28px; width: auto !important; ">
+<table class="table table-striped caption-top" style="font-size: 28px; width: auto !important; ">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">unit</th>
@@ -3699,8 +3493,6 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 </section>
@@ -3709,14 +3501,14 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Часто нужно заполнить новую колонку определенными значениями в зависимости от условия.</p>
 <p>Допустим, мы хотим разделить юнитов по принципу, являются ли они призванными (число пищи <code>pop</code> равно <code>0</code> или <code>NA</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># для воспроизводимости семплирования 5 строчек</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># для воспроизводимости семплирования 5 строчек</span></span>
 <span id="cb51-2"><a></a>wc3_units_summon <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb51-3"><a></a>  <span class="fu">mutate</span>(<span class="at">is_summon =</span> (pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-4"><a></a>  <span class="fu">select</span>(unit, race, pop, is_summon) <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-4"><a></a>  <span class="fu">select</span>(unit, race, pop, is_summon) <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
-<table class="table table-striped caption-top" data-quarto-postprocess="true" style="font-size: 28px; width: auto !important; ">
+<table class="table table-striped caption-top" style="font-size: 28px; width: auto !important; ">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">unit</th>
@@ -3758,8 +3550,6 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 </section>
@@ -3767,10 +3557,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> с условием для существующей колонки</h2>
 <p>Например, мы хотим переименовать N.Elf в NightElfes. Для этого пригодится функция <code>str_replace()</code> из пакета <code>stringr</code>, которая является аналогом базовой функции <code>gsub()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb52-2"><a></a>  <span class="fu">mutate</span>(<span class="at">race =</span> <span class="fu">str_replace</span>(race, <span class="st">'N.Elf'</span>, <span class="st">'NightElfes'</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb52-3"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-4"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-4"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   unit              race        gold  wood   pop
@@ -3790,9 +3580,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> + <code>if_else()</code></h2>
 <p>В качестве примера <code>if_else()</code> проверка, является ли число положительным или отрицательным. Вспомним материал лекции.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>number <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>number <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
 <span id="cb54-2"><a></a><span class="fu">if_else</span>(number <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">'Положительное число'</span>, </span>
-<span id="cb54-3"><a></a>        <span class="st">'Отрицательное число или ноль'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-3"><a></a>        <span class="st">'Отрицательное число или ноль'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число или ноль" "Отрицательное число или ноль"
 [3] "Отрицательное число или ноль" "Положительное число"         
@@ -3818,13 +3608,13 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> + <code>if_else()</code></h2>
 <p>Попробуем создать колонку, заполненную значениями, являются ли юниты призванными (до этого мы просто заполнили <code>TRUE</code>, <code>FALSE</code>, теперь хотим заполнить текстовым описанием).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>wc3_units_summon_ifelse <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>wc3_units_summon_ifelse <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb56-2"><a></a>  <span class="fu">mutate</span>(<span class="at">if_summon =</span> <span class="fu">if_else</span>((pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop), </span>
-<span id="cb56-3"><a></a>                            <span class="st">'Призванные'</span>, <span class="st">'Непризванные'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-3"><a></a>                            <span class="st">'Призванные'</span>, <span class="st">'Непризванные'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">unit</th>
@@ -3866,8 +3656,6 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </tr>
 </tbody>
 </table>
-
-
 </div>
 </div>
 </section>
@@ -3877,10 +3665,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
 <span id="cb57-2"><a></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
 <span id="cb57-3"><a></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
-<span id="cb57-4"><a></a>  number <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Ноль"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-4"><a></a>  number <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число" "Отрицательное число" "Ноль"               
 [4] "Положительное число" "Положительное число"</code></pre>
@@ -3888,30 +3676,29 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">case_when</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">case_when</span>(</span>
 <span id="cb59-2"><a></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
 <span id="cb59-3"><a></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
-<span id="cb59-4"><a></a>  <span class="at">.default =</span> <span class="st">"Ноль"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-4"><a></a>  <span class="at">.default =</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число" "Отрицательное число" "Ноль"               
 [4] "Положительное число" "Положительное число"</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Можно задать значение по умолчанию для обработки случаев, которые не попали ни под одно условие с помощью синтаксиса: <code>.default = &lt;значение&gt;</code>.</p>
 </section>
 <section id="mutate-с-условием-case_when-1" class="slide level2">
 <h2><code>mutate</code> с условием + <code>case_when</code></h2>
 <p>Пример с <code>mutate()</code> + <code>case_when()</code> для разделения юнитов на группы по количеству здоровья (<code>hp</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb61-2"><a></a>  <span class="fu">mutate</span>(<span class="at">hp_rate =</span> <span class="fu">case_when</span>(hp <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"The most healthy units"</span>,</span>
 <span id="cb61-3"><a></a>  hp <span class="sc">&gt;</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"Middle helthy units"</span>,</span>
 <span id="cb61-4"><a></a>  <span class="at">.default =</span> <span class="st">"The weakest"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb61-5"><a></a>  <span class="fu">relocate</span>(hp_rate, <span class="at">.after =</span> hp) <span class="sc">%&gt;%</span> <span class="co"># для перемещения колонки после hp</span></span>
 <span id="cb61-6"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp_rate) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-7"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb61-7"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   unit             race    gold  wood   pop    hp hp_rate               
@@ -3929,9 +3716,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate</code> и ресайклинг</h2>
 <p>Допустим, нам нужно присвоить юнитам случайные лейблы 1 и 2</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb63-2"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-3"><a></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-3"><a></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `mutate()`:
 ℹ In argument: `new_label = 1:2`.
@@ -3941,10 +3728,10 @@ Caused by error:
 </div>
 <p>Это сделано, чтобы не допустить возможные ошибки при ресайклинге, то есть нужно в явном виде прописать создание вектора через <code>rep</code>, чтобы он был нужной длины.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb65-2"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb65-3"><a></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">times =</span> <span class="fu">nrow</span>(.) <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-4"><a></a>  <span class="fu">select</span>(unit, race, new_label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb65-4"><a></a>  <span class="fu">select</span>(unit, race, new_label)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section><section id="mutate-и-ресайклинг-output" class="slide level2 output-location-slide"><h2><code>mutate</code> и ресайклинг</h2><div class="cell output-location-slide">
@@ -3974,9 +3761,9 @@ Caused by error:
 <p>Это очень мощная связка, удобных аналогов которой нет в base R.</p>
 <p>Попробуем посчитать медиану урона (<code>damage</code>) для каждой расы.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb67-2"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb67-3"><a></a>  <span class="fu">summarise</span>(<span class="at">median_damage =</span> <span class="fu">median</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb67-3"><a></a>  <span class="fu">summarise</span>(<span class="at">median_damage =</span> <span class="fu">median</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   race   median_damage
@@ -3991,10 +3778,10 @@ Caused by error:
 <section id="group_by-summarise-связка-1" class="slide level2">
 <h2><code>group_by()</code> + <code>summarise()</code> связка</h2>
 <p>Можно сразу собирать несколько статистик:</p>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb69-2"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
 <span id="cb69-3"><a></a>  <span class="fu">summarise</span>(<span class="at">mean_damage =</span> <span class="fu">mean</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb69-4"><a></a>            <span class="at">mean_hp =</span> <span class="fu">mean</span>(hp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-4"><a></a>            <span class="at">mean_hp =</span> <span class="fu">mean</span>(hp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -4018,11 +3805,11 @@ Caused by error:
 <h2><code>across()</code> + <code>summarise()</code> - для быстрого вычисления описательных статистик</h2>
 <p>Например, задача посчитать медиану для всех числовых переменных в датасете <code>wc3_units</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a>wc3_units_summon <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a>wc3_units_summon <span class="sc">%&gt;%</span></span>
 <span id="cb71-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_summon) <span class="sc">%&gt;%</span> <span class="co"># чтобы анализировать только не-призванных юнитов</span></span>
 <span id="cb71-3"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
 <span id="cb71-4"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
-<span id="cb71-5"><a></a>                   <span class="cf">function</span>(x) <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb71-5"><a></a>                   <span class="cf">function</span>(x) <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 18
   race    gold  wood   pop    hp armor sight speed  time damage cooldown   dps
@@ -4040,9 +3827,9 @@ Caused by error:
 <h2><code>across()</code> + <code>summarise()</code> - для быстрого вычисления описательных статистик</h2>
 <p>Или пример попроще: посчитать среднее и стандартное отклонение в датасете <code>iris</code> (можно без группировки по видам <code>Species</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a>iris <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a>iris <span class="sc">%&gt;%</span> </span>
 <span id="cb73-2"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
-<span id="cb73-3"><a></a>                   <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb73-3"><a></a>                   <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length_mean Sepal.Length_sd Sepal.Width_mean Sepal.Width_sd
 1          5.843333       0.8280661         3.057333      0.4358663
@@ -4069,12 +3856,12 @@ Caused by error:
 <h2><code>across()</code> + <code>mutate()</code></h2>
 <p>Это очень актуальная вещь при работе с транскриптомными данными. Например, заменить <code>logFC</code>, которые не <code>NA</code> и не ноль на 1. Создадим пример таблицы:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a>gene_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a>gene_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), </span>
 <span id="cb75-2"><a></a>                     <span class="at">logFC_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
 <span id="cb75-3"><a></a>                     <span class="at">FDR_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.01</span>, <span class="fl">0.0005</span>), <span class="dv">8</span>),</span>
 <span id="cb75-4"><a></a>                     <span class="at">logFC_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
 <span id="cb75-5"><a></a>                     <span class="at">FDR_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.001</span>, <span class="fl">0.03</span>), <span class="dv">8</span>))</span>
-<span id="cb75-6"><a></a>gene_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb75-6"><a></a>gene_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4094,9 +3881,9 @@ Caused by error:
 <h2><code>across()</code> + <code>mutate()</code></h2>
 <p>Теперь заменим:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
 <span id="cb77-2"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">'logFC'</span>), </span>
-<span id="cb77-3"><a></a>                <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> <span class="fu">is.na</span>(x), <span class="dv">0</span>, <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb77-3"><a></a>                <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> <span class="fu">is.na</span>(x), <span class="dv">0</span>, <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4116,10 +3903,10 @@ Caused by error:
 <section id="arrange---сортировка" class="slide level2">
 <h2><code>arrange()</code> - сортировка</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a>n_elf_dm40 <span class="ot">&lt;-</span>  wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a>n_elf_dm40 <span class="ot">&lt;-</span>  wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb79-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb79-3"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>race, ground_attack<span class="sc">:</span>damage) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-4"><a></a>  <span class="fu">arrange</span>(damage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb79-4"><a></a>  <span class="fu">arrange</span>(damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -4166,9 +3953,9 @@ Caused by error:
 <section id="сортировка-по-нескольким-колонкам" class="slide level2">
 <h2>Сортировка по нескольким колонкам</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
 <span id="cb80-2"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(damage), <span class="fu">desc</span>(hp), unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-3"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp, damage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb80-3"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp, damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 7
    unit          race    gold  wood   pop    hp damage
@@ -4193,8 +3980,8 @@ Caused by error:
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb82-2"><a></a>  <span class="fu">count</span>(race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a></a>  <span class="fu">count</span>(race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   race       n
@@ -4207,8 +3994,8 @@ Caused by error:
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb84-2"><a></a>  <span class="fu">count</span>(race, ground_attack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a></a>  <span class="fu">count</span>(race, ground_attack)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 19 × 3
    race   ground_attack     n
@@ -4234,15 +4021,14 @@ Caused by error:
 19 Undead &lt;NA&gt;              1</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Это может быть полезно для оценки сбалансированности данных в дисперсионном анализе.</p>
 </section>
 <section id="широкий-и-длинный-формат-данных" class="slide level2">
 <h2>Широкий и длинный формат данных</h2>
 <p>Данные в широком формате</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -4272,10 +4058,10 @@ Caused by error:
 <p>Это функции из пакета <code>tidyr</code> для перевода датафрейма в длинный или широкий формат.</p>
 <p>В простейшем случае синтаксис pivot_longer: <code>cols</code> = колонки, которые необходимо трансформировать. Можно добавить параметры <code>names_to</code> и <code>values_to</code>, которые добавят имена вновь возданным колонкам.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a></a>iris_long <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a></a>iris_long <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
 <span id="cb89-2"><a></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> <span class="co"># чтобы создать переменную id из номеров колонок</span></span>
 <span id="cb89-3"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Sepal.Length<span class="sc">:</span>Petal.Width)</span>
-<span id="cb89-4"><a></a>iris_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb89-4"><a></a>iris_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 600 × 4
    id    Species name         value
@@ -4303,17 +4089,16 @@ Caused by error:
 <p>Для выбора колонок можно использовать концепт <code>tidy-select</code>-а.</p>
 <p>Лучше всего еще перед трансформацией создать колонку с id каждого наблюдения.</p>
 <p>Длинный формат более удобен для проведения дисперсионного анализа, построения графиков.</p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="pivot_wider" class="slide level2">
 <h2><code>pivot_wider()</code></h2>
 <p>Нередко нужно вернуть обратно таблицу в широкий формат</p>
 <p>Например так:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a>iris_long <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a>iris_long <span class="sc">%&gt;%</span> </span>
 <span id="cb91-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(id, Species), </span>
-<span id="cb91-3"><a></a>              <span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb91-3"><a></a>              <span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 6
    id    Species Sepal.Length Sepal.Width Petal.Length Petal.Width
@@ -4336,12 +4121,12 @@ Caused by error:
 <h2>Сложное преобразование таблиц</h2>
 <p>Вернемся к таблице <code>gene_table</code>. Задача превратить в ноль все фолды, для которых <code>FDR &gt; 0.05</code>. Используем сразу несколько подходов к манипуляции с таблицами.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
 <span id="cb93-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">where</span>(is.numeric), <span class="at">names_pattern =</span> <span class="st">"(.*)_(.*)"</span>,</span>
 <span id="cb93-3"><a></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'.value'</span>, <span class="st">'dataset'</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb93-4"><a></a>  <span class="fu">mutate</span>(<span class="at">logFC =</span> <span class="fu">if_else</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>, logFC, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb93-5"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> id, <span class="at">names_from =</span> dataset, </span>
-<span id="cb93-6"><a></a>              <span class="at">values_from =</span> <span class="fu">c</span>(logFC, FDR), <span class="at">names_vary =</span> <span class="st">'slowest'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb93-6"><a></a>              <span class="at">values_from =</span> <span class="fu">c</span>(logFC, FDR), <span class="at">names_vary =</span> <span class="st">'slowest'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4372,15 +4157,15 @@ Caused by error:
 <h2><code>join()</code> - пример</h2>
 <p>Например, нужно объединить результаты анализа дифференциальной экспрессии данных микрочипов и RNA-seq.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">logFC_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">logFC_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
 <span id="cb95-2"><a></a>              <span class="at">FDR_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span>
 <span id="cb95-3"><a></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>), <span class="at">logFC_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb95-4"><a></a>              <span class="at">FDR_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb95-4"><a></a>              <span class="at">FDR_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a></a>df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a></a>df1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   id    logFC_df1 FDR_df1
@@ -4395,7 +4180,7 @@ Caused by error:
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a></a>df2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   id    logFC_df2 FDR_df2
@@ -4408,15 +4193,14 @@ Caused by error:
 6 gene8   -3.27     0.596</code></pre>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <p>Есть общие айди генов, есть уникальные в каждом датасете. Какой вид джойна подойдет в этом случае?</p>
 </section>
 <section id="join---продолжение" class="slide level2">
 <h2><code>join()</code> - продолжение</h2>
 <p>Я обычно использую <code>full_join</code>, потому что не хочу терять какую-либо информацию о данных.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4437,8 +4221,8 @@ Caused by error:
 <h2>Считывание данных в формате Excel</h2>
 <p>Пакет <code>readxl</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a></a><span class="fu">library</span>(readxl)</span>
-<span id="cb102-2"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">'table.xlsx'</span>, <span class="at">sheet =</span> <span class="st">'Sheet1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a></a><span class="fu">library</span>(readxl)</span>
+<span id="cb102-2"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">'table.xlsx'</span>, <span class="at">sheet =</span> <span class="st">'Sheet1'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="заключение" class="slide level2" style="font-size: 90%">
@@ -4470,8 +4254,7 @@ Caused by error:
 </ul></li>
 </ul></li>
 </ul>
-</div>
-</div>
+</div></div>
 </section>
 <section class="slide level2">
 
@@ -4491,13 +4274,12 @@ Caused by error:
 <p><img data-src="images/tlg_short.png" width="416"></p>
 </div><div class="column" style="width:50%;">
 <p>На связи в телеграме: <span class="citation" data-cites="lena_astr">@lena_astr</span></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="заголовок" class="slide level2">
 <h2>Заголовок</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a></a><span class="fu">library</span>(knitr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a></a><span class="fu">library</span>(knitr)</span>
 <span id="cb103-2"><a></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb103-3"><a></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb103-4"><a></a><span class="fu">library</span>(kableExtra)</span>
@@ -4534,22 +4316,22 @@ Caused by error:
 <span id="cb103-35"><a></a></span>
 <span id="cb103-36"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.x)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
 <span id="cb103-37"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.y)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
-<span id="cb103-38"><a></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb103-38"><a></a>tab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
-<div class="quarto-auto-generated-content">
-<div class="footer footer-default">
 
-</div>
-</div>
 </section><section id="заголовок-output" class="slide level2 output-location-slide"><h2>Заголовок</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
 
 </div>
 </div></section></section>
     </div>
-  </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="../site_libs/revealjs/dist/reveal.js"></script>
@@ -4580,7 +4362,8 @@ Caused by error:
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': false,
@@ -4736,7 +4519,7 @@ Caused by error:
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -4801,40 +4584,55 @@ Caused by error:
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
           }
+          return false;
         }
-        return false;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
@@ -4842,140 +4640,117 @@ Caused by error:
           }
           return codeEl.innerText;
         }
-      });
-      clipboard.on('success', function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
         }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      });
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
             }
           }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
           }
-        } else {
-          return undefined;
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     <script src="https://utteranc.es/client.js" repo="ubogoeva/R4Analytics_comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
     </script>
     
