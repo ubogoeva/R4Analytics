@@ -13,7 +13,7 @@
 <generator>quarto-1.9.38</generator>
 <lastBuildDate>Thu, 18 Jun 2026 22:00:00 GMT</lastBuildDate>
 <item>
-  <title>Симуляция FWER при множественных зависимых тестах</title>
+  <title>Поправки на множественное тестирование: симуляция FWER зависимых тестов</title>
   <dc:creator>Elena U</dc:creator>
   <link>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html</link>
   <description><![CDATA[ 
