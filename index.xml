@@ -11,9 +11,9 @@
 <description>Блог Елены Убогоевой по статистике и анализу данных в R</description>
 <language>ru</language>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Wed, 17 Jun 2026 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 18 Jun 2026 22:00:00 GMT</lastBuildDate>
 <item>
-  <title>Ошибка I рода при множественных зависимых тестах</title>
+  <title>Симуляция FWER при множественных зависимых тестах</title>
   <dc:creator>Elena U</dc:creator>
   <link>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html</link>
   <description><![CDATA[ 
@@ -2976,7 +2976,7 @@ font-style: inherit;">&lt;/p&gt;`</span></span>
   <category>ab-testing</category>
   <category>multiple-testing</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html</guid>
-  <pubDate>Wed, 17 Jun 2026 22:00:00 GMT</pubDate>
+  <pubDate>Thu, 18 Jun 2026 22:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Тест Стьюдента, Велча и Манн-Уитни на малых выборках</title>
