@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Elena U">
+<meta name="dcterms.date" content="2026-06-09">
+<meta name="description" content="Интерактивная симуляция: когда агрегированная метрика обманывает и что с этим делать">
+
+<title>Парадокс Симпсона в A/B тестировании – R4Analytics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo_site.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-03ebed3cc6d9517934d904b30f9ec24d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R4Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Об авторе блога</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reviews.html"> 
+<span class="menu-text">Отзывы</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Парадокс Симпсона в A/B тестировании</h1>
+                  <div>
+        <div class="description">
+          Интерактивная симуляция: когда агрегированная метрика обманывает и что с этим делать
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">analytics</div>
+                <div class="quarto-category">simulation</div>
+                <div class="quarto-category">ab-testing</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Elena U </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 9, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#шаг-1-что-видит-аналитик" id="toc-шаг-1-что-видит-аналитик" class="nav-link active" data-scroll-target="#шаг-1-что-видит-аналитик">Шаг 1 — что видит аналитик</a></li>
+  <li><a href="#шаг-2-состав-групп" id="toc-шаг-2-состав-групп" class="nav-link" data-scroll-target="#шаг-2-состав-групп">Шаг 2 — состав групп</a></li>
+  <li><a href="#арифметика-обмана" id="toc-арифметика-обмана" class="nav-link" data-scroll-target="#арифметика-обмана">Арифметика обмана</a></li>
+  <li><a href="#симулятор-поймай-парадокс" id="toc-симулятор-поймай-парадокс" class="nav-link" data-scroll-target="#симулятор-поймай-парадокс">Симулятор: поймай парадокс</a></li>
+  <li><a href="#r-симуляция" id="toc-r-симуляция" class="nav-link" data-scroll-target="#r-симуляция">R-симуляция</a></li>
+  <li><a href="#как-защититься" id="toc-как-защититься" class="nav-link" data-scroll-target="#как-защититься">Как защититься</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(97025960, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+
+<p>Команда тестирует редизайн экрана чекаута. По 1000 пользователей в каждой группе, метрика — конверсия в покупку. Запустили тест, ждали неделю.</p>
+<p>Финальный дашборд — и первый импульс: откатить версию B. Но именно здесь можно принять неверное решение из-за <strong>парадокса Симпсона</strong> — эффекта, при котором агрегированная метрика указывает в сторону, противоположную реальности.</p>
+<section id="шаг-1-что-видит-аналитик" class="level2">
+<h2 class="anchored" data-anchor-id="шаг-1-что-видит-аналитик">Шаг 1 — что видит аналитик</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">version =</span> <span class="fu">c</span>(<span class="st">"Версия A"</span>, <span class="st">"Версия B"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">conv    =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="fl">0.60</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> conv, <span class="at">y =</span> <span class="fu">fct_rev</span>(version), <span class="at">fill =</span> version)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(conv, <span class="at">accuracy =</span> <span class="dv">1</span>)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Версия A"</span> <span class="ot">=</span> <span class="st">"#185FA5"</span>, <span class="st">"Версия B"</span> <span class="ot">=</span> <span class="st">"#534AB7"</span>)) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.80</span>)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Конверсия"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simpson_paradox_files/figure-html/agg-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Конверсия в покупку: агрегированный вид</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>B конвертирует хуже — откатываем?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Разница в 5 п.п. выглядит убедительно. Здравый смысл говорит: откатить, B плох.</p>
+<p>Но прежде чем принимать решение — проверь, одинаковы ли группы по составу.</p>
+</div>
+</div>
+</section>
+<section id="шаг-2-состав-групп" class="level2">
+<h2 class="anchored" data-anchor-id="шаг-2-состав-групп">Шаг 2 — состав групп</h2>
+<p>Рандомизатор в тесте не был стратифицирован по типу пользователя. В разгар теста случился органический всплеск трафика — и по случайности новые пользователи непропорционально часто попадали в группу B. Это не манипуляция и не ошибка разработки: просто случайный перекос, от которого не застрахован ни один нестратифицированный тест.</p>
+<p>Новые пользователи конвертируют хуже в принципе: ещё не знакомы с продуктом, не доверяют бренду.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">version   =</span> <span class="fu">c</span>(<span class="st">"Версия A"</span>, <span class="st">"Версия A"</span>, <span class="st">"Версия B"</span>, <span class="st">"Версия B"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user_type =</span> <span class="fu">c</span>(<span class="st">"Возвращающиеся"</span>, <span class="st">"Новые"</span>, <span class="st">"Возвращающиеся"</span>, <span class="st">"Новые"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">count     =</span> <span class="fu">c</span>(<span class="dv">830</span>, <span class="dv">170</span>, <span class="dv">500</span>, <span class="dv">500</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">user_type =</span> <span class="fu">factor</span>(user_type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Возвращающиеся"</span>, <span class="st">"Новые"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> count, <span class="at">y =</span> <span class="fu">fct_rev</span>(version), <span class="at">fill =</span> user_type)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(count, <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, count <span class="sc">/</span> <span class="dv">10</span>, <span class="st">"%)"</span>)),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">position  =</span> <span class="fu">position_fill</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour    =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">lineheight =</span> <span class="fl">1.1</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Возвращающиеся"</span> <span class="ot">=</span> <span class="st">"#1D9E75"</span>, <span class="st">"Новые"</span> <span class="ot">=</span> <span class="st">"#D85A30"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simpson_paradox_files/figure-html/comp-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Состав каждой группы по типу пользователя</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Теперь смотрим конверсию <strong>внутри каждого сегмента</strong>:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">version   =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Версия A"</span>, <span class="st">"Версия B"</span>), <span class="dv">2</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">user_type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Новые"</span>, <span class="dv">2</span>), <span class="fu">rep</span>(<span class="st">"Возвращающиеся"</span>, <span class="dv">2</span>)),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">conv      =</span> <span class="fu">c</span>(<span class="fl">0.40</span>, <span class="fl">0.45</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> conv, <span class="at">y =</span> <span class="fu">fct_rev</span>(version), <span class="at">fill =</span> version)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(conv, <span class="at">accuracy =</span> <span class="dv">1</span>)),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Версия A"</span> <span class="ot">=</span> <span class="st">"#185FA5"</span>, <span class="st">"Версия B"</span> <span class="ot">=</span> <span class="st">"#534AB7"</span>)) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.90</span>)) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>user_type, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Конверсия"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simpson_paradox_files/figure-html/seg-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Конверсия по версиям — раздельно для каждого сегмента</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>B лучше в обоих сегментах — это парадокс Симпсона
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Новые пользователи: B = 45% против A = 40% → <strong>+5 п.п.</strong></li>
+<li>Возвращающиеся: B = 75% против A = 70% → <strong>+5 п.п.</strong></li>
+</ul>
+<p>Редизайн работает. Агрегированная метрика нас обманула.</p>
+</div>
+</div>
+</section>
+<section id="арифметика-обмана" class="level2">
+<h2 class="anchored" data-anchor-id="арифметика-обмана">Арифметика обмана</h2>
+<p>Агрегированная конверсия — это <strong>взвешенное среднее</strong>. Состав групп задаёт веса:</p>
+<p><span class="math display">\[
+\text{Conv}_A = \underbrace{0{,}17}_{\text{доля новых}} \times 40\%
+             + \underbrace{0{,}83}_{\text{доля возвр.}} \times 70\% \approx 65\%
+\]</span></p>
+<p><span class="math display">\[
+\text{Conv}_B = \underbrace{0{,}50}_{\text{доля новых}} \times 45\%
+             + \underbrace{0{,}50}_{\text{доля возвр.}} \times 75\% = 60\%
+\]</span></p>
+<p>Когда группы несбалансированы по конфаундеру (тип пользователя), агрегат <strong>сравнивает разные вещи</strong>. Группа A тянется вверх за счёт 830 возвращающихся, группа B — вниз за счёт 500 новых.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Это случается в реальной жизни
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Классический пример — приёмная комиссия Калифорнийского университета в Беркли 1973 года. В агрегате мужчин принимали чаще (44%), чем женщин (35%). Но при разбивке по факультетам картина разворачивалась: женщины чаще подавали на конкурентные факультеты с низким процентом принятых — а внутри каждого факультета гендерной разницы не было. Именно это исследование сделало парадокс Симпсона широко известным в статистике.</p>
+</div>
+</div>
+</section>
+<section id="симулятор-поймай-парадокс" class="level2">
+<h2 class="anchored" data-anchor-id="симулятор-поймай-парадокс">Симулятор: поймай парадокс</h2>
+<p>Конверсии по сегментам зафиксированы. Меняй только долю новых пользователей в каждой группе. Попробуй выровнять обе группы — парадокс исчезнет.</p>
+<div id="ojs-sliders" class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="160" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 159;"><span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>viewof pNewA <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Доля новых пользователей в группе A"</span><span class="op">,</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.17</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>  <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(x <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">%`</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>viewof pNewB <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Доля новых пользователей в группе B"</span><span class="op">,</span></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>  <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(x <span class="op">*</span> <span class="dv">100</span>)<span class="sc">}</span><span class="vs">%`</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-sliders-1">
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div id="ojs-sliders-2">
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div id="ojs-constants" class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-startfrom="176" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 175;"><span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>CONV <span class="op">=</span> ({ <span class="dt">new_A</span><span class="op">:</span> <span class="fl">0.40</span><span class="op">,</span> <span class="dt">new_B</span><span class="op">:</span> <span class="fl">0.45</span><span class="op">,</span> <span class="dt">ret_A</span><span class="op">:</span> <span class="fl">0.70</span><span class="op">,</span> <span class="dt">ret_B</span><span class="op">:</span> <span class="fl">0.75</span> })</span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>N    <span class="op">=</span> <span class="dv">1000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-constants-1">
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div id="ojs-constants-2">
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="181" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 180;"><span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> {</span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nNA <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(pNewA <span class="op">*</span> N)<span class="op">,</span> nRA <span class="op">=</span> N <span class="op">-</span> nNA</span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nNB <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(pNewB <span class="op">*</span> N)<span class="op">,</span> nRB <span class="op">=</span> N <span class="op">-</span> nNB</span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cA  <span class="op">=</span> nNA <span class="op">*</span> CONV<span class="op">.</span><span class="at">new_A</span> <span class="op">/</span> N <span class="op">+</span> nRA <span class="op">*</span> CONV<span class="op">.</span><span class="at">ret_A</span> <span class="op">/</span> N</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cB  <span class="op">=</span> nNB <span class="op">*</span> CONV<span class="op">.</span><span class="at">new_B</span> <span class="op">/</span> N <span class="op">+</span> nRB <span class="op">*</span> CONV<span class="op">.</span><span class="at">ret_B</span> <span class="op">/</span> N</span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>    cA<span class="op">,</span> cB<span class="op">,</span> nNA<span class="op">,</span> nRA<span class="op">,</span> nNB<span class="op">,</span> nRB<span class="op">,</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pctA</span><span class="op">:</span>    <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(cA <span class="op">*</span> <span class="dv">100</span>)<span class="op">,</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pctB</span><span class="op">:</span>    <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(cB <span class="op">*</span> <span class="dv">100</span>)<span class="op">,</span></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>    <span class="dt">paradox</span><span class="op">:</span> cA <span class="op">&gt;</span> cB</span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="ojs-computed" class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-startfrom="198" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 197;"><span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="</span></span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a><span class="vs">  display: inline-flex; align-items: center; gap: 6px;</span></span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a><span class="vs">  margin: 6px 0 12px; padding: 5px 14px; border-radius: 14px;</span></span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a><span class="vs">  font-size: 12px; font-weight: 500; transition: all .3s;</span></span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a><span class="vs">  background: </span><span class="sc">${</span>result<span class="op">.</span><span class="at">paradox</span> <span class="op">?</span> <span class="st">'#FAEEDA'</span> <span class="op">:</span> <span class="st">'#EAF3DE'</span><span class="sc">}</span><span class="vs">;</span></span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a><span class="vs">  color:      </span><span class="sc">${</span>result<span class="op">.</span><span class="at">paradox</span> <span class="op">?</span> <span class="st">'#854F0B'</span> <span class="op">:</span> <span class="st">'#3B6D11'</span><span class="sc">}</span><span class="vs">;</span></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a><span class="vs">"&gt;</span></span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>result<span class="op">.</span><span class="at">paradox</span></span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">'⚡ Парадокс Симпсона активен — A лидирует в агрегате, хотя B лучше в обоих сегментах'</span></span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">'✓ Парадокса нет — B побеждает и в агрегате'</span><span class="sc">}</span></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="ojs-status" class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-startfrom="214" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 213;"><span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Общая конверсия"</span><span class="op">,</span></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">type</span><span class="op">:</span> <span class="st">"identity"</span> }<span class="op">,</span></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">barX</span>(</span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a>      [{ <span class="dt">y</span><span class="op">:</span> <span class="st">"Версия A"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> result<span class="op">.</span><span class="at">pctA</span><span class="op">,</span> <span class="dt">col</span><span class="op">:</span> <span class="st">"#185FA5"</span> }<span class="op">,</span></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a>       { <span class="dt">y</span><span class="op">:</span> <span class="st">"Версия B"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> result<span class="op">.</span><span class="at">pctB</span><span class="op">,</span> <span class="dt">col</span><span class="op">:</span> <span class="st">"#534AB7"</span> }]<span class="op">,</span></span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a>      { <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"col"</span> }</span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a>      [{ <span class="dt">y</span><span class="op">:</span> <span class="st">"Версия A"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> result<span class="op">.</span><span class="at">pctA</span> }<span class="op">,</span></span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a>       { <span class="dt">y</span><span class="op">:</span> <span class="st">"Версия B"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> result<span class="op">.</span><span class="at">pctB</span> }]<span class="op">,</span></span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a>      { <span class="dt">x</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span> <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span></span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a>        <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">"bold"</span> }</span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])</span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">105</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Конверсия, %"</span> }<span class="op">,</span></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">110</span><span class="op">,</span></span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">90</span><span class="op">,</span></span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="ojs-bars" class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-startfrom="242" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 241;"><span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="font-size:13px; margin: 0.5rem 0 1rem"&gt;</span></span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="font-size:11px; color:#888; font-weight:500;</span></span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a><span class="vs">              letter-spacing:.04em; margin-bottom:7px"&gt;СОСТАВ ГРУПП&lt;/div&gt;</span></span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>[<span class="st">"A"</span><span class="op">,</span> <span class="st">"B"</span>]<span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> {</span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nRet   <span class="op">=</span> v <span class="op">===</span> <span class="st">"A"</span> <span class="op">?</span> result<span class="op">.</span><span class="at">nRA</span> <span class="op">:</span> result<span class="op">.</span><span class="at">nRB</span></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nNew   <span class="op">=</span> v <span class="op">===</span> <span class="st">"A"</span> <span class="op">?</span> result<span class="op">.</span><span class="at">nNA</span> <span class="op">:</span> result<span class="op">.</span><span class="at">nNB</span></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> retPct <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(nRet <span class="op">/</span> N <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`</span></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div style="display:grid; grid-template-columns:90px 1fr;</span></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a><span class="vs">                  gap:10px; align-items:center; margin:4px 0"&gt;</span></span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;span style="font-size:12px; font-weight:500; color:#555"&gt;Версия </span><span class="sc">${</span>v<span class="sc">}</span><span class="vs">&lt;/span&gt;</span></span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;div style="height:26px; border-radius:5px; overflow:hidden; display:flex"&gt;</span></span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="width:</span><span class="sc">${</span>retPct<span class="sc">}</span><span class="vs">%; background:#1D9E75;</span></span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a><span class="vs">                      display:flex; align-items:center; overflow:hidden"&gt;</span></span>
+<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;span style="font-size:11px; color:rgba(255,255,255,.9);</span></span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a><span class="vs">                         padding:0 7px; white-space:nowrap; overflow:hidden"&gt;</span></span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span>nRet <span class="op">&gt;=</span> <span class="dv">60</span> <span class="op">?</span> nRet <span class="op">+</span> <span class="st">" возвр."</span> <span class="op">:</span> nRet <span class="op">&gt;=</span> <span class="dv">25</span> <span class="op">?</span> nRet <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;/span&gt;</span></span>
+<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;/div&gt;</span></span>
+<span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;div style="width:</span><span class="sc">${</span><span class="dv">100</span> <span class="op">-</span> retPct<span class="sc">}</span><span class="vs">%; background:#D85A30;</span></span>
+<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a><span class="vs">                      display:flex; align-items:center; overflow:hidden"&gt;</span></span>
+<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;span style="font-size:11px; color:rgba(255,255,255,.9);</span></span>
+<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a><span class="vs">                         padding:0 6px; white-space:nowrap; overflow:hidden"&gt;</span></span>
+<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span>nNew <span class="op">&gt;=</span> <span class="dv">60</span> <span class="op">?</span> nNew <span class="op">+</span> <span class="st">" нов."</span> <span class="op">:</span> nNew <span class="op">&gt;=</span> <span class="dv">25</span> <span class="op">?</span> nNew <span class="op">:</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;/span&gt;</span></span>
+<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;/div&gt;</span></span>
+<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;/div&gt;</span></span>
+<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/div&gt;`</span></span>
+<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">join</span>(<span class="st">""</span>)<span class="sc">}</span></span>
+<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="display:flex; gap:14px; margin-top:8px; flex-wrap:wrap"&gt;</span></span>
+<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="font-size:11px; color:#888; display:flex; align-items:center; gap:5px"&gt;</span></span>
+<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;span style="width:9px;height:9px;border-radius:2px;</span></span>
+<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a><span class="vs">                   background:#1D9E75;display:inline-block"&gt;&lt;/span&gt;</span></span>
+<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a><span class="vs">      возвращающиеся (conv: A=</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(CONV<span class="op">.</span><span class="at">ret_A</span><span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="vs">%,</span></span>
+<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a><span class="vs">                             B=</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(CONV<span class="op">.</span><span class="at">ret_B</span><span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="vs">%)</span></span>
+<span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
+<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="font-size:11px; color:#888; display:flex; align-items:center; gap:5px"&gt;</span></span>
+<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;span style="width:9px;height:9px;border-radius:2px;</span></span>
+<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a><span class="vs">                   background:#D85A30;display:inline-block"&gt;&lt;/span&gt;</span></span>
+<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a><span class="vs">      новые (conv: A=</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(CONV<span class="op">.</span><span class="at">new_A</span><span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="vs">%,</span></span>
+<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a><span class="vs">                   B=</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(CONV<span class="op">.</span><span class="at">new_B</span><span class="op">*</span><span class="dv">100</span>)<span class="sc">}</span><span class="vs">%)</span></span>
+<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
+<span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="ojs-composition" class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="r-симуляция" class="level2">
+<h2 class="anchored" data-anchor-id="r-симуляция">R-симуляция</h2>
+<p>Воспроизведём то же самое с шумом через <code>rbinom()</code> — как в настоящем тесте. Стохастические данные не спасают: парадокс устойчив к случайному шуму.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>conv <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">new_A =</span> .<span class="dv">40</span>, <span class="at">new_B =</span> .<span class="dv">45</span>, <span class="at">ret_A =</span> .<span class="dv">70</span>, <span class="at">ret_B =</span> .<span class="dv">75</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n    <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sim_group <span class="ot">&lt;-</span> <span class="cf">function</span>(n, p_new, conv_new, conv_ret, version) {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  user_type <span class="ot">&lt;-</span> <span class="fu">sample</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"new"</span>, <span class="st">"returning"</span>), n,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(p_new, <span class="dv">1</span> <span class="sc">-</span> p_new)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(user_type <span class="sc">==</span> <span class="st">"new"</span>, conv_new, conv_ret)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(version, user_type, <span class="at">converted =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, p))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sim_group</span>(n, <span class="at">p_new =</span> <span class="fl">0.17</span>, conv<span class="sc">$</span>new_A, conv<span class="sc">$</span>ret_A, <span class="st">"A"</span>),</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sim_group</span>(n, <span class="at">p_new =</span> <span class="fl">0.50</span>, conv<span class="sc">$</span>new_B, conv<span class="sc">$</span>ret_B, <span class="st">"B"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Стандартный тест на агрегированных данных уверенно скажет: A лучше.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>agg <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(version) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">x =</span> <span class="fu">sum</span>(converted), <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(agg<span class="sc">$</span>x, agg<span class="sc">$</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  agg$x out of agg$n
+X-squared = 6.5306, df = 1, p-value = 0.0106
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.01312313 0.10087687
+sample estimates:
+prop 1 prop 2 
+ 0.628  0.571 </code></pre>
+</div>
+</div>
+<p>А сегментный анализ показывает обратное — B выигрывает в обеих группах:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(version, user_type) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">users =</span> <span class="fu">n</span>(),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">conv_rate =</span> scales<span class="sc">::</span><span class="fu">percent</span>(<span class="fu">mean</span>(converted), <span class="at">accuracy =</span> .<span class="dv">1</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups   =</span> <span class="st">"drop"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Version"</span>, <span class="st">"Segment"</span>, <span class="st">"Users"</span>, <span class="st">"Conv. rate"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Segment</th>
+<th style="text-align: right;">Users</th>
+<th style="text-align: left;">Conv. rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">new</td>
+<td style="text-align: right;">165</td>
+<td style="text-align: left;">34.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">returning</td>
+<td style="text-align: right;">835</td>
+<td style="text-align: left;">68.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">new</td>
+<td style="text-align: right;">507</td>
+<td style="text-align: left;">44.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">returning</td>
+<td style="text-align: right;">493</td>
+<td style="text-align: left;">70.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>R-код</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>p_agg <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(version) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">conv =</span> <span class="fu">mean</span>(converted)) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> conv, <span class="at">y =</span> <span class="fu">fct_rev</span>(version), <span class="at">fill =</span> version)) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(conv, <span class="at">accuracy =</span> .<span class="dv">1</span>)),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"A"</span> <span class="ot">=</span> <span class="st">"#185FA5"</span>, <span class="st">"B"</span> <span class="ot">=</span> <span class="st">"#534AB7"</span>)) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.80</span>)) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">subtitle =</span> <span class="st">"Агрегат (обманывает)"</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>p_seg <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(version, user_type) <span class="sc">|&gt;</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">conv =</span> <span class="fu">mean</span>(converted), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">user_type =</span> <span class="fu">case_match</span>(</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>      user_type,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>      <span class="st">"new"</span>       <span class="sc">~</span> <span class="st">"Новые"</span>,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>      <span class="st">"returning"</span> <span class="sc">~</span> <span class="st">"Возвращающиеся"</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> conv, <span class="at">y =</span> <span class="fu">fct_rev</span>(version), <span class="at">fill =</span> version)) <span class="sc">+</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(conv, <span class="at">accuracy =</span> .<span class="dv">1</span>)),</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">colour =</span> <span class="st">"grey25"</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"A"</span> <span class="ot">=</span> <span class="st">"#185FA5"</span>, <span class="st">"B"</span> <span class="ot">=</span> <span class="st">"#534AB7"</span>)) <span class="sc">+</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.90</span>)) <span class="sc">+</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>user_type, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">subtitle =</span> <span class="st">"По сегментам (правда)"</span>) <span class="sc">+</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>p_agg <span class="sc">|</span> p_seg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simpson_paradox_files/figure-html/r-comparison-plot-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>Агрегат вводит в заблуждение, сегментный анализ показывает правду</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="как-защититься" class="level2">
+<h2 class="anchored" data-anchor-id="как-защититься">Как защититься</h2>
+<p><strong>Стратифицированная рандомизация.</strong> Перед запуском теста разбей аудиторию на страты (новые / возвращающиеся, платформа, страна) и рандомизируй внутри каждой страты. Тогда состав групп будет одинаковым по определению — парадокс Симпсона становится невозможным.</p>
+<p><strong>Проверяй баланс групп.</strong> Перед интерпретацией результатов убедись, что ключевые характеристики пользователей (тип, платформа, канал привлечения) распределены примерно одинаково между группами. Сильное отклонение — повод насторожиться, даже если рандомизатор работал корректно.</p>
+<p><strong>Сегментный анализ как дефолт.</strong> Никогда не останавливайся на агрегате как на единственном числе. Анализируй результаты по ключевым сегментам — это должно быть частью стандартного пайплайна, а не исключительной мерой.</p>
+<p><strong>CUPED (Controlled-experiment Using Pre-Experiment Data).</strong> Вместо сырой метрики анализируешь её остаток после вычитания корреляции с доэкспериментальным поведением пользователя. Это снижает дисперсию и косвенно уменьшает влияние дисбаланса по составу групп — но не заменяет стратификацию.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Что почитать дальше
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="../welch_test.html">Тест Стьюдента и тест Велча</a> — почему дисбаланс выборок важен</li>
+<li><a href="../multiple_testing.html">Поправки на множественное тестирование</a> — как не прокраситься, анализируя несколько сегментов</li>
+</ul>
+<p>Подписывайтесь на <a href="https://t.me/stats_for_science">телеграм-канал</a>!</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHBOZXdBID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge1xuICBsYWJlbDogXCLQlNC+0LvRjyDQvdC+0LLRi9GFINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5INCyINCz0YDRg9C/0L/QtSBBXCIsXG4gIHZhbHVlOiAwLjE3LCBzdGVwOiAwLjAxLFxuICBmb3JtYXQ6IHggPT4gYCR7TWF0aC5yb3VuZCh4ICogMTAwKX0lYFxufSlcblxudmlld29mIHBOZXdCID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge1xuICBsYWJlbDogXCLQlNC+0LvRjyDQvdC+0LLRi9GFINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5INCyINCz0YDRg9C/0L/QtSBCXCIsXG4gIHZhbHVlOiAwLjUwLCBzdGVwOiAwLjAxLFxuICBmb3JtYXQ6IHggPT4gYCR7TWF0aC5yb3VuZCh4ICogMTAwKX0lYFxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuQ09OViA9ICh7IG5ld19BOiAwLjQwLCBuZXdfQjogMC40NSwgcmV0X0E6IDAuNzAsIHJldF9COiAwLjc1IH0pXG5OICAgID0gMTAwMFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5yZXN1bHQgPSB7XG4gIGNvbnN0IG5OQSA9IE1hdGgucm91bmQocE5ld0EgKiBOKSwgblJBID0gTiAtIG5OQVxuICBjb25zdCBuTkIgPSBNYXRoLnJvdW5kKHBOZXdCICogTiksIG5SQiA9IE4gLSBuTkJcbiAgY29uc3QgY0EgID0gbk5BICogQ09OVi5uZXdfQSAvIE4gKyBuUkEgKiBDT05WLnJldF9BIC8gTlxuICBjb25zdCBjQiAgPSBuTkIgKiBDT05WLm5ld19CIC8gTiArIG5SQiAqIENPTlYucmV0X0IgLyBOXG4gIHJldHVybiB7XG4gICAgY0EsIGNCLCBuTkEsIG5SQSwgbk5CLCBuUkIsXG4gICAgcGN0QTogICAgTWF0aC5yb3VuZChjQSAqIDEwMCksXG4gICAgcGN0QjogICAgTWF0aC5yb3VuZChjQiAqIDEwMCksXG4gICAgcGFyYWRveDogY0EgPiBjQlxuICB9XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmh0bWxgPGRpdiBzdHlsZT1cIlxuICBkaXNwbGF5OiBpbmxpbmUtZmxleDsgYWxpZ24taXRlbXM6IGNlbnRlcjsgZ2FwOiA2cHg7XG4gIG1hcmdpbjogNnB4IDAgMTJweDsgcGFkZGluZzogNXB4IDE0cHg7IGJvcmRlci1yYWRpdXM6IDE0cHg7XG4gIGZvbnQtc2l6ZTogMTJweDsgZm9udC13ZWlnaHQ6IDUwMDsgdHJhbnNpdGlvbjogYWxsIC4zcztcbiAgYmFja2dyb3VuZDogJHtyZXN1bHQucGFyYWRveCA/ICcjRkFFRURBJyA6ICcjRUFGM0RFJ307XG4gIGNvbG9yOiAgICAgICR7cmVzdWx0LnBhcmFkb3ggPyAnIzg1NEYwQicgOiAnIzNCNkQxMSd9O1xuXCI+XG4gICR7cmVzdWx0LnBhcmFkb3hcbiAgICA/ICfimqEg0J/QsNGA0LDQtNC+0LrRgSDQodC40LzQv9GB0L7QvdCwINCw0LrRgtC40LLQtdC9IOKAlCBBINC70LjQtNC40YDRg9C10YIg0LIg0LDQs9GA0LXQs9Cw0YLQtSwg0YXQvtGC0Y8gQiDQu9GD0YfRiNC1INCyINC+0LHQvtC40YUg0YHQtdCz0LzQtdC90YLQsNGFJ1xuICAgIDogJ+KckyDQn9Cw0YDQsNC00L7QutGB0LAg0L3QtdGCIOKAlCBCINC/0L7QsdC10LbQtNCw0LXRgiDQuCDQsiDQsNCz0YDQtdCz0LDRgtC1J31cbjwvZGl2PmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwi0J7QsdGJ0LDRjyDQutC+0L3QstC10YDRgdC40Y9cIixcbiAgY29sb3I6IHsgdHlwZTogXCJpZGVudGl0eVwiIH0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5iYXJYKFxuICAgICAgW3sgeTogXCLQktC10YDRgdC40Y8gQVwiLCB4OiByZXN1bHQucGN0QSwgY29sOiBcIiMxODVGQTVcIiB9LFxuICAgICAgIHsgeTogXCLQktC10YDRgdC40Y8gQlwiLCB4OiByZXN1bHQucGN0QiwgY29sOiBcIiM1MzRBQjdcIiB9XSxcbiAgICAgIHsgeDogXCJ4XCIsIHk6IFwieVwiLCBmaWxsOiBcImNvbFwiIH1cbiAgICApLFxuICAgIFBsb3QudGV4dChcbiAgICAgIFt7IHk6IFwi0JLQtdGA0YHQuNGPIEFcIiwgeDogcmVzdWx0LnBjdEEgfSxcbiAgICAgICB7IHk6IFwi0JLQtdGA0YHQuNGPIEJcIiwgeDogcmVzdWx0LnBjdEIgfV0sXG4gICAgICB7IHg6IGQgPT4gZC54ICsgMSwgeTogXCJ5XCIsIHRleHQ6IGQgPT4gZC54ICsgXCIlXCIsXG4gICAgICAgIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZHg6IDQsIGZvbnRXZWlnaHQ6IFwiYm9sZFwiIH1cbiAgICApLFxuICAgIFBsb3QucnVsZVgoWzBdKVxuICBdLFxuICB4OiB7IGRvbWFpbjogWzAsIDEwNV0sIGxhYmVsOiBcItCa0L7QvdCy0LXRgNGB0LjRjywgJVwiIH0sXG4gIHk6IHsgbGFiZWw6IG51bGwgfSxcbiAgaGVpZ2h0OiAxMTAsXG4gIG1hcmdpbkxlZnQ6IDkwLFxuICBtYXJnaW5SaWdodDogNTBcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmh0bWxgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZToxM3B4OyBtYXJnaW46IDAuNXJlbSAwIDFyZW1cIj5cbiAgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZToxMXB4OyBjb2xvcjojODg4OyBmb250LXdlaWdodDo1MDA7XG4gICAgICAgICAgICAgIGxldHRlci1zcGFjaW5nOi4wNGVtOyBtYXJnaW4tYm90dG9tOjdweFwiPtCh0J7QodCi0JDQkiDQk9Cg0KPQn9CfPC9kaXY+XG4gICR7W1wiQVwiLCBcIkJcIl0ubWFwKHYgPT4ge1xuICAgIGNvbnN0IG5SZXQgICA9IHYgPT09IFwiQVwiID8gcmVzdWx0Lm5SQSA6IHJlc3VsdC5uUkJcbiAgICBjb25zdCBuTmV3ICAgPSB2ID09PSBcIkFcIiA/IHJlc3VsdC5uTkEgOiByZXN1bHQubk5CXG4gICAgY29uc3QgcmV0UGN0ID0gTWF0aC5yb3VuZChuUmV0IC8gTiAqIDEwMClcbiAgICByZXR1cm4gYFxuICAgICAgPGRpdiBzdHlsZT1cImRpc3BsYXk6Z3JpZDsgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOjkwcHggMWZyO1xuICAgICAgICAgICAgICAgICAgZ2FwOjEwcHg7IGFsaWduLWl0ZW1zOmNlbnRlcjsgbWFyZ2luOjRweCAwXCI+XG4gICAgICAgIDxzcGFuIHN0eWxlPVwiZm9udC1zaXplOjEycHg7IGZvbnQtd2VpZ2h0OjUwMDsgY29sb3I6IzU1NVwiPtCS0LXRgNGB0LjRjyAke3Z9PC9zcGFuPlxuICAgICAgICA8ZGl2IHN0eWxlPVwiaGVpZ2h0OjI2cHg7IGJvcmRlci1yYWRpdXM6NXB4OyBvdmVyZmxvdzpoaWRkZW47IGRpc3BsYXk6ZmxleFwiPlxuICAgICAgICAgIDxkaXYgc3R5bGU9XCJ3aWR0aDoke3JldFBjdH0lOyBiYWNrZ3JvdW5kOiMxRDlFNzU7XG4gICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTpmbGV4OyBhbGlnbi1pdGVtczpjZW50ZXI7IG92ZXJmbG93OmhpZGRlblwiPlxuICAgICAgICAgICAgPHNwYW4gc3R5bGU9XCJmb250LXNpemU6MTFweDsgY29sb3I6cmdiYSgyNTUsMjU1LDI1NSwuOSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgcGFkZGluZzowIDdweDsgd2hpdGUtc3BhY2U6bm93cmFwOyBvdmVyZmxvdzpoaWRkZW5cIj5cbiAgICAgICAgICAgICAgJHtuUmV0ID49IDYwID8gblJldCArIFwiINCy0L7Qt9Cy0YAuXCIgOiBuUmV0ID49IDI1ID8gblJldCA6IFwiXCJ9XG4gICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGRpdiBzdHlsZT1cIndpZHRoOiR7MTAwIC0gcmV0UGN0fSU7IGJhY2tncm91bmQ6I0Q4NUEzMDtcbiAgICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OmZsZXg7IGFsaWduLWl0ZW1zOmNlbnRlcjsgb3ZlcmZsb3c6aGlkZGVuXCI+XG4gICAgICAgICAgICA8c3BhbiBzdHlsZT1cImZvbnQtc2l6ZToxMXB4OyBjb2xvcjpyZ2JhKDI1NSwyNTUsMjU1LC45KTtcbiAgICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOjAgNnB4OyB3aGl0ZS1zcGFjZTpub3dyYXA7IG92ZXJmbG93OmhpZGRlblwiPlxuICAgICAgICAgICAgICAke25OZXcgPj0gNjAgPyBuTmV3ICsgXCIg0L3QvtCyLlwiIDogbk5ldyA+PSAyNSA/IG5OZXcgOiBcIlwifVxuICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PmBcbiAgfSkuam9pbihcIlwiKX1cbiAgPGRpdiBzdHlsZT1cImRpc3BsYXk6ZmxleDsgZ2FwOjE0cHg7IG1hcmdpbi10b3A6OHB4OyBmbGV4LXdyYXA6d3JhcFwiPlxuICAgIDxzcGFuIHN0eWxlPVwiZm9udC1zaXplOjExcHg7IGNvbG9yOiM4ODg7IGRpc3BsYXk6ZmxleDsgYWxpZ24taXRlbXM6Y2VudGVyOyBnYXA6NXB4XCI+XG4gICAgICA8c3BhbiBzdHlsZT1cIndpZHRoOjlweDtoZWlnaHQ6OXB4O2JvcmRlci1yYWRpdXM6MnB4O1xuICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IzFEOUU3NTtkaXNwbGF5OmlubGluZS1ibG9ja1wiPjwvc3Bhbj5cbiAgICAgINCy0L7Qt9Cy0YDQsNGJ0LDRjtGJ0LjQtdGB0Y8gKGNvbnY6IEE9JHtNYXRoLnJvdW5kKENPTlYucmV0X0EqMTAwKX0lLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCPSR7TWF0aC5yb3VuZChDT05WLnJldF9CKjEwMCl9JSlcbiAgICA8L3NwYW4+XG4gICAgPHNwYW4gc3R5bGU9XCJmb250LXNpemU6MTFweDsgY29sb3I6Izg4ODsgZGlzcGxheTpmbGV4OyBhbGlnbi1pdGVtczpjZW50ZXI7IGdhcDo1cHhcIj5cbiAgICAgIDxzcGFuIHN0eWxlPVwid2lkdGg6OXB4O2hlaWdodDo5cHg7Ym9yZGVyLXJhZGl1czoycHg7XG4gICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDojRDg1QTMwO2Rpc3BsYXk6aW5saW5lLWJsb2NrXCI+PC9zcGFuPlxuICAgICAg0L3QvtCy0YvQtSAoY29udjogQT0ke01hdGgucm91bmQoQ09OVi5uZXdfQSoxMDApfSUsXG4gICAgICAgICAgICAgICAgICAgQj0ke01hdGgucm91bmQoQ09OVi5uZXdfQioxMDApfSUpXG4gICAgPC9zcGFuPlxuICA8L2Rpdj5cbjwvZGl2PmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncE5ld0EnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncE5ld0InKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="ubogoeva/R4Analytics_comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

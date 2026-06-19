@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/multiple_testing_simulation.html",
       "/posts/small_samples_simulation.html",
       "/posts/history_of_AB_testing.html",
       "/posts/review_of_statistics_course.html",
