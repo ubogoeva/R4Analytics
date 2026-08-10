@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/reviews.html</loc>
-    <lastmod>2026-06-15T18:31:09.411Z</lastmod>
-  </url>
-  <url>
     <loc>https://ubogoeva.github.io/R4Analytics/index.html</loc>
     <lastmod>2024-11-24T05:29:49.859Z</lastmod>
   </url>
   <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/contest_samokat.html</loc>
-    <lastmod>2025-07-12T09:42:21.433Z</lastmod>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/sequential_testing_part1_history.html</loc>
+    <lastmod>2026-08-10T12:27:59.478Z</lastmod>
   </url>
   <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</loc>
-    <lastmod>2024-11-24T11:00:43.229Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/small_samples_simulation.html</loc>
-    <lastmod>2026-06-07T12:58:12.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</loc>
-    <lastmod>2024-07-12T13:18:34.996Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/review_of_statistics_course.html</loc>
-    <lastmod>2025-03-14T14:35:11.274Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/how_to_install_R.html</loc>
-    <lastmod>2024-11-17T07:42:56.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/welch_test.html</loc>
-    <lastmod>2025-03-14T14:35:01.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
-    <lastmod>2025-02-14T06:06:13.935Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/history_of_AB_testing.html</loc>
-    <lastmod>2025-03-13T08:45:22.220Z</lastmod>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html</loc>
+    <lastmod>2026-06-20T09:16:15.916Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/R_question_how_to_ask.html</loc>
     <lastmod>2024-07-12T13:18:34.996Z</lastmod>
   </url>
   <url>
-    <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html</loc>
-    <lastmod>2026-06-19T09:25:33.020Z</lastmod>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/telegram_analysis.html</loc>
+    <lastmod>2026-06-19T18:20:06.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/history_of_AB_testing.html</loc>
+    <lastmod>2025-03-13T08:45:22.220Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/types_of_error_bars.html</loc>
+    <lastmod>2025-02-14T06:06:13.935Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/welch_test.html</loc>
+    <lastmod>2025-03-14T14:35:01.221Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/how_to_install_R.html</loc>
+    <lastmod>2024-11-17T07:42:56.109Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/review_of_statistics_course.html</loc>
+    <lastmod>2025-03-14T14:35:11.274Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/telegram_channel.html</loc>
+    <lastmod>2026-06-20T12:49:07.442Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/YandexMetricsQuarto.html</loc>
+    <lastmod>2024-07-12T13:18:34.996Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/small_samples_simulation.html</loc>
+    <lastmod>2026-06-07T12:58:12.549Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/multiple_testing.html</loc>
+    <lastmod>2024-11-24T11:00:43.229Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubogoeva.github.io/R4Analytics/posts/contest_samokat.html</loc>
+    <lastmod>2025-07-12T09:42:21.433Z</lastmod>
   </url>
   <url>
     <loc>https://ubogoeva.github.io/R4Analytics/posts/ansombe_quartet.html</loc>

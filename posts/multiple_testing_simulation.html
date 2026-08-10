@@ -169,10 +169,6 @@ window.Quarto = {
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">Об авторе блога</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reviews.html"> 
-<span class="menu-text">Отзывы</span></a>
-  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
 </i> 
@@ -454,9 +450,7 @@ Note
 <section id="независимые-тесты-классическая-формула" class="level2">
 <h2 class="anchored" data-anchor-id="независимые-тесты-классическая-формула">Независимые тесты: классическая формула</h2>
 <p>Если проводить <span class="math inline">\(n\)</span> независимых тестов, с заданным уровнем <span class="math inline">\(\alpha\)</span>, вероятность <strong>хотя бы одного</strong> ложного открытия:</p>
-<p><span class="math display">\[
-\text{FWER} = 1 - (1-\alpha)^n
-\]</span></p>
+<p><span class="math display">\[\text{FWER} = 1 - (1-\alpha)^n\]</span></p>
 <div class="cell">
 <details class="code-fold">
 <summary>R-код</summary>
@@ -516,18 +510,12 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Неравенство Буля</strong> (принцип субаддитивности) работает при <em>любой</em> структуре зависимостей:</p>
-<p><span class="math display">\[
-FWER \;\leq\; \sum_{i=1}^n P(A_i) = n\alpha
-\]</span></p>
+<p><span class="math display">\[FWER \;\leq\; \sum_{i=1}^n P(A_i) = n\alpha\]</span></p>
 <p>Это универсальная линейная граница — именно из неё вытекает поправка Бонферрони.</p>
 <p><strong>Формула</strong> <span class="math inline">\(1-(1-\alpha)^n\)</span> — это точное значение FWER для <strong>независимых</strong> тестов (на этом строится чуть менее консервативная поправка Шидака). Она всегда не превышает <span class="math inline">\(n\alpha\)</span>:</p>
-<p><span class="math display">\[
-1-(1-\alpha)^n \;\leq\; n\alpha
-\]</span></p>
+<p><span class="math display">\[1-(1-\alpha)^n \;\leq\; n\alpha\]</span></p>
 <p>Для <strong>положительно зависимых</strong> тестов справедливо более сильное утверждение: независимый случай является верхней границей для зависимого. Только при PRDS работает вся цепочка:</p>
-<p><span class="math display">\[
-\underbrace{\text{FWER}_{\text{зависимые (PRDS)}}}_{\text{фактическое}} \;\leq\; \underbrace{1-(1-\alpha)^n}_{\text{независимый случай}} \;\leq\; \underbrace{n\alpha}_{\text{Бонферрони}}
-\]</span></p>
+<p><span class="math display">\[\underbrace{\text{FWER}_{\text{зависимые (PRDS)}}}_{\text{фактическое}} \;\leq\; \underbrace{1-(1-\alpha)^n}_{\text{независимый случай}} \;\leq\; \underbrace{n\alpha}_{\text{Бонферрони}}\]</span></p>
 <p>Фактический FWER при <strong>положительной</strong> зависимости лежит ниже кривой независимого случая (увидим на симуляциях), что делает поправки Бонферрони и Шидака избыточно консервативными.</p>
 <p>При <strong>отрицательной</strong> зависимости первое неравенство может нарушаться — FWER способен выйти за <span class="math inline">\(1-(1-\alpha)^n\)</span>, и тогда гарантию даёт только граница Буля <span class="math inline">\(n\alpha\)</span>.</p>
 </div>
@@ -535,11 +523,9 @@ FWER \;\leq\; \sum_{i=1}^n P(A_i) = n\alpha
 <section id="модель-зависимости" class="level3">
 <h3 class="anchored" data-anchor-id="модель-зависимости">Модель зависимости</h3>
 <p>Будем моделировать <strong>равнокоррелированные</strong> тест-статистики через общий фактор:</p>
-<p><span class="math display">\[
-Z_i = \sqrt{\rho}\,W + \sqrt{1-\rho}\;\varepsilon_i,
+<p><span class="math display">\[Z_i = \sqrt{\rho}\,W + \sqrt{1-\rho}\;\varepsilon_i,
 \quad i = 1,\ldots,n,
-\quad W,\,\varepsilon_i \overset{\text{iid}}{\sim} \mathcal{N}(0,1)
-\]</span></p>
+\quad W,\,\varepsilon_i \overset{\text{iid}}{\sim} \mathcal{N}(0,1)\]</span></p>
 <p>Тогда <span class="math inline">\(\text{Corr}(Z_i, Z_j) = \rho\)</span> для всех <span class="math inline">\(i \neq j\)</span>.</p>
 <ul>
 <li><span class="math inline">\(\rho = 0\)</span>: независимые тесты, FWER <span class="math inline">\(= 1-(1-\alpha)^n\)</span> (в точном соответствии с формулой)<br>
@@ -568,44 +554,44 @@ Note
 <div id="ojs-inputs" class="cell">
 <details class="code-fold hidden">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="328" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 327;"><span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>viewof params <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>  <span class="dt">alpha</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.05</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
-<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Уровень значимости α"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span> }</span>
-<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>  <span class="dt">rho</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="fl">0.2</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="fl">0.3</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">0.7</span><span class="op">,</span> <span class="fl">0.9</span>]<span class="op">,</span></span>
-<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Структура зависимости"</span><span class="op">,</span></span>
-<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>      <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> {</span>
-<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="op">-</span><span class="fl">0.2</span>) <span class="cf">return</span> <span class="st">"⬇⬇ Сильная отрицательная зависимость шума (ограничение до n ≤ 5, ρ = −0.20)"</span></span>
-<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="op">-</span><span class="fl">0.1</span>) <span class="cf">return</span> <span class="st">"⬇ Отрицательная зависимость шума в закрытых системах (доли, ρ = −0.10)"</span></span>
-<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="dv">0</span>)    <span class="cf">return</span> <span class="st">"○ Независимые тесты — нет общих данных (ρ = 0)"</span></span>
-<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.3</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B/C: несколько вариантов vs один контроль (ρ = 0.30)"</span></span>
-<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.5</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: несколько метрик на одних пользователях (ρ = 0.50)"</span></span>
-<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.7</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: тесно связанные метрики — DAU и WAU (ρ = 0.70)"</span></span>
-<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.9</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: почти дублирующие метрики — revenue и GMV (ρ = 0.90)"</span></span>
-<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">String</span>(x)</span>
-<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max_n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">5</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span></span>
-<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Макс. число тестов"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span> }</span>
-<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n_sims_inp</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">10000</span>]<span class="op">,</span></span>
-<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Симуляций на точку"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">8000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span> }</span>
-<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>viewof run_btn <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"▶ Запустить симуляцию"</span>)</span>
-<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>alpha      <span class="op">=</span> params<span class="op">.</span><span class="at">alpha</span></span>
-<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>rho        <span class="op">=</span> params<span class="op">.</span><span class="at">rho</span></span>
-<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>max_n      <span class="op">=</span> params<span class="op">.</span><span class="at">max_n</span></span>
-<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>n_sims_inp <span class="op">=</span> params<span class="op">.</span><span class="at">n_sims_inp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="319" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 318;"><span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>viewof params <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>  <span class="dt">alpha</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.05</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Уровень значимости α"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span> }</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>  <span class="dt">rho</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="fl">0.2</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="fl">0.3</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">0.7</span><span class="op">,</span> <span class="fl">0.9</span>]<span class="op">,</span></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Структура зависимости"</span><span class="op">,</span></span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>      <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> {</span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="op">-</span><span class="fl">0.2</span>) <span class="cf">return</span> <span class="st">"⬇⬇ Сильная отрицательная зависимость шума (ограничение до n ≤ 5, ρ = −0.20)"</span></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="op">-</span><span class="fl">0.1</span>) <span class="cf">return</span> <span class="st">"⬇ Отрицательная зависимость шума в закрытых системах (доли, ρ = −0.10)"</span></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="dv">0</span>)    <span class="cf">return</span> <span class="st">"○ Независимые тесты — нет общих данных (ρ = 0)"</span></span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.3</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B/C: несколько вариантов vs один контроль (ρ = 0.30)"</span></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.5</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: несколько метрик на одних пользователях (ρ = 0.50)"</span></span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.7</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: тесно связанные метрики — DAU и WAU (ρ = 0.70)"</span></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x <span class="op">===</span> <span class="fl">0.9</span>)  <span class="cf">return</span> <span class="st">"⬆ A/B: почти дублирующие метрики — revenue и GMV (ρ = 0.90)"</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">String</span>(x)</span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max_n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">5</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Макс. число тестов"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">15</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span> }</span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n_sims_inp</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">10000</span>]<span class="op">,</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">label</span><span class="op">:</span> <span class="st">"Симуляций на точку"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">8000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span> }</span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>viewof run_btn <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"▶ Запустить симуляцию"</span>)</span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>alpha      <span class="op">=</span> params<span class="op">.</span><span class="at">alpha</span></span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>rho        <span class="op">=</span> params<span class="op">.</span><span class="at">rho</span></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>max_n      <span class="op">=</span> params<span class="op">.</span><span class="at">max_n</span></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>n_sims_inp <span class="op">=</span> params<span class="op">.</span><span class="at">n_sims_inp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-inputs-1">
@@ -653,19 +639,19 @@ Note
 <div class="cell">
 <details class="code-fold hidden">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="370" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 369;"><span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> se   <span class="op">=</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="fl">0.25</span> <span class="op">/</span> n_sims_inp) <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
-<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nMax <span class="op">=</span> rho <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">/</span> rho) <span class="op">:</span> <span class="kw">null</span></span>
-<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> warn <span class="op">=</span> nMax <span class="op">!==</span> <span class="kw">null</span></span>
-<span id="cb3-374"><a href="#cb3-374" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`&lt;span style="color:#D85A30;font-weight:600;"&gt;</span></span>
-<span id="cb3-375"><a href="#cb3-375" aria-hidden="true" tabindex="-1"></a><span class="vs">         ⚠ При ρ = </span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs"> равнокоррелированная матрица валидна только для n ≤ </span><span class="sc">${</span>nMax<span class="sc">}</span><span class="vs">.</span></span>
-<span id="cb3-376"><a href="#cb3-376" aria-hidden="true" tabindex="-1"></a><span class="vs">         График обрезается автоматически.</span></span>
-<span id="cb3-377"><a href="#cb3-377" aria-hidden="true" tabindex="-1"></a><span class="vs">       &lt;/span&gt;`</span></span>
-<span id="cb3-378"><a href="#cb3-378" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">""</span></span>
-<span id="cb3-379"><a href="#cb3-379" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p style="font-size:12px; color:#888; margin: 2px 0 8px;"&gt;</span></span>
-<span id="cb3-380"><a href="#cb3-380" aria-hidden="true" tabindex="-1"></a><span class="vs">    SE ≈ ±</span><span class="sc">${</span>se<span class="sc">}</span><span class="vs"> п.п. &amp;nbsp;</span><span class="sc">${</span>warn<span class="sc">}</span></span>
-<span id="cb3-381"><a href="#cb3-381" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/p&gt;`</span></span>
-<span id="cb3-382"><a href="#cb3-382" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="361" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 360;"><span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> se   <span class="op">=</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="fl">0.25</span> <span class="op">/</span> n_sims_inp) <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
+<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nMax <span class="op">=</span> rho <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">/</span> rho) <span class="op">:</span> <span class="kw">null</span></span>
+<span id="cb3-364"><a href="#cb3-364" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> warn <span class="op">=</span> nMax <span class="op">!==</span> <span class="kw">null</span></span>
+<span id="cb3-365"><a href="#cb3-365" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="vs">`&lt;span style="color:#D85A30;font-weight:600;"&gt;</span></span>
+<span id="cb3-366"><a href="#cb3-366" aria-hidden="true" tabindex="-1"></a><span class="vs">         ⚠ При ρ = </span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs"> равнокоррелированная матрица валидна только для n ≤ </span><span class="sc">${</span>nMax<span class="sc">}</span><span class="vs">.</span></span>
+<span id="cb3-367"><a href="#cb3-367" aria-hidden="true" tabindex="-1"></a><span class="vs">         График обрезается автоматически.</span></span>
+<span id="cb3-368"><a href="#cb3-368" aria-hidden="true" tabindex="-1"></a><span class="vs">       &lt;/span&gt;`</span></span>
+<span id="cb3-369"><a href="#cb3-369" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">""</span></span>
+<span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p style="font-size:12px; color:#888; margin: 2px 0 8px;"&gt;</span></span>
+<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a><span class="vs">    SE ≈ ±</span><span class="sc">${</span>se<span class="sc">}</span><span class="vs"> п.п. &amp;nbsp;</span><span class="sc">${</span>warn<span class="sc">}</span></span>
+<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/p&gt;`</span></span>
+<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="ojs-se-hint" class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
@@ -676,70 +662,70 @@ Note
 <div id="ojs-helpers" class="cell">
 <details class="code-fold hidden">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="393" data-source-offset="-142"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 392;"><span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pnorm</span>(x) {</span>
-<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ax <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span></span>
-<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t  <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> ax)</span>
-<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> poly <span class="op">=</span> t <span class="op">*</span> (<span class="fl">0.254829592</span></span>
-<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">0.284496736</span></span>
-<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> ( <span class="fl">1.421413741</span></span>
-<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">1.453152027</span></span>
-<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span>   <span class="fl">1.061405429</span>))))</span>
-<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> erfc <span class="op">=</span> poly <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>ax <span class="op">*</span> ax)</span>
-<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="dv">1</span> <span class="op">-</span> erfc <span class="op">/</span> <span class="dv">2</span> <span class="op">:</span> erfc <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a><span class="co">// Квантиль стандартного нормального (бисекция, 60 итераций)</span></span>
-<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">qnorm</span>(p) {</span>
-<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> lo <span class="op">=</span> <span class="op">-</span><span class="dv">8</span><span class="op">,</span> hi <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">60</span><span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> m <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pnorm</span>(m) <span class="op">&lt;</span> p <span class="op">?</span> (lo <span class="op">=</span> m) <span class="op">:</span> (hi <span class="op">=</span> m)</span>
-<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a><span class="co">// Генератор N(0,1) (Box–Muller)</span></span>
-<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">randn</span>() {</span>
-<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()))</span>
-<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a>       <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>())</span>
-<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a><span class="co">// FWER для n тестов через разложение Холецкого (поддерживает любые ρ, в т.ч. отрицательные).</span></span>
-<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a><span class="co">// Equicorrelated Σ валидна при ρ &gt; −1/(n−1); при нарушении возвращает NaN.</span></span>
-<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sim_fwer</span>(n<span class="op">,</span> alpha<span class="op">,</span> rho<span class="op">,</span> n_sims) {</span>
-<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="op">===</span> <span class="dv">1</span>) {</span>
-<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> hits <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> zc <span class="op">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n_sims<span class="op">;</span> i<span class="op">++</span>) <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(<span class="fu">randn</span>()) <span class="op">&gt;</span> zc) hits<span class="op">++</span></span>
-<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hits <span class="op">/</span> n_sims</span>
-<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rho <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">1</span> <span class="op">/</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="cf">return</span> <span class="kw">NaN</span></span>
-<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z_crit <span class="op">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Нижняя треугольная матрица Холецкого L: L·Lᵀ = Σ(ρ)</span></span>
-<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> n}<span class="op">,</span> () <span class="kw">=&gt;</span> <span class="kw">new</span> <span class="bu">Float64Array</span>(n))</span>
-<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;=</span> i<span class="op">;</span> j<span class="op">++</span>) {</span>
-<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> s <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> j<span class="op">;</span> k<span class="op">++</span>) s <span class="op">+=</span> L[i][k] <span class="op">*</span> L[j][k]</span>
-<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a>      L[i][j] <span class="op">=</span> i <span class="op">===</span> j <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> s) <span class="op">:</span> (rho <span class="op">-</span> s) <span class="op">/</span> L[j][j]</span>
-<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> hits <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> sim <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> sim <span class="op">&lt;</span> n_sims<span class="op">;</span> sim<span class="op">++</span>) {</span>
-<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> eps <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> n}<span class="op">,</span> randn)</span>
-<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> any <span class="op">=</span> <span class="kw">false</span></span>
-<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-449"><a href="#cb4-449" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> z <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-450"><a href="#cb4-450" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;=</span> i<span class="op">;</span> k<span class="op">++</span>) z <span class="op">+=</span> L[i][k] <span class="op">*</span> eps[k]</span>
-<span id="cb4-451"><a href="#cb4-451" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z) <span class="op">&gt;</span> z_crit) { any <span class="op">=</span> <span class="kw">true</span><span class="op">;</span> <span class="cf">break</span> }</span>
-<span id="cb4-452"><a href="#cb4-452" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-453"><a href="#cb4-453" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (any) hits<span class="op">++</span></span>
-<span id="cb4-454"><a href="#cb4-454" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-455"><a href="#cb4-455" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> hits <span class="op">/</span> n_sims</span>
-<span id="cb4-456"><a href="#cb4-456" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="384" data-source-offset="-142"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 383;"><span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pnorm</span>(x) {</span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ax <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span></span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t  <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> ax)</span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> poly <span class="op">=</span> t <span class="op">*</span> (<span class="fl">0.254829592</span></span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">0.284496736</span></span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> ( <span class="fl">1.421413741</span></span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span> (<span class="op">-</span><span class="fl">1.453152027</span></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a>               <span class="op">+</span> t <span class="op">*</span>   <span class="fl">1.061405429</span>))))</span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> erfc <span class="op">=</span> poly <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>ax <span class="op">*</span> ax)</span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="dv">1</span> <span class="op">-</span> erfc <span class="op">/</span> <span class="dv">2</span> <span class="op">:</span> erfc <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a><span class="co">// Квантиль стандартного нормального (бисекция, 60 итераций)</span></span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">qnorm</span>(p) {</span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> lo <span class="op">=</span> <span class="op">-</span><span class="dv">8</span><span class="op">,</span> hi <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">60</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> m <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pnorm</span>(m) <span class="op">&lt;</span> p <span class="op">?</span> (lo <span class="op">=</span> m) <span class="op">:</span> (hi <span class="op">=</span> m)</span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a><span class="co">// Генератор N(0,1) (Box–Muller)</span></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">randn</span>() {</span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()))</span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a>       <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>())</span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a><span class="co">// FWER для n тестов через разложение Холецкого (поддерживает любые ρ, в т.ч. отрицательные).</span></span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a><span class="co">// Equicorrelated Σ валидна при ρ &gt; −1/(n−1); при нарушении возвращает NaN.</span></span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sim_fwer</span>(n<span class="op">,</span> alpha<span class="op">,</span> rho<span class="op">,</span> n_sims) {</span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="op">===</span> <span class="dv">1</span>) {</span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> hits <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> zc <span class="op">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n_sims<span class="op">;</span> i<span class="op">++</span>) <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(<span class="fu">randn</span>()) <span class="op">&gt;</span> zc) hits<span class="op">++</span></span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hits <span class="op">/</span> n_sims</span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rho <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">1</span> <span class="op">/</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="cf">return</span> <span class="kw">NaN</span></span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z_crit <span class="op">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Нижняя треугольная матрица Холецкого L: L·Lᵀ = Σ(ρ)</span></span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> n}<span class="op">,</span> () <span class="kw">=&gt;</span> <span class="kw">new</span> <span class="bu">Float64Array</span>(n))</span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;=</span> i<span class="op">;</span> j<span class="op">++</span>) {</span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> j<span class="op">;</span> k<span class="op">++</span>) s <span class="op">+=</span> L[i][k] <span class="op">*</span> L[j][k]</span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a>      L[i][j] <span class="op">=</span> i <span class="op">===</span> j <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> s) <span class="op">:</span> (rho <span class="op">-</span> s) <span class="op">/</span> L[j][j]</span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> hits <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> sim <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> sim <span class="op">&lt;</span> n_sims<span class="op">;</span> sim<span class="op">++</span>) {</span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> eps <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> n}<span class="op">,</span> randn)</span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> any <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;=</span> i<span class="op">;</span> k<span class="op">++</span>) z <span class="op">+=</span> L[i][k] <span class="op">*</span> eps[k]</span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z) <span class="op">&gt;</span> z_crit) { any <span class="op">=</span> <span class="kw">true</span><span class="op">;</span> <span class="cf">break</span> }</span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (any) hits<span class="op">++</span></span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> hits <span class="op">/</span> n_sims</span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-helpers-1">
@@ -773,20 +759,20 @@ Note
 <div class="cell">
 <details class="code-fold hidden">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="461" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 460;"><span id="cb5-461"><a href="#cb5-461" aria-hidden="true" tabindex="-1"></a>sim_data <span class="op">=</span> {</span>
-<span id="cb5-462"><a href="#cb5-462" aria-hidden="true" tabindex="-1"></a>  run_btn  <span class="co">// пересчёт при нажатии кнопки</span></span>
-<span id="cb5-463"><a href="#cb5-463" aria-hidden="true" tabindex="-1"></a>  <span class="co">// для отрицательных ρ матрица валидна только при n ≤ floor(−1/ρ)</span></span>
-<span id="cb5-464"><a href="#cb5-464" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n_limit <span class="op">=</span> rho <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(max_n<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">/</span> rho)) <span class="op">:</span> max_n</span>
-<span id="cb5-465"><a href="#cb5-465" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> []</span>
-<span id="cb5-466"><a href="#cb5-466" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> n_limit<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb5-467"><a href="#cb5-467" aria-hidden="true" tabindex="-1"></a>    rows<span class="op">.</span><span class="fu">push</span>({</span>
-<span id="cb5-468"><a href="#cb5-468" aria-hidden="true" tabindex="-1"></a>      n<span class="op">,</span></span>
-<span id="cb5-469"><a href="#cb5-469" aria-hidden="true" tabindex="-1"></a>      <span class="dt">sim</span><span class="op">:</span>    <span class="fu">sim_fwer</span>(n<span class="op">,</span> alpha<span class="op">,</span> rho<span class="op">,</span> n_sims_inp)<span class="op">,</span></span>
-<span id="cb5-470"><a href="#cb5-470" aria-hidden="true" tabindex="-1"></a>      <span class="dt">theory</span><span class="op">:</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(<span class="dv">1</span> <span class="op">-</span> alpha<span class="op">,</span> n)</span>
-<span id="cb5-471"><a href="#cb5-471" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb5-472"><a href="#cb5-472" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-473"><a href="#cb5-473" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> rows</span>
-<span id="cb5-474"><a href="#cb5-474" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="452" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 451;"><span id="cb5-452"><a href="#cb5-452" aria-hidden="true" tabindex="-1"></a>sim_data <span class="op">=</span> {</span>
+<span id="cb5-453"><a href="#cb5-453" aria-hidden="true" tabindex="-1"></a>  run_btn  <span class="co">// пересчёт при нажатии кнопки</span></span>
+<span id="cb5-454"><a href="#cb5-454" aria-hidden="true" tabindex="-1"></a>  <span class="co">// для отрицательных ρ матрица валидна только при n ≤ floor(−1/ρ)</span></span>
+<span id="cb5-455"><a href="#cb5-455" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> n_limit <span class="op">=</span> rho <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(max_n<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">/</span> rho)) <span class="op">:</span> max_n</span>
+<span id="cb5-456"><a href="#cb5-456" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> []</span>
+<span id="cb5-457"><a href="#cb5-457" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> n_limit<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb5-458"><a href="#cb5-458" aria-hidden="true" tabindex="-1"></a>    rows<span class="op">.</span><span class="fu">push</span>({</span>
+<span id="cb5-459"><a href="#cb5-459" aria-hidden="true" tabindex="-1"></a>      n<span class="op">,</span></span>
+<span id="cb5-460"><a href="#cb5-460" aria-hidden="true" tabindex="-1"></a>      <span class="dt">sim</span><span class="op">:</span>    <span class="fu">sim_fwer</span>(n<span class="op">,</span> alpha<span class="op">,</span> rho<span class="op">,</span> n_sims_inp)<span class="op">,</span></span>
+<span id="cb5-461"><a href="#cb5-461" aria-hidden="true" tabindex="-1"></a>      <span class="dt">theory</span><span class="op">:</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(<span class="dv">1</span> <span class="op">-</span> alpha<span class="op">,</span> n)</span>
+<span id="cb5-462"><a href="#cb5-462" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb5-463"><a href="#cb5-463" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-464"><a href="#cb5-464" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> rows</span>
+<span id="cb5-465"><a href="#cb5-465" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="ojs-simulate" class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="declaration">
@@ -797,71 +783,71 @@ Note
 <div class="cell">
 <details class="code-fold hidden">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="480" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 479;"><span id="cb6-480"><a href="#cb6-480" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb6-481"><a href="#cb6-481" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> last <span class="op">=</span> sim_data[sim_data<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb6-482"><a href="#cb6-482" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> maxY <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">1</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(last<span class="op">.</span><span class="at">theory</span><span class="op">,</span> last<span class="op">.</span><span class="at">sim</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="fl">0.06</span>)</span>
-<span id="cb6-483"><a href="#cb6-483" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> chart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb6-484"><a href="#cb6-484" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb6-485"><a href="#cb6-485" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">areaY</span>(sim_data<span class="op">,</span> {</span>
-<span id="cb6-486"><a href="#cb6-486" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"theory"</span><span class="op">,</span></span>
-<span id="cb6-487"><a href="#cb6-487" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.10</span></span>
-<span id="cb6-488"><a href="#cb6-488" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb6-489"><a href="#cb6-489" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(sim_data<span class="op">,</span> {</span>
-<span id="cb6-490"><a href="#cb6-490" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"theory"</span><span class="op">,</span></span>
-<span id="cb6-491"><a href="#cb6-491" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#888888"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.8</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"5,3"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="471" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 470;"><span id="cb6-471"><a href="#cb6-471" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-472"><a href="#cb6-472" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> last <span class="op">=</span> sim_data[sim_data<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb6-473"><a href="#cb6-473" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> maxY <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">1</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(last<span class="op">.</span><span class="at">theory</span><span class="op">,</span> last<span class="op">.</span><span class="at">sim</span> <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="fl">0.06</span>)</span>
+<span id="cb6-474"><a href="#cb6-474" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> chart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb6-475"><a href="#cb6-475" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb6-476"><a href="#cb6-476" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">areaY</span>(sim_data<span class="op">,</span> {</span>
+<span id="cb6-477"><a href="#cb6-477" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"theory"</span><span class="op">,</span></span>
+<span id="cb6-478"><a href="#cb6-478" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.10</span></span>
+<span id="cb6-479"><a href="#cb6-479" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb6-480"><a href="#cb6-480" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(sim_data<span class="op">,</span> {</span>
+<span id="cb6-481"><a href="#cb6-481" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"theory"</span><span class="op">,</span></span>
+<span id="cb6-482"><a href="#cb6-482" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#888888"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.8</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"5,3"</span></span>
+<span id="cb6-483"><a href="#cb6-483" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb6-484"><a href="#cb6-484" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(sim_data<span class="op">,</span> {</span>
+<span id="cb6-485"><a href="#cb6-485" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span></span>
+<span id="cb6-486"><a href="#cb6-486" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.2</span></span>
+<span id="cb6-487"><a href="#cb6-487" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb6-488"><a href="#cb6-488" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(sim_data<span class="op">,</span> {</span>
+<span id="cb6-489"><a href="#cb6-489" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span></span>
+<span id="cb6-490"><a href="#cb6-490" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span></span>
+<span id="cb6-491"><a href="#cb6-491" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`n=</span><span class="sc">${</span>d<span class="op">.</span><span class="at">n</span><span class="sc">}\n</span><span class="vs">Симуляция: </span><span class="sc">${</span>(d<span class="op">.</span><span class="at">sim</span><span class="op">*</span><span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%</span><span class="sc">\n</span><span class="vs">Теория: </span><span class="sc">${</span>(d<span class="op">.</span><span class="at">theory</span><span class="op">*</span><span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%`</span></span>
 <span id="cb6-492"><a href="#cb6-492" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(sim_data<span class="op">,</span> {</span>
-<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span></span>
-<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.2</span></span>
-<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(sim_data<span class="op">,</span> {</span>
-<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"sim"</span><span class="op">,</span></span>
-<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"#D85A30"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fl">3.5</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span></span>
-<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>          <span class="vs">`n=</span><span class="sc">${</span>d<span class="op">.</span><span class="at">n</span><span class="sc">}\n</span><span class="vs">Симуляция: </span><span class="sc">${</span>(d<span class="op">.</span><span class="at">sim</span><span class="op">*</span><span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%</span><span class="sc">\n</span><span class="vs">Теория: </span><span class="sc">${</span>(d<span class="op">.</span><span class="at">theory</span><span class="op">*</span><span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%`</span></span>
-<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb6-502"><a href="#cb6-502" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([alpha]<span class="op">,</span> {</span>
-<span id="cb6-503"><a href="#cb6-503" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#185FA5"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"5,3"</span></span>
-<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
-<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Число одновременных тестов (n)"</span><span class="op">,</span></span>
-<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">,</span></span>
-<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(max_n<span class="op">,</span> <span class="dv">10</span>)</span>
-<span id="cb6-510"><a href="#cb6-510" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb6-511"><a href="#cb6-511" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
-<span id="cb6-512"><a href="#cb6-512" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"FWER"</span><span class="op">,</span></span>
-<span id="cb6-513"><a href="#cb6-513" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> maxY]<span class="op">,</span></span>
-<span id="cb6-514"><a href="#cb6-514" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> (d <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span></span>
-<span id="cb6-515"><a href="#cb6-515" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb6-516"><a href="#cb6-516" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb6-517"><a href="#cb6-517" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb6-518"><a href="#cb6-518" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span></span>
-<span id="cb6-519"><a href="#cb6-519" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span></span>
-<span id="cb6-520"><a href="#cb6-520" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb6-521"><a href="#cb6-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-522"><a href="#cb6-522" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Легенда</span></span>
-<span id="cb6-523"><a href="#cb6-523" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> legend <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="</span></span>
-<span id="cb6-524"><a href="#cb6-524" aria-hidden="true" tabindex="-1"></a><span class="vs">      display:flex; gap:20px; font-size:12px; color:#666;</span></span>
-<span id="cb6-525"><a href="#cb6-525" aria-hidden="true" tabindex="-1"></a><span class="vs">      margin-top:6px; flex-wrap:wrap"&gt;</span></span>
-<span id="cb6-526"><a href="#cb6-526" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
-<span id="cb6-527"><a href="#cb6-527" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
-<span id="cb6-528"><a href="#cb6-528" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#888" stroke-width="1.8" stroke-dasharray="5,3"/&gt;&lt;/svg&gt;</span></span>
-<span id="cb6-529"><a href="#cb6-529" aria-hidden="true" tabindex="-1"></a><span class="vs">      1−(1−α)ⁿ (теория, ρ=0)</span></span>
-<span id="cb6-530"><a href="#cb6-530" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
-<span id="cb6-531"><a href="#cb6-531" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
-<span id="cb6-532"><a href="#cb6-532" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
-<span id="cb6-533"><a href="#cb6-533" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#D85A30" stroke-width="2.2"/&gt;&lt;/svg&gt;</span></span>
-<span id="cb6-534"><a href="#cb6-534" aria-hidden="true" tabindex="-1"></a><span class="vs">      Симуляция (ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">)</span></span>
-<span id="cb6-535"><a href="#cb6-535" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
-<span id="cb6-536"><a href="#cb6-536" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
-<span id="cb6-537"><a href="#cb6-537" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
-<span id="cb6-538"><a href="#cb6-538" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#185FA5" stroke-width="1.5" stroke-dasharray="5,3"/&gt;&lt;/svg&gt;</span></span>
-<span id="cb6-539"><a href="#cb6-539" aria-hidden="true" tabindex="-1"></a><span class="vs">      α = </span><span class="sc">${</span>(alpha <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs">% (один тест)</span></span>
-<span id="cb6-540"><a href="#cb6-540" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
-<span id="cb6-541"><a href="#cb6-541" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span></span>
-<span id="cb6-542"><a href="#cb6-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-543"><a href="#cb6-543" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>chart<span class="sc">}${</span>legend<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span>
-<span id="cb6-544"><a href="#cb6-544" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([alpha]<span class="op">,</span> {</span>
+<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#185FA5"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"5,3"</span></span>
+<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Число одновременных тестов (n)"</span><span class="op">,</span></span>
+<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">,</span></span>
+<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(max_n<span class="op">,</span> <span class="dv">10</span>)</span>
+<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb6-502"><a href="#cb6-502" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb6-503"><a href="#cb6-503" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"FWER"</span><span class="op">,</span></span>
+<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> maxY]<span class="op">,</span></span>
+<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> (d <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"%"</span><span class="op">,</span></span>
+<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span></span>
+<span id="cb6-510"><a href="#cb6-510" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span></span>
+<span id="cb6-511"><a href="#cb6-511" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb6-512"><a href="#cb6-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-513"><a href="#cb6-513" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Легенда</span></span>
+<span id="cb6-514"><a href="#cb6-514" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> legend <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="</span></span>
+<span id="cb6-515"><a href="#cb6-515" aria-hidden="true" tabindex="-1"></a><span class="vs">      display:flex; gap:20px; font-size:12px; color:#666;</span></span>
+<span id="cb6-516"><a href="#cb6-516" aria-hidden="true" tabindex="-1"></a><span class="vs">      margin-top:6px; flex-wrap:wrap"&gt;</span></span>
+<span id="cb6-517"><a href="#cb6-517" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
+<span id="cb6-518"><a href="#cb6-518" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
+<span id="cb6-519"><a href="#cb6-519" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#888" stroke-width="1.8" stroke-dasharray="5,3"/&gt;&lt;/svg&gt;</span></span>
+<span id="cb6-520"><a href="#cb6-520" aria-hidden="true" tabindex="-1"></a><span class="vs">      1−(1−α)ⁿ (теория, ρ=0)</span></span>
+<span id="cb6-521"><a href="#cb6-521" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
+<span id="cb6-522"><a href="#cb6-522" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
+<span id="cb6-523"><a href="#cb6-523" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
+<span id="cb6-524"><a href="#cb6-524" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#D85A30" stroke-width="2.2"/&gt;&lt;/svg&gt;</span></span>
+<span id="cb6-525"><a href="#cb6-525" aria-hidden="true" tabindex="-1"></a><span class="vs">      Симуляция (ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">)</span></span>
+<span id="cb6-526"><a href="#cb6-526" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
+<span id="cb6-527"><a href="#cb6-527" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style="display:flex;align-items:center;gap:6px"&gt;</span></span>
+<span id="cb6-528"><a href="#cb6-528" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="24" height="12"&gt;&lt;line x1="0" y1="6" x2="24" y2="6"</span></span>
+<span id="cb6-529"><a href="#cb6-529" aria-hidden="true" tabindex="-1"></a><span class="vs">        stroke="#185FA5" stroke-width="1.5" stroke-dasharray="5,3"/&gt;&lt;/svg&gt;</span></span>
+<span id="cb6-530"><a href="#cb6-530" aria-hidden="true" tabindex="-1"></a><span class="vs">      α = </span><span class="sc">${</span>(alpha <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs">% (один тест)</span></span>
+<span id="cb6-531"><a href="#cb6-531" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/span&gt;</span></span>
+<span id="cb6-532"><a href="#cb6-532" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span></span>
+<span id="cb6-533"><a href="#cb6-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-534"><a href="#cb6-534" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>chart<span class="sc">}${</span>legend<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span>
+<span id="cb6-535"><a href="#cb6-535" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="ojs-chart" class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
@@ -872,46 +858,46 @@ Note
 <div class="cell">
 <details class="code-fold">
 <summary>R-код</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="549" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 548;"><span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> keys <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">.</span><span class="fu">filter</span>(k <span class="kw">=&gt;</span> k <span class="op">&lt;=</span> max_n)</span>
-<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>keys<span class="op">.</span><span class="fu">includes</span>(max_n)) keys<span class="op">.</span><span class="fu">push</span>(max_n)</span>
-<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> sim_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> keys<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">n</span>))</span>
-<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fmt  <span class="op">=</span> v <span class="kw">=&gt;</span> (v <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">"%"</span></span>
-<span id="cb7-554"><a href="#cb7-554" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gap  <span class="op">=</span> (th<span class="op">,</span> si) <span class="kw">=&gt;</span> {</span>
-<span id="cb7-555"><a href="#cb7-555" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> d <span class="op">=</span> (th <span class="op">-</span> si) <span class="op">*</span> <span class="dv">100</span></span>
-<span id="cb7-556"><a href="#cb7-556" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (d <span class="op">&gt;</span> <span class="fl">0.2</span>)  <span class="cf">return</span> <span class="vs">`&lt;span style="color:#1D9E75"&gt;−</span><span class="sc">${</span>d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> п.п.&lt;/span&gt;`</span></span>
-<span id="cb7-557"><a href="#cb7-557" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (d <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.2</span>) <span class="cf">return</span> <span class="vs">`&lt;span style="color:#D85A30"&gt;+</span><span class="sc">${</span>(<span class="op">-</span>d)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> п.п.&lt;/span&gt;`</span></span>
-<span id="cb7-558"><a href="#cb7-558" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`&lt;span style="color:#888"&gt;≈ 0&lt;/span&gt;`</span></span>
-<span id="cb7-559"><a href="#cb7-559" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-560"><a href="#cb7-560" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gapHeader <span class="op">=</span> <span class="st">"Дельта α"</span></span>
-<span id="cb7-561"><a href="#cb7-561" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gapNote   <span class="op">=</span> <span class="vs">`«Дельта α» — разница между симуляцией и теоретической границей 1−(1−α)ⁿ при ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">. Зелёный: фактический FWER ниже границы (положительная зависимость). Красный: выше (отрицательная).`</span></span>
-<span id="cb7-562"><a href="#cb7-562" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`</span></span>
-<span id="cb7-563"><a href="#cb7-563" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;table style="font-size:13px;border-collapse:collapse;width:100%;margin:.5rem 0"&gt;</span></span>
-<span id="cb7-564"><a href="#cb7-564" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;thead&gt;</span></span>
-<span id="cb7-565"><a href="#cb7-565" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;tr style="border-bottom:1.5px solid #ddd"&gt;</span></span>
-<span id="cb7-566"><a href="#cb7-566" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:left;padding:6px 8px;font-weight:500"&gt;n&lt;/th&gt;</span></span>
-<span id="cb7-567"><a href="#cb7-567" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500"&gt;</span></span>
-<span id="cb7-568"><a href="#cb7-568" aria-hidden="true" tabindex="-1"></a><span class="vs">            Теория 1−(1−α)ⁿ&lt;/th&gt;</span></span>
-<span id="cb7-569"><a href="#cb7-569" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500;color:#D85A30"&gt;</span></span>
-<span id="cb7-570"><a href="#cb7-570" aria-hidden="true" tabindex="-1"></a><span class="vs">            Симуляция (ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">)&lt;/th&gt;</span></span>
-<span id="cb7-571"><a href="#cb7-571" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500"&gt;</span></span>
-<span id="cb7-572"><a href="#cb7-572" aria-hidden="true" tabindex="-1"></a><span class="vs">            </span><span class="sc">${</span>gapHeader<span class="sc">}</span><span class="vs">&lt;/th&gt;</span></span>
-<span id="cb7-573"><a href="#cb7-573" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;/tr&gt;</span></span>
-<span id="cb7-574"><a href="#cb7-574" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/thead&gt;</span></span>
-<span id="cb7-575"><a href="#cb7-575" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;tbody&gt;</span></span>
-<span id="cb7-576"><a href="#cb7-576" aria-hidden="true" tabindex="-1"></a><span class="vs">        </span><span class="sc">${</span>rows<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> <span class="vs">`</span></span>
-<span id="cb7-577"><a href="#cb7-577" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;tr style="border-bottom:0.5px solid #eee"&gt;</span></span>
-<span id="cb7-578"><a href="#cb7-578" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="padding:5px 8px"&gt;</span><span class="sc">${</span>d<span class="op">.</span><span class="at">n</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
-<span id="cb7-579"><a href="#cb7-579" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px"&gt;</span><span class="sc">${</span><span class="fu">fmt</span>(d<span class="op">.</span><span class="at">theory</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
-<span id="cb7-580"><a href="#cb7-580" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px;color:#D85A30"&gt;</span></span>
-<span id="cb7-581"><a href="#cb7-581" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span><span class="fu">fmt</span>(d<span class="op">.</span><span class="at">sim</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
-<span id="cb7-582"><a href="#cb7-582" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px"&gt;</span></span>
-<span id="cb7-583"><a href="#cb7-583" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span><span class="fu">gap</span>(d<span class="op">.</span><span class="at">theory</span><span class="op">,</span> d<span class="op">.</span><span class="at">sim</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
-<span id="cb7-584"><a href="#cb7-584" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;/tr&gt;`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">""</span>)<span class="sc">}</span></span>
-<span id="cb7-585"><a href="#cb7-585" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/tbody&gt;</span></span>
-<span id="cb7-586"><a href="#cb7-586" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/table&gt;</span></span>
-<span id="cb7-587"><a href="#cb7-587" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p style="font-size:11px;color:#888;margin:.25rem 0 0"&gt;</span><span class="sc">${</span>gapNote<span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
-<span id="cb7-588"><a href="#cb7-588" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="540" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 539;"><span id="cb7-540"><a href="#cb7-540" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb7-541"><a href="#cb7-541" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> keys <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">.</span><span class="fu">filter</span>(k <span class="kw">=&gt;</span> k <span class="op">&lt;=</span> max_n)</span>
+<span id="cb7-542"><a href="#cb7-542" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>keys<span class="op">.</span><span class="fu">includes</span>(max_n)) keys<span class="op">.</span><span class="fu">push</span>(max_n)</span>
+<span id="cb7-543"><a href="#cb7-543" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> sim_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> keys<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">n</span>))</span>
+<span id="cb7-544"><a href="#cb7-544" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fmt  <span class="op">=</span> v <span class="kw">=&gt;</span> (v <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb7-545"><a href="#cb7-545" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gap  <span class="op">=</span> (th<span class="op">,</span> si) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-546"><a href="#cb7-546" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> d <span class="op">=</span> (th <span class="op">-</span> si) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb7-547"><a href="#cb7-547" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (d <span class="op">&gt;</span> <span class="fl">0.2</span>)  <span class="cf">return</span> <span class="vs">`&lt;span style="color:#1D9E75"&gt;−</span><span class="sc">${</span>d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> п.п.&lt;/span&gt;`</span></span>
+<span id="cb7-548"><a href="#cb7-548" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (d <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.2</span>) <span class="cf">return</span> <span class="vs">`&lt;span style="color:#D85A30"&gt;+</span><span class="sc">${</span>(<span class="op">-</span>d)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> п.п.&lt;/span&gt;`</span></span>
+<span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`&lt;span style="color:#888"&gt;≈ 0&lt;/span&gt;`</span></span>
+<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gapHeader <span class="op">=</span> <span class="st">"Дельта α"</span></span>
+<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gapNote   <span class="op">=</span> <span class="vs">`«Дельта α» — разница между симуляцией и теоретической границей 1−(1−α)ⁿ при ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">. Зелёный: фактический FWER ниже границы (положительная зависимость). Красный: выше (отрицательная).`</span></span>
+<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb7-554"><a href="#cb7-554" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;table style="font-size:13px;border-collapse:collapse;width:100%;margin:.5rem 0"&gt;</span></span>
+<span id="cb7-555"><a href="#cb7-555" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;thead&gt;</span></span>
+<span id="cb7-556"><a href="#cb7-556" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;tr style="border-bottom:1.5px solid #ddd"&gt;</span></span>
+<span id="cb7-557"><a href="#cb7-557" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:left;padding:6px 8px;font-weight:500"&gt;n&lt;/th&gt;</span></span>
+<span id="cb7-558"><a href="#cb7-558" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500"&gt;</span></span>
+<span id="cb7-559"><a href="#cb7-559" aria-hidden="true" tabindex="-1"></a><span class="vs">            Теория 1−(1−α)ⁿ&lt;/th&gt;</span></span>
+<span id="cb7-560"><a href="#cb7-560" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500;color:#D85A30"&gt;</span></span>
+<span id="cb7-561"><a href="#cb7-561" aria-hidden="true" tabindex="-1"></a><span class="vs">            Симуляция (ρ=</span><span class="sc">${</span>rho<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">)&lt;/th&gt;</span></span>
+<span id="cb7-562"><a href="#cb7-562" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;th style="text-align:right;padding:6px 8px;font-weight:500"&gt;</span></span>
+<span id="cb7-563"><a href="#cb7-563" aria-hidden="true" tabindex="-1"></a><span class="vs">            </span><span class="sc">${</span>gapHeader<span class="sc">}</span><span class="vs">&lt;/th&gt;</span></span>
+<span id="cb7-564"><a href="#cb7-564" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;/tr&gt;</span></span>
+<span id="cb7-565"><a href="#cb7-565" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/thead&gt;</span></span>
+<span id="cb7-566"><a href="#cb7-566" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;tbody&gt;</span></span>
+<span id="cb7-567"><a href="#cb7-567" aria-hidden="true" tabindex="-1"></a><span class="vs">        </span><span class="sc">${</span>rows<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> <span class="vs">`</span></span>
+<span id="cb7-568"><a href="#cb7-568" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;tr style="border-bottom:0.5px solid #eee"&gt;</span></span>
+<span id="cb7-569"><a href="#cb7-569" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="padding:5px 8px"&gt;</span><span class="sc">${</span>d<span class="op">.</span><span class="at">n</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb7-570"><a href="#cb7-570" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px"&gt;</span><span class="sc">${</span><span class="fu">fmt</span>(d<span class="op">.</span><span class="at">theory</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb7-571"><a href="#cb7-571" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px;color:#D85A30"&gt;</span></span>
+<span id="cb7-572"><a href="#cb7-572" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span><span class="fu">fmt</span>(d<span class="op">.</span><span class="at">sim</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb7-573"><a href="#cb7-573" aria-hidden="true" tabindex="-1"></a><span class="vs">            &lt;td style="text-align:right;padding:5px 8px"&gt;</span></span>
+<span id="cb7-574"><a href="#cb7-574" aria-hidden="true" tabindex="-1"></a><span class="vs">              </span><span class="sc">${</span><span class="fu">gap</span>(d<span class="op">.</span><span class="at">theory</span><span class="op">,</span> d<span class="op">.</span><span class="at">sim</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb7-575"><a href="#cb7-575" aria-hidden="true" tabindex="-1"></a><span class="vs">          &lt;/tr&gt;`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">""</span>)<span class="sc">}</span></span>
+<span id="cb7-576"><a href="#cb7-576" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/tbody&gt;</span></span>
+<span id="cb7-577"><a href="#cb7-577" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/table&gt;</span></span>
+<span id="cb7-578"><a href="#cb7-578" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p style="font-size:11px;color:#888;margin:.25rem 0 0"&gt;</span><span class="sc">${</span>gapNote<span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb7-579"><a href="#cb7-579" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="ojs-table" class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="expression">

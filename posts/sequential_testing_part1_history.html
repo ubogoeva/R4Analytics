@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Elena U">
+<meta name="dcterms.date" content="2026-08-10">
+
+<title>Последовательное тестирование: история и проблематика – R4Analytics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo_site.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-03ebed3cc6d9517934d904b30f9ec24d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R4Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Об авторе блога</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Последовательное тестирование: история и проблематика</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">analytics</div>
+                <div class="quarto-category">AB_tests</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Elena U </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 10, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#экстрасенсорика-и-карты-зенера" id="toc-экстрасенсорика-и-карты-зенера" class="nav-link active" data-scroll-target="#экстрасенсорика-и-карты-зенера">Экстрасенсорика и карты Зенера</a></li>
+  <li><a href="#пример-на-симуляции" id="toc-пример-на-симуляции" class="nav-link" data-scroll-target="#пример-на-симуляции">Пример на симуляции</a></li>
+  <li><a href="#статистический-анализ-феллера" id="toc-статистический-анализ-феллера" class="nav-link" data-scroll-target="#статистический-анализ-феллера">1940: Статистический анализ Феллера</a></li>
+  <li><a href="#sequential-probability-ratio-test-вальда" id="toc-sequential-probability-ratio-test-вальда" class="nav-link" data-scroll-target="#sequential-probability-ratio-test-вальда">1945: Sequential Probability Ratio Test Вальда</a></li>
+  <li><a href="#дальнейшая-проработка-методов" id="toc-дальнейшая-проработка-методов" class="nav-link" data-scroll-target="#дальнейшая-проработка-методов">1977–1983: дальнейшая проработка методов</a></li>
+  <li><a href="#что-дальше" id="toc-что-дальше" class="nav-link" data-scroll-target="#что-дальше">Что дальше</a></li>
+  <li><a href="#ссылки-на-литературу" id="toc-ссылки-на-литературу" class="nav-link" data-scroll-target="#ссылки-на-литературу">Ссылки на литературу</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(97025960, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+
+<style>
+  .ojs-cell { margin: 1.5rem 0; }
+  .sim-note {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-left: 3px solid #4a90d9;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  /* ── Стилизация интерактивных контролов (Observable Inputs) ── */
+  /* Серый блок вешаем на контейнер OJS-ячейки, который содержит форму
+     (через :has), а не на сами <form> — иначе каждое поле = отдельная коробка.
+     :has(form) гарантирует, что графики и карточки не получат фон. */
+  .cell-output-display:has(form),
+  .quarto-ojs-input:has(form) {
+    background: #f8f9fa;
+    border: 1px solid #e4e7eb;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    max-width: 800px;
+    box-sizing: border-box;
+  }
+  /* Сами формы делаем прозрачными, чтобы не было «коробки в коробке» */
+  .cell-output-display form,
+  .quarto-ojs-input form {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  /* Ровные интервалы между строками формы:
+     каждое поле (вложенный <form>) — одинаковая высота, вертикальное
+     центрирование и единый отступ снизу, чтобы перенос длинных подписей
+     (n₁, n₂) не «раздвигал» соседние строки по-разному */
+  .cell-output-display form > form,
+  .quarto-ojs-input form > form {
+    display: flex !important;
+    align-items: center;
+    min-height: 44px;
+    margin: 0 0 6px 0 !important;
+  }
+  .cell-output-display form > form:last-child,
+  .quarto-ojs-input form > form:last-child {
+    margin-bottom: 0 !important;
+  }
+  /* Фиксированная ширина колонки подписей — выравнивает поля по вертикали */
+  .cell-output-display form > form > label,
+  .quarto-ojs-input form > form > label {
+    width: 360px;
+    min-width: 360px;
+    margin: 0;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  /* Подписи полей */
+  .observablehq label, .quarto-ojs-input label {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* Числовые поля рядом со слайдерами и обычные текстовые input */
+  .observablehq input[type="number"],
+  .observablehq input[type="text"],
+  .quarto-ojs-input input[type="number"],
+  .quarto-ojs-input input[type="text"] {
+    border: 1px solid #d0d5da;
+    border-radius: 8px;
+    padding: 4px 8px;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .observablehq input[type="number"]:focus,
+  .observablehq input[type="text"]:focus,
+  .quarto-ojs-input input[type="number"]:focus,
+  .quarto-ojs-input input[type="text"]:focus {
+    outline: none;
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
+  }
+
+  /* Выпадающие списки */
+  .observablehq select, .quarto-ojs-input select {
+    border: 1px solid #d0d5da;
+    border-radius: 8px;
+    padding: 5px 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .observablehq select:focus, .quarto-ojs-input select:focus {
+    outline: none;
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
+  }
+
+  /* Слайдеры (range) */
+  .observablehq input[type="range"],
+  .quarto-ojs-input input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: #e0e4e8;
+    cursor: pointer;
+    flex-grow: 1;
+  max-width: 300px;
+  }
+  .observablehq input[type="range"]::-webkit-slider-thumb,
+  .quarto-ojs-input input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4a90d9;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    transition: transform .1s;
+  }
+  .observablehq input[type="range"]::-webkit-slider-thumb:hover,
+  .quarto-ojs-input input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.12);
+  }
+  .observablehq input[type="range"]::-moz-range-thumb,
+  .quarto-ojs-input input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4a90d9;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .observablehq input[type="range"]::-moz-range-track,
+  .quarto-ojs-input input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: #e0e4e8;
+  }
+
+  /* Ячейка с кнопкой «Запустить» — без серого блока-обёртки */
+  .cell-output-display:has(> form > button),
+  .cell-output-display:has(> form button:only-child),
+  .quarto-ojs-input:has(> form > button) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 8px 0 0 0;
+    max-width: none;
+  }
+
+  /* Кнопка «Запустить симуляцию» (Inputs.button и submit) */
+  .observablehq input[type="submit"],
+  .observablehq form button,
+  .quarto-ojs-input input[type="submit"],
+  .quarto-ojs-input form button,
+  .cell-output-display form button {
+    background: #4a90d9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+  }
+  .observablehq input[type="submit"]:hover,
+  .observablehq form button:hover,
+  .quarto-ojs-input input[type="submit"]:hover,
+  .quarto-ojs-input form button:hover,
+  .cell-output-display form button:hover {
+    background: #3a7bc0;
+  }
+  .observablehq input[type="submit"]:active,
+  .observablehq form button:active,
+  .quarto-ojs-input input[type="submit"]:active,
+  .quarto-ojs-input form button:active,
+  .cell-output-display form button:active {
+    transform: translateY(1px);
+  }
+
+  /* Радио-кнопки выбора сценария */
+  .observablehq input[type="radio"],
+  .quarto-ojs-input input[type="radio"] {
+    accent-color: #4a90d9;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+</style>
+<!-- Заметка для себя: дата стоит last-modified, поменяй на конкретную при публикации.
+     Плюс сюда отлично лягут картинки: карты Зенера и, например, портрет Феллера рядом с разгромной цитатой. -->
+<p>Сегодня по плану небольшой исторический экскурс в историю методов последовательного тестирования. Это перекликается с моей любимой темой о <a href="https://ubogoeva.github.io/R4Analytics/posts/multiple_testing_simulation.html">поправках на множественное тестирование</a> и об <a href="https://ubogoeva.github.io/R4Analytics/posts/history_of_AB_testing.html">истории A/B тестов</a>, является логическим продолжением обеих тем. История открытия проблемы показалась мне довольно занимательной, делюсь ей с вами.</p>
+<p>Представьте, что вы — статистик, и к вам приходит университетская лаборатория с результатами: за несколько лет тысячи испытуемых угадывали карты значительно чаще, чем позволяет случайность. Никакого мошенничества, всё под протоколом, всё воспроизводимо. Пойнт был в том, что якобы у участников есть экстрасенсорные способности.</p>
+<p>Именно так выглядела лаборатория парапсихологии Дюкского университета в 1930-х под руководством Дж. Б. Райна, и именно она невольно подарила миру один из важнейших принципов последовательного анализа данных.</p>
+<section id="экстрасенсорика-и-карты-зенера" class="level2">
+<h2 class="anchored" data-anchor-id="экстрасенсорика-и-карты-зенера">Экстрасенсорика и карты Зенера</h2>
+<p>Методика была следующая: испытуемому показывали колоду из 25 карт с пятью символами (круг, крест, волны, квадрат, звезда — их называют картами Зенера, по имени коллеги Райна, который их придумал), и он пытался угадать порядок, не видя карт. Шанс угадать одну карту — 1 к 5. Но лаборатория не просто фиксировала результат единственного прогона — она наблюдала за испытуемым сериями, и как только суммарный результат начинал выглядеть статистически значимым, серию останавливали и засчитывали как успех.</p>
+<p>Думаю, вы уже догадались, в чем проблема такого подхода. В A/B тестировании это будет аналогично проверке p-value каждый день теста и остановке при первом значимом результате. В науке что-то подобное было бы, если после проведения эксперимента добирать еще данные, оценивать значимость, потом еще добирать данные и так до тех пор, пока искомый значимый результат не будет обнаружен.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Cartas_Zener.svg/3840px-Cartas_Zener.svg.png?utm_source=ru.wikipedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail" class="img-fluid figure-img"></p>
+<figcaption>Карты Зенера</figcaption>
+</figure>
+</div>
+</section>
+<section id="пример-на-симуляции" class="level2">
+<h2 class="anchored" data-anchor-id="пример-на-симуляции">Пример на симуляции</h2>
+<p>Вот симулятор той самой ситуации, где угадывание происходит случайным образом. Каждое подглядывание на ползунке ниже — это одна честно доигранная колода из 25 карт: после окончания одной колоды лаборатория смотрит на накопленный итог и решает, продолжать или нет.</p>
+<p>Вопрос такой: если подглядывать за этим итогом несколько раз по ходу серии и выбирать первый стат значимый результат, как часто вы поймаете ложное доказательство телепатии?</p>
+<p>Смотрите симуляцию ниже 👇</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="239" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 238;"><span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>viewof numLooks <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Сколько раз подглядываем за накопленным результатом"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="244" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 243;"><span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a>simulatePeeking <span class="op">=</span> <span class="kw">function</span>(numLooks<span class="op">,</span> nSims <span class="op">=</span> <span class="dv">4000</span><span class="op">,</span> stepsPerLook <span class="op">=</span> <span class="dv">25</span>) {</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> boundary <span class="op">=</span> <span class="fl">1.96</span><span class="op">;</span> <span class="co">// граница для alpha = 5%, двусторонний тест</span></span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>  <span class="co">// один "взгляд" = одна колода из 25 карт Зенера (stepsPerLook = 25 угадываний)</span></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>  <span class="co">// приращение между взглядами генерируем сразу как гауссовский шум N(0, stepsPerLook)</span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>  <span class="co">// (Box-Muller) — это предел суммы stepsPerLook честных монеток по CLT, без искажения</span></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>  <span class="co">// от дискретной решётки ±1 (при малом stepsPerLook дискретные шаги сами по себе</span></span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>  <span class="co">// слегка завышают долю ложных срабатываний из-за эффекта чётности).</span></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>  <span class="co">// На результат (долю ложных срабатываний) величина stepsPerLook не влияет —</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>  <span class="co">// при гауссовских приращениях z-путь инвариантен к масштабу шага (Brownian scaling),</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>  <span class="co">// важно только число взглядов K. Проверено симуляцией: stepsPerLook=25 и 100 дают</span></span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>  <span class="co">// одинаковые цифры в пределах шума Monte Carlo.</span></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sd <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(stepsPerLook)<span class="op">;</span></span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> randNormal <span class="op">=</span> <span class="kw">function</span>() {</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u1 <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">,</span> u2 <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sd <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u1)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> u2)<span class="op">;</span></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> falsePositives <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> paths <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> s <span class="op">&lt;</span> nSims<span class="op">;</span> s<span class="op">++</span>) {</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> crossed <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> path <span class="op">=</span> [{<span class="dt">look</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">series</span><span class="op">:</span> s}]<span class="op">;</span></span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> look <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> look <span class="op">&lt;=</span> numLooks<span class="op">;</span> look<span class="op">++</span>) {</span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>      cum <span class="op">+=</span> <span class="fu">randNormal</span>()<span class="op">;</span> <span class="co">// никакой телепатии — чистый случайный шум со средним 0</span></span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> n <span class="op">=</span> look <span class="op">*</span> stepsPerLook<span class="op">;</span></span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z <span class="op">=</span> cum <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n)<span class="op">;</span></span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>      path<span class="op">.</span><span class="fu">push</span>({look<span class="op">,</span> z<span class="op">,</span> <span class="dt">series</span><span class="op">:</span> s})<span class="op">;</span></span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(z) <span class="op">&gt;</span> boundary) crossed <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (crossed) falsePositives<span class="op">++;</span></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="op">&lt;</span> <span class="dv">35</span>) paths<span class="op">.</span><span class="fu">push</span>(path)<span class="op">;</span> <span class="co">// для графика берём только часть траекторий</span></span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {<span class="dt">rate</span><span class="op">:</span> falsePositives <span class="op">/</span> nSims<span class="op">,</span> <span class="dt">paths</span><span class="op">:</span> paths<span class="op">.</span><span class="fu">flat</span>()}<span class="op">;</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="282" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 281;"><span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="fu">simulatePeeking</span>(numLooks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="287" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 286;"><span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">340</span><span class="op">,</span></span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Номер подглядывания →"</span>}<span class="op">,</span></span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Накопленная z-статистика"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">4</span><span class="op">,</span> <span class="dv">4</span>]}<span class="op">,</span></span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#ccc"</span>})<span class="op">,</span></span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="fl">1.96</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.96</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#d62728"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(result<span class="op">.</span><span class="at">paths</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"look"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"z"</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="st">"series"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#4a90d9"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">,</span></span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([{<span class="dt">look</span><span class="op">:</span> numLooks <span class="op">+</span> <span class="fl">0.3</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="fl">1.96</span>}]<span class="op">,</span> {<span class="dt">text</span><span class="op">:</span> [<span class="st">"граница значимости (α=5%)"</span>]<span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#d62728"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">11</span>})<span class="op">,</span></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="304" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 303;"><span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="font-size: 1.3em; text-align: center; margin: 1em 0; padding: 0.8em; background: #f5f5f5; border-radius: 8px;"&gt;</span></span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a><span class="vs">При &lt;b&gt;</span><span class="sc">${</span>numLooks<span class="sc">}</span><span class="vs">&lt;/b&gt; подглядывани</span><span class="sc">${</span>numLooks <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">'и'</span> <span class="op">:</span> <span class="st">'ях'</span><span class="sc">}</span><span class="vs"> (то есть после </span><span class="sc">${</span>numLooks<span class="sc">}</span><span class="vs"> колод</span><span class="sc">${</span>numLooks <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">'ы'</span> <span class="op">:</span> <span class="st">''</span><span class="sc">}</span><span class="vs">) доля ложных "открытий":</span></span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;span style="color:#d62778; font-weight: bold;"&gt; </span><span class="sc">${</span>(result<span class="op">.</span><span class="at">rate</span> <span class="op">*</span> <span class="dv">100</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%&lt;/span&gt;</span></span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a><span class="vs">&amp;nbsp;</span><span class="sc">${</span>numLooks <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">'— примерно как и ожидалось (5%)'</span> <span class="op">:</span> <span class="st">'— вместо заявленных 5%'</span><span class="sc">}</span></span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>При оценке результата после 1 колоды (это и есть классический тест) доля ложных срабатываний держится около 5%, как и должно быть. Но уже при пяти подглядываниях она приближается к 14%, и при увеличении тестов будет стремиться к 100%. То есть при достаточном терпении “статистически значимую телепатию” можно получить у кого угодно, просто наблюдая достаточно долго и останавливаясь в удобный момент.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/casino.jpeg" class="img-fluid figure-img" width="400"></p>
+<figcaption>картинка со звуком</figcaption>
+</figure>
+</div>
+<p>Именно это происходило в лаборатории Райна. Методика теста позволяла найти эффект, там где его нет, в то время как формально выглядело все корректно.</p>
+</section>
+<section id="статистический-анализ-феллера" class="level2">
+<h2 class="anchored" data-anchor-id="статистический-анализ-феллера">1940: Статистический анализ Феллера</h2>
+<p>Разбираться пришлось Уильяму Феллеру, известному математику и автору книг по теории вероятностей. В 1940 году он опубликовал статью в <em>Journal of Parapsychology</em> под названием “Statistical Aspects of ESP” (то есть статистические аспекты экстрасенсорных способностей) и математически показал: при такой практике наблюдения результат, который выглядит сколь угодно значимым, можно получить просто за счёт достаточно долгого ожидания — без всякого реального эффекта.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Почему так происходит (закон повторного логарифма)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Почему так происходит (закон повторного логарифма)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Под H0 накопленная сумма отклонений — это, по сути, случайное блуждание:</p>
+<p><span class="math display">\[S_n = \sum_{i=1}^{n}(X_i - \mu_0)\]</span></p>
+<p>Это мартингейл: приращения независимы, среднее равно нулю. По закону повторного логарифма (LIL):</p>
+<p><span class="math display">\[\limsup_{n \to \infty} \frac{S_n}{\sqrt{2\sigma^2 n \cdot \log\log n}} = 1 \quad \text{almost sure}\]</span></p>
+<p>Смысл простой и коварный: стандартизованная кумулятивная сумма отклонений почти наверное рано или поздно пересечёт <strong>любую</strong> фиксированную границу. Обычный тест на уровне значимости 5% рассчитан на единственный взгляд в конце. Если же смотреть на ту же границу многократно по ходу накопления данных, траектория обязательно её пересечёт, просто в силу случайности, а не благодаря наличию эффекта.</p>
+<p>Три десятилетия спустя, в 1969 году, Armitage, McPherson и Rowe формализовали это уже для клинических испытаний и дали ту самую конкретную цифру: при alpha = 5% и 5 промежуточных проверках фактическая вероятность ложноположительного результата достигает ≈14%.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sequential-probability-ratio-test-вальда" class="level2">
+<h2 class="anchored" data-anchor-id="sequential-probability-ratio-test-вальда">1945: Sequential Probability Ratio Test Вальда</h2>
+<p>Строгое решение этой проблемы появилось всего через пять лет после статьи Феллера, но клиническая статистика узнает об этом лишь спустя почти четверть века. В 1945 году, разрабатывая метод для военного контроля качества (совершенно не думая об экстрасенсах), Абрахам Вальд предложил Sequential Probability Ratio Test — способ анализировать данные последовательно, не теряя контроль над ошибками.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Между прочим, Абрахам Вальд — это тот самый статистик из истории про ошибку выжившего.</p>
+<p>История известная, напомню буквально в двух словах. Во время Второй мировой Вальд работал в Statistical Research Group при Колумбийском университете и разбирал данные о пробоинах на бомбардировщиках, вернувшихся с боевых вылетов. Военные хотели укрепить броню там, где пробоин было больше всего. Вальд был против, так как пробоины на вернувшихся машинах показывают места, где самолет может быть поврежден и всё равно вернуться. Тогда как усиливать нужно именно те участки, где пробоин не видно, потому что самолёты с попаданием туда до базы не долетали.</p>
+<p><img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/705/cd6/8b6/705cd68b66e33b49c15d420d5a5823eb.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Матчасть: SPRT Вальда">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Матчасть: SPRT Вальда
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Строим логарифм отношения правдоподобий:</p>
+<p><span class="math display">\[\Lambda_n = \sum_{i=1}^n \log\frac{f_1(x_i)}{f_0(x_i)}\]</span></p>
+<p>и продолжаем наблюдение, пока</p>
+<p><span class="math display">\[\log\frac{\beta}{1-\alpha} &lt; \Lambda_n &lt; \log\frac{1-\beta}{\alpha}\]</span></p>
+<p>Как только траектория пересекает верхнюю границу — отвергаем H0, нижнюю — принимаем H0. Благодаря мартингейльному свойству <span class="math inline">\(\Lambda_n\)</span>, SPRT контролирует ошибки I и II рода ровно на заданном уровне независимо от момента остановки, в отличие от наивного подглядывания за обычным тестом.</p>
+<p>Ограничение: SPRT требует зафиксировать конкретную альтернативу — конкретный размер эффекта, под который строятся границы. На практике эффект заранее неизвестен, и это долго мешало массовому применению SPRT вне узких инженерных задач, для которых Вальд его и разрабатывал.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="дальнейшая-проработка-методов" class="level2">
+<h2 class="anchored" data-anchor-id="дальнейшая-проработка-методов">1977–1983: дальнейшая проработка методов</h2>
+<p>SPRT был математически безупречен, но требовал знать эффект заранее, что редко бывает возможно на практике. Следующие 40 лет статистики, в основном в контексте клинических испытаний, искали компромисс: как смотреть на данные несколько раз по ходу исследования, не требуя точного знания эффекта и не раздувая alpha.</p>
+<p><strong>1977, Стюарт Покок (Stuart Pocock</strong>)<strong>:</strong> фиксируем число промежуточных точек анализа заранее и используем одинаковую границу на каждой. Для 5 точек эта граница — z≈2.41 (номинальный p&lt;0.016 на каждом взгляде), а не наивные 1.96: именно с такой границей вероятность хотя бы одного ложного срабатывания за все 5 взглядов держится ровно на 5%. Кстати, это заметно мягче, чем поправка Бонферрони “в лоб” (0.05/5=0.01 на взгляд) — Покок использует известную корреляцию между взглядами (все они считаются по общей накапливающейся выборке), а не игнорирует её, как это делает Бонферрони.</p>
+<p>Просто и понятно — но за раннюю остановку приходится платить: граница на финальном взгляде — тот же z≈2.41, а не привычные 1.96, то есть она строже, чем в обычном тесте с фиксированной выборкой, а значит теряется мощность. Чтобы удержать те же 90% мощности при 5 точках анализа, максимальный размер выборки нужно увеличить примерно на 20% по сравнению с обычным тестом.</p>
+<p><strong>1979, O’Brien и Fleming:</strong> вместо одинаковой границы — асимметричная. Очень жёсткая в начале (остановиться рано почти нереально, даже при крупном эффекте) и почти номинальная в конце. За счёт этого мощность теста остаётся практически такой же, как у обычного теста с фиксированной выборкой — именно поэтому O’Brien-Fleming стал самым популярным дизайном в клинических испытаниях.</p>
+<p><strong>1983, Lan и DeMets:</strong> и Покок, и O’Brien-Fleming требовали жёстко фиксировать число промежуточных анализов заранее. Lan и DeMets сняли это ограничение, введя функцию расходования alpha, <span class="math inline">\(\alpha^*(t)\)</span>, где <span class="math inline">\(t\)</span> — доля набранной информации. Граница зависит только от уже пройденных точек и текущей доли информации, а не от того, сколько взглядов запланировано впереди — это позволяет реализовать поведение и а-ля Pocock, и а-ля O’Brien-Fleming, но без жёсткой заранее прописанной схемы.</p>
+</section>
+<section id="что-дальше" class="level2">
+<h2 class="anchored" data-anchor-id="что-дальше">Что дальше</h2>
+<p>За 43 года — от статьи Феллера про карты Зенера до гибкой alpha-spending функции Lan-DeMets — статистики решили проблему для мира, где число промежуточных анализов небольшое и заранее спланированное. Но в продуктовой аналитике продакт смотрит на дашборд каждый день, а не 3-5 раз за квартал. В части 2 разберём, как эту проблему решили уже в 2010-х: mSPRT и always-valid p-values — методы, которые позволяют смотреть на результат когда угодно и сколько угодно раз, не боясь ложного срабатывания (также разберем нюансы этого метода).</p>
+</section>
+<section id="ссылки-на-литературу" class="level2">
+<h2 class="anchored" data-anchor-id="ссылки-на-литературу">Ссылки на литературу</h2>
+<ul>
+<li>Feller, W. (1940). <a href="https://www.proquest.com/openview/ae7d28482fd9b76e47f2a0be0d7549cd/1?pq-origsite=gscholar&amp;cbl=1818062">Statistical Aspects of ESP</a>. <em>Journal of Parapsychology</em>, 4(2), 271–298 — та самая статья про карты Зенера (в открытом доступе полного текста не нашла, ссылка на ProQuest).</li>
+<li>Armitage, P., McPherson, C.K., Rowe, B.C. (1969). <a href="https://doi.org/10.2307/2343787">Repeated Significance Tests on Accumulating Data</a>. <em>Journal of the Royal Statistical Society: Series A</em>, 132(2), 235–244.</li>
+<li>Wald, A. (1945). <a href="https://doi.org/10.1214/aoms/1177731118">Sequential Tests of Statistical Hypotheses</a>. <em>Annals of Mathematical Statistics</em>, 16(2), 117–186.</li>
+<li>Pocock, S.J. (1977). <a href="https://doi.org/10.1093/biomet/64.2.191">Group Sequential Methods in the Design and Analysis of Clinical Trials</a>. <em>Biometrika</em>, 64(2), 191–199.</li>
+<li>O’Brien, P.C., Fleming, T.R. (1979). <a href="https://doi.org/10.2307/2530245">A Multiple Testing Procedure for Clinical Trials</a>. <em>Biometrics</em>, 35(3), 549–556.</li>
+<li>Lan, K.K.G., DeMets, D.L. (1983). <a href="https://doi.org/10.1093/biomet/70.3.659">Discrete Sequential Boundaries for Clinical Trials</a>. <em>Biometrika</em>, 70(3), 659–663.</li>
+</ul>
+<p>Подписывайтесь на <a href="https://t.me/stats_for_science">канал</a>, пишите комментарии здесь или в телеге</p>
+<p><img src="../images/logo_final_tlg.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1Mb29rcyA9IElucHV0cy5yYW5nZShbMSwgMTAwXSwge3ZhbHVlOiA1LCBzdGVwOiAxLCBsYWJlbDogXCLQodC60L7Qu9GM0LrQviDRgNCw0Lcg0L/QvtC00LPQu9GP0LTRi9Cy0LDQtdC8INC30LAg0L3QsNC60L7Qv9C70LXQvdC90YvQvCDRgNC10LfRg9C70YzRgtCw0YLQvtC8XCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoic2ltdWxhdGVQZWVraW5nID0gZnVuY3Rpb24obnVtTG9va3MsIG5TaW1zID0gNDAwMCwgc3RlcHNQZXJMb29rID0gMjUpIHtcbiAgY29uc3QgYm91bmRhcnkgPSAxLjk2OyAvLyDQs9GA0LDQvdC40YbQsCDQtNC70Y8gYWxwaGEgPSA1JSwg0LTQstGD0YHRgtC+0YDQvtC90L3QuNC5INGC0LXRgdGCXG4gIC8vINC+0LTQuNC9IFwi0LLQt9Cz0LvRj9C0XCIgPSDQvtC00L3QsCDQutC+0LvQvtC00LAg0LjQtyAyNSDQutCw0YDRgiDQl9C10L3QtdGA0LAgKHN0ZXBzUGVyTG9vayA9IDI1INGD0LPQsNC00YvQstCw0L3QuNC5KVxuICAvLyDQv9GA0LjRgNCw0YnQtdC90LjQtSDQvNC10LbQtNGDINCy0LfQs9C70Y/QtNCw0LzQuCDQs9C10L3QtdGA0LjRgNGD0LXQvCDRgdGA0LDQt9GDINC60LDQuiDQs9Cw0YPRgdGB0L7QstGB0LrQuNC5INGI0YPQvCBOKDAsIHN0ZXBzUGVyTG9vaylcbiAgLy8gKEJveC1NdWxsZXIpIOKAlCDRjdGC0L4g0L/RgNC10LTQtdC7INGB0YPQvNC80Ysgc3RlcHNQZXJMb29rINGH0LXRgdGC0L3Ri9GFINC80L7QvdC10YLQvtC6INC/0L4gQ0xULCDQsdC10Lcg0LjRgdC60LDQttC10L3QuNGPXG4gIC8vINC+0YIg0LTQuNGB0LrRgNC10YLQvdC+0Lkg0YDQtdGI0ZHRgtC60LggwrExICjQv9GA0Lgg0LzQsNC70L7QvCBzdGVwc1Blckxvb2sg0LTQuNGB0LrRgNC10YLQvdGL0LUg0YjQsNCz0Lgg0YHQsNC80Lgg0L/QviDRgdC10LHQtVxuICAvLyDRgdC70LXQs9C60LAg0LfQsNCy0YvRiNCw0Y7RgiDQtNC+0LvRjiDQu9C+0LbQvdGL0YUg0YHRgNCw0LHQsNGC0YvQstCw0L3QuNC5INC40Lct0LfQsCDRjdGE0YTQtdC60YLQsCDRh9GR0YLQvdC+0YHRgtC4KS5cbiAgLy8g0J3QsCDRgNC10LfRg9C70YzRgtCw0YIgKNC00L7Qu9GOINC70L7QttC90YvRhSDRgdGA0LDQsdCw0YLRi9Cy0LDQvdC40LkpINCy0LXQu9C40YfQuNC90LAgc3RlcHNQZXJMb29rINC90LUg0LLQu9C40Y/QtdGCIOKAlFxuICAvLyDQv9GA0Lgg0LPQsNGD0YHRgdC+0LLRgdC60LjRhSDQv9GA0LjRgNCw0YnQtdC90LjRj9GFIHot0L/Rg9GC0Ywg0LjQvdCy0LDRgNC40LDQvdGC0LXQvSDQuiDQvNCw0YHRiNGC0LDQsdGDINGI0LDQs9CwIChCcm93bmlhbiBzY2FsaW5nKSxcbiAgLy8g0LLQsNC20L3QviDRgtC+0LvRjNC60L4g0YfQuNGB0LvQviDQstC30LPQu9GP0LTQvtCyIEsuINCf0YDQvtCy0LXRgNC10L3QviDRgdC40LzRg9C70Y/RhtC40LXQuTogc3RlcHNQZXJMb29rPTI1INC4IDEwMCDQtNCw0Y7RglxuICAvLyDQvtC00LjQvdCw0LrQvtCy0YvQtSDRhtC40YTRgNGLINCyINC/0YDQtdC00LXQu9Cw0YUg0YjRg9C80LAgTW9udGUgQ2FybG8uXG4gIGNvbnN0IHNkID0gTWF0aC5zcXJ0KHN0ZXBzUGVyTG9vayk7XG4gIGNvbnN0IHJhbmROb3JtYWwgPSBmdW5jdGlvbigpIHtcbiAgICBjb25zdCB1MSA9IE1hdGgucmFuZG9tKCksIHUyID0gTWF0aC5yYW5kb20oKTtcbiAgICByZXR1cm4gc2QgKiBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1MSkpICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiB1Mik7XG4gIH07XG4gIGxldCBmYWxzZVBvc2l0aXZlcyA9IDA7XG4gIGNvbnN0IHBhdGhzID0gW107XG4gIGZvciAobGV0IHMgPSAwOyBzIDwgblNpbXM7IHMrKykge1xuICAgIGxldCBjdW0gPSAwO1xuICAgIGxldCBjcm9zc2VkID0gZmFsc2U7XG4gICAgY29uc3QgcGF0aCA9IFt7bG9vazogMCwgejogMCwgc2VyaWVzOiBzfV07XG4gICAgZm9yIChsZXQgbG9vayA9IDE7IGxvb2sgPD0gbnVtTG9va3M7IGxvb2srKykge1xuICAgICAgY3VtICs9IHJhbmROb3JtYWwoKTsgLy8g0L3QuNC60LDQutC+0Lkg0YLQtdC70LXQv9Cw0YLQuNC4IOKAlCDRh9C40YHRgtGL0Lkg0YHQu9GD0YfQsNC50L3Ri9C5INGI0YPQvCDRgdC+INGB0YDQtdC00L3QuNC8IDBcbiAgICAgIGNvbnN0IG4gPSBsb29rICogc3RlcHNQZXJMb29rO1xuICAgICAgY29uc3QgeiA9IGN1bSAvIE1hdGguc3FydChuKTtcbiAgICAgIHBhdGgucHVzaCh7bG9vaywgeiwgc2VyaWVzOiBzfSk7XG4gICAgICBpZiAoTWF0aC5hYnMoeikgPiBib3VuZGFyeSkgY3Jvc3NlZCA9IHRydWU7XG4gICAgfVxuICAgIGlmIChjcm9zc2VkKSBmYWxzZVBvc2l0aXZlcysrO1xuICAgIGlmIChzIDwgMzUpIHBhdGhzLnB1c2gocGF0aCk7IC8vINC00LvRjyDQs9GA0LDRhNC40LrQsCDQsdC10YDRkdC8INGC0L7Qu9GM0LrQviDRh9Cw0YHRgtGMINGC0YDQsNC10LrRgtC+0YDQuNC5XG4gIH1cbiAgcmV0dXJuIHtyYXRlOiBmYWxzZVBvc2l0aXZlcyAvIG5TaW1zLCBwYXRoczogcGF0aHMuZmxhdCgpfTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InJlc3VsdCA9IHNpbXVsYXRlUGVla2luZyhudW1Mb29rcylcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHdpZHRoOiA3MDAsXG4gIGhlaWdodDogMzQwLFxuICBtYXJnaW5MZWZ0OiA1MCxcbiAgeDoge2xhYmVsOiBcItCd0L7QvNC10YAg0L/QvtC00LPQu9GP0LTRi9Cy0LDQvdC40Y8g4oaSXCJ9LFxuICB5OiB7bGFiZWw6IFwi4oaRINCd0LDQutC+0L/Qu9C10L3QvdCw0Y8gei3RgdGC0LDRgtC40YHRgtC40LrQsFwiLCBkb21haW46IFstNCwgNF19LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiBcIiNjY2NcIn0pLFxuICAgIFBsb3QucnVsZVkoWzEuOTYsIC0xLjk2XSwge3N0cm9rZTogXCIjZDYyNzI4XCIsIHN0cm9rZURhc2hhcnJheTogXCI0LDRcIiwgc3Ryb2tlV2lkdGg6IDEuNX0pLFxuICAgIFBsb3QubGluZShyZXN1bHQucGF0aHMsIHt4OiBcImxvb2tcIiwgeTogXCJ6XCIsIHo6IFwic2VyaWVzXCIsIHN0cm9rZTogXCIjNGE5MGQ5XCIsIHN0cm9rZU9wYWNpdHk6IDAuMzV9KSxcbiAgICBQbG90LnRleHQoW3tsb29rOiBudW1Mb29rcyArIDAuMywgejogMS45Nn1dLCB7dGV4dDogW1wi0LPRgNCw0L3QuNGG0LAg0LfQvdCw0YfQuNC80L7RgdGC0LggKM6xPTUlKVwiXSwgZHg6IDQsIGZpbGw6IFwiI2Q2MjcyOFwiLCBmb250U2l6ZTogMTF9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Imh0bWxgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZTogMS4zZW07IHRleHQtYWxpZ246IGNlbnRlcjsgbWFyZ2luOiAxZW0gMDsgcGFkZGluZzogMC44ZW07IGJhY2tncm91bmQ6ICNmNWY1ZjU7IGJvcmRlci1yYWRpdXM6IDhweDtcIj5cbtCf0YDQuCA8Yj4ke251bUxvb2tzfTwvYj4g0L/QvtC00LPQu9GP0LTRi9Cy0LDQvdC4JHtudW1Mb29rcyA9PT0gMSA/ICfQuCcgOiAn0Y/RhSd9ICjRgtC+INC10YHRgtGMINC/0L7RgdC70LUgJHtudW1Mb29rc30g0LrQvtC70L7QtCR7bnVtTG9va3MgPT09IDEgPyAn0YsnIDogJyd9KSDQtNC+0LvRjyDQu9C+0LbQvdGL0YUgXCLQvtGC0LrRgNGL0YLQuNC5XCI6XG48c3BhbiBzdHlsZT1cImNvbG9yOiNkNjI3Nzg7IGZvbnQtd2VpZ2h0OiBib2xkO1wiPiAkeyhyZXN1bHQucmF0ZSAqIDEwMCkudG9GaXhlZCgxKX0lPC9zcGFuPlxuJm5ic3A7JHtudW1Mb29rcyA9PT0gMSA/ICfigJQg0L/RgNC40LzQtdGA0L3QviDQutCw0Log0Lgg0L7QttC40LTQsNC70L7RgdGMICg1JSknIDogJ+KAlCDQstC80LXRgdGC0L4g0LfQsNGP0LLQu9C10L3QvdGL0YUgNSUnfVxuPC9kaXY+YFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdudW1Mb29rcycpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="ubogoeva/R4Analytics_comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
