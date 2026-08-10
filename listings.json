@@ -3,8 +3,6 @@
     "listing": "/index.html",
     "items": [
       "/posts/sequential_testing_part1_history.html",
-      "/posts/telegram_channel.html",
-      "/posts/telegram_analysis.html",
       "/posts/multiple_testing_simulation.html",
       "/posts/small_samples_simulation.html",
       "/posts/history_of_AB_testing.html",
