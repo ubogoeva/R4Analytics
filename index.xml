@@ -11,7 +11,7 @@
 <description>Блог Елены Убогоевой по статистике и анализу данных в R</description>
 <language>ru</language>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Mon, 10 Aug 2026 12:27:59 GMT</lastBuildDate>
+<lastBuildDate>Mon, 10 Aug 2026 12:45:45 GMT</lastBuildDate>
 <item>
   <title>Последовательное тестирование: история и проблематика</title>
   <dc:creator>Elena U</dc:creator>
@@ -1161,7 +1161,7 @@ Note
 <li>O’Brien, P.C., Fleming, T.R. (1979). <a href="https://doi.org/10.2307/2530245">A Multiple Testing Procedure for Clinical Trials</a>. <em>Biometrics</em>, 35(3), 549–556.</li>
 <li>Lan, K.K.G., DeMets, D.L. (1983). <a href="https://doi.org/10.1093/biomet/70.3.659">Discrete Sequential Boundaries for Clinical Trials</a>. <em>Biometrika</em>, 70(3), 659–663.</li>
 </ul>
-<p>Подписывайтесь на <a href="https://t.me/stats_for_science">канал</a>, пишите комментарии здесь или в телеге</p>
+<p>Подписывайтесь на <a href="https://t.me/stats_for_science">канал</a>, пишите комментарии здесь или в чате тг!</p>
 <p><img src="https://ubogoeva.github.io/R4Analytics/images/logo_final_tlg.png" class="img-fluid"></p>
 
 
@@ -1172,7 +1172,7 @@ Note
   <category>analytics</category>
   <category>AB_tests</category>
   <guid>https://ubogoeva.github.io/R4Analytics/posts/sequential_testing_part1_history.html</guid>
-  <pubDate>Mon, 10 Aug 2026 12:27:59 GMT</pubDate>
+  <pubDate>Mon, 10 Aug 2026 12:45:45 GMT</pubDate>
 </item>
 <item>
   <title>Поправки на множественное тестирование: симуляция FWER зависимых тестов</title>
