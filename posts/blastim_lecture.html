@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.19">
 
   <meta name="author" content="Елена Убогоева">
   <meta name="dcterms.date" content="2025-11-15">
@@ -22,10 +22,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -210,7 +213,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Елена Убогоева 
+Елена Убогоева
 </div>
 </div>
 </div>
@@ -337,11 +340,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Установка <code>tidyverse</code></h2>
 <p>Для установки всего набора “пакета с пакетами” достаточно набрать в консоли R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Для загрузки пакета:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="философия-tidyverse-основные-принципы" class="slide level2">
@@ -359,23 +362,23 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <li class="fragment"><p>Можно записать код так:<br>
 </p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="fu">leave_house</span>(<span class="fu">get_dressed</span>(<span class="fu">get_out_of_bed</span>(<span class="fu">wake_up</span>(me))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li class="fragment"><p>Или создать кучу промежуточных переменных:<br>
 </p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>woken_up_me <span class="ot">&lt;-</span> <span class="fu">wake_up</span>(me)</span>
-<span id="cb4-2"><a></a>standing_up_me <span class="ot">&lt;-</span> <span class="fu">get_out_of_bed</span>(woken_up_me)</span>
-<span id="cb4-3"><a></a>dressed_me <span class="ot">&lt;-</span> <span class="fu">get_dressed</span>(standing_up_me)</span>
-<span id="cb4-4"><a></a>ready_me <span class="ot">&lt;-</span> <span class="fu">leave_house</span>(dressed_me)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-label="1"></a>woken_up_me <span class="ot">&lt;-</span> <span class="fu">wake_up</span>(me)</span>
+<span id="cb4-2"><a aria-label="2"></a>standing_up_me <span class="ot">&lt;-</span> <span class="fu">get_out_of_bed</span>(woken_up_me)</span>
+<span id="cb4-3"><a aria-label="3"></a>dressed_me <span class="ot">&lt;-</span> <span class="fu">get_dressed</span>(standing_up_me)</span>
+<span id="cb4-4"><a aria-label="4"></a>ready_me <span class="ot">&lt;-</span> <span class="fu">leave_house</span>(dressed_me)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li class="fragment"><p>Но для большей читаемости можно использовать <code>%&gt;%</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>me <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a></a>  <span class="fu">wake_up</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a></a>  <span class="fu">get_out_of_bed</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a></a>  <span class="fu">get_dressed</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a></a>  <span class="fu">leave_house</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-label="1"></a>me <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a aria-label="2"></a>  <span class="fu">wake_up</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a aria-label="3"></a>  <span class="fu">get_out_of_bed</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a aria-label="4"></a>  <span class="fu">get_dressed</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a aria-label="5"></a>  <span class="fu">leave_house</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 </ul>
 </section>
@@ -411,26 +414,26 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Пример использования пайпов</h2>
 <p>Например,</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a></a>  <span class="fu">sqrt</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a></a>  <span class="fu">log</span>(<span class="at">base =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a></a>  <span class="fu">sum</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a aria-label="2"></a>  <span class="fu">sqrt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a aria-label="3"></a>  <span class="fu">log</span>(<span class="at">base =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a aria-label="4"></a>  <span class="fu">sum</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
 <p>Тоже самое, что и</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">sum</span>(<span class="dv">2</span>, <span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">4</span>), <span class="at">base =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a><span class="fu">sum</span>(<span class="dv">2</span>, <span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">4</span>), <span class="at">base =</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
 <p>Если нужно пробросить данные в следующую функцию не на первую позицию, то можно использовать <code>.</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a></a>  sqrt <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a></a>  <span class="fu">log</span>(<span class="dv">8</span>, <span class="at">base =</span> .)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a aria-label="2"></a>  sqrt <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a aria-label="3"></a>  <span class="fu">log</span>(<span class="dv">8</span>, <span class="at">base =</span> .)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
@@ -456,11 +459,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Скачала <a href="https://www.unitstatistics.com/warcraft3/">отсюда</a> и сохранила в <a href="https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt">github</a>-репозитории.</p>
 <p>Загрузим данные, с использованием функции <code>read_tsv()</code> из пакета <code>readr</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>wc3_units <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>,</span>
-<span id="cb12-2"><a></a>                      <span class="at">col_names =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb12-3"><a></a>                      <span class="at">na =</span> <span class="st">'-'</span>, </span>
-<span id="cb12-4"><a></a>                      <span class="at">name_repair =</span> <span class="st">'minimal'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-5"><a></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># для правильных названий колонок</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a>wc3_units <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>,</span>
+<span id="cb12-2"><a aria-label="2"></a>                      <span class="at">col_names =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb12-3"><a aria-label="3"></a>                      <span class="at">na =</span> <span class="st">'-'</span>, </span>
+<span id="cb12-4"><a aria-label="4"></a>                      <span class="at">name_repair =</span> <span class="st">'minimal'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a aria-label="5"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># для правильных названий колонок</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Здесь для правильного чтения пропущенных значений используем параметр: <code>na = '-'</code>.</li>
@@ -470,7 +473,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="посмотрим-на-данные" class="slide level2" style="font-size: 85%">
 <h2>Посмотрим на данные</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">head</span>(wc3_units[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-label="1"></a><span class="fu">head</span>(wc3_units[,<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   unit     race   gold  wood   pop    hp armor_type
@@ -482,7 +485,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 5 Knight   Human   245    60     4   835 Heavy     
 6 Priest   Human   135    10     2   290 Unarmored </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">colnames</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-label="1"></a><span class="fu">colnames</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "unit"          "race"          "gold"          "wood"         
  [5] "pop"           "hp"            "armor_type"    "armor"        
@@ -497,11 +500,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Чем просто датафрейм отличается от тиббла?</h2>
 <p>Тиббл (tibble) из пакета <code>tibble</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">class</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-label="1"></a><span class="fu">class</span>(wc3_units)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>wc3_units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-label="1"></a>wc3_units</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 21
    unit         race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -527,9 +530,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2>Чем просто датафрейм отличается от тиббла?</h2>
 <p>Обычный датафрейм:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>wc3_units_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>, <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, </span>
-<span id="cb21-2"><a></a>                 <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">'-'</span>)</span>
-<span id="cb21-3"><a></a>wc3_units_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-label="1"></a>wc3_units_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">'https://raw.githubusercontent.com/ubogoeva/tidyverse_tutorial/master/data/wc3_heroes.txt'</span>, <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, </span>
+<span id="cb21-2"><a aria-label="2"></a>                 <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">'-'</span>)</span>
+<span id="cb21-3"><a aria-label="3"></a>wc3_units_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Unit   Race Gold Wood Pop   HP   Armor.Type Armor Sight Speed
 1              Peasant  Human   75    0   1  220       Medium     0    80   190
@@ -759,11 +762,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="select---выбираем-нужные-колонки-по-названию-или-индексу" class="slide level2">
 <h2><code>select()</code> - выбираем нужные колонки по названию или индексу</h2>
 <p>Выбрать колонку тип брони (armor_type) по названию или индексу (без кавычек).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb23-2"><a></a>  <span class="fu">select</span>(armor_type)</span>
-<span id="cb23-3"><a></a><span class="co"># также по индексу:</span></span>
-<span id="cb23-4"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb23-5"><a></a>  <span class="fu">select</span>(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a aria-label="2"></a>  <span class="fu">select</span>(armor_type)</span>
+<span id="cb23-3"><a aria-label="3"></a><span class="co"># также по индексу:</span></span>
+<span id="cb23-4"><a aria-label="4"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a aria-label="5"></a>  <span class="fu">select</span>(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -805,8 +808,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>select()</code> - выбираем нужные колонки по названию или индексу</h2>
 <p>Можно выбирать несколько колонок просто перечислением (без использования <code>c()</code>) или выбрать несколько колонок с одной по другую с помощью двоеточия <code>:</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a aria-label="2"></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 3
    unit           race     hp
@@ -828,8 +831,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section id="select---выбираем-нужные-колонки-по-названию-с-помощью" class="slide level2" style="font-size: 90%">
 <h2><code>select()</code> - выбираем нужные колонки по названию с помощью <code>:</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>armor_type, ground_attack<span class="sc">:</span>range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a aria-label="2"></a>  <span class="fu">select</span>(unit<span class="sc">:</span>armor_type, ground_attack<span class="sc">:</span>range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 12
    unit   race   gold  wood   pop    hp armor_type ground_attack damage cooldown
@@ -869,9 +872,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a aria-label="2"></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a aria-label="3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   unit    
@@ -885,9 +888,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a></a>  <span class="fu">pull</span>(unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a aria-label="2"></a>  <span class="fu">pull</span>(unit) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a aria-label="3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Peasant"  "Militia"  "Footman"  "Rifleman" "Knight"  </code></pre>
 </div>
@@ -897,11 +900,11 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <section class="slide level2">
 
 <p>В base R можно задать сохранение размерности датафрейма аргументом <code>drop = FALSE</code> при индексации.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
-<span id="cb34-4"><a></a><span class="co"># тоже самое в base R с аргументом drop = FALSE</span></span>
-<span id="cb34-5"><a></a>wc3_units[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a aria-label="2"></a>  <span class="fu">select</span>(unit) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a aria-label="3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
+<span id="cb34-4"><a aria-label="4"></a><span class="co"># тоже самое в base R с аргументом drop = FALSE</span></span>
+<span id="cb34-5"><a aria-label="5"></a>wc3_units[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -936,8 +939,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>filter()</code> - выбрать нужные строки по условию</h2>
 <p>Выберем только юнитов ночных эльфов (‘N.Elf’)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a aria-label="2"></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1414,8 +1417,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>filter()</code> - выбрать нужные строки по условию</h2>
 <p>Можно комбинировать несколько условий, используя логическое И (<code>&amp;</code>), ИЛИ (<code>|</code>). Например, выберем только юнитов ночных эльфов, показатель урона (damage) которых больше 40:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a aria-label="2"></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1547,8 +1550,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>slice()</code> - выбираем строки по индексу</h2>
 <p><code>slice()</code> - вывести строки в опреденном диапазоне (используя просто индексы строк)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a aria-label="2"></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 21
   unit          race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -1571,9 +1574,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="column" style="width:50%;">
 <p><code>slice_max()</code> - вывести максимальные значения по какому-то признаку</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a></a>  <span class="fu">slice_max</span>(wood, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># важно эксплицитно писать параметр n = </span></span>
-<span id="cb41-3"><a></a>  <span class="fu">select</span>(unit, race, wood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a aria-label="2"></a>  <span class="fu">slice_max</span>(wood, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># важно эксплицитно писать параметр n = </span></span>
+<span id="cb41-3"><a aria-label="3"></a>  <span class="fu">select</span>(unit, race, wood)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   unit             race    wood
@@ -1588,9 +1591,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div><div class="column" style="width:50%;">
 <p><code>slice_min()</code> - вывести минимальные значения по какому-то признаку</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a></a>  <span class="fu">slice_min</span>(hp, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb43-3"><a></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a aria-label="2"></a>  <span class="fu">slice_min</span>(hp, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a aria-label="3"></a>  <span class="fu">select</span>(unit, race, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   unit             race      hp
@@ -1609,8 +1612,8 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>slice_sample()</code> - вывести случайные строки</h2>
 <p>В функции <code>slice_sample()</code> нужен аргумент <code>n</code>, обозначающий количество строк для печати.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a aria-label="2"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 21
   unit          race   gold  wood   pop    hp armor_type armor sight speed  time
@@ -1638,9 +1641,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Можно просто составить новую колонку из предыдущих, используя синтаксис <code>mutate(column_name = &lt;expression&gt;).</code></p>
 <p>Проверим, что dps (damage per second) = damage / cooldown</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb47-2"><a></a>  <span class="fu">mutate</span>(<span class="at">damage_per_second =</span> damage <span class="sc">/</span> cooldown) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-3"><a></a>  <span class="fu">select</span>(unit, damage, cooldown, damage_per_second, dps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">damage_per_second =</span> damage <span class="sc">/</span> cooldown) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a aria-label="3"></a>  <span class="fu">select</span>(unit, damage, cooldown, damage_per_second, dps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1654,7 +1657,7 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="callout-content">
 <p>Такая операция легко делается и в базовом R, например</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>wc3_units<span class="sc">$</span>damage_per_second <span class="ot">&lt;-</span> wc3_units<span class="sc">$</span>damage <span class="sc">/</span> wc3_units<span class="sc">$</span>cooldown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-label="1"></a>wc3_units<span class="sc">$</span>damage_per_second <span class="ot">&lt;-</span> wc3_units<span class="sc">$</span>damage <span class="sc">/</span> wc3_units<span class="sc">$</span>cooldown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1681,9 +1684,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> - создать новую колонку или изменить существующую</h2>
 <p>Узнаем показатель отношения dps / на число пищи, чтобы узнать какие юниты самые эффективные.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>dps_food <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb50-2"><a></a>  <span class="fu">mutate</span>(<span class="at">dps_food_ratio =</span> dps <span class="sc">/</span> pop) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a></a>  <span class="fu">relocate</span>(dps_food_ratio, <span class="at">.after =</span> unit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-label="1"></a>dps_food <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">dps_food_ratio =</span> dps <span class="sc">/</span> pop) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a aria-label="3"></a>  <span class="fu">relocate</span>(dps_food_ratio, <span class="at">.after =</span> unit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -3501,10 +3504,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <p>Часто нужно заполнить новую колонку определенными значениями в зависимости от условия.</p>
 <p>Допустим, мы хотим разделить юнитов по принципу, являются ли они призванными (число пищи <code>pop</code> равно <code>0</code> или <code>NA</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># для воспроизводимости семплирования 5 строчек</span></span>
-<span id="cb51-2"><a></a>wc3_units_summon <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb51-3"><a></a>  <span class="fu">mutate</span>(<span class="at">is_summon =</span> (pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop)) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-4"><a></a>  <span class="fu">select</span>(unit, race, pop, is_summon) <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># для воспроизводимости семплирования 5 строчек</span></span>
+<span id="cb51-2"><a aria-label="2"></a>wc3_units_summon <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb51-3"><a aria-label="3"></a>  <span class="fu">mutate</span>(<span class="at">is_summon =</span> (pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-4"><a aria-label="4"></a>  <span class="fu">select</span>(unit, race, pop, is_summon) <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
@@ -3557,10 +3560,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> с условием для существующей колонки</h2>
 <p>Например, мы хотим переименовать N.Elf в NightElfes. Для этого пригодится функция <code>str_replace()</code> из пакета <code>stringr</code>, которая является аналогом базовой функции <code>gsub()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a></a>  <span class="fu">mutate</span>(<span class="at">race =</span> <span class="fu">str_replace</span>(race, <span class="st">'N.Elf'</span>, <span class="st">'NightElfes'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-3"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb52-4"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">race =</span> <span class="fu">str_replace</span>(race, <span class="st">'N.Elf'</span>, <span class="st">'NightElfes'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a aria-label="3"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-4"><a aria-label="4"></a>  <span class="fu">select</span>(unit<span class="sc">:</span>pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   unit              race        gold  wood   pop
@@ -3580,9 +3583,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> + <code>if_else()</code></h2>
 <p>В качестве примера <code>if_else()</code> проверка, является ли число положительным или отрицательным. Вспомним материал лекции.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>number <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb54-2"><a></a><span class="fu">if_else</span>(number <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">'Положительное число'</span>, </span>
-<span id="cb54-3"><a></a>        <span class="st">'Отрицательное число или ноль'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a aria-label="1"></a>number <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb54-2"><a aria-label="2"></a><span class="fu">if_else</span>(number <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">'Положительное число'</span>, </span>
+<span id="cb54-3"><a aria-label="3"></a>        <span class="st">'Отрицательное число или ноль'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число или ноль" "Отрицательное число или ноль"
 [3] "Отрицательное число или ноль" "Положительное число"         
@@ -3608,9 +3611,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate()</code> + <code>if_else()</code></h2>
 <p>Попробуем создать колонку, заполненную значениями, являются ли юниты призванными (до этого мы просто заполнили <code>TRUE</code>, <code>FALSE</code>, теперь хотим заполнить текстовым описанием).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>wc3_units_summon_ifelse <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a></a>  <span class="fu">mutate</span>(<span class="at">if_summon =</span> <span class="fu">if_else</span>((pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop), </span>
-<span id="cb56-3"><a></a>                            <span class="st">'Призванные'</span>, <span class="st">'Непризванные'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-label="1"></a>wc3_units_summon_ifelse <span class="ot">&lt;-</span> wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">if_summon =</span> <span class="fu">if_else</span>((pop <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> <span class="fu">is.na</span>(pop), </span>
+<span id="cb56-3"><a aria-label="3"></a>                            <span class="st">'Призванные'</span>, <span class="st">'Непризванные'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -3665,10 +3668,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb57-2"><a></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
-<span id="cb57-3"><a></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
-<span id="cb57-4"><a></a>  number <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-label="1"></a>dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb57-2"><a aria-label="2"></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
+<span id="cb57-3"><a aria-label="3"></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
+<span id="cb57-4"><a aria-label="4"></a>  number <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число" "Отрицательное число" "Ноль"               
 [4] "Положительное число" "Положительное число"</code></pre>
@@ -3676,10 +3679,10 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">case_when</span>(</span>
-<span id="cb59-2"><a></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
-<span id="cb59-3"><a></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
-<span id="cb59-4"><a></a>  <span class="at">.default =</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-label="1"></a><span class="fu">case_when</span>(</span>
+<span id="cb59-2"><a aria-label="2"></a>  number <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Положительное число"</span>,</span>
+<span id="cb59-3"><a aria-label="3"></a>  number <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Отрицательное число"</span>,</span>
+<span id="cb59-4"><a aria-label="4"></a>  <span class="at">.default =</span> <span class="st">"Ноль"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Отрицательное число" "Отрицательное число" "Ноль"               
 [4] "Положительное число" "Положительное число"</code></pre>
@@ -3692,13 +3695,13 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate</code> с условием + <code>case_when</code></h2>
 <p>Пример с <code>mutate()</code> + <code>case_when()</code> для разделения юнитов на группы по количеству здоровья (<code>hp</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb61-2"><a></a>  <span class="fu">mutate</span>(<span class="at">hp_rate =</span> <span class="fu">case_when</span>(hp <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"The most healthy units"</span>,</span>
-<span id="cb61-3"><a></a>  hp <span class="sc">&gt;</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"Middle helthy units"</span>,</span>
-<span id="cb61-4"><a></a>  <span class="at">.default =</span> <span class="st">"The weakest"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-5"><a></a>  <span class="fu">relocate</span>(hp_rate, <span class="at">.after =</span> hp) <span class="sc">%&gt;%</span> <span class="co"># для перемещения колонки после hp</span></span>
-<span id="cb61-6"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp_rate) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-7"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">hp_rate =</span> <span class="fu">case_when</span>(hp <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"The most healthy units"</span>,</span>
+<span id="cb61-3"><a aria-label="3"></a>  hp <span class="sc">&gt;</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"Middle helthy units"</span>,</span>
+<span id="cb61-4"><a aria-label="4"></a>  <span class="at">.default =</span> <span class="st">"The weakest"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-5"><a aria-label="5"></a>  <span class="fu">relocate</span>(hp_rate, <span class="at">.after =</span> hp) <span class="sc">%&gt;%</span> <span class="co"># для перемещения колонки после hp</span></span>
+<span id="cb61-6"><a aria-label="6"></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp_rate) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-7"><a aria-label="7"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   unit             race    gold  wood   pop    hp hp_rate               
@@ -3716,9 +3719,9 @@ base R, <code>tidyverse</code>, <code>data.table</code>.</p>
 <h2><code>mutate</code> и ресайклинг</h2>
 <p>Допустим, нам нужно присвоить юнитам случайные лейблы 1 и 2</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb63-2"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-3"><a></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a aria-label="2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a aria-label="3"></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `mutate()`:
 ℹ In argument: `new_label = 1:2`.
@@ -3728,10 +3731,10 @@ Caused by error:
 </div>
 <p>Это сделано, чтобы не допустить возможные ошибки при ресайклинге, то есть нужно в явном виде прописать создание вектора через <code>rep</code>, чтобы он был нужной длины.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb65-2"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">times =</span> <span class="fu">nrow</span>(.) <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-4"><a></a>  <span class="fu">select</span>(unit, race, new_label)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a aria-label="2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a aria-label="3"></a>  <span class="fu">mutate</span>(<span class="at">new_label =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">times =</span> <span class="fu">nrow</span>(.) <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-4"><a aria-label="4"></a>  <span class="fu">select</span>(unit, race, new_label)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section><section id="mutate-и-ресайклинг-output" class="slide level2 output-location-slide"><h2><code>mutate</code> и ресайклинг</h2><div class="cell output-location-slide">
@@ -3761,9 +3764,9 @@ Caused by error:
 <p>Это очень мощная связка, удобных аналогов которой нет в base R.</p>
 <p>Попробуем посчитать медиану урона (<code>damage</code>) для каждой расы.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb67-2"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb67-3"><a></a>  <span class="fu">summarise</span>(<span class="at">median_damage =</span> <span class="fu">median</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a aria-label="2"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a aria-label="3"></a>  <span class="fu">summarise</span>(<span class="at">median_damage =</span> <span class="fu">median</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   race   median_damage
@@ -3778,10 +3781,10 @@ Caused by error:
 <section id="group_by-summarise-связка-1" class="slide level2">
 <h2><code>group_by()</code> + <code>summarise()</code> связка</h2>
 <p>Можно сразу собирать несколько статистик:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb69-2"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb69-3"><a></a>  <span class="fu">summarise</span>(<span class="at">mean_damage =</span> <span class="fu">mean</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb69-4"><a></a>            <span class="at">mean_hp =</span> <span class="fu">mean</span>(hp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a aria-label="2"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a aria-label="3"></a>  <span class="fu">summarise</span>(<span class="at">mean_damage =</span> <span class="fu">mean</span>(damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb69-4"><a aria-label="4"></a>            <span class="at">mean_hp =</span> <span class="fu">mean</span>(hp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -3805,11 +3808,11 @@ Caused by error:
 <h2><code>across()</code> + <code>summarise()</code> - для быстрого вычисления описательных статистик</h2>
 <p>Например, задача посчитать медиану для всех числовых переменных в датасете <code>wc3_units</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a>wc3_units_summon <span class="sc">%&gt;%</span></span>
-<span id="cb71-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_summon) <span class="sc">%&gt;%</span> <span class="co"># чтобы анализировать только не-призванных юнитов</span></span>
-<span id="cb71-3"><a></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb71-4"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
-<span id="cb71-5"><a></a>                   <span class="cf">function</span>(x) <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-label="1"></a>wc3_units_summon <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a aria-label="2"></a>  <span class="fu">filter</span>(<span class="sc">!</span>is_summon) <span class="sc">%&gt;%</span> <span class="co"># чтобы анализировать только не-призванных юнитов</span></span>
+<span id="cb71-3"><a aria-label="3"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-4"><a aria-label="4"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
+<span id="cb71-5"><a aria-label="5"></a>                   <span class="cf">function</span>(x) <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 18
   race    gold  wood   pop    hp armor sight speed  time damage cooldown   dps
@@ -3827,9 +3830,9 @@ Caused by error:
 <h2><code>across()</code> + <code>summarise()</code> - для быстрого вычисления описательных статистик</h2>
 <p>Или пример попроще: посчитать среднее и стандартное отклонение в датасете <code>iris</code> (можно без группировки по видам <code>Species</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb73-2"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
-<span id="cb73-3"><a></a>                   <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-label="1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), </span>
+<span id="cb73-3"><a aria-label="3"></a>                   <span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">sd =</span> sd)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length_mean Sepal.Length_sd Sepal.Width_mean Sepal.Width_sd
 1          5.843333       0.8280661         3.057333      0.4358663
@@ -3856,12 +3859,12 @@ Caused by error:
 <h2><code>across()</code> + <code>mutate()</code></h2>
 <p>Это очень актуальная вещь при работе с транскриптомными данными. Например, заменить <code>logFC</code>, которые не <code>NA</code> и не ноль на 1. Создадим пример таблицы:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a>gene_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), </span>
-<span id="cb75-2"><a></a>                     <span class="at">logFC_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
-<span id="cb75-3"><a></a>                     <span class="at">FDR_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.01</span>, <span class="fl">0.0005</span>), <span class="dv">8</span>),</span>
-<span id="cb75-4"><a></a>                     <span class="at">logFC_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
-<span id="cb75-5"><a></a>                     <span class="at">FDR_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.001</span>, <span class="fl">0.03</span>), <span class="dv">8</span>))</span>
-<span id="cb75-6"><a></a>gene_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-label="1"></a>gene_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), </span>
+<span id="cb75-2"><a aria-label="2"></a>                     <span class="at">logFC_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
+<span id="cb75-3"><a aria-label="3"></a>                     <span class="at">FDR_df1 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.01</span>, <span class="fl">0.0005</span>), <span class="dv">8</span>),</span>
+<span id="cb75-4"><a aria-label="4"></a>                     <span class="at">logFC_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">runif</span>(<span class="dv">6</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">max =</span> <span class="dv">5</span>), <span class="cn">NA</span>), <span class="dv">8</span>),</span>
+<span id="cb75-5"><a aria-label="5"></a>                     <span class="at">FDR_df2 =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">6</span>, <span class="dv">10</span><span class="sc">^-</span><span class="dv">50</span>, <span class="dv">1</span>), <span class="fl">0.001</span>, <span class="fl">0.03</span>), <span class="dv">8</span>))</span>
+<span id="cb75-6"><a aria-label="6"></a>gene_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -3881,9 +3884,9 @@ Caused by error:
 <h2><code>across()</code> + <code>mutate()</code></h2>
 <p>Теперь заменим:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
-<span id="cb77-2"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">'logFC'</span>), </span>
-<span id="cb77-3"><a></a>                <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> <span class="fu">is.na</span>(x), <span class="dv">0</span>, <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a aria-label="1"></a>gene_table <span class="sc">%&gt;%</span> </span>
+<span id="cb77-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">'logFC'</span>), </span>
+<span id="cb77-3"><a aria-label="3"></a>                <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> <span class="fu">is.na</span>(x), <span class="dv">0</span>, <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -3903,10 +3906,10 @@ Caused by error:
 <section id="arrange---сортировка" class="slide level2">
 <h2><code>arrange()</code> - сортировка</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a>n_elf_dm40 <span class="ot">&lt;-</span>  wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb79-2"><a></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-3"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>race, ground_attack<span class="sc">:</span>damage) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-4"><a></a>  <span class="fu">arrange</span>(damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-label="1"></a>n_elf_dm40 <span class="ot">&lt;-</span>  wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a aria-label="2"></a>  <span class="fu">filter</span>(race <span class="sc">==</span> <span class="st">'N.Elf'</span> <span class="sc">&amp;</span> damage <span class="sc">&gt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-3"><a aria-label="3"></a>  <span class="fu">select</span>(unit<span class="sc">:</span>race, ground_attack<span class="sc">:</span>damage) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-4"><a aria-label="4"></a>  <span class="fu">arrange</span>(damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -3953,9 +3956,9 @@ Caused by error:
 <section id="сортировка-по-нескольким-колонкам" class="slide level2">
 <h2>Сортировка по нескольким колонкам</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb80-2"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(damage), <span class="fu">desc</span>(hp), unit) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-3"><a></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp, damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb80-2"><a aria-label="2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(damage), <span class="fu">desc</span>(hp), unit) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a aria-label="3"></a>  <span class="fu">select</span>(unit<span class="sc">:</span>hp, damage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 71 × 7
    unit          race    gold  wood   pop    hp damage
@@ -3980,8 +3983,8 @@ Caused by error:
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb82-2"><a></a>  <span class="fu">count</span>(race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a aria-label="2"></a>  <span class="fu">count</span>(race)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   race       n
@@ -3994,8 +3997,8 @@ Caused by error:
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a>wc3_units <span class="sc">%&gt;%</span> </span>
-<span id="cb84-2"><a></a>  <span class="fu">count</span>(race, ground_attack)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-label="1"></a>wc3_units <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a aria-label="2"></a>  <span class="fu">count</span>(race, ground_attack)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 19 × 3
    race   ground_attack     n
@@ -4028,7 +4031,7 @@ Caused by error:
 <h2>Широкий и длинный формат данных</h2>
 <p>Данные в широком формате</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a aria-label="1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -4058,10 +4061,10 @@ Caused by error:
 <p>Это функции из пакета <code>tidyr</code> для перевода датафрейма в длинный или широкий формат.</p>
 <p>В простейшем случае синтаксис pivot_longer: <code>cols</code> = колонки, которые необходимо трансформировать. Можно добавить параметры <code>names_to</code> и <code>values_to</code>, которые добавят имена вновь возданным колонкам.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a></a>iris_long <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
-<span id="cb89-2"><a></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> <span class="co"># чтобы создать переменную id из номеров колонок</span></span>
-<span id="cb89-3"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Sepal.Length<span class="sc">:</span>Petal.Width)</span>
-<span id="cb89-4"><a></a>iris_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-label="1"></a>iris_long <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<span id="cb89-2"><a aria-label="2"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">'id'</span>) <span class="sc">%&gt;%</span> <span class="co"># чтобы создать переменную id из номеров колонок</span></span>
+<span id="cb89-3"><a aria-label="3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Sepal.Length<span class="sc">:</span>Petal.Width)</span>
+<span id="cb89-4"><a aria-label="4"></a>iris_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 600 × 4
    id    Species name         value
@@ -4096,9 +4099,9 @@ Caused by error:
 <p>Нередко нужно вернуть обратно таблицу в широкий формат</p>
 <p>Например так:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a>iris_long <span class="sc">%&gt;%</span> </span>
-<span id="cb91-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(id, Species), </span>
-<span id="cb91-3"><a></a>              <span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-label="1"></a>iris_long <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a aria-label="2"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(id, Species), </span>
+<span id="cb91-3"><a aria-label="3"></a>              <span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 6
    id    Species Sepal.Length Sepal.Width Petal.Length Petal.Width
@@ -4121,12 +4124,12 @@ Caused by error:
 <h2>Сложное преобразование таблиц</h2>
 <p>Вернемся к таблице <code>gene_table</code>. Задача превратить в ноль все фолды, для которых <code>FDR &gt; 0.05</code>. Используем сразу несколько подходов к манипуляции с таблицами.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a></a>gene_table <span class="sc">%&gt;%</span> </span>
-<span id="cb93-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">where</span>(is.numeric), <span class="at">names_pattern =</span> <span class="st">"(.*)_(.*)"</span>,</span>
-<span id="cb93-3"><a></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'.value'</span>, <span class="st">'dataset'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb93-4"><a></a>  <span class="fu">mutate</span>(<span class="at">logFC =</span> <span class="fu">if_else</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>, logFC, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb93-5"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> id, <span class="at">names_from =</span> dataset, </span>
-<span id="cb93-6"><a></a>              <span class="at">values_from =</span> <span class="fu">c</span>(logFC, FDR), <span class="at">names_vary =</span> <span class="st">'slowest'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-label="1"></a>gene_table <span class="sc">%&gt;%</span> </span>
+<span id="cb93-2"><a aria-label="2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">where</span>(is.numeric), <span class="at">names_pattern =</span> <span class="st">"(.*)_(.*)"</span>,</span>
+<span id="cb93-3"><a aria-label="3"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'.value'</span>, <span class="st">'dataset'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb93-4"><a aria-label="4"></a>  <span class="fu">mutate</span>(<span class="at">logFC =</span> <span class="fu">if_else</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>, logFC, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb93-5"><a aria-label="5"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> id, <span class="at">names_from =</span> dataset, </span>
+<span id="cb93-6"><a aria-label="6"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(logFC, FDR), <span class="at">names_vary =</span> <span class="st">'slowest'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4157,15 +4160,15 @@ Caused by error:
 <h2><code>join()</code> - пример</h2>
 <p>Например, нужно объединить результаты анализа дифференциальной экспрессии данных микрочипов и RNA-seq.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">logFC_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb95-2"><a></a>              <span class="at">FDR_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span>
-<span id="cb95-3"><a></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>), <span class="at">logFC_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb95-4"><a></a>              <span class="at">FDR_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-label="1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">logFC_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb95-2"><a aria-label="2"></a>              <span class="at">FDR_df1 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span>
+<span id="cb95-3"><a aria-label="3"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">'gene'</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>), <span class="at">logFC_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb95-4"><a aria-label="4"></a>              <span class="at">FDR_df2 =</span> <span class="fu">runif</span>(<span class="dv">6</span>, <span class="fl">0.000001</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a></a>df1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a aria-label="1"></a>df1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   id    logFC_df1 FDR_df1
@@ -4180,7 +4183,7 @@ Caused by error:
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a></a>df2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a aria-label="1"></a>df2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   id    logFC_df2 FDR_df2
@@ -4200,7 +4203,7 @@ Caused by error:
 <h2><code>join()</code> - продолжение</h2>
 <p>Я обычно использую <code>full_join</code>, потому что не хочу терять какую-либо информацию о данных.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a aria-label="1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">'id'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   id    logFC_df1 FDR_df1 logFC_df2 FDR_df2
@@ -4221,8 +4224,8 @@ Caused by error:
 <h2>Считывание данных в формате Excel</h2>
 <p>Пакет <code>readxl</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a></a><span class="fu">library</span>(readxl)</span>
-<span id="cb102-2"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">'table.xlsx'</span>, <span class="at">sheet =</span> <span class="st">'Sheet1'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a aria-label="1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb102-2"><a aria-label="2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">'table.xlsx'</span>, <span class="at">sheet =</span> <span class="st">'Sheet1'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="заключение" class="slide level2" style="font-size: 90%">
@@ -4279,44 +4282,44 @@ Caused by error:
 <section id="заголовок" class="slide level2">
 <h2>Заголовок</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a></a><span class="fu">library</span>(knitr)</span>
-<span id="cb103-2"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb103-3"><a></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb103-4"><a></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb103-5"><a></a></span>
-<span id="cb103-6"><a></a><span class="co"># Source - https://stackoverflow.com/a</span></span>
-<span id="cb103-7"><a></a><span class="co"># Posted by Emmanuel Hamel</span></span>
-<span id="cb103-8"><a></a><span class="co"># Retrieved 2025-11-15, License - CC BY-SA 4.0</span></span>
-<span id="cb103-9"><a></a></span>
-<span id="cb103-10"><a></a><span class="fu">library</span>(knitr)</span>
-<span id="cb103-11"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb103-12"><a></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb103-13"><a></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb103-14"><a></a><span class="fu">library</span>(stringr)</span>
-<span id="cb103-15"><a></a></span>
-<span id="cb103-16"><a></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2018</span>, <span class="dv">2017</span>, <span class="dv">2018</span>),</span>
-<span id="cb103-17"><a></a>         <span class="at">major_item =</span> <span class="st">"M"</span>,</span>
-<span id="cb103-18"><a></a>         <span class="at">sub_item =</span> <span class="fu">c</span>( <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
-<span id="cb103-19"><a></a>         <span class="at">n =</span> <span class="fu">c</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
-<span id="cb103-20"><a></a></span>
-<span id="cb103-21"><a></a>tab <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb103-22"><a></a>  <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb103-23"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
-<span id="cb103-24"><a></a>  <span class="fu">spread</span>(year,n) <span class="sc">%&gt;%</span></span>
-<span id="cb103-25"><a></a>  <span class="co"># now join with the part for which sub_item == "B"</span></span>
-<span id="cb103-26"><a></a>  <span class="fu">left_join</span>(df <span class="sc">%&gt;%</span></span>
-<span id="cb103-27"><a></a>               <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"B"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb103-28"><a></a>               <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
-<span id="cb103-29"><a></a>               <span class="fu">spread</span>(year,n),</span>
-<span id="cb103-30"><a></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"major_item"</span> <span class="ot">=</span> <span class="st">"major_item"</span>))  <span class="sc">%&gt;%</span></span>
-<span id="cb103-31"><a></a>  <span class="co"># now the nice header</span></span>
-<span id="cb103-32"><a></a>  <span class="fu">kable</span>(<span class="st">"latex"</span>, <span class="at">booktabs =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb103-33"><a></a>  <span class="fu">kable_styling</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb103-34"><a></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"A"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"B"</span> <span class="ot">=</span> <span class="dv">2</span>))</span>
-<span id="cb103-35"><a></a></span>
-<span id="cb103-36"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.x)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
-<span id="cb103-37"><a></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.y)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
-<span id="cb103-38"><a></a>tab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-label="1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb103-2"><a aria-label="2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb103-3"><a aria-label="3"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb103-4"><a aria-label="4"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb103-5"><a aria-label="5"></a></span>
+<span id="cb103-6"><a aria-label="6"></a><span class="co"># Source - https://stackoverflow.com/a</span></span>
+<span id="cb103-7"><a aria-label="7"></a><span class="co"># Posted by Emmanuel Hamel</span></span>
+<span id="cb103-8"><a aria-label="8"></a><span class="co"># Retrieved 2025-11-15, License - CC BY-SA 4.0</span></span>
+<span id="cb103-9"><a aria-label="9"></a></span>
+<span id="cb103-10"><a aria-label="10"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb103-11"><a aria-label="11"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb103-12"><a aria-label="12"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb103-13"><a aria-label="13"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb103-14"><a aria-label="14"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb103-15"><a aria-label="15"></a></span>
+<span id="cb103-16"><a aria-label="16"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2018</span>, <span class="dv">2017</span>, <span class="dv">2018</span>),</span>
+<span id="cb103-17"><a aria-label="17"></a>         <span class="at">major_item =</span> <span class="st">"M"</span>,</span>
+<span id="cb103-18"><a aria-label="18"></a>         <span class="at">sub_item =</span> <span class="fu">c</span>( <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
+<span id="cb103-19"><a aria-label="19"></a>         <span class="at">n =</span> <span class="fu">c</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb103-20"><a aria-label="20"></a></span>
+<span id="cb103-21"><a aria-label="21"></a>tab <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb103-22"><a aria-label="22"></a>  <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-23"><a aria-label="23"></a>  <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
+<span id="cb103-24"><a aria-label="24"></a>  <span class="fu">spread</span>(year,n) <span class="sc">%&gt;%</span></span>
+<span id="cb103-25"><a aria-label="25"></a>  <span class="co"># now join with the part for which sub_item == "B"</span></span>
+<span id="cb103-26"><a aria-label="26"></a>  <span class="fu">left_join</span>(df <span class="sc">%&gt;%</span></span>
+<span id="cb103-27"><a aria-label="27"></a>               <span class="fu">filter</span>(sub_item <span class="sc">==</span> <span class="st">"B"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-28"><a aria-label="28"></a>               <span class="fu">select</span>(<span class="sc">-</span>sub_item) <span class="sc">%&gt;%</span></span>
+<span id="cb103-29"><a aria-label="29"></a>               <span class="fu">spread</span>(year,n),</span>
+<span id="cb103-30"><a aria-label="30"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"major_item"</span> <span class="ot">=</span> <span class="st">"major_item"</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb103-31"><a aria-label="31"></a>  <span class="co"># now the nice header</span></span>
+<span id="cb103-32"><a aria-label="32"></a>  <span class="fu">kable</span>(<span class="st">"latex"</span>, <span class="at">booktabs =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb103-33"><a aria-label="33"></a>  <span class="fu">kable_styling</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb103-34"><a aria-label="34"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"A"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"B"</span> <span class="ot">=</span> <span class="dv">2</span>))</span>
+<span id="cb103-35"><a aria-label="35"></a></span>
+<span id="cb103-36"><a aria-label="36"></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.x)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb103-37"><a aria-label="37"></a>tab[<span class="dv">1</span>] <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(tab[<span class="dv">1</span>], <span class="st">"(</span><span class="sc">\\</span><span class="st">d{4})(</span><span class="sc">\\</span><span class="st">.y)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb103-38"><a aria-label="38"></a>tab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

@@ -7,9 +7,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-5c1318cf63eba56dbef7ba16bc7d56f5.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="author" content="Елена Убогоева">
 <title>R4Analytics – R в аналитике данных</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -205,7 +208,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Елена Убогоева 
+Елена Убогоева
 </div>
 </div>
 </div>
@@ -340,19 +343,19 @@
 <li><p>Избегать хардкода как только можно.</p></li>
 <li><p>Договориться в команде о соблюдении определенного code-style (мы используем <code>tidyverse</code> code style).</p></li>
 </ul></section><section id="пример-конфиг-файла" class="slide level2"><h2>Пример конфиг-файла</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a></a><span class="fu">bd_get</span><span class="kw">:</span></span>
-<span id="cb1-2"><a></a><span class="at">  </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> hostname</span></span>
-<span id="cb1-3"><a></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> port</span></span>
-<span id="cb1-4"><a></a><span class="at">  </span><span class="fu">bd_name</span><span class="kw">:</span><span class="at"> bd_name</span></span>
-<span id="cb1-5"><a></a><span class="at">  </span><span class="fu">table_name</span><span class="kw">:</span><span class="at"> table_name</span></span>
-<span id="cb1-6"><a></a><span class="fu">bd_set</span><span class="kw">:</span></span>
-<span id="cb1-7"><a></a><span class="at">  </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> hostname</span></span>
-<span id="cb1-8"><a></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> port</span></span>
-<span id="cb1-9"><a></a><span class="at">  </span><span class="fu">bd_name</span><span class="kw">:</span><span class="at"> bd_name_export</span></span>
-<span id="cb1-10"><a></a><span class="at">  </span><span class="fu">table_name</span><span class="kw">:</span><span class="at"> table_name_export</span></span>
-<span id="cb1-11"><a></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-12"><a></a><span class="at">  </span><span class="fu">table_raw_cols</span><span class="kw">:</span><span class="at"> !expr() c('colname1', 'colname2', 'colname3')</span></span>
-<span id="cb1-13"><a></a><span class="at">  </span><span class="fu">table_export_cols</span><span class="kw">:</span><span class="at"> !expr() c('colname_export1', 'colname_export2', 'colname_export3')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a aria-label="1"></a><span class="fu">bd_get</span><span class="kw">:</span></span>
+<span id="cb1-2"><a aria-label="2"></a><span class="at">  </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> hostname</span></span>
+<span id="cb1-3"><a aria-label="3"></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> port</span></span>
+<span id="cb1-4"><a aria-label="4"></a><span class="at">  </span><span class="fu">bd_name</span><span class="kw">:</span><span class="at"> bd_name</span></span>
+<span id="cb1-5"><a aria-label="5"></a><span class="at">  </span><span class="fu">table_name</span><span class="kw">:</span><span class="at"> table_name</span></span>
+<span id="cb1-6"><a aria-label="6"></a><span class="fu">bd_set</span><span class="kw">:</span></span>
+<span id="cb1-7"><a aria-label="7"></a><span class="at">  </span><span class="fu">hostname</span><span class="kw">:</span><span class="at"> hostname</span></span>
+<span id="cb1-8"><a aria-label="8"></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> port</span></span>
+<span id="cb1-9"><a aria-label="9"></a><span class="at">  </span><span class="fu">bd_name</span><span class="kw">:</span><span class="at"> bd_name_export</span></span>
+<span id="cb1-10"><a aria-label="10"></a><span class="at">  </span><span class="fu">table_name</span><span class="kw">:</span><span class="at"> table_name_export</span></span>
+<span id="cb1-11"><a aria-label="11"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-12"><a aria-label="12"></a><span class="at">  </span><span class="fu">table_raw_cols</span><span class="kw">:</span><span class="at"> !expr() c('colname1', 'colname2', 'colname3')</span></span>
+<span id="cb1-13"><a aria-label="13"></a><span class="at">  </span><span class="fu">table_export_cols</span><span class="kw">:</span><span class="at"> !expr() c('colname_export1', 'colname_export2', 'colname_export3')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Последнее нужно, чтобы прописать определенный порядок колонок.</p>
 </section><section id="etl-пайплайны" class="slide level2"><h2>ETL-пайплайны</h2>
 <p>ETL - <strong>E</strong>xtract, <strong>T</strong>ransform, <strong>L</strong>oad</p>
@@ -363,8 +366,8 @@
 <p>Кассовый лог - 7 ТБ данных в день</p>
 <p>Подключаем нужные пакеты:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a></a><span class="fu">library</span>(data.table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a aria-label="2"></a><span class="fu">library</span>(data.table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -381,13 +384,13 @@
 </div>
 </section><section id="данные" class="slide level2"><h2>Данные</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb3-2"><a></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">store_id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'store1'</span>, <span class="st">'store2'</span>), <span class="at">each =</span> <span class="dv">3</span>), </span>
-<span id="cb3-3"><a></a>                 <span class="at">pos_id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> <span class="dv">6</span>), </span>
-<span id="cb3-4"><a></a>                 <span class="at">date_event =</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="fu">as_datetime</span>(<span class="st">'2024/06/30 09:00:15'</span>), </span>
-<span id="cb3-5"><a></a>           <span class="fu">as_datetime</span>(<span class="st">'2024/06/30 10:00:30'</span>), <span class="at">length.out =</span> <span class="dv">200</span>), <span class="dv">12</span>), </span>
-<span id="cb3-6"><a></a>                 <span class="at">event =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'init'</span>, <span class="st">'get'</span>, <span class="st">'resp'</span>), <span class="at">times =</span> <span class="dv">2</span>)) </span>
-<span id="cb3-7"><a></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-2"><a aria-label="2"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">store_id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'store1'</span>, <span class="st">'store2'</span>), <span class="at">each =</span> <span class="dv">3</span>), </span>
+<span id="cb3-3"><a aria-label="3"></a>                 <span class="at">pos_id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> <span class="dv">6</span>), </span>
+<span id="cb3-4"><a aria-label="4"></a>                 <span class="at">date_event =</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="fu">as_datetime</span>(<span class="st">'2024/06/30 09:00:15'</span>), </span>
+<span id="cb3-5"><a aria-label="5"></a>           <span class="fu">as_datetime</span>(<span class="st">'2024/06/30 10:00:30'</span>), <span class="at">length.out =</span> <span class="dv">200</span>), <span class="dv">12</span>), </span>
+<span id="cb3-6"><a aria-label="6"></a>                 <span class="at">event =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'init'</span>, <span class="st">'get'</span>, <span class="st">'resp'</span>), <span class="at">times =</span> <span class="dv">2</span>)) </span>
+<span id="cb3-7"><a aria-label="7"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  store_id pos_id          date_event event
 1   store1      1 2024-06-30 09:14:46  init
@@ -400,10 +403,10 @@
 </div>
 </section><section id="вариант-решения-простой" class="slide level2"><h2>Вариант решения (простой)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="fu">c</span>(store_id, pos_id), </span>
-<span id="cb5-3"><a></a>              <span class="at">names_from =</span> event, </span>
-<span id="cb5-4"><a></a>              <span class="at">values_from =</span> date_event)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-label="1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a aria-label="2"></a>  <span class="fu">pivot_wider</span>(<span class="fu">c</span>(store_id, pos_id), </span>
+<span id="cb5-3"><a aria-label="3"></a>              <span class="at">names_from =</span> event, </span>
+<span id="cb5-4"><a aria-label="4"></a>              <span class="at">values_from =</span> date_event)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   store_id pos_id init                get                 resp               
@@ -416,10 +419,10 @@
 </div>
 </section><section id="вариант-решения-простой-1" class="slide level2"><h2>Вариант решения (простой)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(store_id, pos_id), <span class="at">names_from =</span> event, <span class="at">values_from =</span> date_event) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a></a>  <span class="fu">mutate</span>(<span class="at">time_diff =</span> resp <span class="sc">-</span> init, <span class="at">.after =</span> pos_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>get)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a aria-label="2"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(store_id, pos_id), <span class="at">names_from =</span> event, <span class="at">values_from =</span> date_event) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a aria-label="3"></a>  <span class="fu">mutate</span>(<span class="at">time_diff =</span> resp <span class="sc">-</span> init, <span class="at">.after =</span> pos_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a aria-label="4"></a>  <span class="fu">select</span>(<span class="sc">-</span>get)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   store_id pos_id time_diff      init                resp               
@@ -437,11 +440,11 @@
 <p>Избегать ненужного копирования</p>
 <p>Для анализа профиля памяти можно использовать пакет <code>bench</code>, функция <code>mark()</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>bench<span class="sc">::</span><span class="fu">mark</span>({</span>
-<span id="cb9-2"><a></a>  iris <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a></a>    <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean))</span>
-<span id="cb9-5"><a></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a>bench<span class="sc">::</span><span class="fu">mark</span>({</span>
+<span id="cb9-2"><a aria-label="2"></a>  iris <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a aria-label="3"></a>    <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a aria-label="4"></a>    <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean))</span>
+<span id="cb9-5"><a aria-label="5"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   expression                             min median `itr/sec` mem_alloc `gc/sec`

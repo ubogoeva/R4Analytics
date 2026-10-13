@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>proxy_metrics_outline – R4Analytics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./images/logo_site.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0d542d71a745ea6cacbc55c246e4d6ae.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R4Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Об авторе блога</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ubogoeva/R4Analytics"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#прокси-метрики-структура-поста-тезисы" id="toc-прокси-метрики-структура-поста-тезисы" class="nav-link active" data-scroll-target="#прокси-метрики-структура-поста-тезисы">Прокси-метрики: структура поста + тезисы</a>
+  <ul class="collapse">
+  <li><a href="#крючок-вход" id="toc-крючок-вход" class="nav-link" data-scroll-target="#крючок-вход">Крючок / вход</a></li>
+  <li><a href="#блок-1.-зачем-нужны-прокси-коротко-3-сценария" id="toc-блок-1.-зачем-нужны-прокси-коротко-3-сценария" class="nav-link" data-scroll-target="#блок-1.-зачем-нужны-прокси-коротко-3-сценария">Блок 1. Зачем нужны прокси (коротко, 3 сценария)</a></li>
+  <li><a href="#блок-2.-матчасть-это-придумали-не-аналитики" id="toc-блок-2.-матчасть-это-придумали-не-аналитики" class="nav-link" data-scroll-target="#блок-2.-матчасть-это-придумали-не-аналитики">Блок 2. Матчасть: это придумали не аналитики</a></li>
+  <li><a href="#блок-3.-критерии-хорошей-прокси-рабочий-чек-лист" id="toc-блок-3.-критерии-хорошей-прокси-рабочий-чек-лист" class="nav-link" data-scroll-target="#блок-3.-критерии-хорошей-прокси-рабочий-чек-лист">Блок 3. Критерии хорошей прокси (рабочий чек-лист)</a>
+  <ul class="collapse">
+  <li><a href="#главный-тезис-поста" id="toc-главный-тезис-поста" class="nav-link" data-scroll-target="#главный-тезис-поста">Главный тезис поста</a></li>
+  </ul></li>
+  <li><a href="#блок-4.-как-валидировать-на-практике" id="toc-блок-4.-как-валидировать-на-практике" class="nav-link" data-scroll-target="#блок-4.-как-валидировать-на-практике">Блок 4. Как валидировать на практике</a></li>
+  <li><a href="#блок-5.-когда-прокси-врёт-коротко-тема-на-отдельный-пост" id="toc-блок-5.-когда-прокси-врёт-коротко-тема-на-отдельный-пост" class="nav-link" data-scroll-target="#блок-5.-когда-прокси-врёт-коротко-тема-на-отдельный-пост">Блок 5. Когда прокси врёт (коротко — тема на отдельный пост)</a></li>
+  <li><a href="#блок-6.-итог-вопрос-аудитории" id="toc-блок-6.-итог-вопрос-аудитории" class="nav-link" data-scroll-target="#блок-6.-итог-вопрос-аудитории">Блок 6. Итог + вопрос аудитории</a></li>
+  <li><a href="#ссылки-для-поста" id="toc-ссылки-для-поста" class="nav-link" data-scroll-target="#ссылки-для-поста">Ссылки для поста</a></li>
+  <li><a href="#внутренние-ссылки-на-свои-посты" id="toc-внутренние-ссылки-на-свои-посты" class="nav-link" data-scroll-target="#внутренние-ссылки-на-свои-посты">Внутренние ссылки на свои посты</a></li>
+  <li><a href="#развилки-и-что-вынести-отдельно" id="toc-развилки-и-что-вынести-отдельно" class="nav-link" data-scroll-target="#развилки-и-что-вынести-отдельно">Развилки и что вынести отдельно</a></li>
+  <li><a href="#чего-избегать" id="toc-чего-избегать" class="nav-link" data-scroll-target="#чего-избегать">Чего избегать</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(97025960, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/97025960" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+<section id="прокси-метрики-структура-поста-тезисы" class="level1">
+<h1>Прокси-метрики: структура поста + тезисы</h1>
+<p><strong>Акценты:</strong> как выбрать и провалидировать + матчасть <strong>Хештеги:</strong> <code>#analytics #AB_tests #metrics</code> <strong>Ориентир по объёму:</strong> 3000–3800 знаков (как гайд по метрикам, #174)</p>
+<hr>
+<section id="крючок-вход" class="level2">
+<h2 class="anchored" data-anchor-id="крючок-вход">Крючок / вход</h2>
+<p>Долг перед аудиторией: обещали прокси в посте «Что самое сложное в работе продуктовым аналитиком» (#160), потом снова упомянули в каверзных вопросах (#234) как способ ускорить A/B. Пора закрыть.</p>
+<p>Заход в вашей интонации: прокси-метрики — это тот случай, когда аналитики <strong>не</strong> переименовали что-то известное, а наоборот, взяли из клинических исследований готовую теорию и почти перестали ей пользоваться. В медицине для суррогатных конечных точек есть формальные критерии валидности с 1989 года. В продуктовой аналитике прокси обычно выбирают «по здравому смыслу» и не проверяют никогда.</p>
+<p>Варианты заголовка:</p>
+<ul>
+<li>Прокси-метрики: как выбрать и не обмануть себя</li>
+<li>Прокси-метрики: суррогатные точки, которые мы заслужили</li>
+<li>Прокси-метрики: почему корреляции недостаточно</li>
+</ul>
+<hr>
+</section>
+<section id="блок-1.-зачем-нужны-прокси-коротко-3-сценария" class="level2">
+<h2 class="anchored" data-anchor-id="блок-1.-зачем-нужны-прокси-коротко-3-сценария">Блок 1. Зачем нужны прокси (коротко, 3 сценария)</h2>
+<ol type="1">
+<li><strong>Целевая метрика слишком долгая.</strong> Retention 90d, LTV, годовой churn. Ждать нельзя, решение нужно сейчас.</li>
+<li><strong>Целевая метрика слишком шумная.</strong> Высокая дисперсия из-за длинного хвоста (ARPPU — вы уже разбирали это в #234), MDE недостижим на доступном трафике.</li>
+<li><strong>Эффект размывается.</strong> Фича трогает 2% пользователей, а целевая метрика верхнеуровневая — сигнал тонет.</li>
+</ol>
+<p><strong>Важное разграничение сразу:</strong> прокси ≠ заградительная ≠ информационная метрика. Классификацию уже давали в #174, здесь достаточно ссылки и одной строчки: прокси стоит <strong>на причинном пути</strong> к целевой, заградительная просто следит, чтобы мы ничего не сломали.</p>
+<hr>
+</section>
+<section id="блок-2.-матчасть-это-придумали-не-аналитики" class="level2">
+<h2 class="anchored" data-anchor-id="блок-2.-матчасть-это-придумали-не-аналитики">Блок 2. Матчасть: это придумали не аналитики</h2>
+<p>Ваша сквозная тема «наука ↔︎ индустрия» здесь работает идеально.</p>
+<p><strong>Prentice (1989), Statistics in Medicine</strong> — первое формальное определение суррогатной конечной точки. Четыре условия для валидной прокси S, воздействия Z и целевой T:</p>
+<ol type="1">
+<li>Z значимо влияет на S</li>
+<li>Z значимо влияет на T</li>
+<li>S значимо связана с T</li>
+<li>Z <strong>не влияет</strong> на T при условии S (условная независимость)</li>
+</ol>
+<p>Ключевая мысль для поста: первые три условия проверяют все и всегда, четвёртое — почти никто и никогда. А оно и есть содержательное. Смысл: прокси должна <strong>полностью перехватывать</strong> эффект воздействия на целевую. Если после учёта прокси у воздействия остался собственный эффект — прокси видит только часть картины, и решение по ней принимать нельзя.</p>
+<p>Дальше по литературе:</p>
+<ul>
+<li><strong>Freedman (1992)</strong> — «proportion explained»: какую долю эффекта объясняет прокси. Мягче Прентиса и практичнее.</li>
+<li><strong>Buyse &amp; Molenberghs (2000)</strong> — разделение на individual-level и <strong>trial-level association</strong>. Второе прямо ложится на продуктовую практику (см. блок 4).</li>
+<li><strong>Athey, Chetty, Imbens, Kang (2019), surrogate index</strong> — самый полезный современный источник. Основная идея: одна короткая прокси почти никогда не удовлетворяет Прентису, но <strong>набор</strong> промежуточных метрик, вместе перекрывающих причинный путь, — может. Отсюда прямой мост в тех: не «выбери прокси», а «собери индекс».</li>
+<li><strong>Hohnhold et al.&nbsp;(2015), Google, ads blindness</strong> — краткосрочная выручка от рекламы как заведомо плохая прокси долгосрочной. Больше объявлений → выручка растёт две недели → через месяцы падает из-за обучения пользователей. Показывает, что прокси может врать не из-за плохой математики, а из-за того, что пользователь меняется.</li>
+</ul>
+<p>Тут можно ввернуть фирменное: в аналитике этот же сюжет продают как «long-term holdout», и это ровно та же задача суррогатных точек, только без теории.</p>
+<hr>
+</section>
+<section id="блок-3.-критерии-хорошей-прокси-рабочий-чек-лист" class="level2">
+<h2 class="anchored" data-anchor-id="блок-3.-критерии-хорошей-прокси-рабочий-чек-лист">Блок 3. Критерии хорошей прокси (рабочий чек-лист)</h2>
+<p>Переводим Прентиса на продуктовый язык. Формат — ваши 🟡-списки.</p>
+<ul>
+<li>🟡 <strong>Реагирует раньше целевой.</strong> Иначе смысла нет.</li>
+<li>🟡 <strong>Чувствительна к воздействию.</strong> Двигается от тех же фич, которыми вы реально занимаетесь. Прокси, которую ничем нельзя сдвинуть, бесполезна.</li>
+<li>🟡 <strong>Связана с целевой причинно, а не просто скоррелирована.</strong> Главный пункт, см. ниже.</li>
+<li>🟡 <strong>Ниже дисперсия / выше чувствительность.</strong> Иначе не выиграли в скорости — а ради этого всё и затевалось.</li>
+<li>🟡 <strong>Устойчива к манипуляциям.</strong> Закон Гудхарта: как только прокси становится целью команды, она перестаёт быть хорошей прокси.</li>
+<li>🟡 <strong>Перехватывает эффект целиком</strong> (условие 4 Прентиса). На практике недостижимо, но помнить о нём стоит: это объясняет, почему по прокси нельзя принимать решение о раскатке в одиночку.</li>
+</ul>
+<section id="главный-тезис-поста" class="level3">
+<h3 class="anchored" data-anchor-id="главный-тезис-поста">Главный тезис поста</h3>
+<p><strong>Корреляция метрик ≠ корреляция эффектов.</strong></p>
+<p>«Пользователи с высоким X дольше остаются» — это наблюдательная корреляция, и она не значит ничего. Она может целиком объясняться тем, что и X, и retention определяются вовлечённостью пользователя (общий конфаундер). Нужно другое: <strong>фичи, которые двигают X, двигают и целевую</strong>. Это утверждение об эффектах, а не о пользователях, и проверяется оно только по результатам экспериментов.</p>
+<p>Классический контрпример: «пользователи, добавившие 5 друзей в первую неделю, лучше удерживаются». Отсюда не следует, что если насильно добавить всем 5 друзей, retention вырастет.</p>
+<hr>
+</section>
+</section>
+<section id="блок-4.-как-валидировать-на-практике" class="level2">
+<h2 class="anchored" data-anchor-id="блок-4.-как-валидировать-на-практике">Блок 4. Как валидировать на практике</h2>
+<p>Это самая полезная часть — такого разбора почти нигде нет.</p>
+<p><strong>Способ 1. Метаанализ собственных завершённых A/B</strong> (то самое trial-level association).</p>
+<ul>
+<li>Берём N прошлых тестов, где мерили и прокси, и целевую</li>
+<li>Для каждого — точка: (эффект на прокси, эффект на целевой)</li>
+<li>Строим регрессию по этим точкам, смотрим R²</li>
+<li>Если эффекты скоррелированы — прокси рабочая; если облако точек — нет</li>
+</ul>
+<p>Здесь честно оговорить главное препятствие: нужно 20+ тестов с прокрашенной целевой, а в небольшой команде их столько не наберётся. Отсюда логичный вывод: валидация прокси — привилегия компаний с большим потоком экспериментов, остальным остаётся здравый смысл и короткая причинная цепочка.</p>
+<p><strong>Способ 2. Длинный holdout.</strong> Раз в полгода-год держим группу, где меряем и прокси, и долгую целевую. Дорого, зато закрывает вопрос.</p>
+<p><strong>Способ 3. Исторические когорты</strong> — но обязательно с лагом и на нескольких сегментах. Прокси, которая работает только на одном сегменте, — не прокси.</p>
+<p><strong>Способ 4, если тестов мало.</strong> Брать прокси с максимально короткой и очевидной причинной цепочкой (клик → покупка), не изобретать составные индексы, которые нечем проверить.</p>
+<p><strong>Красные флаги</strong> — можно оформить отдельным мини-списком:</p>
+<ul>
+<li>🟡 Прокси прокрасилась, целевая нейтральна. Это не «успех», это «мы не знаем». Формулировка для поста: нейтральная целевая — не подтверждение, а отсутствие информации.</li>
+<li>🟡 Прокси выбрали после того, как посмотрели результаты теста. Классический p-hacking в новой обёртке.</li>
+<li>🟡 У прокси и целевой разный знак эффекта в разных сегментах.</li>
+<li>🟡 Прокси совпадает с KPI команды, которая делает фичу.</li>
+</ul>
+<hr>
+</section>
+<section id="блок-5.-когда-прокси-врёт-коротко-тема-на-отдельный-пост" class="level2">
+<h2 class="anchored" data-anchor-id="блок-5.-когда-прокси-врёт-коротко-тема-на-отдельный-пост">Блок 5. Когда прокси врёт (коротко — тема на отдельный пост)</h2>
+<p><strong>Surrogate paradox:</strong> прокси движется в нужную сторону, целевая — в обратную.</p>
+<ul>
+<li><strong>CAST (1989)</strong>: препараты подавляли аритмию (прокси работала идеально), но общая смертность выросла в 2.5 раза, испытание остановили досрочно. Прокси была не просто бесполезной, а вредной — по ней приняли решение, которое стоило жизней. Мощный якорь для поста, и это ваша территория (медицинская статистика).</li>
+<li><strong>Продуктовый аналог</strong>: пуши двигают DAU вверх, а отписки и удаления приложения — вниз (у вас уже был пост про пуш-уведомления, сослаться).</li>
+</ul>
+<p>Оговорка в тексте: подробно про surrogate paradox и Гудхарта — в отдельном посте, иначе этот раздует до лонгрида.</p>
+<hr>
+</section>
+<section id="блок-6.-итог-вопрос-аудитории" class="level2">
+<h2 class="anchored" data-anchor-id="блок-6.-итог-вопрос-аудитории">Блок 6. Итог + вопрос аудитории</h2>
+<p>Мораль: прокси — это не «метрика попроще, чтобы быстрее прокрасить». Это утверждение о причинной связи, и его надо проверять. В медицине за плохую суррогатную точку платят жизнями, в продукте — раскатанными фичами, которые ничего не улучшили, но их уже нельзя выпилить.</p>
+<p>Вопрос в комментарии (в вашем стиле — конкретный, не «а как у вас»):</p>
+<blockquote class="blockquote">
+<p>А вы валидировали свои прокси хоть раз или взяли по здравому смыслу? У меня стойкое ощущение, что второе — норма индустрии, и я не исключение.</p>
+</blockquote>
+<hr>
+</section>
+<section id="ссылки-для-поста" class="level2">
+<h2 class="anchored" data-anchor-id="ссылки-для-поста">Ссылки для поста</h2>
+<ul>
+<li>Prentice R.L. (1989) Surrogate endpoints in clinical trials: definition and operational criteria — https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780080407</li>
+<li>Buyse &amp; Molenberghs (2000) The validation of surrogate endpoints in meta-analyses of randomized experiments — https://academic.oup.com/biostatistics/article-pdf/1/1/49/17744017/100049.pdf</li>
+<li>Athey, Chetty, Imbens, Kang (2019) The Surrogate Index — https://www.nber.org/papers/w26463 (PDF: https://opportunityinsights.org/wp-content/uploads/2019/11/surrogate_paper.pdf)</li>
+<li>Hohnhold et al.&nbsp;(2015) Focusing on the Long-term (Google, ads blindness) — https://research.google.com/pubs/archive/43887.pdf</li>
+<li>CAST, NEJM 1991 — https://www.nejm.org/doi/full/10.1056/NEJM199103213241201</li>
+<li>Разбор CAST как провала суррогатной точки — https://www.acc.org/latest-in-cardiology/clinical-trials/2010/02/23/18/58/cast</li>
+</ul>
+</section>
+<section id="внутренние-ссылки-на-свои-посты" class="level2">
+<h2 class="anchored" data-anchor-id="внутренние-ссылки-на-свои-посты">Внутренние ссылки на свои посты</h2>
+<ul>
+<li>#160 — что самое сложное в аналитике (там обещание про прокси)</li>
+<li>#174 — ультимативный гайд по метрикам (классификация: целевые / прокси / заградительные / информационные)</li>
+<li>#234 — каверзные вопросы, прокси как способ ускорить A/B</li>
+<li>Пост про пуш-уведомления и выгоду подписок</li>
+<li>#199 — VWE и снижение дисперсии (соседний способ ускорения)</li>
+</ul>
+</section>
+<section id="развилки-и-что-вынести-отдельно" class="level2">
+<h2 class="anchored" data-anchor-id="развилки-и-что-вынести-отдельно">Развилки и что вынести отдельно</h2>
+<ul>
+<li><strong>Surrogate paradox + Гудхарт</strong> — отдельный пост, много кейсов</li>
+<li><strong>Surrogate index на практике</strong>: как собрать составную прокси, код на R/Python — кандидат в интерактивный лонгрид на сайт, формат уже отработан на тесте Велча</li>
+<li><strong>Метаанализ своих A/B</strong>: если у вас в Литресе наберётся достаточно тестов — это уникальный материал, такого в русскоязычных каналах нет</li>
+<li>Не повторяться с #174: классификацию метрик здесь только упомянуть, не пересказывать</li>
+</ul>
+</section>
+<section id="чего-избегать" class="level2">
+<h2 class="anchored" data-anchor-id="чего-избегать">Чего избегать</h2>
+<ul>
+<li>Не превращать в лекцию по клиническим исследованиям — матчасть даём как аргумент «теория уже есть, мы ей не пользуемся», а не как самоцель</li>
+<li>Не давать список «топ-10 популярных прокси» — вы сами писали в #174, что перечислять метрики бессмысленно</li>
+<li>Формулу Прентиса не выписывать в нотации, достаточно четырёх пунктов словами</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ubogoeva\.github\.io\/R4Analytics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="ubogoeva/R4Analytics_comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
